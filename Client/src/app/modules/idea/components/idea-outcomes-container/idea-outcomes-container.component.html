@@ -1,0 +1,1180 @@
+<div class="container px-0 pt-3">
+  <div class="row pt-3">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-5">
+          <div ngbDropdown container="body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-light" id="basic-addon2">
+                  Select Start Date
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="pl-1 text-muted"
+                    ngbTooltip="Description coming..."
+                  ></fa-icon>
+                </span>
+              </div>
+              <input
+                type="text"
+                class="form-control border-right-0"
+                placeholder="Start Date"
+                ngbDropdownToggle
+              />
+              <div class="input-group-append border-left-0">
+                <span
+                  class="input-group-text bg-white pl-1 pr-2 border-left-0"
+                  id="basic-addon2"
+                >
+                  <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                </span>
+              </div>
+              <div ngbDropdownMenu class="shadow py-0">
+                <div class="card border-0">
+                  <div class="card-body pt-2">
+                    <div class="pb-2">
+                      <label class="text-medium">Select Date</label>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="10/22/20"
+                      />
+                    </div>
+                    <ngb-datepicker #dateDisplay></ngb-datepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <!-- <button class="btn btn-xs btn-primary" (click)="open(addOutcome)">
+            <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+            Add New Outcome
+          </button> -->
+        </div>
+      </div>
+      <!-- start of financial calculation container -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="row mx-0 pb-2 pt-3 bg-light rounded-top border-top border-left border-right"
+          >
+            <div class="col-12">
+              <!-- years -->
+              <!-- <div class="row pb-2">
+                <div class="col-4">
+                  <p class="uppercase bold montserrat mb-1 text-medium">Financial Benefits</p>
+                </div>
+                <div class="col-4">
+                  <p class="mb-0 text-center bold montserrat text-medium">2019</p>
+                </div>
+                <div class="col-4">
+                  <p class="mb-0 text-center bold montserrat text-medium">2020</p>
+                </div>
+              </div> -->
+              <!-- end years -->
+              <!-- labels -->
+              <div class="row">
+                <div class="col-4">
+                  <p class="uppercase bold montserrat mb-1 text-medium">
+                    Financial Benefits
+                  </p>
+                </div>
+                <div class="col-4">
+                  <div class="row">
+                    <div class="col-5">
+                      <p
+                        class="mb-0 text-muted text-center bold uppercase small montserrat"
+                      >
+                        Projected
+                      </p>
+                    </div>
+                    <div class="col-2">
+                      <span class="mb-0 text-center bold montserrat text-medium"
+                        >2019</span
+                      >
+                    </div>
+                    <div class="col-5">
+                      <p
+                        class="mb-0 text-muted text-center bold uppercase small montserrat"
+                      >
+                        Actual
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="row">
+                    <div class="col-5">
+                      <p
+                        class="mb-0 text-muted text-center bold uppercase small montserrat"
+                      >
+                        Projected
+                      </p>
+                    </div>
+                    <div class="col-2">
+                      <span class="mb-0 text-center bold montserrat text-medium"
+                        >2020</span
+                      >
+                    </div>
+                    <div class="col-5">
+                      <p
+                        class="mb-0 text-muted text-center bold uppercase small montserrat"
+                      >
+                        Actual
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-1">
+                  <p class="mb-0 text-muted text-center bold uppercase small montserrat">Projected</p>
+                </div>
+                <div class="col-2">
+                  <p class="mb-0 text-center bold montserrat text-medium">2020</p>
+                </div>
+                <div class="col-1">
+                  <p class="mb-0 text-muted text-center bold uppercase small montserrat">Actual</p>
+                </div> -->
+              </div>
+              <!-- end labels -->
+            </div>
+          </div>
+          <hr class="my-0" />
+          <!-- total benefits -->
+          <div class="row bg-white mx-0 py-2">
+            <div class="col-4">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="mb-0">Benefits</label>
+                </li>
+                <li class="list-inline-item float-right">
+                  <fa-icon [icon]="['fas', 'dollar-sign']"></fa-icon>
+                </li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+          </div>
+          <hr class="my-0" />
+          <!-- end total benefits -->
+          <!-- individual entry -->
+          <div class="row bg-light mx-0 py-2 dottedBottomBorder">
+            <div class="col-4">
+              <label class="mb-0 font-weight-normal">Benefit Type Title</label>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+          </div>
+          <!-- end of individual entry -->
+          <!-- individual entry -->
+          <div class="row bg-light mx-0 py-2 dottedBottomBorder">
+            <div class="col-4">
+              <label class="mb-0 font-weight-normal">Benefit Type Title</label>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+          </div>
+          <!-- end of individual entry -->
+          <app-benefit-add></app-benefit-add>
+          <hr class="my-0" />
+          <!-- total benefits -->
+          <div class="row bg-white mx-0 py-2">
+            <div class="col-4">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="mb-0">Costs</label>
+                </li>
+                <li class="list-inline-item float-right">
+                  <fa-icon [icon]="['fas', 'dollar-sign']"></fa-icon>
+                </li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+          </div>
+          <hr class="my-0" />
+          <!-- end total benefits -->
+          <!-- individual entry -->
+          <div class="row bg-light mx-0 py-2 dottedBottomBorder">
+            <div class="col-4">
+              <label class="mb-0 font-weight-normal">Benefit Type Title</label>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+          </div>
+          <!-- end of individual entry -->
+          <!-- individual entry -->
+          <div class="row bg-light mx-0 py-2 dottedBottomBorder">
+            <div class="col-4">
+              <label class="mb-0 font-weight-normal">Benefit Type Title</label>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-center">
+                1,250
+              </p>
+            </div>
+          </div>
+          <!-- end of individual entry -->
+          <app-cost-add></app-cost-add>
+          <hr class="my-0" />
+          <!-- total benefits -->
+          <div class="row bg-white mx-0 py-2">
+            <div class="col-4">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="mb-0">Net Benefits</label>
+                </li>
+                <li class="list-inline-item float-right">
+                  <fa-icon [icon]="['fas', 'dollar-sign']"></fa-icon>
+                </li>
+              </ul>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="mb-0 text-muted text-center">
+                <fa-icon [icon]="['fas', 'horizontal-rule']"></fa-icon>
+              </p>
+            </div>
+          </div>
+          <hr class="my-0" />
+          <!-- end total benefits -->
+        </div>
+      </div>
+      <!-- end of financial calculation section -->
+      <!-- start of non financial -->
+      <div class="row pt-4">
+        <div class="col-12">
+          <p class="uppercase bold montserrat mb-2 text-medium pl-3">
+            Non Financial Benefits
+          </p>
+          <div class="bg-white border-bottom border-top py-2 pl-3">
+            <div class="row">
+              <div class="col-4">
+                <label class="mb-0">Title</label>
+              </div>
+              <div class="col-3">
+                <label class="mb-0">Type</label>
+              </div>
+              <div class="col-2">
+                <label class="mb-0">Start Date</label>
+              </div>
+              <div class="col-2">
+                <label class="mb-0">End Date</label>
+              </div>
+              <div class="col-1">
+                <fa-icon [icon]="['fas', 'cog']" class="inverseLink"></fa-icon>
+              </div>
+            </div>
+          </div>
+          <!-- start of one entry -->
+          <div class="dottedBottomBorder py-2 pl-3">
+            <div class="row">
+              <div class="col-4">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Title
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    ngbTooltip="Description if it exists..."
+                  ></fa-icon>
+                </p>
+              </div>
+              <div class="col-3">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Type
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/20
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/25
+                </p>
+              </div>
+              <div class="col-1">
+                <button
+                  class="btn btn-sm btn-light rounded-circle shadow-sm border"
+                  ngbTooltip="Edit"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'edit']"
+                    class="text-muted"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- end of one entry -->
+          <!-- start of one entry -->
+          <div class="dottedBottomBorder py-2 pl-3">
+            <div class="row">
+              <div class="col-4">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Title
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    ngbTooltip="Description if it exists..."
+                  ></fa-icon>
+                </p>
+              </div>
+              <div class="col-3">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Type
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/20
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/25
+                </p>
+              </div>
+              <div class="col-1">
+                <button
+                  class="btn btn-sm btn-light rounded-circle shadow-sm border"
+                  ngbTooltip="Edit"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'edit']"
+                    class="text-muted"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- end of one entry -->
+          <!-- start of one entry -->
+          <div class="dottedBottomBorder py-2 pl-3">
+            <div class="row">
+              <div class="col-4">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Title
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    ngbTooltip="Description if it exists..."
+                  ></fa-icon>
+                </p>
+              </div>
+              <div class="col-3">
+                <p class="mb-0 showEditOnHover">
+                  Benefit Type
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/20
+                </p>
+              </div>
+              <div class="col-2">
+                <p class="mb-0 showEditOnHover">
+                  10/22/25
+                </p>
+              </div>
+              <div class="col-1">
+                <button
+                  class="btn btn-sm btn-light rounded-circle shadow-sm border"
+                  ngbTooltip="Edit"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'edit']"
+                    class="text-muted"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- end of one entry -->
+          <app-non-financial-benefit-add></app-non-financial-benefit-add>
+        </div>
+      </div>
+      <!-- end of non financial -->
+    </div>
+  </div>
+  <div class="row pt-4 d-none">
+    <div class="col-12">
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item nav-underline active">
+          <p class="uppercase mb-0 text-muted small bold">Idea Impact</p>
+        </li>
+        <li class="list-inline-item nav-underline">
+          <p class="uppercase mb-0 text-muted small bold">Impact by Year</p>
+        </li>
+        <li class="list-inline-item float-right">
+          <button class="btn btn-xs btn-primary" (click)="open(addOutcome)">
+            <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+            Add New Outcome
+          </button>
+        </li>
+      </ul>
+      <!-- <ul class="list-inline pb-2 mb-2 border-bottom">
+        <li class="list-inline-item">
+          <p class="uppercase bold text-muted mb-0">
+            Idea Impact | Impact by Year
+          </p>
+        </li>
+        <li class="list-inline-item float-right">
+          <button class="btn btn-xs btn-primary">
+            <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+            Add New Outcome
+          </button>
+        </li>
+      </ul> -->
+      <div class="row pt-2">
+        <div class="col-3">
+          <div class="card text-center bg-light shadow-sm">
+            <div class="card-body">
+              <h5 class="montserrat">55</h5>
+              <p class="small uppercase mb-0">Hours Saved</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card text-center bg-light shadow-sm">
+            <div class="card-body">
+              <h5 class="montserrat">$37.5K</h5>
+              <p class="small uppercase mb-0">Dollars Saved</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card text-center bg-light shadow-sm">
+            <div class="card-body">
+              <h5 class="montserrat">$1.5MM</h5>
+              <p class="small uppercase mb-0">Rev Generated</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card text-center bg-light shadow-sm">
+            <div class="card-body">
+              <h5 class="montserrat">10</h5>
+              <p class="small uppercase mb-0">Outcomes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Type</th>
+            <th scope="col">Amount</th>
+            <!-- <th scope="col">Description</th> -->
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle"></td>
+            <td class="align-middle">Hours Saved</td>
+            <!-- <td class="align-middle">$25,050</td> -->
+            <td class="align-middle">This is the desc...</td>
+            <td class="align-middle">2/25/20</td>
+            <td class="float-right">
+              <button class="btn btn-light btn-sm border">
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </button>
+              <button class="btn btn-light btn-sm border ml-1">
+                <fa-icon [icon]="['fas', 'sync']"></fa-icon>
+              </button>
+            </td>
+          </tr>
+          <!-- start of one completed -->
+          <tr>
+            <td class="align-middle">Hours Saved</td>
+            <td class="align-middle">Type</td>
+            <td class="align-middle">2/25/20</td>
+            <td class="align-middle">2/25/20</td>
+            <td class="float-right">
+              <button class="btn btn-light btn-sm border">
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </button>
+              <button class="btn btn-light btn-sm border ml-1">
+                <fa-icon [icon]="['fas', 'sync']"></fa-icon>
+              </button>
+            </td>
+          </tr>
+          <!-- start of one completed -->
+          <!-- start of add -->
+
+          <!-- end of add -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- start of add outcome modal -->
+  <ng-template #addOutcome let-modal>
+    <div class="modal-header card-header">
+      <p class="small uppercase bold mb-0">Add New Outcome</p>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <!-- <div class="form-group mb-1">
+          <label>Outcome Title</label>
+          <input type="text" class="form-control" placeholder="Increased efficiency">
+        </div> -->
+        <div class="form-group mb-2">
+          <label>Outcome Description</label>
+          <textarea
+            class="form-control"
+            rows="2"
+            placeholder="Describe your outcome in greater detail here..."
+          ></textarea>
+        </div>
+        <!-- <div class="form-group mb-3">
+          <span class="bold link pointer text-medium">
+            <fa-icon [icon]="['fas', 'plus-circle']" class="mt-2"></fa-icon>
+            Add Outcome Description
+          </span>
+        </div> -->
+        <label class="font-weight-normal"
+          >Did This Result in a Measurable Change?</label
+        >
+        <div class="form-row">
+          <div class="form-group col-2 mb-3">
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="customControlValidation2"
+                name="radio-stacked"
+                checked
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="customControlValidation2"
+                >Yes</label
+              >
+            </div>
+          </div>
+          <div class="form-group col-2 mb-3">
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="customControlValidation3"
+                name="radio-stacked"
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="customControlValidation3"
+                >No</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Select Outcome Types</label>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Grow Revenue</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Money</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Reduce Errors</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-light border">Cancel</button>
+      <button
+        class="btn btn-primary ml-2"
+        (click)="open(addOutcomeDetail)"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Add Outcome Details
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- end of add outcome modal -->
+
+  <!-- start of add outcome detail modal -->
+  <ng-template #addOutcomeDetail let-modal>
+    <div class="modal-header card-header">
+      <p class="small uppercase bold mb-0">Add Outcome Details</p>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="bold uppercase mb-1 text-medium text-muted">
+        Time Savings Details
+      </p>
+      <div class="card">
+        <div class="card-body px-2 py-2 bg-light">
+          <form>
+            <div class="form-row">
+              <div class="col-4 form-group mb-3">
+                <label>Outcome Summary</label>
+              </div>
+              <div class="col-8 form-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  placeholder="Increased efficiency"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-4 form-group mb-2">
+                <label>Outcome Frequency</label>
+              </div>
+              <div class="col-8 form-group mb-2">
+                <div class="form-row">
+                  <div class="form-group col-12 mb-3 d-inline">
+                    <div class="custom-control custom-radio d-inline">
+                      <input
+                        type="radio"
+                        class="custom-control-input"
+                        id="customControlValidation2"
+                        name="radio-stacked"
+                        checked
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="customControlValidation2"
+                        >One Time</label
+                      >
+                    </div>
+                    <div class="custom-control custom-radio d-inline ml-2">
+                      <input
+                        type="radio"
+                        class="custom-control-input"
+                        id="customControlValidation3"
+                        name="radio-stacked"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="customControlValidation3"
+                        >Recurring</label
+                      >
+                    </div>
+                    <!-- <div class="custom-control custom-radio d-inline ml-2">
+                      <input
+                        type="radio"
+                        class="custom-control-input"
+                        id="customControlValidation3"
+                        name="radio-stacked"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="customControlValidation3"
+                        >Range</label
+                      >
+                    </div>
+                    <div class="custom-control custom-radio d-inline ml-2">
+                      <input
+                        type="radio"
+                        class="custom-control-input"
+                        id="customControlValidation3"
+                        name="radio-stacked"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="customControlValidation3"
+                        >Custom</label
+                      >
+                    </div> -->
+                  </div>
+                  <!-- <div class="form-group col-2">
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked">
+                          <label class="custom-control-label font-weight-normal" for="customControlValidation3">Unknown Amount</label>
+                        </div>
+                      </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-4 form-group mb-3">
+                <label>Outcome Detail</label>
+              </div>
+              <div class="col-8 form-group mb-2">
+                <div class="form-row">
+                  <div class="form-group col-5 mb-3">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="$1,000"
+                    />
+                  </div>
+                  <div class="form-group col-2 mb-3">
+                    <p class="mb-0 text-center align-middle pt-1">per</p>
+                  </div>
+                  <div class="form-group col-5 mb-3">
+                    <select class="form-control form-control-sm">
+                      <option>Year</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-4 form-group mb-0">
+                <label>Start and End Date</label>
+              </div>
+              <div class="col-8 form-group mb-0" ngbDropdown>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group mb-4 removeCaret" ngbDropdownToggle>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="November 30th, 2020"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-light border btn-sm">
+                          <fa-icon
+                            [icon]="['fas', 'calendar-alt']"
+                            class="small"
+                          ></fa-icon>
+                        </button>
+                      </div>
+                      <div ngbDropdownMenu>
+                        <ngb-datepicker #d></ngb-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="input-group mb-4 removeCaret" ngbDropdownToggle>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="November 30th, 2022"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-light border btn-sm">
+                          <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+                        </button>
+                      </div>
+                      <div ngbDropdownMenu>
+                        <ngb-datepicker #d></ngb-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-4">
+                <label>How Did You Validate</label>
+              </div>
+              <div class="form-group col-8">
+                <textarea class="form-control form-control-sm"></textarea>
+              </div>
+            </div>
+            <div class="form-group mb-0 float-right">
+              <button class="btn btn-primary btn-sm">Save Outcome</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        class="btn btn-light border"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn-primary ml-2"
+        (click)="open(selectNotificationSettings)"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Next
+      </button>
+    </div>
+  </ng-template>
+  <!-- end of outcome detail modal -->
+
+  <!-- start of add outcome detail modal -->
+  <ng-template #selectNotificationSettings let-modal>
+    <div class="modal-header card-header">
+      <p class="small uppercase bold mb-0">Select Notification Settings</p>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group mb-1">
+          <label>Outcome Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="Increased efficiency"
+          />
+        </div>
+        <div class="form-group mb-1 mt-3 d-none">
+          <label>Outcome Description</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Describe your outcome in greater detail here..."
+          ></textarea>
+        </div>
+        <div class="form-group mb-3">
+          <span class="bold link pointer text-medium">
+            <fa-icon [icon]="['fas', 'plus-circle']" class="mt-2"></fa-icon>
+            Add Outcome Description
+          </span>
+        </div>
+        <label>Did This Result in a Measurable Change?</label>
+        <div class="form-row">
+          <div class="form-group col-2 mb-3">
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="customControlValidation2"
+                name="radio-stacked"
+                checked
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="customControlValidation2"
+                >Yes</label
+              >
+            </div>
+          </div>
+          <div class="form-group col-2">
+            <div class="custom-control custom-radio">
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="customControlValidation3"
+                name="radio-stacked"
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="customControlValidation3"
+                >No</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Select Outcome Type</label>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Money</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck1"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="customCheck1"
+              >Save Time</label
+            >
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-6 form-group mb-0" ngbDropdown>
+            <label>Start Date</label>
+            <div class="input-group mb-4 removeCaret" ngbDropdownToggle>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="November 30th, 2020"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-light border">
+                  <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+                </button>
+              </div>
+              <div ngbDropdownMenu>
+                <ngb-datepicker #d></ngb-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 form-group mb-0" ngbDropdown>
+            <label>End Date</label>
+            <div class="input-group mb-4 removeCaret" ngbDropdownToggle>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="November 30th, 2020"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-light border">
+                  <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+                </button>
+              </div>
+              <div ngbDropdownMenu>
+                <ngb-datepicker #d></ngb-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-light border">Cancel</button>
+      <button class="btn btn-primary ml-2">Next</button>
+    </div>
+  </ng-template>
+  <!-- end of outcome detail modal -->
+</div>

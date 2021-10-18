@@ -1,0 +1,138 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+
+    <!-- if completed -->
+    <!--     <p class="showEditOnHover mb-0" (click)="toggleEdit()" *ngIf="!showEdit">
+      <fa-icon [icon]="['fas', 'file-pdf']" class="text-danger"></fa-icon>
+      FileName
+    </p> -->
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      *ngIf="!file && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add an entry for this field...
+    </p>
+    <div class="row" *ngIf="file && view && !editMode">
+      <div class="col-12">
+        <div class="card">
+          <div
+            class="card-header bg-transparent border-bottom-0 pb-0 px-2"
+            style="position: absolute; width: 100%;"
+          >
+            <div class="row">
+              <div class="col-9">
+                <span
+                  class="mb-0 badge badge-dark text-medium font-weight-normal shadow-sm"
+                >
+                  <!-- <fa-icon [icon]="['fas', 'file-pdf']" class="text-danger"></fa-icon> -->
+                  {{ file.split('/')[file.split('/').length - 1] }}
+                </span>
+              </div>
+              <div class="col-3">
+                <div
+                  class="float-right"
+                  *ngIf="customField.permissions.editCustomFieldData"
+                >
+                  <button
+                    class="btn btn-sm btn-primary"
+                    (click)="
+                      customField.permissions.editCustomFieldData
+                        ? (editMode = true)
+                        : null
+                    "
+                    [ngbTooltip]="
+                      !customField.permissions.editCustomFieldData
+                        ? 'You don\'t have access to edit this field'
+                        : 'Click to edit'
+                    "
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-2">
+            <img
+              [defaultImage]="defaultImage"
+              [lazyLoad]="file"
+              *ngIf="file"
+              style="
+                width: auto;
+                min-width: 100%;
+                max-height: 250px;
+                max-width: 100%;
+                object-fit: cover;
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- if completed -->
+    <ng-container *ngIf="editMode || !view">
+      <div class="col-12" *ngIf="file">
+        <span
+          class="badge badge-dark badgePadding"
+          style="position: absolute; top: 5px; left: 5px;"
+        >
+          <a [href]="file" target="blank" *ngIf="file" target="_blank">
+            {{ file.split('/')[file.split('/').length - 1] }}
+            <fa-icon [icon]="['fas', 'external-link']"></fa-icon>
+          </a>
+        </span>
+        <button
+          class="btn btn-xs btn-outline-primary text-medium float-right"
+          (click)="editFile(fileUpload)"
+        >
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon> Change
+        </button>
+        <button
+          class="btn btn-xs btn-outline-danger text-medium float-right mr-2"
+          (click)="removeFile()"
+        >
+          <fa-icon [icon]="['fas', 'times-circle']"></fa-icon> Remove
+        </button>
+      </div>
+      <app-upload-single-file
+        #fileUpload
+        [folder]="s3Folder.OPPORTUNITY"
+        [ngClass]="{ 'd-none': file }"
+        (file)="setFile($event)"
+        [accept]="'image/*'"
+      >
+      </app-upload-single-file>
+      <img
+        [defaultImage]="defaultImage"
+        [lazyLoad]="file"
+        *ngIf="file"
+        class="customFieldImage"
+      />
+    </ng-container>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="cancelChanges()"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.FILE"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>

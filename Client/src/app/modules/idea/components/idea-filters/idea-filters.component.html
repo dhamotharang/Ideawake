@@ -1,0 +1,922 @@
+<div class="row" *ngIf="isLoading && !horizontalFilter">
+  <div class="col-12 pl-0">
+    <app-filter-loader></app-filter-loader>
+  </div>
+</div>
+
+<!-- <span class="mr-3" *ngIf="!isLoading && horizontalFilter">
+  <li class="list-inline-item mr-1">
+    <span *ngIf="showSearch" class="pt-0 pb-1">
+      <app-search-inline
+        [clear]="clear"
+        (search)="searchText($event)"
+      ></app-search-inline>
+    </span>
+  </li>
+  <li class="list-inline-item mr-0 ml-3" ngbDropdown>
+    <span
+      class="removeCaret text-medium bold link bgSelected"
+      style="font-weight: 600;"
+      container="body"
+      ngbDropdownToggle
+    >
+      Workflows
+      <fa-icon [icon]="['fas', 'angle-down']" class="text-muted"></fa-icon>
+    </span>
+    <div ngbDropdownMenu class="shadow modalScrollMaxHeight modalMinWidth mt-1">
+      <button
+        *ngFor="let Workflow of workflows"
+        class="pl-3 py-2"
+        (click)="selectWF(Workflow)"
+        ngbDropdownItem
+      >
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="small mb-0">
+              {{ Workflow?.title }}
+              <span class="float-right">
+                <span class="badge adjustFloatUpSmall text-muted">
+                  ({{ Workflow?.opportunitiesCount || 0 }})
+                </span>
+              </span>
+            </p>
+          </li>
+        </ul>
+      </button>
+    </div>
+  </li>
+  <li
+    class="list-inline-item mr-0 ml-3"
+    *ngIf="showChallengeSearch"
+    ngbDropdown
+  >
+    <span
+      class="removeCaret text-medium bold link bgSelected"
+      style="font-weight: 600;"
+      container="body"
+      ngbDropdownToggle
+    >
+      Challenges
+      <fa-icon [icon]="['fas', 'angle-down']" class="text-muted"></fa-icon>
+    </span>
+    <div ngbDropdownMenu class="shadow modalScrollMaxHeight modalMinWidth mt-1">
+      <div class="p-2">
+        <app-search-inline
+          [clear]="clear"
+          (search)="searchChallenges($event)"
+        ></app-search-inline>
+      </div>
+      <button
+        class="pl-3 btn-sm"
+        *ngFor="let challenge of challenges"
+        (click)="selectChallenge(challenge)"
+        [ngClass]="{ active: isSelectedChallenge(challenge) }"
+      >
+        {{ challenge?.title.substring(0, 19) }}
+        <span *ngIf="challenge?.title.length > 19">..</span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ challenge?.opportunityCount }}
+          </span>
+        </span>
+      </button>
+    </div>
+  </li>
+</span> -->
+
+<span *ngIf="!isLoading && !horizontalFilter">
+  <div class="row">
+    <div class="col-12">
+      <!-- start of filters insert -->
+      <!-- <div *ngIf="showSearch" class="pt-0 pb-1">
+        <app-search-inline
+          [clear]="clear"
+          (search)="searchText($event)"
+        ></app-search-inline>
+      </div> -->
+      <ng-container [ngTemplateOutlet]="my_filter"></ng-container>
+
+      <div *ngFor="let filterTemplate of filtersList; let i = index">
+        <span *ngIf="filterTemplate.onPage">
+          <ng-container [ngSwitch]="filterTemplate.uniqueId">
+            <span *ngIf="!onChallengePage">
+              <ng-container *ngSwitchCase="'workflow_stage'">
+                <ng-container
+                  [ngTemplateOutlet]="workflow_stage"
+                ></ng-container>
+              </ng-container>
+            </span>
+            <ng-container *ngSwitchCase="'status'">
+              <ng-container [ngTemplateOutlet]="status"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'tags'">
+              <ng-container [ngTemplateOutlet]="tags"></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'opportunity_type'">
+              <ng-container
+                [ngTemplateOutlet]="opportunity_type"
+              ></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'challenges'">
+              <ng-container [ngTemplateOutlet]="challenge_list"></ng-container>
+            </ng-container>
+          </ng-container>
+        </span>
+        <span *ngIf="filterTemplate?.fieldDataObject?.type">
+          <app-idea-custom-field-filters
+            [customField]="filterTemplate"
+            [counts]="getValue(customFieldCounts, filterTemplate.id)"
+            [appFilters]="appFilters?.customFields"
+            [index]="i"
+          >
+          </app-idea-custom-field-filters>
+        </span>
+      </div>
+
+      <!-- <button class="btn btn-light btn-sm btn-block mt-2" (click)="open(editFilters)">
+        <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+        Edit Filters
+      </button> -->
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <ng-template #workflow_stage>
+    <!-- WF Start -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-1">
+          {{ 'SharedText.Workflow' | translationPipe }}
+          <span *ngIf="selectedWF?.title">
+            {{ 'SharedText.Stage' | translationPipe }}
+          </span>
+        </p>
+      </li>
+    </ul>
+    <ul class="list-unstyled ml-1" *ngIf="!selectedWF?.title">
+      <li *ngFor="let Workflow of workflows" (click)="selectWF(Workflow)">
+        <p class="small mb-0 singleFilter">
+          {{ Workflow?.title.substring(0, 22) }}
+          <span *ngIf="Workflow?.title.length > 22">
+            ...
+          </span>
+          <span class="float-right">
+            <span class="badge adjustFloatUpSmall text-muted">
+              {{ Workflow?.opportunitiesCount || 0 }}
+            </span>
+          </span>
+        </p>
+      </li>
+    </ul>
+    <ul class="list-unstyled mb-0" *ngIf="selectedWF?.title">
+      <li>
+        <div ngbDropdown>
+          <div
+            class="removeCaret px-2 mb-1 border-bottom bg-white"
+            style="padding-top: 2px; padding-bottom: 2px;"
+            ngbDropdownToggle
+          >
+            <div class="row pointer">
+              <div class="col-10">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="small mb-0" *ngIf="!selectedWF?.title">
+                      {{ 'SharedText.SelectWorkflow' | translationPipe }}
+                    </p>
+                    <p class="small mb-0" *ngIf="selectedWF?.title">
+                      {{ selectedWF?.title.substring(0, 22) }}
+                      <!-- {{ selectedWF?.title.substring(0, 22) || 'Select workflow' }} -->
+                      <!-- <span *ngIf="selectedWF?.title.length > 22">
+                          ...
+                        </span> -->
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-2 pt-1">
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small float-right"
+                ></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div
+            ngbDropdownMenu
+            class="shadow pt-0 pb-0 w-100"
+            style="min-width: 15rem;"
+          >
+            <button
+              *ngFor="let Workflow of workflows"
+              class="pl-3 py-2"
+              (click)="selectWF(Workflow)"
+              ngbDropdownItem
+            >
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small mb-0">
+                    {{ Workflow?.title }}
+                    <span class="float-right">
+                      <span class="badge adjustFloatUpSmall text-muted">
+                        ({{ Workflow?.opportunitiesCount || 0 }})
+                      </span>
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </button>
+            <button class="pl-3 py-2" (click)="selectWF(null)" ngbDropdownItem>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small mb-0">
+                    {{ 'SharedText.Clear' | translationPipe }}
+                  </p>
+                </li>
+              </ul>
+            </button>
+          </div>
+        </div>
+      </li>
+      <!-- style="max-height: 10rem; overflow-y: scroll; overflow-x: hidden; margin-left: 0.25rem;" -->
+      <div *ngIf="selectedWF?.id" style="margin-left: 0.25rem;">
+        <li
+          *ngFor="let stage of stages"
+          (click)="selectStage(stage)"
+          class="small singleFilter"
+          [ngClass]="{ active: isSelectedStage(stage) }"
+        >
+          <!-- <fa-icon
+              [icon]="['fas', 'circle']"
+              [ngStyle]="{ color: stage?.status?.colorCode }"
+            ></fa-icon> -->
+          <!-- <span class="rounded-circle" style="padding: 0rem 0.1rem 0rem .15rem;"
+              [ngStyle]="{ 'background-color': stage?.status?.colorCode }">
+              <fa-icon class="text-white" style="font-size: .7rem;" [icon]="[
+                'fas',
+                actionItems[stage?.actionItem?.abbreviation]?.icon
+              ]">
+              </fa-icon>
+            </span> -->
+          <fa-icon
+            [icon]="['fas', actionItems[stage?.actionItem?.abbreviation]?.icon]"
+            [ngStyle]="{ color: stage?.status?.colorCode }"
+          ></fa-icon>
+          <span class="customMargin">
+            {{ stage?.title.substring(0, 19) }}
+            <span *ngIf="stage?.title.length > 19">..</span>
+            <!-- <fa-icon [icon]="['fas', 'eye-slash']" class="ml-1 text-muted" placement="top"
+                ngbTooltip="Ideas with this status will not be visible unless filtered by"></fa-icon> -->
+          </span>
+          <span class="float-right">
+            <span class="badge adjustFloatUpSmall text-muted">
+              {{ stage?.opportunitiesCount }}</span
+            >
+          </span>
+        </li>
+      </div>
+    </ul>
+    <!-- WF End -->
+  </ng-template>
+
+  <!-- challenge filters -->
+  <ng-template #challenge_list>
+    <div *ngIf="showChallengeSearch">
+      <ul class="list-inline mb-0 mt-2">
+        <li class="list-inline-item">
+          <p class="text-medium bold mb-1">
+            Challenges
+          </p>
+        </li>
+      </ul>
+      <app-search-inline
+        (search)="searchChallenges($event)"
+        [text]="searchChallenge"
+      ></app-search-inline>
+      <!-- <span class="pl-1">
+        <p
+          class="small mb-0 singleFilter"
+          *ngFor="let challenge of challenges"
+          (click)="selectChallenge(challenge)"
+          [ngClass]="{ active: isSelectedChallenge(challenge) }"
+        >
+          {{ challenge?.title.substring(0, 19) }}
+          <span *ngIf="challenge?.title.length > 19">..</span>
+          <span class="float-right">
+            <span class="badge adjustFloatUpSmall text-muted">
+              {{ challenge?.opportunityCount }}
+            </span>
+          </span>
+        </p>
+      </span> -->
+      <ul class="list-unstyled mb-0 pt-1">
+        <li
+          *ngFor="let challenge of challenges"
+          class="small"
+          style="padding-right: 0.375rem;"
+        >
+          <div class="custom-control custom-checkbox w-100">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [id]="challenge?.id"
+              (change)="selectChallenge(challenge)"
+              [checked]="isSelectedChallenge(challenge)"
+            />
+            <label
+              class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+              [for]="challenge?.id"
+            >
+              {{ challenge?.title.substring(0, 19) }}
+              <span *ngIf="challenge?.title.length > 19">..</span>
+              <span class="float-right">
+                <span class="badge adjustFloatUpSmall text-muted">
+                  {{ challenge?.opportunityCount }}
+                </span>
+              </span>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- end challenge filters -->
+
+  <ng-template #my_filter>
+    <!-- My Filter Start -->
+    <ul class="list-inline mb-0" style="margin-left: 0.25rem;">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-1">
+          {{ 'SharedText.MyFilters' | translationPipe }}
+        </p>
+      </li>
+      <li class="list-inline-item float-right">
+        <!-- Filter Applied -->
+        <!-- <span *ngIf="isAnyFilter()" class="list-inline-item mr-1">
+          <button
+            (click)="removeFilter($event)"
+            class="btn btn-xs shadow-sm btn-light border text-muted py-2 uppercase adjustFloatUp"
+          >
+            <small class="bold">Clear</small>
+          </button>
+        </span> -->
+        <!-- Filter Applied -->
+      </li>
+    </ul>
+    <ul class="list-unstyled mb-0" style="margin-left: 0.25rem;">
+      <li
+        (click)="selectFilter(opportunityFilters.postedByMe)"
+        class="{{
+          isSelected(opportunityFilters.postedByMe)
+            ? 'small text-primary singleFilter'
+            : 'small singleFilter'
+        }}"
+      >
+        <fa-icon
+          [icon]="['fas', 'lightbulb']"
+          class="text-muted"
+          style="margin-left: 1px;"
+        ></fa-icon>
+        <span class="customMargin" style="margin-left: 0.32rem;">
+          {{ 'Ideafilters.Labels.PostedByMe' | translationPipe }}
+        </span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ filtersData?.postedByMe?.count || '0' }}</span
+          >
+        </span>
+      </li>
+      <li
+        (click)="selectFilter(opportunityFilters.ownByMe)"
+        class="{{
+          isSelected(opportunityFilters.ownByMe)
+            ? 'small text-primary singleFilter pr-1'
+            : 'small singleFilter pr-1'
+        }}"
+      >
+        <fa-icon [icon]="['fas', 'dice-d20']" class="text-muted"></fa-icon>
+        <span class="customMargin">
+          {{ 'Ideafilters.Labels.OwnedByMe' | translationPipe }}
+        </span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ filtersData?.ownByMe?.count || '0' }}</span
+          >
+        </span>
+      </li>
+      <li
+        (click)="selectFilter(opportunityFilters.votedFor)"
+        class="{{
+          isSelected(opportunityFilters.votedFor)
+            ? 'small text-primary singleFilter pr-1'
+            : 'small singleFilter pr-1'
+        }}"
+      >
+        <fa-icon [icon]="['fas', 'thumbs-up']" class="text-muted"></fa-icon>
+        <span class="customMargin" style="margin-left: 0.22rem;">
+          {{ 'Ideafilters.Labels.VotedFor' | translationPipe }}
+        </span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ filtersData?.votedFor?.count || '0' }}</span
+          >
+        </span>
+      </li>
+      <li
+        (click)="selectFilter(opportunityFilters.following)"
+        class="{{
+          isSelected(opportunityFilters.following)
+            ? 'small text-primary singleFilter pr-1'
+            : 'small singleFilter pr-1'
+        }}"
+      >
+        <fa-icon [icon]="['fas', 'rss']" class="text-muted"></fa-icon>
+        <span class="customMargin" style="margin-left: 0.35rem;">
+          {{ 'Ideafilters.Labels.Following' | translationPipe }}
+        </span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ filtersData?.followedByMe?.count || '0' }}</span
+          >
+        </span>
+      </li>
+      <li
+        (click)="selectFilter(opportunityFilters.bookmarkedByMe)"
+        class="{{
+          isSelected(opportunityFilters.bookmarkedByMe)
+            ? 'small text-primary singleFilter pr-1'
+            : 'small singleFilter pr-1'
+        }}"
+      >
+        <fa-icon [icon]="['fas', 'bookmark']" class="text-muted"></fa-icon>
+        <span class="customMargin" style="margin-left: 0.45rem;">
+          {{ 'SharedText.SavedByMe' | translationPipe }}
+        </span>
+        <span class="float-right">
+          <span class="badge adjustFloatUpSmall text-muted">
+            {{ filtersData?.bookmarkedByMe?.count || '0' }}
+          </span>
+        </span>
+      </li>
+      <!-- <li class="small text-muted singleFilter pr-1">
+              <fa-icon [icon]="['fas', 'flag']"></fa-icon>
+              <span class="customMargin">
+                {{ 'Ideafilters.Labels.ActionItems' | translationPipe }}
+              </span>
+              <span class="float-right">
+                <span class="badge adjustFloatUpSmall text-danger">
+                  10
+                </span>
+              </span>
+            </li> -->
+    </ul>
+    <!-- My Filter End -->
+  </ng-template>
+
+  <ng-template #status>
+    <!-- Status Start -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <!-- <p class="uppercase small montserrat bold mb-2">Status</p> -->
+        <p class="text-medium bold mb-1">
+          {{ 'SharedText.Status' | translationPipe }}
+        </p>
+      </li>
+      <!-- <li class="float-right list-inline-item adjustFloatUp">
+        <button
+          (click)="toggleStatus = !toggleStatus"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleStatus ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <ul *ngIf="!toggleStatus" class="list-unstyled mb-0">
+      <li
+        *ngFor="let status of statuses"
+        class="small"
+        style="padding-right: 0.375rem;"
+      >
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            [id]="status?.uniqueId"
+            (change)="selectStatus(status)"
+            [checked]="status?.isSelected"
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            [for]="status?.uniqueId"
+          >
+            {{ 'Statuses.' + status?.title | translationPipe }}
+            <!-- <fa-icon
+                  [icon]="['fas', 'eye-slash']"
+                  class="ml-1 text-muted"
+                  placement="top"
+                  ngbTooltip="Ideas with this status will not be visible unless filtered by"
+                ></fa-icon> -->
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                {{ status?.opportunitiesCount }}
+              </span>
+              <!-- <span class="badge badge-light border pt-1 pb-1 adjustFilterCounter"></span> -->
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
+    <!-- Status End -->
+  </ng-template>
+
+  <ng-template #tags>
+    <!-- Tags Start -->
+    <ul class="list-inline mb-2">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-0 mt-2">
+          {{ 'Ideafilters.Labels.Tags' | translationPipe }}
+        </p>
+      </li>
+      <!-- <li class="list-inline-item float-right">
+        <button
+          (click)="toggleTags = !toggleTags"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleTags ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <ul *ngIf="!toggleTags" class="list-unstyled">
+      <!-- <li class="small">
+            <div class="custom-control custom-checkbox w-100">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="allTagTypes"
+                (change)="checkUncheckAllTags()"
+                [checked]="selectAllTags"
+              />
+              <label
+                class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                for="allTagTypes"
+              >
+                {{ 'Ideafilters.Labels.AllTags' | translationPipe }}
+                <span class="float-right">
+                  <span
+                    class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                    >{{ tagsList?.length }}</span
+                  >
+                </span>
+              </label>
+            </div>
+          </li> -->
+      <li class="small" *ngIf="tagsList?.length === 0">
+        <div class="card bg-light">
+          <div class="card-body p-2">
+            {{ 'SharedText.NoTagsDescription' | translationPipe }}
+          </div>
+        </div>
+      </li>
+      <li
+        *ngFor="let tag of tagsList"
+        class="small"
+        style="padding-right: 0.375rem;"
+      >
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="tag{{ tag.name }}"
+            (change)="selectTag(tag)"
+            [checked]="tag?.isSelected"
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="tag{{ tag.name }}"
+          >
+            {{ tag.name }}
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                {{ tag.count }}
+              </span>
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
+    <!-- Tags End -->
+  </ng-template>
+
+  <ng-template #opportunity_type>
+    <!-- OpportunityTypes Start -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-1">
+          {{ 'SharedText.PostTypes' | translationPipe }}
+        </p>
+      </li>
+      <!-- <li class="float-right list-inline-item adjustFloatUp">
+        <button
+          (click)="toggleOppTypes = !toggleOppTypes"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleOppTypes ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <ul *ngIf="!toggleOppTypes" class="list-unstyled mb-1">
+      <li *ngFor="let type of oppTypes" class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="type{{ type.name }}"
+            (change)="selectType(type)"
+            [checked]="type?.isSelected"
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="type{{ type.name }}"
+          >
+            {{ type.name }}
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                {{ type.count }}
+              </span>
+              <!-- <span class="badge badge-light border pt-1 pb-1 adjustFilterCounter"></span> -->
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
+    <!-- OpportunityTypes End -->
+  </ng-template>
+
+  <ng-template #project_benefit>
+    <button class="btn btn-light btn-sm border btn-block my-2">
+      <app-idea-status-manage-modal></app-idea-status-manage-modal>
+    </button>
+    <!-- start of projected benefits -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-1">
+          Projected Benefits
+        </p>
+      </li>
+      <!-- <li class="float-right list-inline-item adjustFloatUp">
+        <button
+          (click)="toggleProjectedBenefits = !toggleProjectedBenefits"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleProjectedBenefits ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <span *ngIf="!toggleProjectedBenefits">
+      <div class="form-group mb-0 mt-2">
+        <input
+          type="range"
+          class="form-control-range form-control-range-primary"
+          min="0"
+          max="5"
+          step="0.5"
+          id="formControlRange"
+        />
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6 mb-2">
+          <p class="small nunito mb-0">$0</p>
+        </div>
+        <div class="form-group col-6 mb-0">
+          <p class="small float-right nunito mb-0">$200K</p>
+        </div>
+      </div>
+    </span>
+    <!-- end of projected benefits -->
+  </ng-template>
+
+  <ng-template #categories>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="uppercase small text-muted bold mb-2 mt-2">Categories</p>
+      </li>
+    </ul>
+    <ul class="list-unstyled ml-1 mb-2">
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="allCategories"
+            checked
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="allCategories"
+          >
+            All Categories
+            <span class="float-right">
+              <span
+                class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                >1,250</span
+              >
+            </span>
+          </label>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input type="checkbox" class="custom-control-input" id="noCategory" />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="noCategory"
+          >
+            No Category
+            <span class="float-right">
+              <span
+                class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                >1,250</span
+              >
+            </span>
+          </label>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="categoryOne"
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="categoryOne"
+            >aginginplace
+            <span class="float-right">
+              <span
+                class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                >1,250</span
+              >
+            </span>
+          </label>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="categoryTwo"
+          />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+            for="categoryTwo"
+          >
+            millenialengagement
+            <span class="float-right">
+              <span
+                class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                >1,250</span
+              >
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
+  </ng-template>
+
+  <ng-template #question>
+    <!-- Question Start -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <!-- <p class="uppercase small montserrat bold mb-2">Status</p> -->
+        <p class="text-medium bold mb-1">Question Title</p>
+      </li>
+      <!-- <li class="float-right list-inline-item adjustFloatUp">
+        <button
+          (click)="toggleQuestion = !toggleQuestion"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleQuestion ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <ul *ngIf="!toggleQuestion" class="list-unstyled mb-0">
+      <li>
+        <div
+          class="btn-group btn-group-xs btn-block mb-2"
+          role="group"
+          aria-label="Basic example"
+        >
+          <button type="button" class="btn btn-light py-3 border active">
+            High to Low
+          </button>
+          <button type="button" class="btn btn-light py-3 border">
+            Low to High
+          </button>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input type="checkbox" class="custom-control-input" />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+          >
+            Response One
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                3
+              </span>
+              <!-- <span class="badge badge-light border pt-1 pb-1 adjustFilterCounter"></span> -->
+            </span>
+          </label>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input type="checkbox" class="custom-control-input" />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+          >
+            Response Two
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                3
+              </span>
+              <!-- <span class="badge badge-light border pt-1 pb-1 adjustFilterCounter"></span> -->
+            </span>
+          </label>
+        </div>
+      </li>
+      <li class="small">
+        <div class="custom-control custom-checkbox w-100">
+          <input type="checkbox" class="custom-control-input" />
+          <label
+            class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+          >
+            Response Three
+            <span class="float-right">
+              <span class="badge adjustFloatUpSmall text-muted">
+                3
+              </span>
+              <!-- <span class="badge badge-light border pt-1 pb-1 adjustFilterCounter"></span> -->
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
+    <!-- Question End -->
+  </ng-template>
+
+  <ng-template #numerical_question>
+    <!-- Numerical Start -->
+    <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item">
+        <p class="text-medium bold mb-1">Numerical Title</p>
+      </li>
+      <!-- <li class="float-right list-inline-item adjustFloatUp">
+        <button
+          (click)="toggleNum = !toggleNum"
+          class="btn btn-outline-primary btn-xs showHideButton"
+        >
+          <fa-icon
+            [icon]="['fas', toggleNum ? 'plus' : 'minus']"
+            class="small"
+          ></fa-icon>
+        </button>
+      </li> -->
+    </ul>
+    <ul *ngIf="!toggleNum" class="list-unstyled mb-4">
+      <li>
+        <div
+          class="btn-group btn-group-xs btn-block mb-2"
+          role="group"
+          aria-label="Basic example"
+        >
+          <button type="button" class="btn btn-light py-3 border active">
+            High to Low
+          </button>
+          <button type="button" class="btn btn-light py-3 border">
+            Low to High
+          </button>
+        </div>
+      </li>
+    </ul>
+    <!-- Numerical End -->
+  </ng-template>
+</span>

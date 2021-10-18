@@ -1,0 +1,38 @@
+<ul class="list-inline mb-0">
+  <!-- <li class="list-inline-item" (click)="toggleEditValue()">
+    <fa-icon
+      [icon]="['fas', 'edit']"
+      class="inverseLink"
+      ngbTooltip="Edit Widget"
+    ></fa-icon>
+  </li> -->
+  <li class="list-inline-item" style="position: relative; bottom: 0.6rem;">
+    <div ngbDropdown>
+      <span class="inverseLink bold removeCaret" ngbDropdownToggle>
+        <fa-icon [icon]="['fas', 'ellipsis-h']" class="iconLarge"></fa-icon>
+      </span>
+      <div ngbDropdownMenu class="shadow">
+        <button class="pl-3" ngbDropdownItem (click)="toggleEditValue()">
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted pr-1"></fa-icon>
+          Edit Gadget
+        </button>
+        <!-- <button class="pl-3" ngbDropdownItem>
+          <fa-icon
+            [icon]="['fas', 'file-spreadsheet']"
+            class="text-muted"
+            style="padding-left: 0.2rem; padding-right: 0.5rem;"
+          ></fa-icon>
+          Export Gadget
+        </button>
+        <button class="pl-3" ngbDropdownItem>
+          <fa-icon [icon]="['fas', 'code']" class="text-muted pr-1"></fa-icon>
+          Embed Gadget
+        </button> -->
+        <button class="pl-3" ngbDropdownItem (click)="deleteGadget()">
+          <fa-icon [icon]="['fas', 'trash']" class="text-muted pr-1"></fa-icon>
+          Remove Gadget
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>

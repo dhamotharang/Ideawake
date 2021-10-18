@@ -1,0 +1,55 @@
+<div cdkDropList (cdkDropListDropped)="drop($event)" style="cursor: move;">
+  <div
+    class="card bg-white text-medium mb-1"
+    *ngFor="let datum of data; let i = index"
+    cdkDrag
+  >
+    <div class="card-body pt-2 pb-2" style="padding-left: 0.65rem;">
+      <div class="media">
+        <fa-icon
+          [icon]="['fas', 'grip-vertical']"
+          class="pr-2 moveOnHover text-muted"
+        ></fa-icon>
+        <div class="media-body">
+          <div class="row">
+            <div class="col-7">
+              <p class="mb-0">
+                {{ datum.title }}
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  *ngIf="datum.description"
+                  class="text-muted"
+                  [ngbTooltip]="datum.description"
+                ></fa-icon>
+              </p>
+            </div>
+            <div class="col-3">
+              <p class="mb-0 text-muted mr-2">
+                {{ datum?.customFieldType?.title }}
+              </p>
+            </div>
+            <div class="col-2">
+              <ul class="list-inline mb-0 float-right">
+                <li class="list-inline-item mr-2" (click)="editField(datum, i)">
+                  <fa-icon
+                    [icon]="['fas', 'edit']"
+                    class="inverseLink"
+                    ngbTooltip="Edit Field"
+                  ></fa-icon>
+                </li>
+                <li class="list-inline-item" (click)="remove.emit(datum)">
+                  <fa-icon
+                    [icon]="['fas', 'trash']"
+                    class="inverseLink"
+                    ngbTooltip="Remove Field"
+                  >
+                  </fa-icon>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

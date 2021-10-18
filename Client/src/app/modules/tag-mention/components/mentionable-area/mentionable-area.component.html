@@ -1,0 +1,35 @@
+<textarea
+  *ngIf="element === 'textarea'"
+  class="form-control"
+  rows="{{ rows }}"
+  placeholder="{{ placeholder | translationPipe }}"
+  [attr.maxlength]="maxLength"
+  [mentionConfig]="config"
+  (searchTerm)="search($event)"
+  [mentionListTemplate]="mentionListTemplate"
+  windowWidth="580"
+  windowHeight="470"
+  container="body"
+  #ngMentionId
+  (change)="emitText()"
+  (input)="emitText()"
+></textarea>
+
+<input
+  *ngIf="element === 'input'"
+  type="text"
+  class="form-control"
+  placeholder="{{ placeholder }}"
+  (searchTerm)="search($event)"
+  [attr.maxlength]="maxLength"
+  [mentionConfig]="config"
+  [mentionListTemplate]="mentionListTemplate"
+  container="body"
+  #ngMentionId
+  (change)="emitText()"
+  (input)="emitText()"
+/>
+
+<ng-template #mentionListTemplate let-item="item">
+  <app-mention-add [item]="item" container="body"></app-mention-add>
+</ng-template>

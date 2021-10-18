@@ -1,0 +1,291 @@
+<!-- <div
+  class="fb-item"
+  [ngClass]="{
+    'background-color': count !== 1,
+    window: window,
+    'not-window': !window
+  }"
+  *ngFor="let a of arr"
+>
+  <div class="first-section-wrapper">
+    <div class="gravatar-title">
+      <app-list-loader
+        [style]="{
+          width: '100%',
+          'border-radius': '0',
+          height: '150%',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+  </div>
+  <div class="second-section-wrapper">
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '80%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '90%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '80%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '70%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '60%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div
+    class="fb-item col-12 col-md-3 px-0"
+    [ngClass]="{ 'background-color': count !== 1, 'not-window': !window }"
+    *ngFor="let a of arr"
+  >
+    <div class="first-section-wrapper px-0">
+      <div class="gravatar-title px-0">
+        <div>
+          <app-list-loader
+            [style]="{
+              width: '170px',
+              'border-radius': '0',
+              height: '20px',
+              'margin-bottom': '10px'
+            }"
+          ></app-list-loader>
+        </div>
+        <!-- <div>
+          <app-list-loader [style]="{
+              width: '170px',
+              'border-radius': '0',
+              height: '15px'
+            }"></app-list-loader>
+        </div> -->
+      </div>
+    </div>
+    <div class="second-section-wrapper">
+      <div class="wrapper">
+        <app-list-loader
+          [style]="{
+            width: '40%',
+            'border-radius': '0',
+            height: '10px',
+            'margin-bottom': '5px'
+          }"
+        ></app-list-loader>
+      </div>
+      <div class="wrapper">
+        <app-list-loader
+          [style]="{
+            width: '70%',
+            'border-radius': '0',
+            height: '15px',
+            'margin-bottom': '5px'
+          }"
+        ></app-list-loader>
+      </div>
+      <div class="wrapper">
+        <app-list-loader
+          [style]="{
+            width: '90%',
+            'border-radius': '0',
+            height: '10px',
+            'margin-bottom': '0px'
+          }"
+        ></app-list-loader>
+      </div>
+      <div class="wrapper">
+        <app-list-loader
+          [style]="{
+            width: '90%',
+            'border-radius': '0',
+            height: '10px',
+            'margin-bottom': '0px'
+          }"
+        ></app-list-loader>
+      </div>
+      <div class="wrapper">
+        <app-list-loader
+          [style]="{
+            width: '90%',
+            'border-radius': '0',
+            height: '10px',
+            'margin-bottom': '0px'
+          }"
+        ></app-list-loader>
+      </div>
+
+      <!-- <div class="wrapper">
+        <app-list-loader [style]="{
+            width: '60%',
+            'border-radius': '0',
+            height: '15px',
+            'margin-bottom': '10px'
+          }"></app-list-loader>
+      </div>
+
+      <div class="wrapper">
+        <app-list-loader [style]="{
+            width: '50%',
+            'border-radius': '0',
+            height: '15px',
+            'margin-bottom': '10px'
+          }"></app-list-loader>
+      </div>
+
+      <div class="wrapper">
+        <app-list-loader [style]="{
+            width: '40%',
+            'border-radius': '0',
+            height: '15px',
+            'margin-bottom': '10px'
+          }"></app-list-loader>
+      </div>
+
+      <div class="wrapper">
+        <app-list-loader [style]="{
+            width: '30%',
+            'border-radius': '0',
+            height: '15px',
+            'margin-bottom': '10px'
+          }"></app-list-loader>
+      </div> -->
+    </div>
+    <!-- <div class="third-section-wrapper">
+      <div class="wrapper-button">
+        <app-list-loader [style]="{
+                  width: '20%',
+                  'border-radius': '0',
+                  height: '15px',
+                  'margin-bottom': '10px'
+                }"></app-list-loader>
+      </div>
+    </div> -->
+
+    <!-- <div class="second-section-wrapper" *ngIf="window">
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '80%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '90%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '80%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '70%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '60%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '50%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '30%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div>
+
+    <div class="wrapper">
+      <app-list-loader
+        [style]="{
+          width: '20%',
+          'border-radius': '0',
+          height: '15px',
+          'margin-bottom': '10px'
+        }"
+      ></app-list-loader>
+    </div> -->
+  </div>
+</div>

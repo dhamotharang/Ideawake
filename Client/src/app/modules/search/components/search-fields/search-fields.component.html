@@ -1,0 +1,101 @@
+<div ngbDropdown (openChange)="openDropdown.emit($event)">
+  <input
+    ngbDropdownToggle
+    type="text"
+    class="form-control"
+    placeholder="{{ 'Search.StartTyping' | translationPipe }}..."
+    [(ngModel)]="text"
+    (keyup)="searchTerm.emit(text)"
+  />
+  <!-- <div ngbDropdownMenu class="shadow w-100">
+    <div ngbDropdownMenu class="shadow w-100" *ngIf="data?.length === 0">
+      <div class="py-2 text-center">
+        <fa-icon [icon]="['fas', 'times-circle']" class="text-muted" style="font-size: 2rem;"></fa-icon>
+        <h5 class="montserrat mb-1 bold">You Haven't Created Any Fields Yet.</h5>
+        <p class="mb-2 text-center text-muted text-medium">Please add your first field by clicking "Create New
+          Field" above.</p>
+      </div>
+    </div>
+  </div> -->
+  <div
+    ngbDropdownMenu
+    class="shadow pt-0 pb-0 w-100 modalScrollMaxHeight"
+    style="overflow-x: hidden;"
+  >
+    <div class="w-100" *ngIf="data?.length === 0">
+      <div class="pt-5 text-center">
+        <fa-icon
+          [icon]="['fas', 'times-circle']"
+          class="text-muted"
+          style="font-size: 2rem;"
+        ></fa-icon>
+        <h5 class="montserrat mb-1 bold">
+          You Haven't Created Any Fields Yet.
+        </h5>
+        <p class="mb-2 text-center text-muted text-medium">
+          Please add your first field by clicking "Create New Field" above.
+        </p>
+      </div>
+    </div>
+    <div *ngIf="data?.length !== 0">
+      <div class="py-1 px-3 border-top border-bottom bg-light">
+        <div class="row">
+          <div class="col-7">
+            <label class="text-muted uppercase small mb-0 bold">
+              Field Title
+            </label>
+          </div>
+          <div class="col-3">
+            <label class="text-muted uppercase small mb-0 bold"
+              >Field Type
+            </label>
+          </div>
+          <!-- <div class="col-2"></div> -->
+          <div class="col-2">
+            <label class="text-muted uppercase small mb-0 bold"
+              >Last Edit</label
+            >
+          </div>
+        </div>
+      </div>
+      <button
+        class="px-3 py-2"
+        ngbDropdownItem
+        *ngFor="let datum of data"
+        (click)="selectField.emit(datum)"
+      >
+        <div class="row">
+          <div class="col-7">
+            {{ datum.title | slice: 0:60 }}
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              *ngIf="datum.description"
+              class="text-muted text-medium"
+              [ngbTooltip]="datum.description"
+            ></fa-icon>
+          </div>
+          <div class="col-3 flex-column align-self-center">
+            <div class="align-self-center text-medium">
+              {{ datum.customFieldType?.title }}
+              <!-- <span container="body" ngbTooltip="Explanation of field type">
+                <fa-icon [icon]="['fas', 'info-circle']" class="text-muted"></fa-icon>
+              </span> -->
+            </div>
+          </div>
+          <!-- <div class="col-2 flex-column align-self-center">
+            <p class="mb-0 align-self-center text-medium" container="body" ngbPopover="Show a preview of this field here"
+              triggers="mouseenter:mouseleave" placement="top" popoverTitle="Title">
+              Preview
+              <fa-icon [icon]="['fas', 'eye']" class="text-muted moveIconDown"></fa-icon>
+            </p>
+          </div> -->
+          <div class="col-2 flex-column align-self-center">
+            <p class="mb-0 text-medium align-self-center">
+              {{ datum.createdAt | dateFormat }}
+            </p>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<p
+  [ngbTooltip]="'Vote'"
+  (click)="upvoteIdea(isUpvote)"
+  class="small bold uppercase mb-0 inverseLink interactive-element"
+  [ngClass]="{
+    'upvoted-idea-button-wo-hover': isUpvote && !mouseLeaveFlag,
+    'upvoted-idea-button': isUpvote && mouseLeaveFlag
+  }"
+  (mouseenter)="mouseEnter('div a')"
+  (mouseleave)="mouseLeave($event)"
+>
+  <!-- <fa-icon [icon]="['fas', 'thumbs-up']" class="small"></fa-icon>Upvote (10) -->
+  <fa-icon
+    style="display: inline-block;"
+    class="upvote-button-content"
+    [ngClass]="{ 'animated rubberBand': upvoteAction }"
+    [icon]="isUpvote ? ['fas', 'check'] : ['fas', 'thumbs-up']"
+  ></fa-icon>
+  <span class="upvote-button-content">
+    {{ 'SocialActivity.Upvote' | translationPipe }}
+  </span>
+  <span class="upvote-button-content">
+    {{ upvotes[entity.id] > 0 ? '(' + upvotes[entity.id] + ')' : '' }}</span
+  >
+</p>

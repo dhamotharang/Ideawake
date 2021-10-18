@@ -1,0 +1,152 @@
+<div class="modal-header card-header">
+  <p class="uppercase bold text-muted mb-0 small">
+    {{ 'Comments.EditCommentHeader' | translationPipe }}
+  </p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="close('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modalPageMinHeight">
+  <div class="form-row">
+    <div class="form-group col-12 mb-0">
+      <app-mentionable-area
+        *ngIf="mentionGroups && mentionUsers && mentionTags"
+        [placeholder]="'Comments.PlaceholderLarge'"
+        [data]="comment?.comment.message"
+        [rows]="6"
+        [maxLength]="500"
+        [groups]="mentionGroups"
+        [users]="mentionUsers"
+        [tags]="mentionTags"
+        [element]="'textarea'"
+        (selectedMention)="selectedMentions($event)"
+        (selectedTag)="selectedTags($event)"
+        #ngMentionId
+        (getText)="setComment($event)"
+      ></app-mentionable-area>
+    </div>
+  </div>
+  <div
+    class="upload-content-container bg-white border-left border-right py-2"
+    style="
+      position: relative;
+      bottom: 0.1rem;
+      border-color: #ced4da !important;
+    "
+  >
+    <div
+      class="card-upload-content contentContainer uploadedContentContainer"
+      *ngFor="let file of selectedFiles; let i = index"
+      #fileContainer
+    >
+      <div class="card-body px-2 py-1">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item small text-muted">
+                <fa-icon
+                  [icon]="
+                    file.fontawesomeIcon
+                      ? file.fontawesomeIcon
+                      : file.attachmentType
+                  "
+                ></fa-icon>
+                {{
+                  file.name
+                    ? file.name
+                        .split('.')
+                        [file.name.split('.').length - 1].toUpperCase()
+                    : file.url
+                        .split('.')
+                        [file.url.split('.').length - 1].toUpperCase()
+                }}
+                <!-- file.fontawesomeIcon -->
+              </li>
+            </ul>
+          </li>
+          <li>
+            <img
+              *ngIf="file.type === 'image'"
+              [defaultImage]="defaultImage"
+              [lazyLoad]="file.url"
+              width="100"
+              height="100"
+            />
+
+            <p
+              *ngIf="file.type !== 'image'"
+              class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+            >
+              {{
+                file.name
+                  ? file.name
+                  : file.url
+                      .split('.')
+                      [file.url.split('.').length - 2].split('/')[
+                      file.url
+                        .split('.')
+                        [file.url.split('.').length - 2].split('/').length - 1
+                    ] +
+                    file.url
+                      .split('.')
+                      [file.url.split('.').length - 1].toUpperCase()
+              }}
+            </p>
+          </li>
+
+          <li>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item small text-muted">
+                {{ file.size }} KB
+              </li>
+              <li class="list-inline-item float-right">
+                <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                <fa-icon
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLinkDanger small"
+                  ngbTooltip="Delete Media"
+                  (click)="deleteMedia(file)"
+                >
+                </fa-icon>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="form-row mx-0 border-left border-right border-bottom rounded-bottom"
+    style="
+      margin-right: 0;
+      border-color: #ced4da !important;
+      margin-left: 0;
+      background-color: white;
+      position: relative;
+      bottom: 2px;
+    "
+  >
+    <div class="form-group col-12 mb-0">
+      <app-upload-content-options
+        [from]="'comment'"
+        [permissions]="permissions"
+        (postAnonymously)="setAnonymousStatus($event)"
+        (trigger)="ngMentionTriggers($event)"
+        [data]="comment.comment"
+      ></app-upload-content-options>
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="close('Cross click')">
+    {{ 'Shared.Cancel' | translationPipe }}
+  </button>
+  <button class="btn btn-primary" (click)="editComment()">
+    {{ 'Shared.Save' | translationPipe }}
+  </button>
+</div>

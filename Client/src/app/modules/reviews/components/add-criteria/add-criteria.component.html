@@ -1,0 +1,42 @@
+<div class="modal-header card-header border-bottom-0 bg-light">
+  <p class="small montserrat uppercase bold mb-0 pt-1">
+    Add New Review Criteria
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light">
+  <div class="row">
+    <div *ngFor="let type of typesList" class="col-6">
+      <div class="card shadow-sm cardAnimation pointer" (click)="addNew(type)">
+        <div class="card-body text-center px-2 py-4">
+          <fa-icon
+            [icon]="['fas', type?.icon]"
+            style="font-size: 2.5rem;"
+            [ngStyle]="{ color: type?.color }"
+          ></fa-icon>
+          <h5 class="montserrat bold mb-2 mt-2">
+            {{ type?.title }}
+          </h5>
+          <p class="small text-muted">
+            {{ type?.description }}
+          </p>
+          <p class="small text-muted">
+            See "{{ type?.title }}" image
+            <img
+              class="img-fluid"
+              src="{{ type?.exampleImageUrl }}"
+              width="350"
+              height="250"
+            />
+          </p>
+          <button class="btn btn-primary btn-sm">
+            <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+            {{ typeConstant[type?.abbreviation]?.button }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

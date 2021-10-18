@@ -1,0 +1,24 @@
+<!-- start of one question -->
+<p class="mb-2 text-medium bold">
+  {{ criteria?.evaluationCriteria?.title }}
+  <fa-icon
+    [icon]="['fas', 'info-circle']"
+    class="text-muted ml-1"
+    placement="right"
+    [ngbTooltip]="criteria?.evaluationCriteria?.description"
+    *ngIf="criteria?.evaluationCriteria?.description"
+  ></fa-icon>
+</p>
+<div class="list-group small mt-1 mb-3">
+  <button
+    type="button"
+    class="list-group-item list-group-item-action py-2 px-3"
+    *ngFor="let question of allQuestions"
+    [ngClass]="{ selected: selectedValue === question.key }"
+    (click)="emitData(question.key)"
+  >
+    <!-- <fa-icon [icon]="['fas', 'check-circle']" class="mr-1"></fa-icon> -->
+    {{ question.label }}
+  </button>
+</div>
+<!-- end of one question -->

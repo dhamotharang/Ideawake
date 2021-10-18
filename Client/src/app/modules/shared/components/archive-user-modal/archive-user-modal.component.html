@@ -1,0 +1,29 @@
+<div class="modal-header card-header bg-danger">
+  <p class="uppercase bold text-white mb-0 small">Archive This User</p>
+  <button
+    type="button"
+    class="close text-white"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="">
+    Are you sure you would like to archive this user? Please review the effects
+    of archiving groups before proceeding.
+  </p>
+  <label>Effects of Archiving User</label>
+  <ul class="pl-4">
+    <li>To be</li>
+    <li>added</li>
+    <li>Later</li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-light border" (click)="closeModal()">Cancel</button>
+  <button class="btn btn-danger" (click)="archiveUsers()">
+    Yes, Archive This User
+  </button>
+</div>

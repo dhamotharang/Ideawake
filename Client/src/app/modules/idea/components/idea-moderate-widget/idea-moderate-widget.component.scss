@@ -1,0 +1,35 @@
+.stageIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding-top: 0.35rem;
+}
+
+.teamImagesMinWidth {
+  min-width: 16rem;
+}
+
+.teamImage {
+  border: 2px solid white;
+  max-width: 2.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.removeMargins {
+  margin-right: -0.6rem;
+}
+
+.specialBadgePadding {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.moveWidget{
+  position: absolute;
+  left: -26rem;
+  background-color: white;
+  padding: 1rem;
+  width: 25rem;
+  top: 0rem;
+}

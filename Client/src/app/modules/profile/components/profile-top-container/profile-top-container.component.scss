@@ -1,0 +1,58 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.nav-tabs .nav-link a {
+  color: $gray-300;
+  font-size: 0.9rem;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: $primary;
+  font-size: 0.9rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: $gray-600 !important;
+  font-size: 0.9rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+  border-top: 3px solid transparent;
+}
+
+.nav-link i {
+  color: $gray-300 !important;
+  font-size: 0.9rem;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: 0;
+}
+
+.nav-link:hover {
+  color: $primary !important;
+  font-size: 0.9rem;
+  border-top: 3px solid $defaultBorder;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+.nav-link.active {
+  color: $primary !important;
+  font-size: 0.9rem;
+  border-top: 3px solid $primary;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}

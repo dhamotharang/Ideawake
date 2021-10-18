@@ -1,0 +1,207 @@
+<div class="row">
+  <div
+    [ngClass]="modal ? 'col-12' : 'col-12 col-md-8 marginAdjustPostChallenge'"
+    class="removePaddingOnMobile"
+  >
+    <div [ngClass]="!modal ? 'mb-4' : ''" class="card shadow-sm">
+      <div class="card-header py-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="bold text-muted mb-0 uppercase pt-1 montserrat">
+              {{ 'ChallengePost.Labels.ChallengeAudience' | translationPipe }}
+            </p>
+          </li>
+          <li class="list-inline-item float-right" *ngIf="modal">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="close()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+          <li class="list-inline-item float-right pt-1" *ngIf="!modal">
+            <p class="small bold uppercase text-muted mb-0">Step 2 of 5</p>
+          </li>
+        </ul>
+      </div>
+      <!-- challengeScrollMaxHeight -->
+      <div
+        class="card-body"
+        [ngClass]="modal ? 'modalScrollMaxHeight hideOverflow' : ''"
+      >
+        <form>
+          <div class="form-row mb-0">
+            <div class="form-group col-md-12 col-12 mb-3">
+              <label class="mb-1 bold">
+                {{
+                  'ChallengePost.Labels.SelectParticipants' | translationPipe
+                }}
+                ({{ participantsCount }})</label
+              >
+              <app-search-groups
+                [isUser]="true"
+                [selection]="participants"
+                [communityBadge]="true"
+                (dataEmitter)="getParticipants($event)"
+              >
+              </app-search-groups>
+              <p class="text-medium text-muted form-text pt-1 mb-0">
+                {{
+                  'ChallengePost.Labels.SelectParticipantsDisc'
+                    | translationPipe
+                }}
+              </p>
+            </div>
+          </div>
+          <hr class="mt-3 mb-4" />
+          <div class="form-row mb-2">
+            <div class="col-12 form-group mb-2">
+              <label class="mb-2">
+                {{ 'ChallengePost.Labels.SelectSponsors' | translationPipe }}
+                ({{ outputData?.sponsors?.length }})
+              </label>
+              <app-search-users
+                [selected]="sponsors"
+                (dataEmitter)="getSponsors($event)"
+              ></app-search-users>
+              <p class="text-medium text-muted form-text pt-1 mb-0">
+                {{
+                  'ChallengePost.Labels.SponsorsDescription' | translationPipe
+                }}
+              </p>
+            </div>
+          </div>
+          <hr class="mt-3 mb-4" />
+          <div class="form-row mb-2">
+            <div class="col-12 form-group mb-2">
+              <label>
+                {{ 'ChallengePost.Labels.SelectModerators' | translationPipe }}
+                ({{ outputData?.moderators?.length }})
+              </label>
+              <app-search-users
+                [selected]="outputData?.moderators"
+                (dataEmitter)="getModerators($event)"
+              ></app-search-users>
+              <p class="text-medium text-muted form-text pt-1 mb-0">
+                {{
+                  'ChallengePost.Labels.ModeratorsDescription' | translationPipe
+                }}
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer px-3 pb-5 pb-md-3" *ngIf="!modal">
+        <div class="form-row">
+          <div class="col-6 form-group mb-0"></div>
+          <div class="col-6 form-group mb-0">
+            <div class="float-right">
+              <span ngbTooltip="Coming soon!">
+                <button
+                  class="btn btn-light mr-1 disabled"
+                  style="cursor: not-allowed;"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'save']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ 'ChallengePost.Labels.SaveDraft' | translationPipe }}
+                </button>
+              </span>
+              <button
+                class="btn btn-primary mb-0"
+                [disabled]="
+                  !outputData?.sponsors?.length ||
+                  !outputData?.moderators?.length
+                "
+                (click)="changeTab('brief')"
+              >
+                {{ 'ChallengePost.Labels.Next' | translationPipe }}
+                <span class="d-none d-md-inline">- Challenge Brief</span>
+                <fa-icon [icon]="['fas', 'angle-right']" class="ml-1"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light" *ngIf="modal">
+        <button class="btn btn-light border" (click)="close()">Cancel</button>
+        <button class="btn btn-primary ml-1" (click)="updateAudience()">
+          Save Changes
+        </button>
+      </div>
+      <!-- <div class="card-footer px-0 px-sm-3">
+        <div class="form-row">
+          <div class="col-12 col-md-2 form-group mb-0">
+            <button class="btn btn-light border btn-block" >
+              Save Draft
+            </button>
+          </div>
+          <div class="col-12 col-md-2 offset-md-10 form-group mb-0">
+            <button
+              class="btn btn-primary btn-block montserrat"
+              [disabled]="!outputData?.sponsors?.length"
+              (click)="changeTab('brief')"
+            >
+              {{ 'ChallengePost.Labels.Next' | translationPipe }}
+              Continue
+              <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div
+    class="d-none d-md-block col-md-3 pl-0"
+    style="margin-top: 0.3rem;"
+    *ngIf="!modal"
+  >
+    <div class="alert alert-info shadow-sm">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-0 text-medium bold">
+            {{
+              'ChallengePost.Labels.InfoControlAccessTitle' | translationPipe
+            }}
+          </p>
+          <hr class="mt-2 mb-2" />
+          <div class="row">
+            <div class="col-12">
+              <p class="small">
+                {{
+                  'ChallengePost.Labels.InfoControlAccessDescriptionOne'
+                    | translationPipe
+                }}
+              </p>
+              <p class="small">
+                {{
+                  'ChallengePost.Labels.InfoControlAccessDescriptionTwo'
+                    | translationPipe
+                }}
+                <!-- {{
+                  'ChallengePost.Labels.SelectParticipantsDisc'
+                    | translationPipe
+                }} -->
+              </p>
+              <p class="mb-0 text-medium bold">
+                {{
+                  'ChallengePost.Labels.InfoParticipantsTitle' | translationPipe
+                }}
+              </p>
+              <hr class="mt-2 mb-2" />
+              <p class="small">
+                {{
+                  'ChallengePost.Labels.InfoParticipantsDescription'
+                    | translationPipe
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

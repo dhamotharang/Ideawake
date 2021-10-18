@@ -1,0 +1,106 @@
+#loader_bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 179, 148, 0.3);
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 10000;
+}
+
+.spin-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 92px;
+  width: 92px;
+  margin: -46px 0 0 -46px;
+  background: transparent;
+  border: 3px solid;
+  border-color: #1ab394 #1ab394 #1ab394 #07342b;
+  transition: all 0.3s cubic-bezier(0.23, 0.78, 0.69, 0.84);
+  animation: spin 0.75s infinite linear;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// $color: #1ab394;
+// $size: 12px;
+// $time: 1;
+
+// main {
+//    width: 100%;
+//    height: calc(100vh - 142px);
+//    overflow-y: hidden;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    background: #f3f3f4;
+// }
+
+// .page-loader {
+//    display: flex;
+//    flex-direction: column;
+//    align-items: center;
+
+//    .row {
+//       display: flex;
+//    }
+// }
+
+// p{
+//    position: absolute;
+//    top: 6.5rem;
+//    right: .1rem;
+//    color: #212529;
+//    font-size: 20px;
+//    font-family: montserrat;
+// }
+
+// .repositionLoader{
+//   position: relative;
+//   bottom: 5rem;
+// }
+
+// .arrow {
+//    width: 0;
+//    height: 0;
+//    margin: 0 (-$size / 2);
+//    border-left: $size solid transparent;
+//    border-right: $size solid transparent;
+//    border-bottom: ($size * 1.8) solid $color;
+//    animation: blink $time + s infinite;
+//    filter: drop-shadow(0 0 ($size * 1) $color);
+
+//    &.down {
+//       transform: rotate(180deg);
+//    }
+
+//    @for $i from 1 through 18 {
+//       &.outer-#{$i} {
+//          animation-delay: -($time / 18) * $i + s;
+//       }
+//    }
+
+//    @for $i from 1 through 6 {
+//       &.inner-#{$i} {
+//          animation-delay: -($time / 6) * $i + s;
+//       }
+//    }
+// }
+
+// @keyframes blink {
+//   0% { opacity: 0.1; }
+//   30% { opacity: 1; }
+//   100% { opacity: 0.1; }
+// }

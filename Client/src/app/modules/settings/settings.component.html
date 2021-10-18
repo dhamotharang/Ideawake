@@ -1,0 +1,415 @@
+<div class="">
+  <div class="row">
+    <div class="col-12 col-md-2 pr-md-0">
+      <app-community-navigation></app-community-navigation>
+    </div>
+    <div class="col-12 col-md-10">
+      <!-- start of community settings summary -->
+      <div class="row mb-4 mx-0 workflowContainerPadding">
+        <div class="col-12 removePaddingOnMobile">
+          <!-- <h4 class="mb-0 montserrat">Manage Your Community</h4>
+          <hr class="my-2" /> -->
+          <h4 class="mt-4 mb-3 pb-2 montserrat bold border-bottom">
+            Community Settings
+          </h4>
+          <div class="row">
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.accessBasicSettings
+                    ? ['/settings/community/basic']
+                    : []
+                "
+                routerLink="/settings/community/basic"
+              >
+                <app-lock-component
+                  *ngIf="userCommunityPermissions?.accessBasicSettings !== 2"
+                  [class]="'settings-unauthorized'"
+                ></app-lock-component>
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Basic & Sign In Settings</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage basic community settings and login settings,
+                        including Single Sign On.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.accessAppearanceSettings
+                    ? ['/settings/community/appearance']
+                    : []
+                "
+              >
+                <app-lock-component
+                  *ngIf="
+                    userCommunityPermissions?.accessAppearanceSettings !== 2
+                  "
+                  [class]="'settings-unauthorized'"
+                ></app-lock-component>
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'palette']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Appearance Settings</label>
+                      <p class="text-medium text-muted mb-0">
+                        Customize logo, color scheme, and look and feel of your
+                        community.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.accessSecuritySettings
+                    ? ['/settings/security']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="
+                      userCommunityPermissions?.accessSecuritySettings !== 2
+                    "
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'shield-alt']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Security Settings</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage community name and basic community settings.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.accessSecuritySettings
+                    ? ['/settings/manage-points']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="
+                      userCommunityPermissions?.accessSecuritySettings !== 2
+                    "
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'award']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Customize Points per Action</label>
+                      <p class="text-medium text-muted mb-0">
+                        Customize the points users earn for performing actions
+                        in your community.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.manageOpportunityTypes
+                    ? ['/community/container']
+                    : null
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="!userCommunityPermissions?.manageOpportunityTypes"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'lightbulb']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Types of Posts</label>
+                      <p class="text-medium text-muted mb-0">
+                        Create different types of submissions with their own
+                        fields and settings.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.accessCustomFieldSettings
+                    ? ['/community/community-custom-fields']
+                    : null
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="!userCommunityPermissions?.accessCustomFieldSettings"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'list']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Custom Fields</label>
+                      <p class="text-medium text-muted mb-0">
+                        Create the fields important to you and the opportunities
+                        you're collecting.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 mb-3">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.manageCommunities
+                    ? ['/community/manage-communities']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="!userCommunityPermissions?.manageCommunities"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'users']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Manage Communities</label>
+                      <p class="text-medium text-muted mb-0">
+                        Create communities with their own branding, messaging,
+                        and permissions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-12 col-sm-4 mb-3">
+              <div class="card cardAnimation shadow-sm" routerLink="/community/outcome-types">
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon [icon]="['fas', 'gem']" class="mr-2 text-muted"></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Benefit and Outcome Types</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage all of your communities under this tenant.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <!-- <h6 class="mt-1 mb-3 pb-2 border-bottom montserrat bold">
+            Types and Properties
+          </h6>
+          <div class="row">
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="['/community/container']"
+              >
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'lightbulb']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Opportunity Types</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage all of your communities under this tenant.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                routerLink="/community/knowledge-types"
+              >
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'atom']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Knowledge Types</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage all of your communities under this tenant.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                routerLink="/community/outcome-types"
+              >
+                <div class="card-body p-3 pointer">
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'gem']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Benefit and Outcome Types</label>
+                      <p class="text-medium text-muted mb-0">
+                        Manage all of your communities under this tenant.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 class="mt-4 mb-3 pb-2 border-bottom montserrat bold">
+            Tenant Settings
+          </h6>
+          <div class="row">
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.manageBillingAndPlan
+                    ? ['/settings/manage-communities']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="userCommunityPermissions?.manageBillingAndPlan !== 2"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'users']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Manage Communities</label>
+                      <p class="text-medium text-muted mb-0">
+                        View payment history, your plan usage, and update
+                        current plan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.manageBillingAndPlan
+                    ? ['/settings/billing-and-plan']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="userCommunityPermissions?.manageBillingAndPlan !== 2"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'file-invoice-dollar']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Billing and Plan</label>
+                      <p class="text-medium text-muted mb-0">
+                        View payment history, your plan usage, and update
+                        current plan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class="card cardAnimation shadow-sm"
+                [routerLink]="
+                  userCommunityPermissions?.createNewCommunity
+                    ? ['/settings/billing-and-plan']
+                    : []
+                "
+              >
+                <div class="card-body p-3 pointer">
+                  <app-lock-component
+                    *ngIf="userCommunityPermissions?.createNewCommunity !== 2"
+                    [class]="'settings-unauthorized'"
+                  ></app-lock-component>
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'plus-circle']"
+                      class="mr-2 text-muted"
+                    ></fa-icon>
+                    <div class="media-body">
+                      <label class="pointer">Create New Community</label>
+                      <p class="text-medium text-muted mb-0">
+                        Create a new community under this tenant.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- end of community settings summary -->
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="row py-3" *ngIf="prizes.length == 0">
+  <div class="col-10 offset-1">
+    <div class="text-center mb-1">
+      <fa-icon
+        [icon]="['fas', 'trophy']"
+        class="iconLarge text-muted"
+      ></fa-icon>
+    </div>
+    <h5 class="text-center montserrat bold">Add Prizes to Your Challenge</h5>
+    <p class="text-center text-medium text-muted">
+      Use prizes to incentivize participants to complete submissions to your
+      challenge. To learn more about different prizes you can offer, see 4 ways
+      to incentivize innovation.
+    </p>
+    <app-prize-add (dataSet)="newPrize($event)"> </app-prize-add>
+  </div>
+</div>
+<div class="row" *ngIf="show">
+  <div class="col-12">
+    <!-- <div class="row py-1 mx-0 border-bottom">
+      <div class="col-4 pl-2">
+        <p class="text-medium mb-0">
+          {{ 'PrizeList.Labels.Title' | translationPipe }}
+        </p>
+      </div>
+      <div class="col-2">
+        <p
+          class="text-medium mb-0 text-center"
+          style="position: relative; left: 0.5rem;"
+        >
+          {{ 'PrizeList.Labels.Type' | translationPipe }}
+        </p>
+      </div>
+      <div class="col-2">
+        <p class="text-medium mb-0 text-center">
+          {{ 'PrizeList.Labels.Number' | translationPipe }}
+        </p>
+      </div>
+      <div class="col-2">
+        <p class="text-medium mb-0 text-center">
+          {{ 'PrizeList.Labels.Value' | translationPipe }}
+        </p>
+      </div>
+    </div> -->
+    <!-- start of one -->
+    <div
+      *ngFor="let prize of prizes; let i = index"
+      class="media py-3 dottedBottomBorder"
+    >
+      <img
+        class="rounded prizeImageSmall mx-2"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="prize.image"
+      />
+      <div class="media-body">
+        <div class="row">
+          <div class="col-4">
+            <p class="mb-0 text-medium">{{ prize?.title }}</p>
+          </div>
+          <div class="col-2">
+            <p class="mb-0 text-medium">
+              {{ getCategoryTitle(prize.category, prize.categoryId) }}
+            </p>
+          </div>
+          <div class="col-2">
+            <p class="mb-0 text-medium">{{ prize?.totalWinners }}</p>
+          </div>
+          <div class="col-2">
+            <p class="mb-0 text-medium">
+              {{ prize?.prizeValue ? '$' + prize?.prizeValue : '' }}
+            </p>
+          </div>
+          <div class="col-2">
+            <div class="float-right mr-2">
+              <button
+                (click)="open(prize, i)"
+                class="btn btn-outline-primary btn-xs mr-2"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                <!-- Edit -->
+              </button>
+              <button (click)="remove(i)" class="btn btn-outline-danger btn-xs">
+                <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                <!-- Remove -->
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of one -->
+  </div>
+</div>

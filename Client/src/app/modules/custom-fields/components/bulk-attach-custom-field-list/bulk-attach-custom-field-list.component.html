@@ -1,0 +1,53 @@
+<div style="max-height: 20px !important;">
+  <div class="py-1 px-2">
+    <app-search-inline (search)="searchText($event)"></app-search-inline>
+  </div>
+  <button
+    class="px-3 py-2"
+    ngbDropdownItem
+    *ngFor="let data of allCustomFields"
+    (click)="openCustomFieldsModal(manageCustomFields, data)"
+  >
+    <div class="row">
+      <div class="col-7">
+        <div class="align-self-center text-medium">
+          {{ data.title | slice: 0:30 }}
+        </div>
+      </div>
+      <div class="col-3 flex-column align-self-center">
+        <div class="align-self-center text-medium">
+          {{ data.customFieldType?.title }}
+        </div>
+      </div>
+    </div>
+  </button>
+  <ng-template #manageCustomFields let-modal>
+    <div class="modal-header card-header bg-light">
+      <p class="uppercase bold text-muted mb-0 small">Add or Edit FieldName</p>
+      <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        There are {{ attachCustomFieldCount }} submission(s) that currently have
+        an entry for this field and
+        {{ selectedIds.length - attachCustomFieldCount }} submission(s) that
+        don't have an entry for this field.
+      </p>
+      <app-custom-fields
+        [customFields]="customFields"
+        [view]="false"
+        (fieldsData)="bulkAttachCustomFieldData($event)"
+      ></app-custom-fields>
+    </div>
+    <div class="modal-footer bg-light">
+      <button class="btn btn-light border" (click)="close()">
+        Cancel
+      </button>
+      <button class="btn btn-primary" (click)="save()">
+        Save Changes
+      </button>
+    </div>
+  </ng-template>
+</div>

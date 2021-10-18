@@ -1,0 +1,329 @@
+<div class="form-row" id="newComment" *ngIf="!bottomPostForm">
+  <div class="col-12 removePaddingOnMobile form-group">
+    <!-- if comments disabled -->
+    <span *ngIf="!permissions?.allowCommenting">
+      <div class="alert alert-info mt-0 mb-3 py-2 px-3">
+        <div class="media">
+          <!-- <fa-icon [icon]="['fas', 'info-circle']" class="iconLarge"></fa-icon> -->
+          <div class="media-body">
+            <p class="mb-0 small text-center">
+              {{ 'Comments.DisabledAlert' | translationPipe }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="media">
+        <img
+          class="rounded-circle mr-2 userImage"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="currentUser.user.profileImage.url"
+          height="50"
+          width="50"
+        />
+        <div class="media-body">
+          <input
+            class="form-control"
+            style="padding-top: 0.4rem; margin-top: 0.45rem;"
+            type="text"
+            placeholder="{{ 'Comments.DisabledMessage' | translationPipe }}"
+            disabled
+          />
+        </div>
+      </div>
+    </span>
+    <!-- if comments disabled -->
+    <div class="media" *ngIf="permissions?.allowCommenting">
+      <img
+        class="rounded-circle mr-2 userImage d-none d-md-flex"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="currentUser.user.profileImage.url"
+        height="50"
+        width="50"
+      />
+      <div class="media-body">
+        <app-mentionable-area
+          *ngIf="mentionGroups && mentionUsers && mentionTags"
+          [placeholder]="'Comments.Placeholder'"
+          [data]="messageBody"
+          [rows]="3"
+          [maxLength]="500"
+          [groups]="mentionGroups"
+          [users]="mentionUsers"
+          [tags]="mentionTags"
+          [element]="'textarea'"
+          (selectedMention)="selectedMentions($event)"
+          (selectedTag)="selectedTags($event)"
+          #ngMentionId
+          (getText)="setComment($event)"
+        ></app-mentionable-area>
+        <!-- <p class="small uppercase text-muted bold mb-1">Post Comment | Post Update | Add Insight | Add Note | Create Task</p> -->
+        <div
+          class="upload-content-container bg-white border-left border-right py-2"
+          style="
+            position: relative;
+            bottom: 0.1rem;
+            border-color: #ced4da !important;
+          "
+        >
+          <div
+            class="card-upload-content contentContainer uploadedContentContainer"
+            *ngFor="let file of selectedFiles; let i = index"
+            #fileContainer
+          >
+            <div class="card-body px-2 py-1">
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item small text-muted">
+                      <fa-icon
+                        [icon]="
+                          file.fontawesomeIcon
+                            ? file.fontawesomeIcon
+                            : file.attachmentType
+                        "
+                      ></fa-icon>
+                      {{ file.url | fileNameUpdate: 'extensionOnly' }}
+                      <!-- file.fontawesomeIcon -->
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <img
+                    *ngIf="file.type === 'image'"
+                    [src]="file.url"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="file.url"
+                    width="100"
+                    height="100"
+                  />
+
+                  <p
+                    *ngIf="file.type !== 'image'"
+                    class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+                  >
+                    {{ file.url | fileNameUpdate }}
+                  </p>
+                </li>
+
+                <li>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item small text-muted">
+                      {{ file.size }} KB
+                    </li>
+                    <li class="list-inline-item float-right">
+                      <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                      <fa-icon
+                        [icon]="['fas', 'times-circle']"
+                        class="inverseLinkDanger small"
+                        ngbTooltip="Delete Media"
+                        (click)="deleteMedia(file)"
+                      >
+                      </fa-icon>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row mx-0 border-left border-right border-bottom rounded-bottom"
+          style="
+            margin-right: 0;
+            border-color: #ced4da !important;
+            margin-left: 0;
+            background-color: white;
+            position: relative;
+            bottom: 2px;
+          "
+        >
+          <div class="col-12 pl-0">
+            <app-upload-content-options
+              *ngIf="reinitialize"
+              [from]="'comment'"
+              [permissions]="permissions"
+              (postAnonymously)="setAnonymousStatus($event)"
+              (trigger)="ngMentionTriggers($event)"
+              [data]="comment"
+            >
+            </app-upload-content-options>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-7 col-md-9 pr-0" ngbDropdown>
+            <!-- <app-comment-visibility-settings></app-comment-visibility-settings> -->
+          </div>
+          <div class="col-5 col-md-3">
+            <button
+              class="btn btn-primary btn-block mt-2"
+              [disabled]="disablePostButton"
+              (click)="postComment()"
+            >
+              {{ 'Comments.Post' | translationPipe }}
+              <app-sk-spinner
+                *ngIf="disablePostButton"
+                style="display: inline-block; margin-left: 5px;"
+              ></app-sk-spinner>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-row" id="newComment" *ngIf="bottomPostForm">
+  <div class="col-12 removePaddingOnMobile form-group mb-2">
+    <!-- if comments disabled -->
+    <span *ngIf="!permissions?.allowCommenting">
+      <div class="alert alert-info mt-0 mb-3 py-2 px-3">
+        <div class="media">
+          <div class="media-body">
+            <p class="mb-0 small text-center">
+              {{ 'Comments.DisabledAlert' | translationPipe }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </span>
+    <!-- if comments disabled -->
+    <div class="media" *ngIf="permissions?.allowCommenting">
+      <!-- <img
+        class="rounded-circle mr-2 userImage d-none d-md-flex"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="currentUser.user.profileImage.url"
+        height="50"
+        width="50"
+      /> -->
+      <div class="media-body">
+        <app-mentionable-area
+          *ngIf="mentionGroups && mentionUsers && mentionTags"
+          [placeholder]="'Comments.PlaceholderSmall'"
+          [data]="messageBody"
+          [rows]="1"
+          [maxLength]="500"
+          [groups]="mentionGroups"
+          [users]="mentionUsers"
+          [tags]="mentionTags"
+          [element]="'textarea'"
+          (selectedMention)="selectedMentions($event)"
+          (selectedTag)="selectedTags($event)"
+          #ngMentionId
+          (getText)="setComment($event)"
+        ></app-mentionable-area>
+        <!-- <p class="small uppercase text-muted bold mb-1">Post Comment | Post Update | Add Insight | Add Note | Create Task</p> -->
+        <div
+          class="upload-content-container bg-white border-left border-right py-2"
+          style="
+            position: relative;
+            bottom: 0.1rem;
+            border-color: #ced4da !important;
+          "
+        >
+          <div
+            class="card-upload-content contentContainer uploadedContentContainer"
+            *ngFor="let file of selectedFiles; let i = index"
+            #fileContainer
+          >
+            <div class="card-body px-2 py-1">
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item small text-muted">
+                      <fa-icon
+                        [icon]="
+                          file.fontawesomeIcon
+                            ? file.fontawesomeIcon
+                            : file.attachmentType
+                        "
+                      ></fa-icon>
+                      {{ file.url | fileNameUpdate: 'extensionOnly' }}
+                      <!-- file.fontawesomeIcon -->
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <img
+                    *ngIf="file.type === 'image'"
+                    [src]="file.url"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="file.url"
+                    width="100"
+                    height="100"
+                  />
+
+                  <p
+                    *ngIf="file.type !== 'image'"
+                    class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+                  >
+                    {{ file.url | fileNameUpdate }}
+                  </p>
+                </li>
+
+                <li>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item small text-muted">
+                      {{ file.size }} KB
+                    </li>
+                    <li class="list-inline-item float-right">
+                      <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                      <fa-icon
+                        [icon]="['fas', 'times-circle']"
+                        class="inverseLinkDanger small"
+                        ngbTooltip="Delete Media"
+                        (click)="deleteMedia(file)"
+                      >
+                      </fa-icon>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row mx-0 border-left border-right border-bottom rounded-bottom"
+          style="
+            margin-right: 0;
+            border-color: #ced4da !important;
+            margin-left: 0;
+            background-color: white;
+            position: relative;
+            bottom: 2px;
+          "
+        >
+          <div class="col-12 pl-0">
+            <app-upload-content-options
+              *ngIf="reinitialize"
+              [from]="'comment'"
+              [permissions]="permissions"
+              (postAnonymously)="setAnonymousStatus($event)"
+              (trigger)="ngMentionTriggers($event)"
+              [data]="comment"
+              [simpleUploadOptions]="true"
+            >
+            </app-upload-content-options>
+          </div>
+        </div>
+        <div class="row" style="height: 0;">
+          <div class="col-7 col-md-7 pr-0" ngbDropdown>
+            <!-- <app-comment-visibility-settings></app-comment-visibility-settings> -->
+          </div>
+          <div class="col-5 col-md-4">
+            <button
+              class="btn btn-xs btn-primary btn-block py-2 repositionSmallButton"
+              [disabled]="disablePostButton"
+              (click)="postComment()"
+            >
+              {{ 'Comments.Post' | translationPipe }}
+              <app-sk-spinner
+                *ngIf="disablePostButton"
+                style="display: inline-block; margin-left: 5px;"
+              ></app-sk-spinner>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

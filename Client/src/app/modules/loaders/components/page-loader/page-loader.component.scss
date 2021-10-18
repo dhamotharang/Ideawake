@@ -1,0 +1,79 @@
+
+
+$color: #1ab394;
+$size: 12px;
+$time: 1;
+
+main {
+  width: 100%;
+  height: calc(100vh - 142px);
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f9;
+  z-index: 10000;
+  position: fixed;
+}
+
+.dank-ass-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .row {
+    display: flex;
+  }
+}
+
+p {
+  position: absolute;
+  top: 6.5rem;
+  right: 0.25rem;
+  color: #212529;
+  font-size: 20px;
+}
+
+.repositionLoader {
+  position: relative;
+  bottom: 5rem;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin: 0 (-$size / 2);
+  border-left: $size solid transparent;
+  border-right: $size solid transparent;
+  border-bottom: ($size * 1.8) solid $color;
+  animation: blink $time + s infinite;
+  // filter: drop-shadow(0 0 ($size * 1) $color);
+
+  &.down {
+    transform: rotate(180deg);
+  }
+
+  @for $i from 1 through 18 {
+    &.outer-#{$i} {
+      animation-delay: -($time / 18) * $i + s;
+    }
+  }
+
+  @for $i from 1 through 6 {
+    &.inner-#{$i} {
+      animation-delay: -($time / 6) * $i + s;
+    }
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}

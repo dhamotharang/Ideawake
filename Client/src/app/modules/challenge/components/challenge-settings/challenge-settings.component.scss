@@ -1,0 +1,123 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.customLeftPadding {
+  padding-left: 0.75rem;
+}
+
+.selectStakeholder {
+  background-color: $white;
+  color: $gray-900;
+}
+
+.selectStakeholder:hover {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder.active {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder .icon {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .icon {
+  color: $white;
+}
+
+.selectStakeholder.active .icon {
+  color: $white;
+}
+
+.selectStakeholder .descriptionText {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .descriptionText {
+  color: $white;
+}
+
+.selectStakeholder.active .descriptionText {
+  color: $white;
+}
+
+// custom switch css
+
+.onoffswitch {
+  position: relative;
+  width: 125px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #dddddd;
+  border-radius: 14px;
+}
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 37px;
+  padding: 0;
+  line-height: 37px;
+  font-size: 14px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  content: 'ENABLED';
+  padding-left: 10px;
+  background-color: #1ab394;
+  color: #ffffff;
+}
+.onoffswitch-inner:after {
+  content: 'DISABLED';
+  padding-right: 10px;
+  background-color: #f50c0c;
+  color: #ffffff;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block;
+  width: 23px;
+  margin: 7px;
+  background: #dddddd;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 84px;
+  border: 2px solid #dddddd;
+  border-radius: 14px;
+  transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+
+.hideOverflow{
+  overflow-x: hidden;
+}

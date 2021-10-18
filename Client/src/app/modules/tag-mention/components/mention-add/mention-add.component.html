@@ -1,0 +1,96 @@
+<div
+  class="btn-sm pl-2 pt-2 pb-1"
+  container="body"
+  style="
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    text-align: left;
+    padding: 0;
+    border: none;
+    background: none;
+  "
+  *ngIf="item"
+>
+  <div class="media" *ngIf="item.data.mentionType !== 'group'">
+    <img
+      *ngIf="item.data?.firstName"
+      [defaultImage]="defaultImage"
+      [lazyLoad]="item.data.profileImage.url"
+      class="mr-2 rounded-circle"
+      width="30"
+      height="30"
+    />
+    <div class="media-body">
+      <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+        <span *ngIf="item.data?.name">#</span>
+        {{
+          item.data?.name || item.data?.firstName + ' ' + item.data?.lastName
+        }}
+      </p>
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item mr-0">
+          <p class="small mb-0 text-muted">{{ item.label }}</p>
+        </li>
+        <li class="list-inline-item ml-1 mr-1">
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            class="small separatorIcon text-muted"
+          ></fa-icon>
+        </li>
+        <li class="list-inline-item mr-0">
+          <p class="small mb-0 text-muted">
+            {{ item.data?.role?.title || 'User' }}
+          </p>
+        </li>
+        <li class="list-inline-item ml-1 mr-1">
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            class="small separatorIcon text-muted"
+          ></fa-icon>
+        </li>
+        <li class="list-inline-item">
+          <p class="small mb-0 text-muted">{{ item.data?.email }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="media" *ngIf="item.data.mentionType === 'group'">
+    <img
+      [defaultImage]="defaultImage"
+      [lazyLoad]="'https://via.placeholder.com/30x30'"
+      *ngIf="item.data?.name"
+      class="mr-2 rounded-circle"
+      width="30"
+      height="30"
+    />
+    <div class="media-body">
+      <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+        {{ item.data?.name }}
+      </p>
+      <ul *ngIf="item.data?.name" class="list-inline mb-0">
+        <li class="list-inline-item mr-0">
+          <p class="small mb-0 text-muted">{{ item.data.mentionType }}</p>
+        </li>
+        <!-- <li class="list-inline-item ml-1 mr-1">
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            class="small separatorIcon text-muted"
+          ></fa-icon>
+        </li>
+        <li class="list-inline-item mr-0">
+          <p class="small mb-0 text-muted">{{ item.data?.role?.title || 'User' }}</p>
+        </li>
+        <li class="list-inline-item ml-1 mr-1">
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            class="small separatorIcon text-muted"
+          ></fa-icon>
+        </li> -->
+        <li class="list-inline-item">
+          <p class="small mb-0 text-muted">{{ item.data?.email }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

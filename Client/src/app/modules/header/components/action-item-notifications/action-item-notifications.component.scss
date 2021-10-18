@@ -1,0 +1,133 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.p-10 {
+  padding: 10px;
+}
+
+.navigationIcon {
+  font-size: 1.25rem;
+  position: relative;
+  top: 0.85rem;
+}
+
+.grayIcon .navigationIcon {
+  color: $gray-600;
+  background-color: $white;
+}
+
+.grayIcon:hover .navigationIcon {
+  color: $primary;
+  background-color: $white;
+}
+
+.navNotificationCounter {
+  position: absolute;
+  top: 0.4rem;
+  left: 1.45rem;
+  padding: 0.3rem 0.2rem;
+  font-size: 8.5px;
+  border-radius: 100px;
+  min-width: 1.15rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.notificationTextSize {
+  font-size: 95%;
+  word-wrap: break-word;
+}
+
+.unread {
+  background-color: #e8f7f4;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #212529 !important;
+}
+
+// extra small devices
+
+.taskNotificationsDropdown {
+  // left: -19.75rem !important;
+  left: -25rem !important;
+  width: 100vw;
+  position: absolute;
+  top: 1.25rem !important;
+  border-radius: 0;
+}
+
+.setNotificationHeight {
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .taskNotificationsDropdown {
+    // left: -22.5rem !important;
+    left: -25rem !important;
+    width: 100vw;
+    position: absolute;
+    top: 2.05rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 90vh;
+    overflow-y: scroll;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .taskNotificationsDropdown {
+    left: -27rem !important;
+    width: 30rem;
+    position: absolute;
+    top: 3.7rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .taskNotificationsDropdown {
+    left: -27rem !important;
+    width: 30rem;
+    position: absolute;
+    top: 3.7rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .taskNotificationsDropdown {
+    left: -27rem !important;
+    width: 30rem;
+    position: absolute;
+    top: 3.7rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}

@@ -1,0 +1,84 @@
+.ideaDescriptionHeight {
+  min-height: 105px;
+  max-height: 105px;
+  overflow-y: hidden;
+}
+
+.ideaTitle {
+  font-size: 95%;
+  font-weight: normal;
+  font-family: montserrat;
+}
+
+.ideaStatus {
+  position: absolute;
+  left: -1px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.card .quickActionsToggle {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.card .quickActionsToggle:hover {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.ideaCardListPadding {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.adjustPadding {
+  padding-left: 1.5rem;
+}
+
+.fixed {
+  position: fixed;
+  // top: 1rem;
+  top: 6rem;
+  // left: 6.5rem;
+  height: 85%;
+  margin-bottom: 40px;
+  overflow-y: scroll;
+  width: 16%;
+}
+
+.setHeight {
+  max-height: 45rem;
+  overflow-y: scroll;
+}
+
+// Extra Small Devices
+
+
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}

@@ -1,0 +1,134 @@
+<label>Configure Knowledgebase Field</label>
+<div class="card bg-light shadow-sm mb-3">
+  <div class="card-body p-2">
+    <div class="form-row">
+      <div class="form-group mb-0 col-12">
+        <label class="mb-0">
+          Select Knowledgebase Field Type
+          <fa-icon
+            [icon]="['fas', 'question-circle']"
+            class="text-muted"
+            ngbTooltip="Select which roles can view this field. By default, all users will
+                        be able to see entries."
+          >
+          </fa-icon>
+        </label>
+        <div class="form-row py-2">
+          <div class="form-group col-12 mb-0">
+            <div ngbDropdown container="body">
+              <div class="removeCaret customDropdown rounded" ngbDropdownToggle>
+                <div class="row">
+                  <div class="col-10">
+                    Select Knowledgebase Field Type
+                  </div>
+                  <div class="col-2">
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted float-right"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div
+                ngbDropdownMenu
+                class="shadow-lg w-100"
+                style="max-height: 22rem; overflow-y: scroll;"
+              >
+                <button class="pl-3 py-1" ngbDropdownItem>
+                  ng repeat knowledge types
+                </button>
+                <button class="pl-3 py-1" ngbDropdownItem>
+                  ng repeat knowledge types
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row pt-2">
+      <div class="form-group col-8 mb-0">
+        <label class="font-weight-normal">
+          User is Able to Add Multiple Entries
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            placement="top"
+            ngbTooltip="Field description if it exists"
+          ></fa-icon>
+        </label>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="multipleEntries"
+            checked
+          />
+          <label class="custom-control-label" for="multipleEntries"
+            >Enabled</label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="form-row pt-2">
+      <div class="form-group col-8 mb-0">
+        <label class="font-weight-normal">
+          Database Searchable
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            placement="top"
+            ngbTooltip="Field description if it exists"
+          ></fa-icon>
+        </label>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="dbSearchable"
+            checked
+          />
+          <label class="custom-control-label" for="dbSearchable">Enabled</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row pt-2">
+      <div class="form-group col-8 mb-0">
+        <label class="font-weight-normal">
+          Allowed to Create New
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            placement="top"
+            ngbTooltip="Field description if it exists"
+          ></fa-icon>
+        </label>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="createNew"
+            checked
+          />
+          <label class="custom-control-label" for="createNew">Enabled</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <label>Field Preview - User Select Field</label>
+  <div class="card bg-white mb-3">
+    <div class="card-body p-2">
+      <label class="font-weight-normal">
+        Field Label
+        <fa-icon [icon]="['fas', 'info-circle']" class="text-muted" placement="right" ngbTooltip="Field description if it exists"></fa-icon>
+      </label>
+      <app-search-groups></app-search-groups>
+    </div>
+  </div> -->

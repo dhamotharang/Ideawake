@@ -1,0 +1,35 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.tagBadge {
+  font-weight: normal;
+  color: #898989;
+  background-color: white;
+  border: 1px solid $primary;
+  border-radius: 0.15rem;
+  cursor: pointer;
+}
+
+.tagBadge:hover {
+  font-weight: normal;
+  color: $white;
+  background-color: $primary;
+  border: 1px solid $primary;
+  border-radius: 0.15rem;
+  cursor: pointer;
+}
+
+.tagBadge.active {
+  font-weight: normal;
+  color: $white;
+  background-color: $primary;
+  border: 1px solid $primary;
+  border-radius: 0.15rem;
+  cursor: pointer;
+}
+
+::ng-deep .tooltip-inner {
+  width: 200px;
+}

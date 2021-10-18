@@ -1,0 +1,172 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <a class="mb-0 uppercase bold pt-1" routerLink="/settings/all"
+          >Settings</a
+        >
+      </li>
+      <li class="list-inline-item">
+        <fa-icon
+          [icon]="['fas', 'angle-right']"
+          class="mr-1 ml-1 text-muted"
+        ></fa-icon>
+      </li>
+      <li class="list-inline-item">
+        <p class="mb-0 bold pt-1 uppercase text-muted">
+          Custom Fields ({{ counts?.total || 0 }})
+        </p>
+      </li>
+      <li class="list-inline-item float-right">
+        <app-custom-field-create
+          *ngIf="userCommunityPermissions?.createCustomField"
+          (updated)="getActive()"
+        ></app-custom-field-create>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="row pb-3">
+      <div class="col-6">
+        <app-search-inline
+          (search)="searchText($event)"
+          [clear]="clearText"
+        ></app-search-inline>
+      </div>
+      <div class="col-6">
+        <!-- <div class="float-right">
+          <button
+            (click)="getActive()"
+            class="btn btn-outline-primary btn-sm btn-rounded"
+            [ngClass]="{ active: isActive == true }"
+          >
+            <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+            Active Fields ({{ counts?.active || 0 }})
+          </button>
+          <button
+            (click)="getArchive()"
+            class="btn btn-outline-danger btn-sm btn-rounded ml-2"
+            [ngClass]="{ active: isActive == false }"
+          >
+            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            Archived Fields ({{ counts?.archived || 0 }})
+          </button>
+        </div> -->
+      </div>
+    </div>
+    <!-- start of fields -->
+    <div class="row">
+      <div class="col-12">
+        <div class="row bg-light border-top border-bottom pt-2 pb-1">
+          <div class="col-8 col-md-5">
+            <label>Field Label</label>
+          </div>
+          <div class="d-none d-md-inline-block col-md-1">
+            <label>Created</label>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2">
+            <label>Field Group</label>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2">
+            <p class="text-center bold mb-0">
+              Who Can View
+            </p>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2">
+            <p class="text-center bold mb-0">Who Can Edit</p>
+          </div>
+        </div>
+        <!-- start of one entry -->
+        <div
+          *ngFor="let field of fieldsList"
+          class="row dottedBottomBorder pt-2 pb-2 d-flex flex-row"
+        >
+          <div class="col-8 col-md-3">
+            <label class="mb-0 font-weight-normal">
+              {{ field?.title }}
+            </label>
+            <p class="small mb-0 text-muted">
+              {{ field?.customFieldType?.title }}
+            </p>
+          </div>
+          <div class="col-4 col-md-2 align-self-center">
+            <button
+              class="btn btn-light btn-sm border mr-1"
+              placement="top"
+              (click)="
+                userCommunityPermissions?.editCustomField
+                  ? editField(field)
+                  : null
+              "
+              [disabled]="
+                userCommunityPermissions?.editCustomField ? null : 'true'
+              "
+              [ngbTooltip]="
+                userCommunityPermissions?.editCustomField
+                  ? null
+                  : 'You cannot edit this field.'
+              "
+            >
+              <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+              Edit Field
+            </button>
+            <!-- <button class="btn btn-light btn-sm border mr-1">
+                  Preview
+                </button> -->
+            <!-- <button
+                class="btn btn-light btn-sm border"
+                disabled
+                placement="top"
+                [ngbTooltip]="
+                  userCommunityPermissions?.softDeleteCustomField === 2
+                    ? null
+                    : 'You cannot delete this field.'
+                "
+                (click)="
+                  (userCommunityPermissions?.softDeleteCustomField === 2
+                    ? null
+                    : null)
+                "
+              >
+                Delete
+              </button> -->
+          </div>
+          <div class="d-none d-md-inline-block col-md-1 align-self-center">
+            <p class="mb-0">{{ field?.createdAt | date: 'shortDate' }}</p>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2 align-self-center">
+            <p class="mb-0">-</p>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2 align-self-center">
+            <p class="mb-0 text-center">
+              {{ field?.visibilityRolesText }}
+            </p>
+          </div>
+          <div class="d-none d-md-inline-block col-md-2 align-self-center">
+            <p class="mb-0 text-center">
+              {{ field?.editRolesText }}
+            </p>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <ul class="list-unstyled text-center pt-4" *ngIf="fieldsList.length === 0">
+          <li>
+            <fa-icon [icon]="['fas', 'paragraph']" class="mr-1 iconExtraLarge text-muted"></fa-icon>
+          </li>
+          <li>
+            <h4 class="montserrat bold">
+              You Haven't Added Any Custom Fields Yet
+            </h4>
+          </li>
+          <li>
+            <p class="text-muted mb-4">
+              Use groups to target and control access to ideas,
+              insights, workflows, and challenges.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- end of fields -->
+  </div>
+</div>

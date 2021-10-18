@@ -1,0 +1,194 @@
+<div class="row">
+  <div class="leftCol d-none d-md-block">
+    <app-idea-filters
+      [entity]="ideaEntity"
+      [pageType]="'challenge'"
+      [challengeId]="challengeId"
+      [appFilters]="appliedFilters"
+      [onChallengePage]="true"
+      (filterApplied)="filterOpportunities($event)"
+    >
+    </app-idea-filters>
+  </div>
+  <div class="centerCol removePaddingOnMobile">
+    <!-- manage action items -->
+    <div
+      class="alert bg-primary mb-0 mt-3 shadow-sm cardAnimation pointer d-none"
+      style="margin-left: -6px; margin-right: -6px;"
+    >
+      <div class="row">
+        <div class="col-6">
+          <h6 class="text-white montserrat bold mb-1 mt-1">
+            Manage Action Items to Keep Innovation Running Smoothly
+          </h6>
+          <p class="small mb-0 text-white">
+            This is a long description this is a long description this is a long
+            description.
+          </p>
+        </div>
+        <div class="col-4">
+          <ul class="list-inline mb-0 text-center">
+            <li class="list-inline-item w-30">
+              <h5 class="text-white montserrat bold mb-0 mt-1">5</h5>
+              <p class="small mb-0 text-white">Open Items</p>
+            </li>
+            <li class="list-inline-item w-30">
+              <h5 class="text-white montserrat bold mb-0 mt-1">5</h5>
+              <p class="small mb-0 text-white">Completed</p>
+            </li>
+            <li class="list-inline-item w-30">
+              <h5 class="text-white montserrat bold mb-0 mt-1">5</h5>
+              <p class="small mb-0 text-white">Past Due</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-sm btn-white text-primary">
+            Manage Action Items
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- manage action items -->
+    <!-- popular actions for admins -->
+    <div class="row d-none">
+      <div class="col-12">
+        <p class="mb-0">Popular Actions for Admins</p>
+        <hr class="my-0" />
+        <div class="row">
+          <div class="col-6"></div>
+          <div class="col-6"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end popular actions for admins -->
+    <!-- start of omnibox insert for a specific challenge -->
+    <div
+      class="card shadow-sm mb-3"
+      *ngIf="userChallengePermissions?.postOpportunity"
+      (click)="openPostIdea()"
+    >
+      <div class="card-header bg-light pt-0 pb-0 pl-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item p-2 addHover">
+            <p
+              class="uppercase montserrat bold text-muted mb-0 text-medium"
+              style="padding-top: 5px; padding-bottom: 3px;"
+            >
+              {{ 'ChallengeView.Post' | translationPipe }}
+              {{ challenge?.opportunityType?.name | article }}
+              {{ challenge?.opportunityType?.name }}
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body pointer pt-3 pr-1 pl-1 pb-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-row" style="min-height: 5.5rem;">
+              <!-- <div class="form-group col-sm-1 pl-1">
+                <img class="rounded-circle" style="
+                  position: relative;
+                  left: 0.5rem;
+                  z-index: 1;
+                " [src]="user?.profileImage?.url" height="50" width="50" />
+              </div> -->
+              <div class="form-group col-11 mb-0 pl-0">
+                <p class="text-muted ml-3">
+                  {{ 'ChallengeView.StartTyping' | translationPipe }}
+                  {{ challenge?.opportunityType?.name }}
+                  {{ 'ChallengeView.Here' | translationPipe }}
+                </p>
+              </div>
+            </div>
+            <div
+              class="form-row bg-white pb-2 pt-1 pl-1 pr-1 border-top border-bottom border-right border-left"
+            >
+              <div class="form-group col-7 col-md-9 mb-0"></div>
+              <div class="form-group col-5 col-md-3 mb-0">
+                <button class="btn btn-primary montserrat btn-block mt-1">
+                  {{ 'ChallengeView.Post' | translationPipe }}
+                  {{ challenge?.opportunityType?.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of omnibox insert for a specific challenge -->
+    <!-- <app-omni-box></app-omni-box> -->
+    <div class="mb-3">
+      <app-updates-summary-list
+        [level]="'challenge'"
+        [entityObjectId]="challengeId"
+      ></app-updates-summary-list>
+    </div>
+    <!-- start of one idea card-->
+    <p class="text-medium montserrat bold uppercase mb-2 text-muted mt-2">
+      {{ ideas?.length || 0 }}
+      {{ 'ChallengeView.Of' | translationPipe }}
+      {{ count }}
+      {{ challenge?.opportunityType?.name | pluralize }}
+      {{ 'Shared.Returned' | translationPipe }}
+    </p>
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="scrollDownDistance"
+      (scrolled)="changePage()"
+      [scrollWindow]="true"
+      class="row"
+    >
+      <div class="col-12 mb-3" *ngFor="let idea of ideas; let i = index">
+        <div (click)="updateSummaryParams(idea, i)">
+          <app-idea-widget-feed-list
+            [idea]="idea"
+            [upvotes]="upvotes"
+            [upvotesData]="upvoteDetail"
+            [tagsData]="tagsData"
+            [permissions]="idea?.experienceSettings"
+            (opportunityUpdated)="opportunityUpdated($event)"
+            (action)="cardActions($event, idea)"
+          ></app-idea-widget-feed-list>
+        </div>
+      </div>
+    </div>
+    <!-- end of one -->
+    <!-- if no ideas have been posted -->
+    <div *ngIf="!ideas?.length" class="row mb-4">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body text-center py-5">
+            <fa-icon
+              [icon]="['fas', challenge?.opportunityType?.icon]"
+              class="iconExtraLarge text-muted mb-3"
+            ></fa-icon>
+            <h4 class="montserrat">
+              {{ 'ChallengeView.No' | translationPipe }}
+              {{ challenge?.opportunityType?.name | pluralize }}
+              {{ 'ChallengeView.HaveBeenPosted' | translationPipe }}
+            </h4>
+            <p
+              class="text-muted"
+              *ngIf="userChallengePermissions?.postOpportunity"
+            >
+              {{ 'ChallengeView.BeTheFirst' | translationPipe }}
+              {{ challenge?.opportunityType?.name | article }}
+              {{ challenge?.opportunityType?.name }}
+              {{ 'ChallengeView.OnThisChallenge' | translationPipe }}
+            </p>
+            <button
+              (click)="openPostIdea()"
+              class="btn btn-primary"
+              *ngIf="userChallengePermissions?.postOpportunity"
+            >
+              {{ 'ChallengeView.PostYour' | translationPipe }}
+              {{ challenge?.opportunityType?.name }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end no ideas have been posted -->

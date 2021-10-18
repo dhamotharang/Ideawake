@@ -1,0 +1,247 @@
+<div class="modal-header card-header bg-light pt-3">
+  <p class="uppercase bold montserrat text-muted mb-0 text-medium">
+    {{ 'Profile.EditYourProfile' | translationPipe }}
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light" style="overflow-y: scroll; max-height: 33rem;">
+  <form [formGroup]="editProfileForm">
+    <div
+      class="form-row border rounded addHover ml-0 mr-0 p-2 mb-3"
+      (click)="image.click()"
+    >
+      <div class="form-group col-2 mb-0" style="margin-right: 5px;">
+        <img
+          class="rounded-circle"
+          style="width: 50px; height: 50px;"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="userImage || 'https://via.placeholder.com/75'"
+        />
+      </div>
+      <input
+        type="file"
+        (change)="uploadImage($event.target.files)"
+        hidden
+        single
+        #image
+      />
+      <div class="form-group col-9 mb-0">
+        <label>
+          {{ 'Profile.EditProfileImage' | translationPipe }}
+        </label>
+        <p class="small text-muted mb-0">
+          {{ 'Profile.SuggestedImageSize' | translationPipe }}
+        </p>
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.FirstName' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          formControlName="firstName"
+          class="form-control"
+          placeholder="Enter your first name..."
+          [ngClass]="{
+            'is-invalid': !(hideErrorMessage || firstName.value !== '')
+          }"
+        />
+      </div>
+      <!--       <div [hidden]="hideErrorMessage || firstName.value !== ''" class="error-txt">First Name is Required</div> -->
+
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.LastName' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          formControlName="lastName"
+          class="form-control"
+          placeholder="Enter your last name..."
+          [ngClass]="{
+            'is-invalid': !(hideErrorMessage || lastName.value !== '')
+          }"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>
+        {{ 'Profile.ProfileBio' | translationPipe }}
+      </label>
+      <textarea
+        class="form-control"
+        rows="2"
+        placeholder="Tell the community about yourself..."
+        formControlName="profileBio"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label>
+        {{ 'Profile.Skills' | translationPipe }}
+      </label>
+      <app-multiselect-dropdown
+        class="form-control border-0"
+        style="padding: 0;"
+        [data]="modalSkills"
+        [placeholder]="'Start typing to see skills...'"
+        (dataEmitter)="data($event)"
+        (searchTermEmitter)="search($event)"
+      >
+      </app-multiselect-dropdown>
+      <!-- <div class="input-group mb-0 mr-sm-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white">
+            <fa-icon [icon]="['fas', 'hashtag']"></fa-icon>
+          </div>
+        </div>
+        <input
+                  type="text"
+                  class="form-control border-left-0"
+                  placeholder="Start typing to see skills..."
+                  formControlName="skills"
+                />
+
+
+      </div> -->
+      <p class="text-muted small mt-2 mb-0">
+        {{ 'Profile.SkillsDescription' | translationPipe }}
+      </p>
+    </div>
+    <div class="form-group mb-3 pb-2 border-bottom">
+      <ul class="list-inline mb-2">
+        <li class="list-inline-item mb-2" *ngFor="let skill of userSkills">
+          <span class="badge badge-light badgePadding border montserrat">
+            <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>
+            {{ skill.name }}
+            <fa-icon
+              [icon]="['fas', 'times-circle']"
+              class="pointer pl-1"
+            ></fa-icon>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label>{{ 'Login.PreferredLanguage' | translationPipe }}</label>
+      <ng-select
+        [items]="languages"
+        bindLabel="title"
+        bindValue="key"
+        [multiple]="false"
+        [formControl]="language"
+        [clearable]="false"
+        [searchable]="false"
+      ></ng-select>
+    </div>
+    <div class="form-group">
+      <label>
+        {{ 'Profile.UserName' | translationPipe }}
+      </label>
+      <div class="input-group mb-0 mr-sm-2">
+        <div class="input-group-prepend">
+          <div
+            class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+          >
+            @
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="userName"
+          class="form-control border-left-0"
+          placeholder="cobskon"
+          [ngClass]="{
+            'is-invalid': !(hideErrorMessage || userName.value !== '')
+          }"
+        />
+      </div>
+      <p class="text-muted small mt-2 mb-0">
+        {{ 'Profile.UserNameDescription' | translationPipe }}
+      </p>
+    </div>
+    <div class="form-group mb-2">
+      <label>
+        {{ 'Login.EmailAddress' | translationPipe }}
+      </label>
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="name@example.com"
+        readonly
+      />
+    </div>
+    <!-- <div class="form-group mb-1">
+      <span class="text-primary bold">
+        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+        Add Alternative Email
+      </span>
+    </div> -->
+    <div class="form-row pt-3">
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.Country' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          formControlName="country"
+          class="form-control"
+          placeholder="Start typing to see countries..."
+        />
+      </div>
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.Zip' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          formControlName="zipCode"
+          class="form-control"
+          placeholder="53202"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.CurrentPosition' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          formControlName="position"
+          class="form-control"
+          placeholder="Marketing Manager"
+        />
+      </div>
+      <div class="form-group col-6">
+        <label>
+          {{ 'Profile.CurrentCompany' | translationPipe }}
+        </label>
+        <input
+          type="text"
+          readonly
+          formControlName="company"
+          class="form-control"
+          placeholder="Ideawake"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer bg-light">
+  <button type="button" class="btn btn-light border" (click)="closeModal()">
+    {{ 'Shared.Cancel' | translationPipe }}
+  </button>
+  <button
+    type="submit"
+    [disabled]="editProfileForm.invalid"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+  >
+    {{ 'Shared.Save' | translationPipe }}
+  </button>
+</div>

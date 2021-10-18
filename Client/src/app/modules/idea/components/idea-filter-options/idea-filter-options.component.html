@@ -1,0 +1,306 @@
+<button
+  class="btn btn-light btn-sm border btn-block text-muted removeCaret"
+  (click)="open(additionalFilters)"
+>
+  <small>
+    <fa-icon [icon]="['fas', 'filter']" class="mr-1"></fa-icon>
+    <strong>Additional Filters</strong>
+  </small>
+</button>
+
+<!-- start of additional filters modal -->
+<ng-template #additionalFilters let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Additional Filters</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-4">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="uppercase small text-muted bold mb-2">Status</p>
+              </li>
+            </ul>
+            <ul class="list-unstyled mb-2 ml-1">
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allStatuses"
+                    checked
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allStatuses"
+                  >
+                    All Statuses
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    In Submission
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    In Evaluation
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    In Scoping
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    In Development
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    Implemented
+                    <fa-icon
+                      [icon]="['fas', 'eye-slash']"
+                      class="ml-1 text-muted"
+                      placement="top"
+                      ngbTooltip="Ideas with this status will not be visible unless filtered by"
+                    ></fa-icon>
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allContentTypes"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allContentTypes"
+                  >
+                    Parking Lot
+                    <fa-icon
+                      [icon]="['fas', 'eye-slash']"
+                      class="ml-1 text-muted"
+                      placement="top"
+                      ngbTooltip="Ideas with this status will not be visible unless filtered by"
+                    ></fa-icon>
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <button class="btn btn-light btn-sm border btn-block mb-2 mb-1">
+              <app-idea-status-manage-modal></app-idea-status-manage-modal>
+            </button>
+          </div>
+          <div class="col-4">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="uppercase small text-muted bold mb-2 mt-2">
+                  Categories
+                </p>
+              </li>
+            </ul>
+            <ul class="list-unstyled ml-1 mb-2">
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="allCategories"
+                    checked
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="allCategories"
+                  >
+                    All Categories
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="noCategory"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="noCategory"
+                  >
+                    No Category
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="categoryOne"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="categoryOne"
+                    >aginginplace
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+              <li class="small">
+                <div class="custom-control custom-checkbox w-100">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="categoryTwo"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+                    for="categoryTwo"
+                  >
+                    millenialengagement
+                    <span class="float-right">
+                      <span
+                        class="badge badge-light border pt-1 pb-1 adjustFilterCounter"
+                        >1,250</span
+                      >
+                    </span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <app-custom-field-edit-single-select></app-custom-field-edit-single-select>
+          </div>
+          <div class="col-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary ml-2">Apply 5 Filters</button>
+  </div>
+</ng-template>
+<!-- end of additional filters modal -->

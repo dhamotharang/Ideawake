@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="fb-item col-12" [ngClass]="{ 'background-color': count !== 1, 'not-window': !window }"
+    *ngFor="let a of arr">
+    <div class="row mx-0">
+      <div class="col-10 offset-1">
+        <div class="row">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item w-15">
+                    <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '20px' }">
+                    </app-list-loader>
+                  </li>
+                  <li class="list-inline-item w-15">
+                    <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '20px' }">
+                    </app-list-loader>
+                  </li>
+                  <li class="list-inline-item w-15">
+                    <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '20px' }">
+                    </app-list-loader>
+                  </li>
+                  <li class="list-inline-item w-15">
+                    <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '20px' }">
+                    </app-list-loader>
+                  </li>
+                  <li class="list-inline-item w-15">
+                    <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '20px' }">
+                    </app-list-loader>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '35px', 'margin-bottom': '15px' }">
+                </app-list-loader>
+                <app-list-loader [style]="{ width: '95%', 'border-radius': '0', height: '35px', 'margin-bottom': '25px' }">
+                </app-list-loader>
+                <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '5px' }">
+                </app-list-loader>
+                <app-list-loader [style]="{ width: '100%', 'border-radius': '0', height: '15px', 'margin-bottom': '5px' }">
+                </app-list-loader>
+                <app-list-loader [style]="{ width: '95%', 'border-radius': '0', height: '15px', 'margin-bottom': '5px' }">
+                </app-list-loader>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 offset-1" style="margin-top: 2.4rem;">
+            <ul class="list-unstyled mb-0">
+              <li>
+                <span class="float-right">
+                  <app-list-loader [style]="{ width: '70%', 'border-radius': '5px', height: '20px', 'margin-bottom': '10px' }">
+                  </app-list-loader>
+                </span>
+              </li>
+              <li>
+                <app-list-loader [style]="{ width: '100%', 'border-radius': '5px', height: '40px', 'margin-bottom': '10px' }">
+                </app-list-loader>
+              </li>
+              <li>
+                <app-list-loader [style]="{ width: '100%', 'border-radius': '5px', height: '40px', 'margin-bottom': '10px' }">
+                </app-list-loader>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

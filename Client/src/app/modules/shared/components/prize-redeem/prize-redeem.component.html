@@ -1,0 +1,32 @@
+<span
+  class="badge badge-light border badgePadding pointer"
+  (click)="open(redeemPrize)"
+  >Redeem Prize</span
+>
+
+<!-- award prize modal -->
+
+<ng-template #redeemPrize let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Award Prize</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="overflow-y: scroll; max-height: 35rem;"></div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light border"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary">Save Changes</button>
+  </div>
+</ng-template>

@@ -1,0 +1,192 @@
+<div class="modal-header card-header bg-light border-bottom-0 px-3">
+  <p class="small uppercase bold mb-0 montserrat">Add Users to This Group</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light pt-0 pb-0">
+  <div class="row">
+    <div
+      class="pl-2 pr-1"
+      [ngClass]="!dataToSend.length ? 'col-12' : 'col-12 col-md-8'"
+    >
+      <div class="row pt-2">
+        <div class="col-12">
+          <form>
+            <div class="form-group mb-2 p-2">
+              <label class="bold">Search Users</label>
+              <input
+                type="search"
+                class="form-control"
+                placeholder="Start typing users..."
+                (ngModelChange)="searchUsers($event)"
+                [(ngModel)]="searchTerm"
+                name="searchTerm"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="custom-control custom-checkbox"
+            style="padding-left: 2rem;"
+          >
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="selectAllAddUsers"
+              (click)="addAllUsers()"
+              [checked]="checkAllUsers()"
+            />
+            <label
+              class="custom-control-label mb-0 bold"
+              for="selectAllAddUsers"
+            >
+              Select All {{ users?.length }} User(s)
+            </label>
+          </div>
+          <hr class="mb-0 mt-1" />
+          <div class="modalScrollMaxHeight">
+            <div
+              *ngFor="let user of users; let i = index"
+              class="globalUserSearchResult addHover"
+            >
+              <div class="custom-control custom-checkbox pointer">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [id]="user.id"
+                  (click)="clicked(user)"
+                  [checked]="findUser(user)"
+                />
+                <label
+                  class="custom-control-label pointer w-100"
+                  [for]="user.id"
+                >
+                  <div class="media">
+                    <img
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="user?.profileImage?.url || image"
+                      class="mr-2 ml-1 rounded-circle image"
+                    />
+                    <div class="media-body">
+                      <p class="mt-0 mb-0">
+                        {{ user.firstName }} {{ user.lastName }}
+                      </p>
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item mr-0">
+                          <p class="small mb-0 text-muted">
+                            {{ user.userName }}
+                          </p>
+                        </li>
+                        <li class="list-inline-item ml-1 mr-1">
+                          <fa-icon
+                            [icon]="['fas', 'circle']"
+                            class="small separatorIcon text-muted"
+                          ></fa-icon>
+                        </li>
+                        <li class="list-inline-item mr-0">
+                          <p class="small mb-0 text-muted">
+                            {{ user.role?.title || 'User' }}
+                          </p>
+                        </li>
+                        <li class="list-inline-item ml-1 mr-1">
+                          <fa-icon
+                            [icon]="['fas', 'circle']"
+                            class="small separatorIcon text-muted"
+                          ></fa-icon>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="small mb-0 text-muted">{{ user.email }}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-left border-top modalScrollMaxHeight"
+      style="background-color: #f4f6f9;"
+      [ngClass]="!dataToSend.length ? 'd-none' : 'd-none d-md-block col-md-4'"
+    >
+      <!-- start of selected groups -->
+      <!-- <div class="row pt-2">
+        <div class="col-12">
+          <p class="mb-2 uppercase bold pt-1 small text-muted">Selected Groups (2)</p>
+        </div>
+      </div>
+      <div class="row selectedUser">
+        <div class="col-12">
+          <div class="media">
+            <img src="https://via.placeholder.com/25x25" class="mr-2 rounded-circle" />
+            <div class="media-body">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="small bold pointer">Group Name (500)</label>
+                </li>
+                <li class="float-right">
+                  <fa-icon [icon]="['fas', 'times-circle']" class="text-muted"></fa-icon>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- end of selected groups -->
+      <div class="row pt-2">
+        <div class="col-12">
+          <p class="mb-2 uppercase bold pt-1 small text-muted">
+            Selected Users ({{ dataToSend.length }})
+          </p>
+        </div>
+      </div>
+      <!-- start of one entry -->
+      <div class="row selectedUser" *ngFor="let data of dataToSend">
+        <div class="col-12">
+          <div class="media align-items-center">
+            <img
+              [defaultImage]="defaultImage"
+              [lazyLoad]="data?.profileImage?.url || image"
+              class="mr-2 rounded-circle userImageSelected"
+            />
+            <div class="media-body">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="small bold pointer mb-0 font-weight-normal"
+                    >{{ data.firstName }} {{ data.lastName }}</label
+                  >
+                </li>
+                <li class="float-right">
+                  <fa-icon
+                    [icon]="['fas', 'times-circle']"
+                    class="text-muted"
+                    (click)="clicked(data)"
+                  ></fa-icon>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of one entry -->
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="closeModal()">Cancel</button>
+  <button class="btn btn-primary ml-2" (click)="addUsersToGroup()">
+    Add Users
+  </button>
+</div>

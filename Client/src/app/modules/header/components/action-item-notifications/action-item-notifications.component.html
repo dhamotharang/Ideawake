@@ -1,0 +1,106 @@
+<div ngbDropdown (openChange)="counts = 0">
+  <a
+    class="nav-link-icon grayIcon p-10"
+    id="notificationsDropdown"
+    routerLinkActive="active"
+    ngbDropdownToggle
+  >
+    <fa-icon
+      [icon]="['fas', 'flag']"
+      class="navigationIcon animated rubberBand"
+      style="padding-bottom: 10px;"
+      container="body"
+      ngbTooltip="{{ 'Nav.ActionItems' | translationPipe }}"
+      placement="bottom"
+    ></fa-icon>
+    <span
+      *ngIf="counts > 0"
+      class="badge badge-danger navNotificationCounter"
+      >{{ counts || 0 }}</span
+    >
+  </a>
+  <div
+    ngbDropdownMenu
+    aria-labelledby="notificationsDropdown"
+    class="shadow taskNotificationsDropdown pt-0 pb-0"
+  >
+    <div class="bg-light border-bottom pt-1 pb-1">
+      <label class="small bold text-muted pl-3">
+        {{ 'Nav.ActionItems' | translationPipe }}
+        ({{ actualCounts }})</label
+      >
+    </div>
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="scrollDownDistance"
+      (scrolled)="fetchData()"
+      [scrollWindow]="false"
+      class="setNotificationHeight"
+    >
+      <!-- start of Refinement -->
+      <button
+        ngbDropdownItem
+        *ngFor="let item of itemsList"
+        class="pl-1 border-bottom"
+        [ngClass]="{ unread: item?.isRead === false ? true : false }"
+        (click)="markRead(item); redirectTo(item)"
+      >
+        <div class="media">
+          <img
+            class="rounded-circle mr-3 ml-2 mt-2"
+            [defaultImage]="defaultImage"
+            [lazyLoad]="getImage(item)"
+            width="40"
+            height="40"
+          />
+          <div class="media-body">
+            <span [innerHtml]="generateItem(item)"></span>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="small text-muted mb-2">
+                  <fa-icon
+                    [icon]="[
+                      'fas',
+                      actionItemIcons[item.actionItemAbbreviation].icon
+                    ]"
+                  ></fa-icon>
+                  {{ item.actionItemTitle }}
+                </p>
+              </li>
+              <li
+                *ngIf="isValidDate(item.actionDueDate)"
+                class="list-inline-item"
+              >
+                <p class="small text-muted mb-2">
+                  <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                  {{ daysLeft(item.actionDueDate) }}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </button>
+      <!-- end of Refinement -->
+    </div>
+    <!-- <div class="bg-light text-center border-bottom border-top pt-1 pb-1">
+      <label class="small bold pl-3 link">See All Action Items</label>
+    </div> -->
+    <div style="text-align: center;">
+      <fa-icon
+        *ngIf="isLoading"
+        [icon]="['fas', 'spinner']"
+        [spin]="true"
+      ></fa-icon>
+    </div>
+    <!-- no notifications -->
+    <div class="py-4 text-center" *ngIf="!actualCounts && !isLoading">
+      <fa-icon
+        [icon]="['fas', 'flag']"
+        class="iconLarge text-muted mb-3"
+      ></fa-icon>
+      <p class="text-muted mb-0 mt-2">
+        {{ 'Nav.NoActionItems' | translationPipe }}
+      </p>
+    </div>
+  </div>
+</div>

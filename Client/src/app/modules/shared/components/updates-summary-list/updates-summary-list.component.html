@@ -1,0 +1,232 @@
+<!-- if no updates posted and permissions to post -->
+
+
+<!-- not in card -->
+<div *ngIf="!inCard && announcements.length > 0">
+  <ul class="list-inline mb-0">
+    <li class="list-inline-item">
+      <p class="montserrat bold uppercase mb-2 text-muted text-medium mt-2">
+        Recent Updates
+      </p>
+    </li>
+    <li class="list-inline-item float-right">
+      <p class="bold mb-2 inverseLink mt-2 text-medium">
+        <span
+          *ngIf="level == 'challenge'"
+          routerLink="/challenges/updates/{{ entityObjectId }}"
+          >View All ({{ totalCount }})</span
+        >
+        <!-- <span *ngIf="level == 'community'"> ({{ totalCount }}) </span> -->
+      </p>
+    </li>
+  </ul>
+  <div style="margin-left: .65rem; margin-right: .65rem;">
+    <div class="row">
+      <div class="col-4 mb-2 px-1" *ngFor="let announcement of announcements">
+        <div
+          class="card pointer shadow-sm cardAnimation"
+          (click)="openModal(announcement?.data)"
+        >
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-12">
+                <img
+                  class="w-100 rounded-top templateImage"
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="announcement.displayImage"
+                />
+              </div>
+            </div>
+            <div style="padding: .6rem .75rem;">
+              <div class="row">
+                <div class="col-12">
+                  <div class="textAreaHeight">
+                    <p class="link bold updateHeader mb-0 mt-1">
+                      {{ announcement?.data?.title }}
+                    </p>
+                    <p
+                      class="font-weight-normal text-muted small mb-1 mt-1"
+                      [innerHTML]="
+                        announcement?.data?.message.length > 100
+                          ? announcement?.data?.message.substring(0, 100) + '...'
+                          : announcement?.data?.message
+                      "
+                    ></p>
+                  </div>
+                  <ul class="list-inline mb-0 mt-2 small w-100">
+                    <li class="list-inline-item">
+                      <p class="small mb-0">
+                        <span
+                          *ngIf="
+                            announcement?.data?.entityType?.abbreviation ==
+                            'challenge'
+                          "
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'bullseye']"
+                            class="text-info"
+                          ></fa-icon>
+                          Challenge
+                        </span>
+
+                        <span
+                          *ngIf="
+                            announcement?.data?.entityType?.abbreviation == 'idea'
+                          "
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'lightbulb-on']"
+                            class="text-primary"
+                          ></fa-icon>
+                          Idea
+                        </span>
+
+                        <span *ngIf="announcement?.data?.entityType == null">
+                          <fa-icon
+                            [icon]="['fas', 'users']"
+                            class="text-secondary"
+                          ></fa-icon>
+                          Community
+                        </span>
+                      </p>
+                    </li>
+                    <li
+                      class="list-inline-item float-right"
+                      style="margin-top: 0.2rem;"
+                    >
+                      <p class="small mb-0">
+                        <fa-icon
+                          [icon]="['fas', 'clock']"
+                          class="text-muted"
+                        ></fa-icon>
+                        {{ announcement?.data?.scheduledAt | date: 'short' }}
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- in card -->
+
+<div *ngIf="inCard && announcements.length > 0">
+  <div class="card mb-0 mb-md-0 shadow-sm">
+    <div class="card-body pt-1 pb-3">
+      <ul class="list-inline mb-2">
+        <li class="list-inline-item">
+          <p class="montserrat bold uppercase mb-2 text-muted text-medium mt-2">
+            Recent Updates
+          </p>
+        </li>
+        <li class="list-inline-item float-right">
+          <p class="bold mb-2 inverseLink mt-2 text-medium">
+            <span
+              *ngIf="level == 'challenge'"
+              routerLink="/challenges/updates/{{ entityObjectId }}"
+              >View All ({{ totalCount }})</span
+            >
+            <span *ngIf="level == 'community'"> ({{ totalCount }}) </span>
+          </p>
+        </li>
+      </ul>
+      <div style="margin-left: .65rem; margin-right: .65rem;">
+        <div class="row">
+          <div class="col-4 mb-2 px-1" *ngFor="let announcement of announcements">
+            <div
+              class="card pointer cardAnimation border-0 shadow-sm"
+              (click)="openModal(announcement?.data)"
+            >
+              <div class="card-body p-0">
+                <div class="row">
+                  <div class="col-12">
+                    <img
+                      class="w-100 rounded-top templateImage"
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="announcement.displayImage"
+                    />
+                  </div>
+                </div>
+                <div style="padding: .6rem .75rem;">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="textAreaHeight">
+                        <p class="link bold updateHeader mb-0 mt-1">
+                          {{ announcement?.data?.title }}
+                        </p>
+                        <!-- Limit upto 30 characters -->
+                        <p
+                          class="font-weight-normal text-muted small mb-1 mt-1"
+                          [innerHTML]="
+                            announcement?.data?.message.length > 100
+                              ? announcement?.data?.message.substring(0, 100) + '...'
+                              : announcement?.data?.message
+                          "
+                        ></p>
+                      </div>
+                      <ul class="list-inline mb-0 mt-2 small w-100">
+                        <li class="list-inline-item">
+                          <p class="small mb-0">
+                            <span
+                              *ngIf="
+                                announcement?.data?.entityType?.abbreviation ==
+                                'challenge'
+                              "
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'bullseye']"
+                                class="text-info"
+                              ></fa-icon>
+                              Challenge
+                            </span>
+
+                            <span
+                              *ngIf="
+                                announcement?.data?.entityType?.abbreviation == 'idea'
+                              "
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'lightbulb-on']"
+                                class="text-primary"
+                              ></fa-icon>
+                              Idea
+                            </span>
+
+                            <span *ngIf="announcement?.data?.entityType == null">
+                              <fa-icon
+                                [icon]="['fas', 'users']"
+                                class="text-secondary"
+                              ></fa-icon>
+                              Community
+                            </span>
+                          </p>
+                        </li>
+                        <li
+                          class="list-inline-item float-right"
+                          style="margin-top: 0.2rem;"
+                        >
+                          <p class="small mb-0">
+                            <fa-icon
+                              [icon]="['fas', 'clock']"
+                              class="text-muted"
+                            ></fa-icon>
+                            {{ announcement?.data?.scheduledAt | date: 'short' }}
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

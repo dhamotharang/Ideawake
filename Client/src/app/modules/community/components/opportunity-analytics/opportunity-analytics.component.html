@@ -1,0 +1,296 @@
+<!-- holding action items container here for now -->
+<!-- <app-action-items-list-container></app-action-items-list-container> -->
+
+<div class="row">
+  <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0 w-5">#</th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <span
+              class="removeCaret pointer bold small montserrat text-muted uppercase"
+            >
+              <fa-icon
+                [icon]="['fas', 'sort']"
+                class="text-muted small adjustFloatUpSmall mr-1"
+              >
+              </fa-icon>
+              Title
+            </span>
+          </th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <div ngbDropdown class="adjustTableFilterRight">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall mr-1"
+                >
+                </fa-icon>
+                Total Score
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm" ngbDropdownItem>
+                  Highest Score First
+                </button>
+                <button class="btn btn-sm" ngbDropdownItem>
+                  Lowest Score First
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <div ngbDropdown class="adjustTableFilterRight">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall mr-1"
+                >
+                </fa-icon>
+                Stage Score
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm" ngbDropdownItem>
+                  Highest Score First
+                </button>
+                <button class="btn btn-sm" ngbDropdownItem>
+                  Lowest Score First
+                </button>
+              </div>
+            </div>
+          </th>
+
+          <th scope="col" class="py-2 border-top-0 border-bottom-0 w-20">
+            <div ngbDropdown class="adjustTableFilterRight">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall mr-1"
+                >
+                </fa-icon>
+                QuestionTitleLonger
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Yes
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said No
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Needs More Information
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  ng-repeat question options
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <div ngbDropdown class="adjustTableFilterRight">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall mr-1"
+                >
+                </fa-icon>
+                ScorecardTitle
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Yes
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said No
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Needs More Information
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  ng-repeat question options
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <div ngbDropdown class="adjustTableFilterRight">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall mr-1"
+                >
+                </fa-icon>
+                RatingTitle
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Yes
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said No
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Needs More Information
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  ng-repeat question options
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+              </div>
+            </div>
+          </th>
+          <th scope="col" class="py-2 border-top-0 border-bottom-0">
+            <div ngbDropdown class="">
+              <span
+                class="removeCaret pointer bold small montserrat text-muted uppercase"
+                ngbDropdownToggle
+              >
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted small adjustFloatUpSmall"
+                >
+                </fa-icon>
+                RatingTitle ($Unit)
+              </span>
+              <div ngbDropdownMenu class="shadow">
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Yes
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said No
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  Majority Said Needs More Information
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+                <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                  ng-repeat question options
+                  <span class="badge badge-light border float-right mt-1"
+                    >100</span
+                  >
+                </button>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">
+            <p class="text-medium text-muted mb-0">92</p>
+          </th>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">Opportunity Title</p>
+          </td>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">92 <small>/ 100</small></p>
+          </td>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">65 <small>/ 100</small></p>
+          </td>
+          <td class="align-middle py-1">
+            <div class="progress">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                style="width: 50%;"
+                aria-valuenow="15"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                Yes (10)
+              </div>
+              <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                style="width: 25%;"
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                No (5)
+              </div>
+              <div
+                class="progress-bar bg-info"
+                role="progressbar"
+                style="width: 25%;"
+                aria-valuenow="20"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                NMI (5)
+              </div>
+            </div>
+          </td>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">4.235 <small>/ 5</small></p>
+          </td>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">4.235 <small>/ 5</small></p>
+          </td>
+          <td class="align-middle py-1">
+            <p class="text-medium text-muted mb-0">$1,500,000</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

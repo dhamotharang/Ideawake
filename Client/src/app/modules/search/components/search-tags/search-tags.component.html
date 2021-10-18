@@ -1,0 +1,60 @@
+<div ngbDropdown container="body">
+  <div class="form-group" container="body">
+    <div class="input-group mb-2 mr-sm-2" container="body">
+      <!-- <div class="input-group-prepend">
+        <div class="input-group-text bg-white border-0">
+          <fa-icon [icon]="['fas', 'hashtag']"></fa-icon>
+        </div>
+      </div> -->
+      <!--  <input type="text" class="form-control border-left-0" placeholder="Start typing to search tags..." ngbDropdownToggle> -->
+
+      <!-- <app-multiselect-dropdown></app-multiselect-dropdown> -->
+      <ng-select
+        [items]="data"
+        bindLabel="name"
+        bindValue="id"
+        [multiple]="true"
+        placeholder="{{ 'Search.StartTyping' | translationPipe }}..."
+        [(ngModel)]="selected"
+        (change)="emitData($event)"
+        (search)="emitSearchTerm($event)"
+        [addTag]="addTags.bind(this)"
+        [loading]="loading"
+        style="width: 100%;"
+        class="custom"
+        appearance="outline"
+        [hideSelected]="true"
+        [closeOnSelect]="true"
+        [loading]="true"
+        [virtualScroll]="true"
+      ></ng-select>
+      <!-- dropdownPosition="bottom" -->
+    </div>
+  </div>
+  <div
+    class="row searchDropdownComponent border shadow pt-0 pb-0 w-100"
+    ngbDropdownMenu
+  >
+    <div class="col-12 p-0">
+      <div class="globalUserSearchResult addHover">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>
+        hashTagname
+      </div>
+      <div class="globalUserSearchResult addHover">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>
+        hashTagname
+      </div>
+      <div class="globalUserSearchResult addHover">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>
+        hashTagname
+      </div>
+      <!-- <div class="globalUserSearchResult addHover pt-1 pb-1">
+        <p class="mb-0 pt-1 pb-1">
+          <fa-icon [icon]="['fas', 'plus-circle']" class="text-muted"></fa-icon>
+          This Tag Doesn't Exist
+          <span class="badge badge-primary moveBadgeUp">Add This Tag</span>
+        </p>
+      </div> -->
+    </div>
+  </div>
+</div>

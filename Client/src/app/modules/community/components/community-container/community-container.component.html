@@ -1,0 +1,469 @@
+<div class="">
+  <div class="row">
+    <div class="col-sm-12 col-md-2">
+      <app-community-navigation></app-community-navigation>
+    </div>
+    <div class="col-sm-12 col-md-10 removePaddingOnMobile">
+      <div class="container">
+        <div class="row pt-0 pt-md-4">
+          <div class="col-12">
+            <app-opportunity-types></app-opportunity-types>
+          </div>
+        </div>
+      </div>
+      <!-- disabling this entire section until we are farther along with functionality -->
+      <div class="container d-none">
+        <div class="row">
+          <div class="col-12">
+            <div class="row pageTopPadding">
+              <div class="col-12">
+                <h4 class="mb-0 pt-1 bold border-bottom montserrat pb-2 mb-4">
+                  Manage Opportunities
+                </h4>
+                <ngb-tabset>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Opportunity Types</ng-template>
+                    <ng-template ngbTabContent>
+                      <app-opportunity-types></app-opportunity-types>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>
+                      Opportunity Properties
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <app-opportunity-property></app-opportunity-property>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Field Groups</ng-template>
+                    <ng-template ngbTabContent>
+                      <div class="card mb-4">
+                        <div class="card-header">
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <p class="mb-0 bold pt-2 uppercase text-muted">
+                                Field Groups (5)
+                              </p>
+                            </li>
+                            <li class="float-right list-inline-item">
+                              <button
+                                class="btn btn-primary btn-sm float-right mr-1"
+                                (click)="open(addFieldGroup)"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Create Field Group
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="card-body py-0 px-3">
+                          <div class="row pb-3 pt-3">
+                            <div class="col-6">
+                              <form>
+                                <div class="input-group mb-0 mr-sm-2">
+                                  <div class="input-group-prepend">
+                                    <div
+                                      class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'search']"
+                                      ></fa-icon>
+                                    </div>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm border-left-0"
+                                    placeholder="Search field groups..."
+                                  />
+                                </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
+                              <div class="float-right">
+                                <button
+                                  class="btn btn-outline-primary btn-sm btn-rounded active"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'check-circle']"
+                                  ></fa-icon>
+                                  Active Groups (10)
+                                </button>
+                                <button
+                                  class="btn btn-outline-danger btn-sm btn-rounded ml-2"
+                                >
+                                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                                  Archived Groups (2)
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12">
+                              <div
+                                class="row bg-light border-top border-bottom pt-2 pb-1"
+                              >
+                                <div class="col-9">
+                                  <label>Group Name</label>
+                                </div>
+                                <div class="col-3 text-center">
+                                  <label>Number of Fields</label>
+                                </div>
+                              </div>
+
+                              <div
+                                class="row dottedBottomBorder py-2 d-flex flex-row py-3"
+                              >
+                                <div class="col-4 align-self-center">
+                                  <h5 class="mb-0 align-self-center">
+                                    Field Group Title
+                                  </h5>
+                                </div>
+                                <div class="col-5 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addFieldGroup)"
+                                  >
+                                    Edit Group
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addFieldGroup)"
+                                  >
+                                    View or Add Fields to Group
+                                  </button>
+                                  <button class="btn btn-light btn-sm border">
+                                    Delete Group
+                                  </button>
+                                </div>
+                                <div class="col-3 align-self-center">
+                                  <p class="mb-0 text-center">
+                                    10 Fields
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- start of create field group modal -->
+        <ng-template #addFieldGroup let-modal>
+          <div class="modal-header card-header">
+            <p class="small uppercase bold mb-0">Add New Custom Field Group</p>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-white border text-medium bg-light pl-2">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'check-circle']"
+                  class="iconLarge text-muted my-auto mr-2"
+                ></fa-icon>
+                <div class="media-body">
+                  Use custom field groups to organize the fields and information
+                  stored on each of your opportunities.
+                </div>
+              </div>
+            </div>
+            <form>
+              <div class="form-group mb-3">
+                <label>Field Group Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter a name for your field group...."
+                />
+              </div>
+              <div class="form-group mb-1" *ngIf="addMultipleFieldGroups">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter a name for your field group...."
+                />
+              </div>
+              <!-- <p class="text-medium bold text-primary pointer mt-3" (click)="toggleFieldGroups()">
+                      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                      Add More Custom Fields Groups
+                    </p> -->
+              <div class="form-group mb-1">
+                <label>Add Fields to This Group (app-search-fields)</label>
+                <p>
+                  insert component app search field located in workflows
+                  component
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              class="btn btn-light border"
+              (click)="modal.dismiss('Cross click')"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-primary ml-2">
+              Create Field Group
+            </button>
+          </div>
+        </ng-template>
+        <!-- end of add field group modal -->
+
+        <!-- start of add new type modal -->
+        <ng-template #addNewType let-modal>
+          <div class="modal-header card-header">
+            <p class="small uppercase bold mb-0">Add New Opportunity Type</p>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group mb-0">
+                <label>Opportunity Type Title</label>
+                <div class="input-group mb-1 mr-sm-2">
+                  <input
+                    type="text"
+                    class="form-control border-right-0"
+                    placeholder="Enter the name of your opportunity type..."
+                  />
+                  <!-- <div class="input-group-prepend">
+                  <div
+                    class="input-group-text bg-light"
+                    placement="top"
+                    ngbTooltip="Edit unique label ID for this field"
+                  >
+                    <fa-icon [icon]="['fas', 'code']" class="link"></fa-icon>
+                  </div>
+                </div> -->
+                </div>
+              </div>
+              <div class="form-group mb-3 mt-1">
+                <span class="bold small link pointer">
+                  <fa-icon [icon]="['fas', 'code']" class="mt-2"></fa-icon>
+                  Edit UniqueID
+                </span>
+                <span class="bold small link pointer ml-2">
+                  <fa-icon
+                    [icon]="['fas', 'plus-circle']"
+                    class="mt-2"
+                  ></fa-icon>
+                  Add Description
+                </span>
+              </div>
+              <div class="form-group mb-0 mt-2 d-none">
+                <label class="bold small mb-0">Unique ID of This Field</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm mb-2"
+                  placeholder="Enter a unique ID for this field"
+                />
+              </div>
+              <!-- show if add description clicked -->
+              <div class="form-group mb-0 mt-2 d-none">
+                <label class="bold small mb-0">Add Field Description</label>
+                <textarea
+                  class="form-control form-control-sm"
+                  rows="2"
+                  placeholder="Add a field description..."
+                ></textarea>
+              </div>
+              <!-- end if add description clicked -->
+              <div class="form-row">
+                <div class="col-6 form-group">
+                  <label>Select Color</label>
+                  <!-- start of color select -->
+                  <div ngbDropdown>
+                    <span
+                      class="btn btn-light btn-block removeCaret bold text-align-left shadow-sm border py-3"
+                      ngbDropdownToggle
+                    >
+                      <div class="row">
+                        <div class="col-9">
+                          <h6 class="mb-1 text-left">Opportunity Type Color</h6>
+                          <p class="small mb-0 text-left">#2f4050</p>
+                        </div>
+                        <div class="col-3 px-0">
+                          <fa-icon
+                            [icon]="['fas', 'circle']"
+                            class="text-primary text-right iconLarge"
+                          ></fa-icon>
+                        </div>
+                      </div>
+                      <!-- the current color selected -->
+                    </span>
+                    <div ngbDropdownMenu class="shadow p-2">
+                      <div class="form-row">
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-dark btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-secondary btn-block colorSelect"
+                          >
+                            <fa-icon [icon]="['fas', 'check']"></fa-icon>
+                          </button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-warning btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-primary btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-danger btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-info btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-light border btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-success btn-block colorSelect"
+                          ></button>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-4 form-group bold pt-1">
+                          Hex Color
+                        </div>
+                        <div class="col-8 form-group">
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            placeholder="#1ab394"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of color select -->
+                </div>
+                <div class="col-6 form-group">
+                  <!-- start of color select -->
+                  <label>Select Icon</label>
+                  <div ngbDropdown>
+                    <span
+                      class="btn btn-light btn-block removeCaret bold text-align-left shadow-sm border py-3"
+                      ngbDropdownToggle
+                    >
+                      <div class="row">
+                        <div class="col-9">
+                          <h6 class="mb-1 text-left">Opportunity Type Icon</h6>
+                          <p class="small mb-0 text-left">Lightbulb</p>
+                        </div>
+                        <div class="col-3 px-0">
+                          <fa-icon
+                            [icon]="['fas', 'lightbulb']"
+                            class="text-right iconLarge"
+                          ></fa-icon>
+                        </div>
+                      </div>
+                      <!-- the current color selected -->
+                    </span>
+                    <div ngbDropdownMenu class="shadow p-2">
+                      <div class="form-row">
+                        <div class="col-2 mb-3">
+                          <button class="btn btn-light btn-block colorSelect">
+                            <fa-icon [icon]="['fas', 'rocket']"></fa-icon>
+                          </button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button class="btn btn-light btn-block colorSelect">
+                            <fa-icon [icon]="['fas', 'lightbulb']"></fa-icon>
+                          </button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button class="btn btn-light btn-block colorSelect">
+                            <fa-icon [icon]="['fas', 'rocket']"></fa-icon>
+                          </button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button class="btn btn-light btn-block colorSelect">
+                            <fa-icon [icon]="['fas', '']"></fa-icon>
+                          </button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-light btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-light btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-light btn-block colorSelect"
+                          ></button>
+                        </div>
+                        <div class="col-2 mb-3">
+                          <button
+                            class="btn btn-light btn-block colorSelect"
+                          ></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of color select -->
+                </div>
+              </div>
+              <!-- <div class="form-group">
+              <label>Who Can Post This Opportunity Type?</label>
+              <app-group-dropdown-select></app-group-dropdown-select>
+            </div>
+            <div class="form-group">
+              <label>Who Can View This Opportunity Type?</label>
+              <app-group-dropdown-select></app-group-dropdown-select>
+            </div> -->
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button class="btn btn-light border">Cancel</button>
+            <button class="btn btn-primary ml-2">Add New Type</button>
+          </div>
+        </ng-template>
+
+        <!-- end of add type modal -->
+      </div>
+      <!-- end of opportunity settings and opportunity type create -->
+    </div>
+  </div>
+</div>

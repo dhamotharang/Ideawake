@@ -1,0 +1,290 @@
+<div class="row">
+  <div class="col-12 col-md-2">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row pt-3 mx-0">
+      <div class="col-12 col-12">
+        <div class="row">
+          <div class="col-7">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="mb-0 bold pt-2 uppercase">
+                  {{ 'Workflows.Manage' | translationPipe }} ({{
+                    workflows?.length
+                  }})
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-5">
+            <span class="float-right">
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="open(createWorkflow)"
+              >
+                <fa-icon [icon]="['fas', 'plus-circle']" class="mr-1"></fa-icon>
+                {{ 'Workflows.Create' | translationPipe }}
+              </button>
+            </span>
+          </div>
+        </div>
+        <hr />
+        <div class="row" *ngIf="workflows?.length === 0">
+          <div class="col-12">
+            <div class="card shadow-sm w-100 rounded-top-0">
+              <div class="card-body text-center py-5">
+                <div class="row">
+                  <div class="col-12 col-md-8 offset-md-2">
+                    <fa-icon
+                      [icon]="['fas', 'conveyor-belt-alt']"
+                      class="iconExtraLarge text-muted mb-5"
+                    >
+                    </fa-icon>
+                    <h4 class="montserrat bold mt-2">
+                      No Workflows Have Been Added to Your Community
+                    </h4>
+                    <p class="text-muted">
+                      Use workflows to control the stages submissions go through
+                      in your community to be refined, evaluated, and
+                      implemented.
+                    </p>
+                    <button
+                      class="btn btn-primary mt-2"
+                      (click)="open(createWorkflow)"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'plus-circle']"
+                        class="mr-1"
+                      ></fa-icon>
+                      Create Your First Workflow
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="row" *ngIf="workflows.length">
+              <div class="col-4">
+                <p class="small bold mb-2">
+                  Name
+                </p>
+              </div>
+              <div class="col-5">
+                <p class="small bold mb-2">
+                  Actions
+                </p>
+              </div>
+              <div class="col-3">
+                <!-- <p class="small bold mb-2">
+                  Manage
+                </p> -->
+              </div>
+            </div>
+            <!-- start of one -->
+            <div class="card mb-3 shadow-sm" *ngFor="let workflow of workflows">
+              <div class="card-body p-3">
+                <div class="row align-items-center">
+                  <div class="col-4">
+                    <p
+                      class="montserrat mb-0 bold link"
+                      routerLink="/workflow/stage-list/{{ workflow.id }}"
+                    >
+                      <!-- Title -->
+                      {{ workflow.title }}
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        *ngIf="workflow.description"
+                        class="text-muted"
+                        ngbTooltip="{{ workflow.description }}"
+                      ></fa-icon>
+                    </p>
+                  </div>
+                  <div class="col-5" style="padding-left: 0.65rem;">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <button
+                          class="btn btn-light btn-sm border small"
+                          routerLink="/workflow/stage-list/{{ workflow.id }}"
+                        >
+                          <!-- <fa-icon
+                            [icon]="['fas', 'conveyor-belt-alt']"
+                            class="text-muted"
+                          ></fa-icon> -->
+                          {{ 'Workflows.ManageStages' | translationPipe }} ({{
+                            workflow.stagesCount || 0
+                          }})
+                          <!-- (4) -->
+                        </button>
+                      </li>
+                      <li class="list-inline-item">
+                        <button
+                          class="btn btn-light btn-sm border small"
+                          (click)="navigateTo(workflow)"
+                        >
+                          <!-- <fa-icon
+                            [icon]="['fas', 'lightbulb-on']"
+                            class="text-muted"
+                          ></fa-icon> -->
+                          <!-- {{ 'Workflows.ViewOpportunities' | translationPipe }}  -->
+                          View Submissions ({{
+                            workflow.opportunitiesCount || 0
+                          }})
+                          <!-- (255) -->
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-3">
+                    <ul class="list-inline mb-0 float-right">
+                      <li class="list-inline-item">
+                        <button
+                          class="btn btn-light btn-sm border"
+                          (click)="open(createWorkflow, workflow.id)"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'edit']"
+                            class="text-muted"
+                          ></fa-icon>
+                          {{ 'Workflows.Edit' | translationPipe }}
+                        </button>
+                        <!-- <span ngbDropdown>
+                          <button
+                            class="btn btn-light border btn-sm removeCaret"
+                            ngbDropdownToggle
+                          >
+                            <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon> Edit
+                          </button>
+                          <div
+                            ngbDropdownMenu
+                            aria-labelledby="stageMore"
+                            class="shadow pt-0 pb-0"
+                          >
+                            <hr class="mb-0 mt-0" />
+
+                          </div>
+                        </span> -->
+                      </li>
+                      <li class="list-inline-item">
+                        <button
+                          class="btn btn-light btn-sm border"
+                          (click)="open(deleteWorkflow, workflow.id)"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'trash']"
+                            class="text-muted"
+                          ></fa-icon>
+                          {{ 'Workflows.Archive' | translationPipe }}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #createWorkflow let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold mb-0 small">
+      {{ 'Workflows.CreateNew' | translationPipe }}
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group mb-3">
+      <label>{{ 'Workflows.Name' | translationPipe }}</label>
+      <input
+        type="text"
+        [(ngModel)]="title"
+        class="form-control"
+        placeholder="Continuous Improvement Ideas"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label>{{ 'Workflows.Description' | translationPipe }}</label>
+      <textarea
+        [(ngModel)]="description"
+        class="form-control"
+        rows="2"
+        placeholder="Optionally, add a description for your workflow..."
+      ></textarea>
+    </div>
+    <!-- <div class="form-group mb-3">
+        <label>Sharing / RBAC Settings</label>
+        Shared vs. not shared / do full rbac here?
+      </div> -->
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      {{ 'Workflows.Cancel' | translationPipe }}
+    </button>
+    <button *ngIf="!id" class="btn btn-primary" (click)="create()">
+      {{ 'Workflows.CreateBtn' | translationPipe }}
+    </button>
+    <button *ngIf="id" class="btn btn-primary" (click)="Update()">
+      {{ 'Workflows.updateBtn' | translationPipe }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteWorkflow let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">
+      {{ 'Workflows.ArchiveThis' | translationPipe }} {{ title }}
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <!-- {{ 'Workflows.ArchiveMessage' | translationPipe }} -->
+      Are you sure you would like to archive this workflow? Please review the
+      effects of archiving this workflow before proceeding. This action cannot
+      be undone.
+    </p>
+    <label class="mb-2">Effects of Archiving a Workflow</label>
+    <ul class="pl-4">
+      <li>
+        All ideas will be removed from this workflow and be under "no workflow".
+      </li>
+      <li>
+        All data associated with this workflow will be deleted, including
+        analytics on ideas that have previously gone through this workflow
+      </li>
+      <li>
+        This workflow will no longer be visible in the workflows list page.
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      {{ 'Workflows.Cancel' | translationPipe }}
+    </button>
+    <button class="btn btn-info" (click)="delete()">
+      {{ 'Workflows.ArchiveBtn' | translationPipe }}
+    </button>
+  </div>
+</ng-template>

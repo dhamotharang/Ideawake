@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-12">
+    <ul class="list-inline mb-0">
+      <li
+        class="list-inline-item"
+        *ngFor="let file of allFiles; let i = index"
+        (mouseenter)="file.showManageOptions = true"
+        (mouseleave)="file.showManageOptions = false"
+        (click)="selectImage(file.id)"
+      >
+        <div class="card cardAnimation thumbnailCard mb-1">
+          <div class="card-body p-0"
+            (click)="
+              openModal ? openCarousel(file.id) : selectImage(file.id)
+            "
+          >
+            <img
+              class="mb-1 thumbnailImage p-3 active"
+              [defaultImage]="defaultImage"
+              [lazyLoad]="file.icon"
+            />
+          </div>
+          <div
+            class="card-footer bg-white border-top-0 p-1 w-100"
+            style="height: 59px;"
+          >
+            <p class="small text-center mb-2" [ngbTooltip]="file.name">
+              {{
+                file.name.length > 19
+                  ? file.name.substring(0, 19) + '...'
+                  : file.name
+              }}
+            </p>
+            <ul
+              class="list-inline mb-0 text-center"
+              *ngIf="file.showManageOptions"
+            >
+              <li
+                class="list-inline-item w-33 mr-0 inverseLink"
+                ngbTooltip="Preview"
+                container="body"
+                (click)="
+                  openModal ? openCarousel(file.id) : selectImage(file.id)
+                "
+              >
+                <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+              </li>
+              <li
+                class="list-inline-item border-right border-left w-33 mr-0 inverseLink"
+                ngbTooltip="Download"
+                container="body"
+                (click)="downloadFile(file)"
+              >
+                <fa-icon [icon]="['fas', 'arrow-down']"></fa-icon>
+              </li>
+              <li
+                *ngIf="userOpportunityPermissions?.addFilesToOpportunity"
+                class="list-inline-item w-33 mr-0 inverseLinkDanger"
+                ngbTooltip="Remove"
+                container="body"
+                (click)="$event.stopPropagation(); removeFile(file)"
+              >
+                <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li
+        *ngIf="
+          allFiles?.length === 0 &&
+          userOpportunityPermissions?.addFilesToOpportunity
+        "
+        (click)="openUploadContent()"
+      >
+        <button class="btn btn-light btn-sm border pt-2 pb-2">
+          <fa-icon [icon]="['fas', 'plus-circle']" class="text-muted iconLarge text-center" style="font-size: 20px;"></fa-icon>
+          <p class="text-center mb-0">
+            Add Files, Images, or Video
+          </p>
+        </button>
+      </li>
+      <li
+        class="list-inline-item ml-2 adjustFloatUp"
+        (click)="openUploadContent()"
+        *ngIf="
+          allFiles?.length && userOpportunityPermissions?.addFilesToOpportunity
+        "
+      >
+        <span
+          class="btn btn-light border rounded-circle pointer shadow-sm"
+          placement="top"
+          container="body"
+          ngbTooltip="Add Files, Images, and Media"
+        >
+          <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="custom-control custom-checkbox pt-1 pb-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="byGroupOrIndividual"
+    (click)="toggleGroups()"
+    [checked]="assignGroups"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="byGroupOrIndividual"
+    >Groups or Individuals ({{
+      potentialCounts?.allCommunityMembers || 0
+    }})</label
+  >
+</div>
+<!-- if groups or individuals -->
+<app-search-groups
+  *ngIf="assignGroups"
+  [isUser]="true"
+  [selection]="individualAssigneeUsers"
+  (dataEmitter)="getIndividuals($event)"
+>
+</app-search-groups>
+<!-- end if groups or individuals -->
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityAdmins"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.communityAdmins"
+  />
+  <label class="custom-control-label font-weight-normal" for="communityAdmins"
+    >Community Administrators ({{
+      potentialCounts?.communityAdmins || 0
+    }})</label
+  >
+</div>
+<div class="custom-control custom-checkbox pointer pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityModerators"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.communityModerators"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="communityModerators"
+    >Community Moderators ({{
+      potentialCounts?.communityModerators || 0
+    }})</label
+  >
+</div>
+<div class="custom-control custom-checkbox pointer pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityUsers"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.communityUsers"
+  />
+  <label class="custom-control-label font-weight-normal" for="communityUsers"
+    >All Community Users ({{ potentialCounts?.communityUsers || 0 }})</label
+  >
+</div>
+<!-- <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeSponsors">
+                <label class="custom-control-label font-weight-normal" for="challengeSponsors">Challenge Sponsors</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeModerators">
+                <label class="custom-control-label font-weight-normal" for="challengeModerators">Challenge
+                  Moderators</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeParticipants">
+                <label class="custom-control-label font-weight-normal" for="challengeParticipants">Challenge
+                  Participants</label>
+              </div> -->
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaOwners"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.opportunityOwners"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaOwners"
+    >Idea Owners ({{ potentialCounts?.opportunityOwners || 0 }})</label
+  >
+</div>
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaTeam"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.opportunityTeams"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaTeam"
+    >Idea Team ({{ potentialCounts?.opportunityTeamMembers || 0 }})</label
+  >
+</div>
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaSubmitter"
+    (click)="emitValues()"
+    [(ngModel)]="assigneeSettings.opportunitySubmitters"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaSubmitter"
+    >Idea Submitter ({{ potentialCounts?.opportunitySubmitters || 0 }})</label
+  >
+</div>
+<div class="custom-control custom-checkbox py-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="assignByCustomField"
+    [(ngModel)]="assignByCustomFields"
+    (click)="toggleCustomFields()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="assignByCustomField"
+    >Assign By Custom Field</label
+  >
+</div>
+<!-- if by custom field -->
+<div class="card bg-light shadow-sm" *ngIf="assignByCustomFields">
+  <app-stage-assign-by-custom-filed
+    [customFieldAssignee]="assigneeSettings.customFieldAssignee"
+    (output)="customFieldAssignee($event)"
+  ></app-stage-assign-by-custom-filed>
+</div>
+<!-- end if by custom field -->

@@ -1,0 +1,133 @@
+<span (click)="open(manageglobalstatuses)">
+  <span class="small">
+    <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+    Manage Statuses
+  </span>
+</span>
+
+<!-- start of status list modal -->
+<ng-template #manageglobalstatuses let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Global Statuses</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-2">
+    <app-idea-status-list></app-idea-status-list>
+    <hr />
+    <!-- add status -->
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-primary btn-block" (click)="open(addEditStatus)">
+          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+          Add New Status
+        </button>
+      </div>
+    </div>
+    <!-- end of add status -->
+  </div>
+</ng-template>
+<!-- end of status list modal -->
+
+<!-- start of edit status modal -->
+<ng-template #addEditStatus let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Create / Edit Status</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- one status -->
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label>Status Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter status title here..."
+            />
+          </div>
+          <div class="form-group">
+            <label>Status Order</label>
+            <select class="form-control">
+              <option>
+                Select status order
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status Description</label>
+            <textarea
+              class="form-control"
+              placeholder="Enter a status description here..."
+            ></textarea>
+          </div>
+          <div class="form-group mb-0">
+            <label>Select Color</label>
+          </div>
+          <app-color-select></app-color-select>
+          <!-- <label class="mb-0">Status Settings</label>
+          <hr class="mt-1 mb-1">
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Idea Visibility</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <select class="form-control form-control-sm">
+                <option>Open Ideas</option>
+                <option>Filtered in Feed</option>
+                <option>Hidden from Feed</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Commenting</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input type="checkbox" class="custom-control-input pointer" id="commenting">
+                <label class="custom-control-label" for="commenting">Enabled</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Voting</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input type="checkbox" class="custom-control-input pointer" id="voting">
+                <label class="custom-control-label" for="voting">Enabled</label>
+              </div>
+            </div>
+          </div> -->
+        </form>
+      </div>
+    </div>
+    <!-- end one status -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary">
+      Save Changes
+    </button>
+  </div>
+</ng-template>
+<!-- end of edit status modal -->

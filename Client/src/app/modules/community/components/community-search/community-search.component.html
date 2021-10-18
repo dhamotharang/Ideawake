@@ -1,0 +1,47 @@
+<div class="container pageTopPadding">
+  <div class="row mt-5">
+    <div class="col-md-8 offset-md-2 col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="text-center mb-0">Login to Your Community</h4>
+        </div>
+        <div class="card-body mt-3 mb-3">
+          <div class="row mt-3">
+            <div class="col-md-10 offset-md-1 col-sm-12">
+              <h5 class="mb-2">Enter Community URL</h5>
+              <form>
+                <div class="input-group mb-2 mr-sm-2">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    placeholder="your-community-url"
+                  />
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">.ideawake.com</div>
+                  </div>
+                </div>
+                <div class="form-group mb-5">
+                  <p class="text-muted">
+                    Don't know your community URL?
+                    <a routerLink="/community-find">Find it here</a>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <button
+                    class="btn btn-primary btn-block btn-lg"
+                    routerLink="/login"
+                  >
+                    Login to Your Community
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center text-muted">
+          Or, <a routerLink="/community-add-new">Create a New Community</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.commentImage {
+  border: 1.75px solid white;
+  max-width: 3rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.assigneesBackground{
+  background-color: #f9f9f9;
+}
+
+// extra small devices
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .setMinHeight{
+    min-height: 61vh;
+  }
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}

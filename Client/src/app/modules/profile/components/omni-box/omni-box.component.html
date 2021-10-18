@@ -1,0 +1,129 @@
+<div class="card shadow-sm mb-3">
+  <div class="card-header pt-0 pb-0 pl-2">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item p-2 addHover" (click)="open(content)">
+        <p class="uppercase bold montserrat text-muted mb-0 small">
+          <fa-icon
+            [icon]="['fas', 'lightbulb-on']"
+            class="pr-1 text-muted"
+          ></fa-icon>
+          Post an Idea
+        </p>
+      </li>
+      <!-- <li
+        class="list-inline-item border-right p-2 addHover"
+        (click)="openPostChallenge()"
+      >
+        <p class="uppercase bold text-muted mb-0 small">
+          <fa-icon
+            [icon]="['fas', 'bullseye']"
+            class="pr-1 text-tertiary"
+          ></fa-icon>
+          Post Challenge
+        </p>
+      </li>
+      <li
+        class="list-inline-item border-right p-2 addHover"
+        routerLink="/insight-add"
+      >
+        <p class="uppercase bold text-muted mb-0 small">
+          <fa-icon
+            [icon]="['fas', 'atom']"
+            class="pr-1 text-secondary"
+          ></fa-icon>
+          Post Insight
+        </p>
+      </li> -->
+    </ul>
+  </div>
+  <div class="card-body pointer pt-3 pr-1 pl-1 pb-0" (click)="open(content)">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-row">
+          <div class="form-group col-sm-1 pl-1">
+            <img
+              class="rounded-circle userImage"
+              style="position: relative; left: 0.5rem; z-index: 1;"
+              [defaultImage]="defaultImage"
+              [lazyLoad]="user?.profileImage?.url"
+              height="50"
+              width="50"
+            />
+          </div>
+          <div class="form-group col-11 mb-0">
+            <p class="text-muted text-medium ml-3">
+              Start typing your idea here...
+            </p>
+            <!-- <textarea class="form-control border-0 rounded-0 pointer" placeholder="Start typing your idea here..."
+              rows="3"></textarea> -->
+          </div>
+        </div>
+        <div
+          class="form-row pb-2 pt-1 pl-1 pr-1 border-top border-bottom border-right border-left"
+        >
+          <div class="form-group col-9 mb-0">
+            <!-- <ul class="list-inline mb-0 pt-2">
+              <li class="list-inline-item">
+                <button class="btn btn-sm btnGray" placement="top" ngbTooltip="Add Video">
+                  <fa-icon [icon]="['fas', 'video']" class="moveButtonIcon"></fa-icon>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <button class="btn btn-sm btnGray" placement="top" ngbTooltip="Add Images">
+                  <fa-icon [icon]="['fas', 'image']" class="moveButtonIcon"></fa-icon>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <button class="btn btn-sm btnGray" ngbTooltip="Add Files">
+                  <fa-icon [icon]="['fas', 'paperclip']" class="moveButtonIcon"></fa-icon>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <button class="btn btn-sm btnGray" ngbTooltip="Add Files">
+                  <fa-icon [icon]="['fas', 'microphone']" class="moveButtonIcon"></fa-icon>
+                </button>
+              </li>
+            </ul> -->
+          </div>
+          <div class="form-group col-3 mb-0">
+            <button class="btn btn-primary btn-sm btn-block mt-1">
+              Post Idea
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-body">
+    <div class="row">
+      <!-- <div class="col-3">
+        <app-similar-ideas [titleValue]="title"></app-similar-ideas>
+      </div> -->
+      <div class="col-12">
+        <app-post-idea></app-post-idea>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <ng-template #content let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Post New Idea</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-info text-center small">
+      Your idea has been saved as a draft. You can view your drafts from your profile page.
+    </div>
+    <app-post-idea (closePostIdeaPopup)="onClosePostIdeaPopup($event)"></app-post-idea>
+  </div>
+
+  <div class="modal-footer bg-light">
+    <button class="btn btn-primary btn-block uppercase">Post Idea</button>
+  </div>
+</ng-template> -->

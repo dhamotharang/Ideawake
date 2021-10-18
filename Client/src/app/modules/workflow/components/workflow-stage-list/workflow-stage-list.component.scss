@@ -1,0 +1,118 @@
+.stagePositioning {
+  position: absolute;
+  left: -0.6rem;
+}
+
+.stageIcon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding-top: 0.35rem;
+}
+
+.horizontalSeparator {
+  border-top: 6px solid #434343;
+  width: 49rem;
+  position: relative;
+  left: 20%;
+  margin-left: -3px;
+  top: 0;
+}
+
+.teamImagesMinWidth {
+  min-width: 16rem;
+}
+
+.teamImage {
+  border: 2px solid white;
+  max-width: 2.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.removeMargins {
+  margin-right: -0.6rem;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.stage-list.cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+p.customFieldText {
+  font-size: 7px;
+}
+
+// extra small devices
+
+.verticalSeparator {
+  border-left: none;
+  height: 1rem;
+  position: relative;
+  left: 3.1%;
+  margin-left: -3px;
+  top: 0;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .verticalSeparator {
+    border-left: 6px solid #dddddd;
+    height: 1rem;
+    position: relative;
+    left: 3.1%;
+    margin-left: -3px;
+    top: 0;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .verticalSeparator {
+    border-left: 6px solid #dddddd;
+    height: 1rem;
+    position: relative;
+    left: 3.1%;
+    margin-left: -3px;
+    top: 0;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .verticalSeparator {
+    border-left: 6px solid #dddddd;
+    height: 1rem;
+    position: relative;
+    left: 3.1%;
+    margin-left: -3px;
+    top: 0;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .verticalSeparator {
+    border-left: 6px solid #dddddd;
+    height: 1rem;
+    position: relative;
+    left: 3.1%;
+    margin-left: -3px;
+    top: 0;
+  }
+}

@@ -1,0 +1,28 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.list-group-item-action {
+  // background-color: $gray-100;
+  background-color: white;
+  color: inherit;
+}
+
+.list-group-item-action:hover {
+  background-color: $primary;
+  color: $white;
+}
+
+.list-group-item-action i {
+  color: $gray-200;
+}
+
+.list-group-item-action:hover i {
+  color: $white;
+}
+
+.selected {
+  background-color: $primary;
+  color: $white;
+}

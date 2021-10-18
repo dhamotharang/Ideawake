@@ -1,0 +1,83 @@
+<button class="btn btn-light btn-sm" (click)="open(exportModal)">
+  <fa-icon [icon]="['fas', 'file-spreadsheet']" class="text-muted"></fa-icon>
+  Export
+</button>
+
+<!-- edit idea settings modal -->
+<ng-template #exportModal let-modal>
+  <div class="modal-header card-header bg-light border-bottom-0 px-3 pt-3">
+    <p class="uppercase bold mb-0 montserrat text-muted">
+      Export Evaluations
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light">
+    <!-- <p>
+      You are about to export XX results. Once you click "export" below, you
+      will be able to download this file directly and will also receive a copy
+      of it via email.
+    </p> -->
+    <form>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label>Export Format</label>
+          <div ngbDropdown>
+            <div
+              class="rounded border addHoverTwo bg-white py-2 px-3 removeCaret"
+              ngbDropdownToggle
+            >
+              CSV
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                class="mr-2 float-right"
+              ></fa-icon>
+            </div>
+            <div class="shadow w-100" ngbDropdownMenu>
+              <button
+                class="pl-3"
+                ngbDropdownItem
+                (click)="exportFormat = 'csv'"
+              >
+                CSV
+              </button>
+              <!-- <button class="pl-3" ngbDropdownItem>XLSX</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-top-0 bg-light pt-0">
+    <div class="float-right">
+      <button
+        class="btn btn-white border"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn-primary ml-2"
+        (click)="exportData()"
+        [disabled]="isLoading"
+      >
+        <span>
+          <fa-icon
+            *ngIf="isLoading"
+            [icon]="['fas', 'spinner']"
+            size="15px"
+            [spin]="true"
+          ></fa-icon>
+          Export</span
+        >
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- edit idea settings modal -->

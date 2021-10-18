@@ -1,0 +1,64 @@
+<div class="card rounded-0 border-top-0">
+  <div class="card-body pt-3 pb-3">
+    <div class="media">
+      <img
+        class="rounded-circle mr-3 activityFeedProfileImage"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="
+          'https://media.licdn.com/dms/image/C5603AQHvusf_9NcxFw/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=yxWK-N6K_zZG4AmC7YH3mCdEZ5eLIvOOyVDlEHlg0_k'
+        "
+      />
+      <div class="media-body">
+        <div class="row">
+          <div class="col-12">
+            <p class="text-medium mb-2">
+              {{
+                (act.actionType.createdBy &&
+                  act.actionType.createdBy.fullname) ||
+                  'Dummy Name'
+              }}
+              mentioned you in a comment on
+              <a class="inverseLink" routerLink="/idea-page-container"
+                >[#{{ act.entityObject.code }}] {{ act.entityObject.title }}</a
+              >
+            </p>
+            <div class="card mb-2 bg-light">
+              <div class="card-body p-2">
+                <p
+                  class="text-medium mb-1 text-muted"
+                  [innerHTML]="parseBody(act.parameter.comment.body)"
+                ></p>
+                <!-- <button class="btn btn-primary btn-sm">Reply</button> -->
+                <span
+                  class="badge badge-primary badgePadding pointer"
+                  routerLink="/idea-page-container"
+                  >Reply to Comment</span
+                >
+              </div>
+            </div>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ act.actionType.createdAt | timeAgo }}
+                </p>
+              </li>
+              <li class="list-inline-item ml-2 mr-2">
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="small separatorIcon text-muted"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">You Follow This User</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

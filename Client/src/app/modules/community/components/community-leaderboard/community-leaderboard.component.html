@@ -1,0 +1,19 @@
+<app-top-jumbotron></app-top-jumbotron>
+
+<div class="container-fluid removePaddingOnMobile">
+  <div class="row pt-2 pt-md-4">
+    <div class="col-12 col-md-10 offset-md-1">
+      <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+          <app-leaderboard-list
+            [rankList]="rankList"
+            (frequency)="changeFrequency($event)"
+          ></app-leaderboard-list>
+        </div>
+        <!-- <div class="col-12 col-md-4">
+          <app-points-per-action></app-points-per-action>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

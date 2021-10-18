@@ -1,0 +1,50 @@
+<span ngbDropdown>
+  <span
+    class="badge badge-light badgePadding border addHover removeCaret"
+    ngbDropdownToggle
+  >
+    <fa-icon
+      [icon]="['fas', 'circle']"
+      class="mr-1 text-primary small"
+    ></fa-icon>
+    In Submission
+    <fa-icon [icon]="['fas', 'caret-down']" class="text-muted"></fa-icon>
+  </span>
+  <div ngbDropdownMenu class="shadow">
+    <button class="btn-sm" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="mr-1 text-primary small"
+      ></fa-icon>
+      In Submission
+    </button>
+    <button class="btn-sm" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="mr-1 text-warning small"
+      ></fa-icon>
+      In Evaluation
+    </button>
+    <button class="btn-sm" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="mr-1 text-info small"
+      ></fa-icon>
+      In Development
+    </button>
+    <button class="btn-sm" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="mr-1 text-success small"
+      ></fa-icon>
+      Implemented
+    </button>
+    <button class="btn-sm" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="mr-1 text-dark small"
+      ></fa-icon>
+      Parking Lot
+    </button>
+  </div>
+</span>

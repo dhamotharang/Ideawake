@@ -1,0 +1,119 @@
+<div ngbDropdown>
+  <input
+    ngbDropdownToggle
+    type="text"
+    class="form-control w-100"
+    placeholder="{{ 'Search.StartTyping' | translationPipe }}..."
+  />
+  <div
+    ngbDropdownMenu
+    class="shadow pt-0 pb-0 w-100 modalScrollMaxHeight"
+    style="overflow-x: hidden;"
+  >
+    <div class="py-1 px-3 border-top border-bottom bg-light">
+      <div class="row">
+        <div class="col-4">
+          <label class="text-muted uppercase small mb-0 bold"
+            >Question Title
+          </label>
+        </div>
+        <div class="col-6">
+          <label class="text-muted uppercase small mb-0 bold"
+            >Response Options
+          </label>
+        </div>
+        <div class="col-2">
+          <label class="text-muted uppercase small mb-0 bold">Last Edit</label>
+        </div>
+      </div>
+    </div>
+    <button class="px-3 py-2 dottedBottomBorder" ngbDropdownItem>
+      <div class="row">
+        <div class="col-4">
+          Question Title
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="Description if it exists"
+          ></fa-icon>
+        </div>
+        <div class="col-6 flex-column align-self-center">
+          <ul class="list-inline mb-0 text-wrap">
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Yes Implement this Idea</span>
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary"
+                >No don't implement this idea</span
+              >
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Needs More Information</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2 flex-column align-self-center">
+          <p class="mb-0 text-medium align-self-center">10/20/20</p>
+        </div>
+      </div>
+    </button>
+    <button class="px-3 py-2 dottedBottomBorder" ngbDropdownItem>
+      <div class="row">
+        <div class="col-4">
+          Question Title
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="Description if it exists"
+          ></fa-icon>
+        </div>
+        <div class="col-6 flex-column align-self-center">
+          <ul class="list-inline mb-0 text-wrap">
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Yes</span>
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">No</span>
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Needs More Information</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2 flex-column align-self-center">
+          <p class="mb-0 text-medium align-self-center">10/20/20</p>
+        </div>
+      </div>
+    </button>
+    <button class="px-3 py-2 dottedBottomBorder" ngbDropdownItem>
+      <div class="row">
+        <div class="col-4">
+          Question Title
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="Description if it exists"
+          ></fa-icon>
+        </div>
+        <div class="col-6 flex-column align-self-center">
+          <ul class="list-inline mb-0 text-wrap">
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Yes Implement this Idea</span>
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary"
+                >No don't implement this idea</span
+              >
+            </li>
+            <li class="list-inline-item mb-1">
+              <span class="badge badge-primary">Needs More Information</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2 flex-column align-self-center">
+          <p class="mb-0 text-medium align-self-center">10/20/20</p>
+        </div>
+      </div>
+    </button>
+  </div>
+</div>

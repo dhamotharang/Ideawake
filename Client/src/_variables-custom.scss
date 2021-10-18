@@ -1,0 +1,6 @@
+:root {
+  --primary: #1ab394;
+  --primaryHover: #17a185;
+}
+$primary: var(--primary, #1ab394);
+$primaryHover: var(--primaryHover, #17a185);

@@ -1,0 +1,123 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <label placement="right" ngbTooltip="Label description if it exists">
+      Label Title
+      <fa-icon
+        [icon]="['fas', 'info-circle']"
+        class="text-muted"
+        ngbTooltip="If description exists..."
+      ></fa-icon>
+    </label>
+    <div class="card mb-3 shadow-sm bg-light">
+      <div class="card-header p-2">
+        <div class="row">
+          <div class="col-5">
+            <label class="mb-0">Benefit</label>
+          </div>
+          <div class="col-3">
+            <label class="mb-0">Units</label>
+          </div>
+          <div class="col-2">
+            <label class="mb-0">Start Date</label>
+          </div>
+          <div class="col-2">
+            <label class="mb-0">End Date</label>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-2">
+        <div class="row">
+          <div class="col-12">
+            <form>
+              <!-- start of one -->
+              <div class="form-row">
+                <div class="form-group col-5">
+                  <div class="custom-control custom-checkbox mr-2 mt-1">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input custom-control-input-lg"
+                      id="benefitItem"
+                    />
+                    <label
+                      class="custom-control-label font-weight-normal"
+                      for="benefitItem"
+                      >Benefit Title</label
+                    >
+                  </div>
+                </div>
+                <div class="form-group col-3">
+                  Unit info
+                </div>
+                <div class="form-group col-2 mb-0">
+                  <div ngbDropdown container="body">
+                    <div class="input-group input-group-sm mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Start Date"
+                        ngbDropdownToggle
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2">
+                          <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                        </span>
+                      </div>
+                      <div ngbDropdownMenu class="shadow py-0">
+                        <div class="card border-0">
+                          <div class="card-body pt-2">
+                            <div class="pb-2">
+                              <label class="text-medium">Select Date</label>
+                              <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="10/22/20"
+                              />
+                            </div>
+                            <ngb-datepicker #dateDisplay></ngb-datepicker>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-2 mb-0">
+                  <div ngbDropdown container="body">
+                    <div class="input-group input-group-sm mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="End Date"
+                        ngbDropdownToggle
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2">
+                          <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                        </span>
+                      </div>
+                      <div ngbDropdownMenu class="shadow py-0">
+                        <div class="card border-0">
+                          <div class="card-body pt-2">
+                            <div class="pb-2">
+                              <label class="text-medium">Select Date</label>
+                              <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="10/22/20"
+                              />
+                            </div>
+                            <ngb-datepicker #dateDisplay></ngb-datepicker>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of one -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

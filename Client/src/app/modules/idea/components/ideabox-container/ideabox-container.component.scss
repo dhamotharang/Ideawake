@@ -1,0 +1,102 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.userImagePreview {
+  border: 2px solid white;
+  max-width: 2rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  margin-right: -15px;
+}
+
+.nav-tabs {
+  width: 105.75% !important;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #ececec !important;
+  position: relative !important;
+  right: 2rem !important;
+  font-size: 0.85rem !important;
+  border-bottom: 1px solid #dddddd !important;
+}
+
+.nav-pills {
+  // border: 3px solid $defaultBorder;
+  background-color: transparent;
+  // border-radius: 0.15rem;
+}
+
+.nav-link {
+  color: $gray-600 !important;
+  font-size: 0.9rem;
+  padding-left: 0.75rem;
+  text-align: left;
+  border-bottom: 3px solid #dddddd;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.nav-link i {
+  color: $gray-300 !important;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  color: $primary !important;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border-bottom: 3px solid $primary;
+}
+
+.nav-link.active {
+  color: $primary !important;
+  font-size: 0.9rem;
+  padding-left: 0.75rem;
+  text-align: left;
+  // border-bottom: .15rem solid $primary !important;
+  border-radius: 0;
+  background-color: transparent !important;
+  margin-bottom: 0;
+  border-bottom: 3px solid $primary;
+}
+
+.labelPink {
+  border-left: 0.4rem solid pink;
+}
+
+.personaCardPink {
+  background-color: #ffe7eb;
+}
+
+.labelBlue {
+  border-left: 0.4rem solid #5bc0de;
+}
+
+.personaCardBlue {
+  background-color: #dbf1f8;
+}
+
+.labelGreen {
+  border-left: 0.4rem solid green;
+}
+
+.labelYellow {
+  border-left: 0.4rem solid yellow;
+}
+
+.labelOrange {
+  border-left: 0.4rem solid orange;
+}
+
+.canvasBackground {
+  background-color: #f1f1f1;
+}
+
+.canvasBackground .card {
+  margin: 0;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-radius: 0;
+}

@@ -1,0 +1,57 @@
+<div ngbDropdown>
+  <div
+    class="removeCaret py-2 px-3 border rounded addHover bg-white"
+    ngbDropdownToggle
+  >
+    <div class="row">
+      <div class="col-11 pl-2">
+        <span class="text-muted">
+          {{ workflowSelected?.title || 'No workflow selected' }}
+        </span>
+      </div>
+      <div class="col-1">
+        <fa-icon
+          [icon]="['fas', 'caret-down']"
+          class="text-muted float-right"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+  <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+    <button (click)="selectWorkflow(null)" class="pl-3 py-2" ngbDropdownItem>
+      No Workflow
+    </button>
+    <button
+      *ngFor="let workflow of workflows$ | async"
+      (click)="selectWorkflow(workflow)"
+      class="pl-3 py-2"
+      ngbDropdownItem
+    >
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item">
+          {{ workflow.title }}
+          <fa-icon
+            *ngIf="workflow?.description"
+            [icon]="['fas', 'info-circle']"
+            class="text-muted mr-1"
+            [ngbTooltip]="workflow.description"
+          ></fa-icon>
+        </li>
+        <li class="list-inline-item float-right">
+          <ul class="list-inline">
+            <li class="list-inline-item text-medium mr-3">
+              <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="text-muted">
+              </fa-icon>
+              {{ workflow.stagesCount }} Stages
+            </li>
+            <li class="list-inline-item text-medium">
+              <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+              </fa-icon>
+              {{ workflow.opportunitiesCount }} Ideas
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </button>
+  </div>
+</div>

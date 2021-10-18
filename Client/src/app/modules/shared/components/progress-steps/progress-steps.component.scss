@@ -1,0 +1,44 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.statusContainer {
+  // margin-left: -.35rem;
+  // margin-right: -.35rem;
+  background: rgb(249, 249, 249);
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(249, 249, 249, 1) 100%
+  );
+}
+
+.statusStep {
+  border-top: 2px solid transparent;
+  background: transparent;
+  color: #aeaeae;
+}
+
+.statusStep:hover {
+  background-color: white;
+  border-top: 2px solid $primary; // this should be the color associated with the status
+  cursor: pointer;
+}
+
+.statusStep .active {
+  background-color: white;
+  border-top: 2px solid $primary; // this should be the color associated with the status
+  color: $primary; // this should be the color associated with the status
+}
+
+.stageInfoPosition {
+  position: absolute;
+  right: 0;
+}
+
+.alertPlacement {
+  position: relative;
+  bottom: 0.06rem;
+}

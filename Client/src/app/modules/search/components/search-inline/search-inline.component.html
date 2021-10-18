@@ -1,0 +1,20 @@
+<span>
+  <div class="input-group mb-0 mr-sm-2">
+    <div *ngIf="showIcon" class="input-group-prepend">
+      <div class="input-group-text pb-0 pt-0 pl-2 pr-1 border-right-0 bg-white">
+        <fa-icon
+          [icon]="['fas', 'search']"
+          class="text-muted text-medium"
+        ></fa-icon>
+      </div>
+    </div>
+    <input
+      type="text"
+      [ngClass]="showIcon ? 'border-left-0' : 'border-left'"
+      class="form-control form-control-sm pl-1"
+      placeholder="{{ 'Search.Search' | translationPipe }}..."
+      [(ngModel)]="text"
+      (ngModelChange)="onSearch($event)"
+    />
+  </div>
+</span>

@@ -1,0 +1,255 @@
+<span class="mb-1 pointer">
+  <span>
+    {{ idea.title.substring(0, 60) }}
+    <span *ngIf="idea.title.length > 60">
+      ...
+    </span>
+  </span>
+  <span class="text-muted"></span>
+  <!-- <a routerLink="/idea-page-container">
+    <fa-icon
+      (click)="viewIdea()"
+      [icon]="['fas', 'external-link']"
+      class="ml-1 text-muted small"
+    ></fa-icon>
+  </a> -->
+</span>
+
+<ng-template #ideasummary let-modal>
+  <div class="modal-body darkModalBody rounded pt-0">
+    <div class="row">
+      <div class="col-12">
+        <div class="row pb-1 pt-3 bg-white border-bottom">
+          <div class="col-7">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a
+                  class="mb-0 uppercase bold pt-1 small inverseLink"
+                  routerLink="/groups-list-container"
+                  >Ideas</a
+                >
+              </li>
+              <li class="list-inline-item inverseLink">
+                <fa-icon
+                  [icon]="['fas', 'angle-right']"
+                  class="mr-1 ml-1 text-muted small"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="mb-0 uppercase bold pt-1 small inverseLink"
+                  routerLink="/groups-list-container"
+                  >Workflow</a
+                >
+              </li>
+              <li class="list-inline-item inverseLink small">
+                <fa-icon
+                  [icon]="['fas', 'angle-right']"
+                  class="mr-1 ml-1 text-muted"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="mb-0 uppercase bold pt-1 inverseLink small"
+                  routerLink="/groups-list-container"
+                  >Source</a
+                >
+              </li>
+              <li class="list-inline-item inverseLink">
+                <fa-icon
+                  [icon]="['fas', 'angle-right']"
+                  class="mr-1 ml-1 text-muted small"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="mb-0 uppercase bold pt-1 small">IdeaName</p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-5" style="position: relative; bottom: 4px;">
+            <app-idea-moderate-widget></app-idea-moderate-widget>
+          </div>
+        </div>
+        <div class="row modalPageHeight pt-4">
+          <div class="col-8">
+            <h5 class="mb-1 addEditOnHover">
+              Leverage VR to Engage Clients Remotely
+              <i class="text-muted">(253)</i>
+            </h5>
+            <ul class="list-inline mb-3">
+              <li class="list-inline-item">
+                <app-idea-status></app-idea-status>
+              </li>
+              <li class="list-inline-item">
+                <app-idea-category></app-idea-category>
+              </li>
+              <li class="list-inline-item">
+                <div class="media" style="position: relative; top: 0.45rem;">
+                  <img
+                    class="float-left rounded-circle mr-2 ideaCardSubmitterImage"
+                    src="https://media.licdn.com/dms/image/C4D03AQGT4h8usocyiw/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=QcSE0CAvN-wayyq_udaMPemlkXGTyXIsChQr9PM-NBY"
+                  />
+                  <div class="media-body">
+                    <p
+                      class="small bold inverseLinkDark adjustSubmitterText mb-0"
+                    >
+                      By - First Last Name
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <app-idea-description></app-idea-description>
+                <app-tags></app-tags>
+                <p class="small uppercase text-muted bold mb-2 mt-2">
+                  Files and Media
+                </p>
+                <app-media-feature></app-media-feature>
+              </div>
+            </div>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="small uppercase text-muted bold mb-1">Activity -</p>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <p
+                  class="small uppercase bold inverseLink mb-1 removeCaret"
+                  ngbDropdownToggle
+                >
+                  Filter By Comments (55)
+                  <fa-icon
+                    [icon]="['fas', 'caret-down']"
+                    class="text-muted"
+                  ></fa-icon>
+                </p>
+                <div ngbDropdownMenu class="shadow pt-0">
+                  <button class="btn-sm pl-2" ngbDropdownItem>
+                    All Activity (72)
+                  </button>
+                  <button class="btn-sm pl-2" ngbDropdownItem>
+                    Comments (55)
+                  </button>
+                  <button class="btn-sm pl-2" ngbDropdownItem>
+                    Updates (2)
+                  </button>
+                  <button class="btn-sm pl-2" ngbDropdownItem>
+                    Notes (10)
+                  </button>
+                  <button class="btn-sm pl-2" ngbDropdownItem>
+                    Stage and Status Changes (5)
+                  </button>
+                </div>
+              </li>
+            </ul>
+            <div class="card shadow-sm">
+              <div class="card-body pl-3 pr-3">
+                <app-comments-container></app-comments-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col-7">
+                <button class="btn btn-primary btn-block">
+                  <fa-icon [icon]="['fas', 'caret-up']"></fa-icon>
+                  Upvote Idea <small>+540</small>
+                </button>
+              </div>
+              <div class="col-5 pr-0">
+                <app-social-images></app-social-images>
+              </div>
+            </div>
+            <hr class="mb-3" />
+            <div class="row">
+              <div class="col-12">
+                <ul class="list-inline float-right w-100">
+                  <li class="list-inline-item w-25 m-0 inverseLink text-center">
+                    <fa-icon [icon]="['fas', 'rss']" class="ideaIcon"></fa-icon>
+                    <p class="small mb-0 text-muted">Follow</p>
+                  </li>
+                  <li class="list-inline-item w-25 m-0 inverseLink text-center">
+                    <fa-icon
+                      [icon]="['fas', 'bookmark']"
+                      class="ideaIcon"
+                    ></fa-icon>
+                    <p class="small mb-0 text-muted">Bookmark</p>
+                  </li>
+                  <li
+                    class="list-inline-item w-25 m-0 inverseLink text-center"
+                    ngbDropdown
+                  >
+                    <app-share [ideaId]="idea?.id"></app-share>
+                  </li>
+                  <li class="list-inline-item w-25 m-0 inverseLink text-center">
+                    <fa-icon
+                      [icon]="['fas', 'flag']"
+                      class="ideaIcon"
+                    ></fa-icon>
+                    <p class="small mb-0 text-muted">Flag</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row mb-2 pt-2 d-none">
+              <div class="col-12">
+                <p class="mb-2 bold uppercase text-muted small">Moderate</p>
+                <div class="row">
+                  <div class="col-2 pr-md-0">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Edit Idea"
+                    >
+                      <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    </button>
+                  </div>
+                  <div class="col-2 pr-md-0">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Edit Settings"
+                    >
+                      <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+                    </button>
+                  </div>
+                  <div class="col-2 pr-md-0">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Change Stage"
+                    >
+                      <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+                    </button>
+                  </div>
+                  <div class="col-2 pr-md-0">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Post Update"
+                    >
+                      <fa-icon [icon]="['fas', 'bullhorn']"></fa-icon>
+                    </button>
+                  </div>
+                  <div class="col-2 pr-md-0">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Merge Idea"
+                    >
+                      <fa-icon [icon]="['fas', 'code-merge']"></fa-icon>
+                    </button>
+                  </div>
+                  <div class="col-2">
+                    <button
+                      class="btn btn-light border btn-sm btn-block"
+                      ngbTooltip="Link Idea"
+                    >
+                      <fa-icon [icon]="['fas', 'link']"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

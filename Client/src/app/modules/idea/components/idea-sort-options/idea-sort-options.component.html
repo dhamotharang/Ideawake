@@ -1,0 +1,30 @@
+<div ngbDropdown>
+  <button
+    class="btn btn-white border btn-sm removeCaret"
+    id="sortDropdown"
+    ngbDropdownToggle
+  >
+    <fa-icon [icon]="['fas', 'sort']" class="text-muted mr-1"></fa-icon>
+    <span class="d-none d-md-inline"
+      >{{ 'Shared.Sort' | translationPipe }} -</span
+    >
+    {{ selectedFilter | translationPipe }}
+    <fa-icon
+      [icon]="['fas', 'angle-down']"
+      class="angle-down text-muted"
+    ></fa-icon>
+    <!-- <fa-icon [icon]="['fas', 'sort']" class="text-muted"></fa-icon>
+    Sort - {{ selectedFilter }}
+    <fa-icon [icon]="['fas', 'angle-down']" class="ml-1"></fa-icon> -->
+  </button>
+  <div ngbDropdownMenu aria-labelledby="sortDropdown">
+    <button
+      *ngFor="let filter of filters | keyvalue"
+      ngbDropdownItem
+      class="btn-sm"
+      (click)="selectSortFilter(filter)"
+    >
+      {{ filter.value.languageKey | translationPipe }}
+    </button>
+  </div>
+</div>

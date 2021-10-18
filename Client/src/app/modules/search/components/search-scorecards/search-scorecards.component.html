@@ -1,0 +1,145 @@
+<div ngbDropdown>
+  <input
+    ngbDropdownToggle
+    type="text"
+    class="form-control w-100"
+    placeholder="Start typing to search evaluation criteria..."
+    [(ngModel)]="text"
+    (keyup)="searchTerm(text)"
+  />
+  <div ngbDropdownMenu class="shadow w-100" *ngIf="data?.length === 0">
+    <div class="py-2 text-center">
+      <fa-icon
+        [icon]="['fas', 'times-circle']"
+        class="text-muted"
+        style="font-size: 2rem;"
+      ></fa-icon>
+      <h5 class="montserrat mb-1 bold">
+        You Haven't Created Any Review Criteria Yet.
+      </h5>
+      <p class="mb-2 text-center text-muted text-medium">
+        Please add your first review criteria by clicking "add new evaluation
+        criteria" above.
+      </p>
+    </div>
+  </div>
+  <div
+    ngbDropdownMenu
+    class="shadow pt-0 pb-0 w-100 modalScrollMaxHeight"
+    style="overflow-x: hidden;"
+    *ngIf="data?.length !== 0"
+  >
+    <div class="py-1 px-3 border-top border-bottom bg-light">
+      <div class="row">
+        <div class="col-5">
+          <label class="text-muted uppercase small mb-0 bold">
+            Title
+          </label>
+        </div>
+        <div class="col-2">
+          <label class="text-muted uppercase small mb-0 bold">Type </label>
+        </div>
+        <div class="col-3">
+          <label class="text-muted uppercase small mb-0 bold">Info </label>
+        </div>
+        <div class="col-2">
+          <label class="text-muted uppercase small mb-0 bold">Weight</label>
+        </div>
+      </div>
+    </div>
+    <button
+      class="px-3 py-1 dottedBottomBorder"
+      style="white-space: normal;"
+      ngbDropdownItem
+      *ngFor="let datum of data"
+      (click)="selectField(datum)"
+    >
+      <!-- start of scorecard -->
+      <div class="row py-2 flex-row align-items-center">
+        <div class="col-5">
+          <div class="media">
+            <div class="media-body">
+              <p class="mb-0">
+                {{ datum?.title }}
+                <fa-icon
+                  *ngIf="datum?.description"
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted"
+                  [ngbTooltip]="datum?.description"
+                ></fa-icon>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 adjustFloatUp">
+          <span
+            class="badge text-white w-100 text-wrap"
+            [ngStyle]="{ background: datum?.evaluationType?.color }"
+          >
+            <fa-icon
+              [icon]="['fas', datum?.evaluationType?.icon]"
+              class="text-white"
+            ></fa-icon>
+            {{ datum?.evaluationType?.title }}
+          </span>
+        </div>
+        <div class="col-3">
+          <p
+            *ngIf="datum?.evaluationType?.abbreviation == types.QUESTION"
+            class="mb-0 text-medium"
+          >
+            <ng-template #questionInfo>
+              <span [innerHtml]="getTooltip(datum)"></span>
+            </ng-template>
+            <span
+              triggers="mouseenter:mouseleave"
+              [popoverTitle]="questionTitle"
+              [ngbPopover]="questionInfo"
+              [autoClose]="true"
+              container="body"
+            >
+              {{ datum?.criteriaObject?.data?.length || 0 }} Criteria
+            </span>
+          </p>
+          <p
+            *ngIf="datum?.evaluationType?.abbreviation == types.NUMERICAL_RANGE"
+            class="mb-0 text-medium"
+          >
+            <span ngbTooltip="Minimum Possible Response">
+              {{ datum?.criteriaObject?.unit
+              }}{{ datum?.criteriaObject?.minValue || 0 | number }}
+            </span>
+            -
+            <span ngbTooltip="Maximum Possible Response">
+              {{ datum?.criteriaObject?.unit
+              }}{{ datum?.criteriaObject?.maxValue || 0 | number }}
+            </span>
+          </p>
+        </div>
+        <div class="col-2">
+          <p class="mb-0 text-medium">
+            {{ datum?.criteriaWeight }}
+            <span class="font-italic text-muted">
+              ({{ getWeight(datum?.criteriaWeight) }}%)
+            </span>
+          </p>
+        </div>
+      </div>
+      <!-- end of scorecard -->
+    </button>
+  </div>
+</div>
+<!-- start of popover -->
+<ng-template #questionTitle>
+  <div class="enlargePopover">
+    <div class="row">
+      <div class="col-7">
+        <label class="mb-0 text-medium">Response</label>
+      </div>
+      <div class="col-5">
+        <label class="mb-0 text-medium">Points</label>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- end of popover -->

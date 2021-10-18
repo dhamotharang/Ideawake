@@ -1,0 +1,134 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="row ml-md-2 mr-md-3">
+        <div class="col-12">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mt-1">
+              <h4
+                class="mb-0 montserrat bold"
+                style="position: relative; top: 0.55rem;"
+              >
+                {{ dashboard?.title }}
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  *ngIf="dashboard?.description"
+                  class="text-muted"
+                  [ngbTooltip]="
+                    dashboard?.description || 'No description provided'
+                  "
+                >
+                </fa-icon>
+              </h4>
+            </li>
+            <li class="list-inline-item float-right adjustFloat">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item pt-1 mt-2 float-right mr-0">
+                  <span
+                    class="btn btn-white btn-sm shadow-sm mr-2"
+                    (click)="openEditDashboard()"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Edit View
+                  </span>
+                  <span
+                    class="btn btn-primary btn-sm"
+                    (click)="openCreateGadget()"
+                  >
+                    <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                    Add Gadget
+                  </span>
+                </li>
+                <li class="list-inline-item mr-3">
+                  <app-create-widget></app-create-widget>
+                </li>
+                <li class="list-inline-item" ngbTooltip="Coming Soon!">
+                  <!-- <button class="btn btn-light border btn-sm disabled">
+                    <fa-icon
+                      [icon]="['fas', 'file-spreadsheet']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Export to XLS
+                    <fa-icon
+                      [icon]="['fas', 'arrow-down']"
+                      class="text-muted small"
+                    ></fa-icon>
+                  </button> -->
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <hr class="mt-4" />
+        </div>
+      </div>
+      <div class="row ml-md-2 mr-md-3" *ngIf="gadgets.length === 0">
+        <div class="col-12">
+          <div class="card rounded-top-0 shadow-sm">
+            <div class="card-body py-5">
+              <ul class="list-inline mb-0 text-center">
+                <li class="list-inline-item">
+                  <fa-icon
+                    [icon]="['fas', 'chart-bar']"
+                    class="iconExtraLarge text-muted"
+                  ></fa-icon>
+                  <h4 class="text-center bold montserrat mb-3">Add Gadgets to Your View</h4>
+                  <p class="text-muted mb-4">
+                    Add gadgets to your view in order to display the analytics you want to track.
+                  </p>
+                </li>
+              </ul>
+              <div class="text-center mb-3">
+                <span
+                  class="btn btn-primary border"
+                  (click)="openCreateGadget()"
+                >
+                  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                  Add Your First Gadget
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row ml-md-2 mr-md-3">
+        <div class="col-12">
+          <app-pivot-chart></app-pivot-chart>
+        </div>
+      </div>
+      <div class="row ml-md-2 mr-md-3">
+        <div
+          class="col-6"
+          *ngFor="let gadget of gadgets"
+          [ngSwitch]="gadget.widgetType"
+        >
+          <app-pie-chart
+            *ngSwitchCase="gadgetTypes.PIE.type"
+            [data]="gadget"
+            (removed)="getDashBoardGadgets()"
+          ></app-pie-chart>
+
+          <app-bubble-chart
+            *ngSwitchCase="gadgetTypes.BUBBLE.type"
+            [data]="gadget"
+            (removed)="getDashBoardGadgets()"
+          ></app-bubble-chart>
+
+          <app-time-series-chart
+            *ngSwitchCase="gadgetTypes.TIME_SERIES.type"
+            [data]="gadget"
+            (removed)="getDashBoardGadgets()"
+          ></app-time-series-chart>
+
+          <!-- <app-bar-chart *ngSwitchCase="gadgetTypes.BAR.type"></app-bar-chart>
+
+          <app-aggregated-tile-chart
+            *ngSwitchCase="gadgetTypes.AGGREGATED.type"
+          ></app-aggregated-tile-chart> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

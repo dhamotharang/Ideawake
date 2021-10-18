@@ -1,0 +1,92 @@
+<button
+  (click)="toggle($event)"
+  *ngIf="!inlineIcon && !smallIcon"
+  data-hover="Remove"
+  class="btn btn-outline-primary shadow-sm montserrat w-100"
+  [ngClass]="{
+    'upvoted-idea-button-wo-hover': upvote && !mouseLeaveFlag,
+    'upvoted-idea-button': upvote && mouseLeaveFlag
+  }"
+  [disabled]="upvoteAction"
+  (mouseleave)="mouseLeave()"
+>
+  <fa-icon
+    style="display: inline-block;"
+    class="upvote-button-content"
+    [ngClass]="{ 'animated rubberBand': upvoteAction }"
+    [icon]="upvote ? ['fas', 'check'] : ['fas', 'thumbs-up']"
+  ></fa-icon>
+  <!-- <span class="upvote-button-content"> Vote</span> -->
+  <span class="upvote-button-content bold d-none d-md-inline">
+    {{
+      upvote
+        ? ('SocialActivity.Voted' | translationPipe)
+        : ('SocialActivity.Vote' | translationPipe)
+    }}
+  </span>
+  <span
+    *ngIf="entity?.id && upvotes && upvotes[entity?.id] > 0"
+    class="upvote-button-content"
+  >
+    ({{ upvotes[entity?.id] > 0 ? '' + upvotes[entity?.id] : '' }})
+  </span>
+</button>
+<!-- data-hover="Remove" -->
+<button
+  (click)="toggle($event)"
+  *ngIf="inlineIcon && !smallIcon"
+  class="btn btn-outline-primary adjustSize btn-sm text-primary py-0"
+  [ngClass]="{
+    'upvoted-idea-button-wo-hover': upvote && !mouseLeaveFlag,
+    'upvoted-idea-button': upvote && mouseLeaveFlag
+  }"
+  [disabled]="upvoteAction"
+  (mouseleave)="mouseLeave()"
+>
+  <fa-icon
+    style="display: inline-block;"
+    class="small adjustTextUp"
+    [ngClass]="{ 'animated rubberBand': upvoteAction }"
+    [icon]="upvote ? ['fas', 'check'] : ['fas', 'thumbs-up']"
+  ></fa-icon>
+  <span class="small adjustTextUp d-none d-md-inline">
+    {{
+      upvote
+        ? ('SocialActivity.Voted' | translationPipe)
+        : ('SocialActivity.Vote' | translationPipe)
+    }}
+  </span>
+  <!-- *ngIf="entity?.id && upvotes && upvotes[entity?.id] > 0" -->
+  <span class="small adjustTextUp">
+    <!-- ({{ upvotes[entity?.id] > 0 ? '' + upvotes[entity?.id] : '' }}) -->
+    {{
+      upvotes && upvotes[entity?.id] > 0 ? '' + upvotes[entity?.id] : '' || '0'
+    }}
+  </span>
+</button>
+
+<button
+  (click)="toggle($event)"
+  *ngIf="!inlineIcon && smallIcon"
+  class="btn btn-outline-primary btn-sm text-primary montserrat px-md-3 bold"
+  [ngClass]="{
+    'upvoted-idea-button-wo-hover': upvote && !mouseLeaveFlag,
+    'upvoted-idea-button': upvote && mouseLeaveFlag
+  }"
+  [disabled]="upvoteAction"
+  (mouseleave)="mouseLeave()"
+>
+  <fa-icon
+    style="display: inline-block;"
+    [ngClass]="{ 'animated rubberBand': upvoteAction }"
+    [icon]="upvote ? ['fas', 'check'] : ['fas', 'thumbs-up']"
+  ></fa-icon>
+  {{
+    upvote
+      ? ('SocialActivity.Voted' | translationPipe)
+      : ('SocialActivity.Vote' | translationPipe)
+  }}
+  {{
+    upvotes && upvotes[entity?.id] > 0 ? '' + upvotes[entity?.id] : '' || '0'
+  }}
+</button>

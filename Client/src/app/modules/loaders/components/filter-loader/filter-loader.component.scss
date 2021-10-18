@@ -1,0 +1,47 @@
+.background-color {
+  background-color: #f9f9f9;
+}
+
+.fb-item {
+  margin: 0 10px 0 0;
+  border: 1px solid #f3f3f4;
+  background: #FFFFFF;
+  padding: 0;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  max-width: 1138px;
+  max-height: 550px;
+  min-height: 550px;
+}
+
+.first-section-wrapper,
+.second-section-wrapper {
+  width: 100%;
+  height: auto;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.third-section-wrapper{
+  width: 100%;
+  height: 20px;
+  flex: 1;
+}
+
+.first-section-wrapper {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+}
+
+.second-section-wrapper {
+  padding: 1rem;
+}
+
+.wrapper {
+  width: 100%;
+  flex: 1;
+}
+

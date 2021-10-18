@@ -1,0 +1,253 @@
+<!-- profile alerts -->
+<div
+  *ngIf="user && isDeleted"
+  class="alert alert-warning text-center rounded-0 mb-0 negativeAlertMargins"
+>
+  <div class="row">
+    <div class="col-12">
+      <span class="bold">{{
+        'Profile.DeactivatedUser' | translationPipe
+      }}</span>
+      -
+      {{ 'Profile.DeactivatedUserDescription' | translationPipe }}
+    </div>
+  </div>
+</div>
+<!-- end profile alerts -->
+<!-- start of profile top -->
+<div
+  *ngIf="user"
+  class="row mb-3 pageTopPadding border-bottom"
+  style="background-color: #fafbfc;"
+>
+  <div class="container">
+    <div class="col-12">
+      <div class="row pb-4">
+        <div class="col-12 col-md-8 order-2 order-sm-1">
+          <div class="media">
+            <img
+              [defaultImage]="defaultImage"
+              [lazyLoad]="
+                user.profileImage?.url || 'https://via.placeholder.com/75'
+              "
+              class="mr-3 rounded-circle userImageLarge"
+            />
+            <div class="media-body">
+              <h4 class="montserrat bold">
+                {{ user.firstName }} {{ user.lastName }}
+                <span class="text-muted small">@{{ user.userName }}</span>
+              </h4>
+              <p class="text-medium">{{ user?.profileBio }}</p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item mr-0">
+                  <p class="mb-0 small text-muted">
+                    <span *ngIf="user?.position">{{ user?.position }} at</span>
+                    {{ user.company || currentCommunity.name }}
+                  </p>
+                </li>
+                <li class="list-inline-item ml-2 mr-2" *ngIf="user?.country">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="small separatorIcon text-muted"
+                  ></fa-icon>
+                </li>
+                <li class="list-inline-item mr-0">
+                  <p class="mb-0 small text-muted">
+                    {{ user.country }}
+                  </p>
+                </li>
+                <li class="list-inline-item ml-2 mr-2">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="small separatorIcon text-muted"
+                  ></fa-icon>
+                </li>
+                <li class="list-inline-item mr-0">
+                  <p class="mb-0 small text-muted">
+                    {{ currentCommunityRole?.role?.title || 'User' }}
+                  </p>
+                </li>
+                <li class="list-inline-item ml-2 mr-2">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="small separatorIcon text-muted"
+                  ></fa-icon>
+                </li>
+                <li class="list-inline-item">
+                  <p class="small mb-0 text-muted">{{ user.email }}</p>
+                </li>
+              </ul>
+              <ul *ngIf="skills" class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="uppercase small text-muted mb-1 bold">Skills</p>
+                </li>
+                <li class="list-inline-item mb-2" *ngFor="let skill of skills">
+                  <span class="badge badge-light badgePadding border">
+                    <fa-icon
+                      [icon]="['fas', 'hashtag']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ skill }}
+                  </span>
+                </li>
+              </ul>
+              <ul class="list-inline mb-0" *ngIf="skills">
+                <li class="list-inline-item mb-2" *ngFor="let skill of skills">
+                  <span class="badge badge-light badgePadding border">
+                    <fa-icon
+                      [icon]="['fas', 'hashtag']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ skill }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 order-1 order-sm-2">
+          <ul class="list-inline float-right">
+            <li
+              class="list-inline-item"
+              *ngIf="currentUser || communityPermissions.accessSettings"
+            >
+              <button
+                class="btn btn-light border"
+                [routerLink]="[
+                  '',
+                  { outlets: { modal: ['edit-profile', user.id] } }
+                ]"
+              >
+                <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+                {{ 'Profile.EditProfile' | translationPipe }}
+              </button>
+            </li>
+            <!-- <li class="list-inline-item">
+              <button class="btn btn-light border">
+                <fa-icon [icon]="['fas', 'cog']"></fa-icon> Edit Settings
+              </button>
+            </li> -->
+            <!-- <li class="list-inline-item">
+              <button class="btn btn-primary" (click)="open(content)">
+                <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon> Add Profile Section
+              </button>
+            </li> -->
+            <!-- <li
+              *ngIf="
+                !currentUser &&
+                (communityPermissions.manageUserRoles ||
+                  communityPermissions.archiveUser)
+              "
+              class="list-inline-item ml-1"
+            >
+              <span ngbDropdown>
+                <button class="btn btn-light border" ngbDropdownToggle>
+                  <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+                  Edit Settings
+                </button>
+                <div
+                  ngbDropdownMenu
+                  aria-labelledby="groupPageMore"
+                  class="shadow pt-0 pb-0"
+                >
+                  <button
+                    *ngIf="communityPermissions.manageUserRoles"
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(editRole)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Edit Role
+                  </button>
+                  <hr
+                    *ngIf="!isDeleted && communityPermissions.archiveUser"
+                    class="mb-0 mt-0"
+                  />
+                  <button
+                    *ngIf="!isDeleted && communityPermissions.archiveUser"
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteUser)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Deactivate User
+                  </button>
+                </div>
+              </span>
+            </li> -->
+            <!-- <li class="list-inline-item">
+              <button class="btn btn-primary">Follow</button>
+            </li>
+            <li class="list-inline-item">
+              <button class="btn btn-secondary">Message</button>
+            </li>
+            <li class="list-inline-item">
+              <button class="btn btn-dark">
+                Moderate
+              </button>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+      <!-- Tabs Buttons -->
+      <div class="row pt-3">
+        <div class="col-12 removePaddingOnMobile">
+          <ul class="nav nav-tabs montserrat border-bottom-0 bold pointer">
+            <li *ngFor="let key of objectKeys(profileTabs)" class="nav-item">
+              <a
+                href="javascript:void(0);"
+                [ngClass]="
+                  tab == profileTabs[key].key ? 'nav-link active' : 'nav-link'
+                "
+                (click)="navigateTo({ tab: profileTabs[key].key })"
+              >
+                <fa-icon
+                  [icon]="['fas', profileTabs[key].icon]"
+                  class="text-muted"
+                ></fa-icon>
+                {{ profileTabs[key].title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Tabs Buttons End -->
+    </div>
+  </div>
+</div>
+<!-- Tabs Data -->
+<app-profile-container
+  *ngIf="tab == profileTabs.SUMMARY.key"
+></app-profile-container>
+<app-profile-bookmarks
+  *ngIf="tab == profileTabs.BOOKMARKS.key"
+></app-profile-bookmarks>
+<app-profile-following
+  *ngIf="tab == profileTabs.FOLLOWINGS.key"
+></app-profile-following>
+<!-- Tabs Data End -->
+
+<!-- Model -->
+<ng-template #editRole let-modal let-dismiss="dismiss" let-close="close">
+  <!-- <app-edit-profile-modal [close]="close" [dismiss]="dismiss"></app-edit-profile-modal> -->
+  <app-edit-user-role-modal
+    [user]="user"
+    [dismiss]="dismiss"
+    [close]="close"
+    (outPut)="subscribeUser()"
+  ></app-edit-user-role-modal>
+</ng-template>
+<ng-template #deleteUser let-modal let-dismiss="dismiss" let-close="close">
+  <app-archive-user-modal
+    [users]="user"
+    [dismiss]="dismiss"
+    [close]="close"
+    (outPut)="subscribeUser()"
+  ></app-archive-user-modal>
+</ng-template>

@@ -1,0 +1,1604 @@
+<div class="">
+  <div class="row">
+    <div class="col-sm-12 col-md-2">
+      <app-community-navigation></app-community-navigation>
+    </div>
+    <div class="col-sm-12 col-md-10">
+      <!-- opportunity settings and opporutnity type create -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row pageTopPadding">
+              <div class="col-12">
+                <h4 class="mb-0 pt-1 bold border-bottom montserrat pb-2 mb-4">
+                  Manage Benefit, Cost, and Resource Types
+                </h4>
+                <ngb-tabset>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle
+                      >Benefit, Cost, and Resource Types</ng-template
+                    >
+                    <ng-template ngbTabContent>
+                      <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <p
+                                class="mb-0 bold pt-1 uppercase text-muted montserrat"
+                              >
+                                Benefit, Cost, and Resource Types (10)
+                              </p>
+                            </li>
+                            <li class="list-inline-item float-right">
+                              <button
+                                class="btn btn-sm btn-primary"
+                                (click)="open(addBenefitType)"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Add New Type
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="card-body">
+                          <div class="row pb-3">
+                            <div class="col-6">
+                              <form>
+                                <div class="input-group mb-0 mr-sm-2">
+                                  <div class="input-group-prepend">
+                                    <div
+                                      class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'search']"
+                                      ></fa-icon>
+                                    </div>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm border-left-0"
+                                    placeholder="Search opportunity fields..."
+                                  />
+                                </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
+                              <div class="float-right">
+                                <button
+                                  class="btn btn-outline-primary btn-sm btn-rounded active"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'check-circle']"
+                                  ></fa-icon>
+                                  Active Fields (124)
+                                </button>
+                                <button
+                                  class="btn btn-outline-danger btn-sm btn-rounded ml-2"
+                                >
+                                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                                  Archived Fields (10)
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- start of fields -->
+                          <div class="row">
+                            <div class="col-12">
+                              <div
+                                class="row bg-light border-top border-bottom pt-2 pb-1"
+                              >
+                                <div class="col-4">
+                                  <label>Benefit Name</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Category</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Unit of Measure</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Value per Unit</label>
+                                </div>
+                                <div class="col-2">
+                                  <p class="bold mb-0">
+                                    Can be Applied To
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Grow Revenue
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Financial Benefit</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Save Time
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Time Savings</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Hours
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Reduce Scrap
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Other Resource Savings</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Pounds
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Cost Reduction
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Financial Benefit</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Improve Customer Experience
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Non Financial Benefit</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Improve Employee Engagement
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Non Financial Benefit</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'horizontal-rule']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <div
+                                class="row bg-light border-top border-bottom pt-2 pb-1"
+                              >
+                                <div class="col-4">
+                                  <label>Cost or Investment Name</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Category</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Unit of Measure</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Cost per Unit</label>
+                                </div>
+                                <div class="col-2">
+                                  <p class="bold mb-0">
+                                    Can be Applied To
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Software Development
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Investment of Time</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Hours
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $55
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Consultants
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Financial Cost</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0"></p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0"></p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Alumnium
+                                    <fa-icon
+                                      [icon]="['fas', 'info-circle']"
+                                      class="text-muted"
+                                      placeholder="Description if exists..."
+                                    ></fa-icon>
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Other Resources</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Pounds
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $105 / pound
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                            </div>
+                          </div>
+                          <!-- end of fields -->
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle
+                      >Groups and Hourly Rates</ng-template
+                    >
+                    <ng-template ngbTabContent>
+                      <div class="card mb-4">
+                        <div class="card-header">
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <p class="mb-0 bold pt-2 uppercase text-muted">
+                                Groups and Hourly Rates (5)
+                              </p>
+                            </li>
+                            <li class="float-right list-inline-item">
+                              <button
+                                class="btn btn-primary btn-sm float-right mr-1"
+                                (click)="open(addResourceType)"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Add Resource Type
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="card-body py-0 px-3">
+                          <div class="row pb-3 pt-3">
+                            <div class="col-6">
+                              <form>
+                                <div class="input-group mb-0 mr-sm-2">
+                                  <div class="input-group-prepend">
+                                    <div
+                                      class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'search']"
+                                      ></fa-icon>
+                                    </div>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm border-left-0"
+                                    placeholder="Search field groups..."
+                                  />
+                                </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
+                              <div class="float-right">
+                                <button
+                                  class="btn btn-outline-primary btn-sm btn-rounded active"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'check-circle']"
+                                  ></fa-icon>
+                                  Active Groups (10)
+                                </button>
+                                <button
+                                  class="btn btn-outline-danger btn-sm btn-rounded ml-2"
+                                >
+                                  <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                                  Archived Groups (2)
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- start of fields -->
+                          <div class="row">
+                            <div class="col-12">
+                              <div
+                                class="row bg-light border-top border-bottom pt-2 pb-1"
+                              >
+                                <div class="col-4">
+                                  <label>Name</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Category</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Unit of Measure</label>
+                                </div>
+                                <div class="col-2">
+                                  <label>Cost per Unit</label>
+                                </div>
+                                <div class="col-2">
+                                  <p class="bold mb-0">
+                                    Benefit, Cost, RS Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Designer Time
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Time Savings</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Hours
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $25 / hour
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Developer Time
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Time Savings</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Hours
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $55 / hour
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    5 Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Alumnium
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Pounds</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Pounds
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $25 / pound
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Product A
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Units</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Units Sold
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $25 / unit sold
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Product B
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Units</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Units Sold
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $55 / unit sold
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                              <!-- start of one entry -->
+                              <div
+                                class="row dottedBottomBorder py-3 d-flex flex-row"
+                              >
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Deloitte Consulting
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <button
+                                    class="btn btn-light btn-sm border mr-1"
+                                    (click)="open(addBenefitType)"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    class="btn btn-light btn-sm border"
+                                    placement="top"
+                                    (click)="open(deleteBenefitType)"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">Hours</p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    Hourly
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    $155 / hour
+                                  </p>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                  <p class="mb-0">
+                                    All Types
+                                  </p>
+                                </div>
+                              </div>
+                              <!-- end of one entry -->
+                            </div>
+                          </div>
+                          <!-- end of fields -->
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- start of create add benefit or cost type modal -->
+        <ng-template #addBenefitType let-modal>
+          <div class="modal-header card-header">
+            <p class="small uppercase bold mb-0">
+              Add New Benefit, Cost, or Resource Type
+            </p>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-white border text-medium bg-light pl-2">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'check-circle']"
+                  class="iconLarge text-muted my-auto mr-3"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="text-muted text-medium mb-0">
+                    Use benefits, investments, and resources to track the ROI of
+                    your innovation or improvement program. Learn more
+                  </p>
+                </div>
+              </div>
+            </div>
+            <form>
+              <div class="form-group mb-3">
+                <label>Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter a name for benefit, cost, or resource..."
+                />
+              </div>
+              <!-- show if add description clicked -->
+              <div class="form-group mb-3">
+                <label class="bold">Description</label>
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  placeholder="Enter a description for your benefit, cost, or resource..."
+                ></textarea>
+              </div>
+              <!-- end if add description clicked -->
+              <div class="form-group mb-3">
+                <label>Select Metric Type</label>
+                <div ngbDropdown>
+                  <div
+                    class="removeCaret border rounded customDropdown"
+                    ngbDropdownToggle
+                  >
+                    <div class="row">
+                      <div class="col-11">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            Metric Type
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-1">
+                        <fa-icon
+                          [icon]="['fas', 'sort']"
+                          class="text-muted float-right"
+                        ></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    ngbDropdownMenu
+                    class="shadow-lg w-100 pt-0"
+                    style="max-height: 22rem; overflow-y: scroll;"
+                  >
+                    <div
+                      class="pl-3 bg-light border-bottom align-self-center"
+                      ngbDropdownItem
+                    >
+                      <p class="text-medium bold text-muted mb-0">
+                        Benefits and Savings
+                      </p>
+                    </div>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Financial Benefit
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Non-Financial Benefit
+                    </button>
+                    <button
+                      class="pl-3 py-1"
+                      ngbDropdownItem
+                      (click)="toggleTimeSavings()"
+                    >
+                      Time Savings
+                    </button>
+                    <button
+                      class="pl-3 py-1"
+                      ngbDropdownItem
+                      (click)="toggleResourceSavings()"
+                    >
+                      Other Resource Savings
+                    </button>
+                    <div
+                      class="pl-3 bg-light border-bottom border-top align-self-center"
+                      ngbDropdownItem
+                    >
+                      <p class="text-medium bold text-muted mb-0">
+                        Investments and Costs to Implement
+                      </p>
+                    </div>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Financial Cost / Investment
+                    </button>
+                    <button
+                      class="pl-3 py-1"
+                      ngbDropdownItem
+                      (click)="toggleTimeInvestment()"
+                    >
+                      Investment of Time
+                    </button>
+                    <button
+                      class="pl-3 py-1"
+                      ngbDropdownItem
+                      (click)="toggleResourceInvestment()"
+                    >
+                      Other Resources
+                    </button>
+                  </div>
+                </div>
+                <!-- <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" class="custom-control-input" id="recurringValue">
+                  <label class="custom-control-label font-weight-normal" for="recurringValue" placement="right" ngbTooltip="Enable this option if the value you're measuring is recurring.">Value is Recurring</label>
+                </div>
+                <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" class="custom-control-input" id="recurringValue">
+                  <label class="custom-control-label font-weight-normal" for="recurringValue" placement="right"
+                    ngbTooltip="Enable this option if the value you're measuring is recurring.">Value is Variable by Year</label>
+                </div> -->
+              </div>
+              <!-- if time savings -->
+              <span *ngIf="timeSavings">
+                <label>Configure Time Savings Field</label>
+                <div class="card bg-light mb-3 shadow-sm">
+                  <div class="card-body py-2 px-3">
+                    <div class="form-row">
+                      <div class="form-group col-12 mb-0">
+                        <label class="font-weight-normal">Hourly Rate</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend bold">
+                            <span class="input-group-text" id="basic-addon1"
+                              >$</span
+                            >
+                          </div>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="25"
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                          />
+                          <div class="input-group-append">
+                            <span
+                              class="input-group-text uppercase bold text-muted"
+                              id="basic-addon1"
+                              >Per Hour</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+              <!-- end if time savings -->
+              <!-- if time investment -->
+              <span *ngIf="timeInvestment">
+                <label>Configure Time Investment Field</label>
+                <div class="card bg-light mb-3 shadow-sm">
+                  <div class="card-body py-2 px-3">
+                    <div class="form-row">
+                      <div class="form-group col-12 mb-0">
+                        <label class="font-weight-normal">Hourly Rate</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend bold">
+                            <span class="input-group-text" id="basic-addon1"
+                              >$</span
+                            >
+                          </div>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="25"
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                          />
+                          <div class="input-group-append">
+                            <span
+                              class="input-group-text uppercase bold text-muted"
+                              id="basic-addon1"
+                              >Per Hour</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+              <!-- end if time investment -->
+              <!-- if resource investment -->
+              <span *ngIf="resourceSavings">
+                <label>Configure Resource Savings Field</label>
+                <div class="card bg-light mb-3">
+                  <div class="card-body py-2 px-3">
+                    <div class="form-row">
+                      <div class="form-group col-5 mb-0">
+                        <label class="font-weight-normal"
+                          >Unit of Measure</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Hours, Pounds, Time, Etc."
+                        />
+                        <p class="form-text mb-0 text-muted small">
+                          How is this resource measured?
+                        </p>
+                      </div>
+                      <div class="form-group col-7 mb-0">
+                        <label class="font-weight-normal">Value per Unit</label>
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="1,500"
+                            aria-label="Username"
+                            aria-describedby="basic-addon1"
+                          />
+                          <div class="input-group-append">
+                            <span
+                              class="input-group-text uppercase bold text-muted"
+                              id="basic-addon1"
+                              >Per UNIT</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+              <!-- if other resource savings -->
+              <!-- if resource investment -->
+              <span *ngIf="resourceInvestment">
+                <label>Configure Other Resources Field</label>
+                <div class="card bg-light mb-3">
+                  <div class="card-body py-2 px-3">
+                    <div class="form-row">
+                      <div class="form-group col-8 mb-0">
+                        <label class="font-weight-normal"
+                          >Unit of Measure</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Hours, Pounds, Time, Etc."
+                        />
+                        <p class="form-text mb-0 text-muted small">
+                          How is this resource measured?
+                        </p>
+                      </div>
+                      <div class="form-group col-4 mb-0">
+                        <label class="font-weight-normal">Cost per Unit</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="$1,500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+              <!-- if other resource savings -->
+              <div class="form-group mb-3">
+                <label>Active in Opportunity Types</label>
+                <div ngbDropdown>
+                  <div
+                    class="removeCaret border rounded customDropdown"
+                    ngbDropdownToggle
+                  >
+                    <div class="row">
+                      <div class="col-11">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            All Opportunity Types
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-1">
+                        <fa-icon
+                          [icon]="['fas', 'sort']"
+                          class="text-muted float-right"
+                        ></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    ngbDropdownMenu
+                    class="shadow-lg w-100"
+                    style="max-height: 22rem; overflow-y: scroll;"
+                  >
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >ng repeat opportunity types</label
+                        >
+                      </div>
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >Check this custom checkbox</label
+                        >
+                      </div>
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >Check this custom checkbox</label
+                        >
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              class="btn btn-light border"
+              (click)="modal.dismiss('Cross click')"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-primary ml-2">
+              Create Type
+            </button>
+          </div>
+        </ng-template>
+        <!-- end of add benefit or cost type modal -->
+
+        <!-- start of add resource type modal -->
+        <ng-template #addResourceType let-modal>
+          <div class="modal-header card-header">
+            <p class="small uppercase bold mb-0">
+              Add New Benefit, Cost, or Resource Type
+            </p>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-white border text-medium bg-light pl-2">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'check-circle']"
+                  class="iconLarge text-muted my-auto mr-3"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="text-muted text-medium mb-0">
+                    Use benefits, investments, and resources to track the ROI of
+                    your innovation or improvement program. Learn more
+                  </p>
+                </div>
+              </div>
+            </div>
+            <form>
+              <div class="form-group mb-3">
+                <label>Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter a name for benefit, cost, or resource..."
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label class="bold">Description</label>
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  placeholder="Enter a description for your benefit, cost, or resource..."
+                ></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label>Select Metric Type</label>
+                <div ngbDropdown>
+                  <div
+                    class="removeCaret border rounded customDropdown"
+                    ngbDropdownToggle
+                  >
+                    <div class="row">
+                      <div class="col-11">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            Metric Type
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-1">
+                        <fa-icon
+                          [icon]="['fas', 'sort']"
+                          class="text-muted float-right"
+                        ></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    ngbDropdownMenu
+                    class="shadow-lg w-100 pt-0"
+                    style="max-height: 22rem; overflow-y: scroll;"
+                  >
+                    <div
+                      class="pl-3 bg-light border-bottom align-self-center"
+                      ngbDropdownItem
+                    >
+                      <p class="text-medium bold text-muted mb-0">
+                        Benefits and Savings
+                      </p>
+                    </div>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Financial Benefit
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Time Savings
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Non-Financial Benefit
+                    </button>
+                    <div
+                      class="pl-3 bg-light border-bottom border-top align-self-center"
+                      ngbDropdownItem
+                    >
+                      <p class="text-medium bold text-muted mb-0">
+                        Investments and Costs to Implement
+                      </p>
+                    </div>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Financial Cost / Investment
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Investment of Time
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      Other Resources
+                    </button>
+                  </div>
+                </div>
+                <!-- <div class="custom-control custom-checkbox mt-2">
+                          <input type="checkbox" class="custom-control-input" id="recurringValue">
+                          <label class="custom-control-label font-weight-normal" for="recurringValue" placement="right" ngbTooltip="Enable this option if the value you're measuring is recurring.">Value is Recurring</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mt-2">
+                          <input type="checkbox" class="custom-control-input" id="recurringValue">
+                          <label class="custom-control-label font-weight-normal" for="recurringValue" placement="right"
+                            ngbTooltip="Enable this option if the value you're measuring is recurring.">Value is Variable by Year</label>
+                        </div> -->
+              </div>
+              <!-- if resource -->
+              <div class="form-row">
+                <div class="form-group col-8 mb-3">
+                  <label>Unit of Measure</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Hours, Pounds, Time, Etc."
+                  />
+                  <p class="form-text mb-0 text-muted small">
+                    How is this resource measured?
+                  </p>
+                </div>
+                <div class="form-group col-4 mb-3">
+                  <label>Cost per Unit</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="$1,500"
+                  />
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label>Active in Opportunity Types</label>
+                <div ngbDropdown>
+                  <div
+                    class="removeCaret border rounded customDropdown"
+                    ngbDropdownToggle
+                  >
+                    <div class="row">
+                      <div class="col-11">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            All Opportunity Types
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-1">
+                        <fa-icon
+                          [icon]="['fas', 'sort']"
+                          class="text-muted float-right"
+                        ></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    ngbDropdownMenu
+                    class="shadow-lg w-100"
+                    style="max-height: 22rem; overflow-y: scroll;"
+                  >
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >ng repeat opportunity types</label
+                        >
+                      </div>
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >Check this custom checkbox</label
+                        >
+                      </div>
+                    </button>
+                    <button class="pl-3 py-1" ngbDropdownItem>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="oppType"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="oppType"
+                          >Check this custom checkbox</label
+                        >
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button
+              class="btn btn-light border"
+              (click)="modal.dismiss('Cross click')"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-primary ml-2">
+              Create Type
+            </button>
+          </div>
+        </ng-template>
+        <!-- end of add resource type modal -->
+
+        <!-- start of add new type modal -->
+        <ng-template #deleteBenefitType let-modal>
+          <div class="modal-header card-header bg-danger">
+            <p class="small text-white uppercase bold mb-0">
+              Delete Benefit Type
+            </p>
+            <button
+              type="button"
+              class="close text-white"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you would like to delete this type? Doing so will
+              remove all related entries with this type and it will be
+              permanently deleted.
+            </p>
+          </div>
+          <div class="modal-footer bg-light">
+            <button class="btn btn-light border">Cancel</button>
+            <button class="btn btn-danger ml-2">Archive</button>
+          </div>
+        </ng-template>
+
+        <!-- end of add type modal -->
+      </div>
+      <!-- end of opportunity settings and opportunity type create -->
+    </div>
+  </div>
+</div>

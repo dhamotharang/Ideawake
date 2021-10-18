@@ -1,0 +1,63 @@
+<app-idea-top-container
+  *ngIf="idea"
+  [idea]="idea"
+  [topScore]="topScore"
+  [voteCount]="upvotes"
+  [commentCount]="commentCount"
+  [followerData]="followersData"
+  [tab]="tab"
+  [userOpportunityPermissions]="userOpportunityPermissions"
+  [ideaUpvoters]="ideaUpvoters"
+  [upvoteData]="upvoteDetail"
+  [permissions]="permissionsData"
+  (updateIdea)="updateIdea()"
+  (switchTab)="switchTab($event)"
+  (archive)="archiveIdea()"
+>
+</app-idea-top-container>
+<app-idea-summary-container
+  *ngIf="tab === tabs.summary.key"
+  [ideaDetail]="ideaDetail"
+  [userOpportunityPermissions]="userOpportunityPermissions"
+  [stageAssignees]="stageAssignees"
+  [stageStats]="stageStats"
+  (updatedIdea)="updateIdea()"
+  (updateUpvoters)="ideaUpvoters = $event"
+></app-idea-summary-container>
+<app-idea-questions-container
+  *ngIf="tab === tabs.questions.key"
+  [idea]="idea"
+  [tags]="ideaDetail.tagsData"
+  [userOpportunityPermissions]="userOpportunityPermissions"
+  [stageAssignees]="stageAssignees"
+></app-idea-questions-container>
+<!-- <app-idea-tasks-container
+  *ngIf="tab == tabs.tasks.key"
+></app-idea-tasks-container> -->
+<app-idea-more-information-container
+  *ngIf="tab === tabs.moreInfo.key"
+  [idea]="idea"
+  [stageAssignees]="stageAssignees"
+  [stageStats]="stageStats"
+  [userOpportunityPermissions]="userOpportunityPermissions"
+  [stageAssignmentSettings]="stageAssignmentSettings"
+></app-idea-more-information-container>
+<!-- <app-idea-evaluations-container
+  *ngIf="tab == tabs.evaluations.key"
+></app-idea-evaluations-container> -->
+<!-- <app-ideabox-container *ngIf="tab == tabs.build.key"></app-ideabox-container> -->
+<!-- <app-idea-outcomes-container
+  *ngIf="tab == tabs.outcomes.key"
+></app-idea-outcomes-container> -->
+<app-idea-files-container
+  *ngIf="tab === tabs.files.key"
+  [ideaId]="idea?.id"
+  [userOpportunityPermissions]="userOpportunityPermissions"
+></app-idea-files-container>
+<app-activity-container
+  *ngIf="tab === tabs.activity.key && idea"
+  [currentIdea]="true"
+  [ideaId]="idea.id"
+  [entityType]="entityType.id"
+  (switchTab)="switchTab($event)"
+></app-activity-container>

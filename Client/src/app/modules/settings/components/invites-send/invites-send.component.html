@@ -1,0 +1,340 @@
+<div class="row">
+  <div class="col-12 col-md-2 pr-md-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row pt-4">
+      <div class="col-12 removePaddingOnMobile">
+        <div class="container">
+          <div class="row mb-4">
+            <div class="col-12 removePaddingOnMobile">
+              <ul class="list-inline mb-0 pl-3 pl-md-0">
+                <li class="list-inline-item active nav-underline">
+                  <p class="mb-0 bold pt-2 uppercase">
+                    {{ 'Settings.InviteUsers' | translationPipe }}
+                  </p>
+                </li>
+                <!-- <li class="list-inline-item nav-underline">
+                  <p
+                    class="mb-0 bold pt-2 uppercase text-muted montserrat text-medium"
+                  >
+                    Import Users
+                  </p>
+                </li> -->
+                <li
+                  class="list-inline-item nav-underline"
+                  routerLink="/settings/invites-pending"
+                >
+                  <p class="mb-0 bold pt-2 uppercase text-muted">
+                    Manage Pending Invites
+                  </p>
+                </li>
+              </ul>
+              <div
+                class="card shadow-sm rounded-top-0"
+                style="min-height: 70vh;"
+              >
+                <div class="card-header bg-white border-bottom-0">
+                  <!-- <p
+                    class="mb-0 bold pt-2 uppercase small text-muted montserrat"
+                  >
+                    Invite New Users to Ideawake
+                  </p> -->
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-12 col-md-8 mt-3">
+                      <form [formGroup]="sendInvitesForm" (submit)="onSubmit()">
+                        <!-- start new code -->
+                        <div class="form-row">
+                          <div class="form-group mb-3 col-12">
+                            <label>
+                              1) Select Role
+                              <fa-icon
+                                [icon]="['fas', 'question-circle']"
+                                class="text-muted"
+                                ngbTooltip="A users role determines their level of permissions in Ideawake. The 'User' role has the lowest level permissions and the 'Administrator' role has the highest level permissions."
+                              >
+                              </fa-icon>
+                            </label>
+                            <select
+                              class="form-control rounded-0"
+                              [formControl]="role"
+                            >
+                              <option
+                                *ngFor="let r of communityRoles"
+                                [value]="r.id"
+                              >
+                                {{ r.title }}</option
+                              >
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-12 mb-3">
+                            <label
+                              >2) Select Groups
+                              <span class="d-none d-sm-inline">
+                                to Add These Users To
+                              </span>
+                              <fa-icon
+                                [icon]="['fas', 'question-circle']"
+                                class="text-muted ml-1"
+                                ngbTooltip="Use groups to target and control visibility access to challenges, ideas, and other content in your community."
+                              >
+                              </fa-icon>
+                            </label>
+                            <app-search-groups
+                              [isGroup]="true"
+                              (dataEmitter)="groupSuggestions($event)"
+                            >
+                            </app-search-groups>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="communitySSO === communitySsoLoginEnum.BOTH"
+                          class="form-row"
+                        >
+                          <div class="col-12 form-group">
+                            <label
+                              >Are These Users Internal or External to Your
+                              Single Sign On?</label
+                            >
+                            <div class="card bg-light">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="form-check">
+                                      <input
+                                        [ngModelOptions]="{ standalone: true }"
+                                        [(ngModel)]="isSSO"
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="isSSOLogin"
+                                        id="isSSO"
+                                        [value]="true"
+                                      />
+                                      <label
+                                        class="form-check-label font-weight-normal"
+                                        for="isSSO"
+                                      >
+                                        These Users Are on SSO
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="form-check">
+                                      <input
+                                        [ngModelOptions]="{ standalone: true }"
+                                        [(ngModel)]="isSSO"
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="isSSOLogin"
+                                        id="notSSO"
+                                        [value]="false"
+                                      />
+                                      <label
+                                        class="form-check-label font-weight-normal"
+                                        for="notSSO"
+                                      >
+                                        These Users Are <b>Not</b> on SSO
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- <hr class="mt-0" /> -->
+                        <div *ngIf="!bulkInvite">
+                          <label
+                            class="mb-1"
+                            style="margin-left: .325rem;"
+
+                            >3) Enter Email Addresses</label
+                          >
+                          <div class="scroll-dev">
+                            <div
+                              class="form-row mb-1"
+                              *ngFor="
+                                let email of emails.controls;
+                                let i = index
+                              "
+                            >
+                              <div class="form-group col-12 mb-0">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  [formControl]="emails.controls[i]"
+                                  placeholder="name@company.com"
+                                  (keyup)="onKeyupEvent($event)"
+                                />
+                                <div
+                                  *ngIf="
+                                    submitted &&
+                                    emails.controls[i].errors &&
+                                    emails.controls[i].errors.email
+                                  "
+                                  style="color: red;"
+                                  class="small"
+                                >
+                                  This is not a valid email address
+                                </div>
+                              </div>
+                              <!-- <div class="form-group col-3 mb-0">
+                                <select class="form-control rounded-0" [formControl]="role.controls[i]">
+                                  <option *ngFor="
+                                      let r of communityRoles;
+                                      let j = index
+                                    " [value]="r.id" [selected]="j === 0">
+                                    {{ r.title }}
+                                  </option>
+                                </select>
+                              </div> -->
+                            </div>
+                          </div>
+                          <div class="form-group pb-3 pt-2">
+                            <ul class="list-inline mb-0" style="margin-left: .325rem;">
+                              <li class="list-inline-item">
+                                <span
+                                  class="btn btn-sm btn-light border"
+                                  (click)="addEmail()"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'plus-circle']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                  Add Another User
+                                </span>
+                              </li>
+                              <li class="list-inline-item ml-2">
+                                <p
+                                  class="pointer link text-medium"
+                                  ngbTooltip="Need to invite dozens or hundreds at a time? Use this option to copy and paste your list from a CSV"
+                                  placement="bottom"
+                                  (click)="onClickBulkInvite()"
+                                >
+                                  <fa-icon [icon]="['fas', 'paste']"></fa-icon>
+                                  Or, Copy and Paste from CSV (Bulk Invite)
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div *ngIf="bulkInvite">
+                          <label class="montserrat"
+                            >3) Copy and Paste Email Addresses</label
+                          >
+                          <textarea
+                            class="form-control"
+                            rows="10"
+                            container="body"
+                            placeholder="linda@thompson.com"
+                            [(ngModel)]="emailsFromTextArea"
+                            [ngModelOptions]="{ standalone: true }"
+                          ></textarea>
+                          <p class="small text-muted form-text">
+                            Copy and paste a list of contacts from your email.
+                            Please <b>only include one contact per line</b>.
+                          </p>
+                        </div>
+                        <div class="form-row pt-0">
+                          <div class="form-group col-12 mb-0 px-0">
+                            <button
+                              class="btn btn-primary btn-lg btn-block montserrat"
+                            >
+                              Send Invites Now
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="d-none d-md-inline-block col-md-4">
+                      <div class="alert alert-info shadow-sm p-3">
+                        <div class="row">
+                          <div class="col-12">
+                            <p class="mb-0 bold">What Are Groups?</p>
+                            <hr class="mt-2 mb-2" />
+                            <div class="row text-medium">
+                              <div class="col-12">
+                                <p class="text-medium mb-0">
+                                  Groups allow you to target and control access
+                                  to specific challenges, ideas, and action
+                                  items. Normally, groups map to teams,
+                                  departments, or locations.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="alert alert-info shadow-sm p-3 mt-2">
+                        <div class="row">
+                          <div class="col-12">
+                            <p class="mb-0 bold">
+                              Understanding Community Roles
+                            </p>
+                            <hr class="mt-2 mb-3" />
+                            <div class="row text-medium">
+                              <div class="col-12">
+                                <div class="media mb-3">
+                                  <span
+                                    class="badge badge-info rounded-circle"
+                                    style="position: relative; top: 0.15rem;"
+                                    >A</span
+                                  >
+                                  <div class="media-body ml-1">
+                                    <p class="text-medium mb-0">
+                                      <b>Administrator</b> - Have the ability to
+                                      post challenges, moderate ideas and users,
+                                      and edit community settings.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="media mb-3">
+                                  <span
+                                    class="badge badge-info rounded-circle"
+                                    style="position: relative; top: 0.15rem;"
+                                    >M</span
+                                  >
+                                  <div class="media-body ml-1">
+                                    <p class="text-medium mb-0">
+                                      <b>Moderator</b> - Have the ability to
+                                      post challenges, moderate ideas and users,
+                                      but <u>cannot</u> edit community settings.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="media mb-3">
+                                  <span
+                                    class="badge badge-info rounded-circle"
+                                    style="position: relative; top: 0.15rem;"
+                                    >U</span
+                                  >
+                                  <div class="media-body ml-1">
+                                    <p class="text-medium mb-0">
+                                      <b>User (Default)</b> - Can't post
+                                      challenges, can't moderate ideas and
+                                      users, and can only see challenges they
+                                      are targeted for.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

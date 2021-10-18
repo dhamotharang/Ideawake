@@ -1,0 +1,119 @@
+<!-- start of add new -->
+<div class="border-bottom py-2 pl-3" *ngIf="nonFinancialBenefit">
+  <div class="row">
+    <div class="col-12">
+      <form class="mt-2">
+        <div class="form-row">
+          <div class="form-group col-4 mb-0">
+            <!-- <span class="removeAbsolutePositioning">
+                              <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                            </span> -->
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              placeholder="Enter Benefit Title..."
+            />
+          </div>
+          <div class="form-group col-3 mb-0">
+            <select class="form-control form-control-sm">
+              <option>Choose Benefit Type</option>
+              <option>List of non-financial outcomes here...</option>
+            </select>
+          </div>
+          <div class="form-group col-2 mb-0">
+            <div ngbDropdown container="body">
+              <div class="input-group input-group-sm mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Start Date"
+                  ngbDropdownToggle
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">
+                    <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                  </span>
+                </div>
+                <div ngbDropdownMenu class="shadow py-0">
+                  <div class="card border-0">
+                    <div class="card-body pt-2">
+                      <div class="pb-2">
+                        <label class="text-medium">Select Date</label>
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          placeholder="10/22/20"
+                        />
+                      </div>
+                      <ngb-datepicker #dateDisplay></ngb-datepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-2 mb-0">
+            <div ngbDropdown container="body">
+              <div class="input-group input-group-sm mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="End Date"
+                  ngbDropdownToggle
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">
+                    <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                  </span>
+                </div>
+                <div ngbDropdownMenu class="shadow py-0">
+                  <div class="card border-0">
+                    <div class="card-body pt-2">
+                      <div class="pb-2">
+                        <label class="text-medium">Select Date</label>
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          placeholder="10/22/20"
+                        />
+                      </div>
+                      <ngb-datepicker #dateDisplay></ngb-datepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-1 mb-0"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-11 mb-0">
+            <textarea
+              class="form-control form-control-sm"
+              rows="2"
+              placeholder="Please enter a description of this benefit..."
+            ></textarea>
+          </div>
+        </div>
+        <!-- <div class="form-row">
+          <div class="form-group col-11 mb-0">
+            <button class="btn btn-sm btn-light border mr-1">Cancel</button>
+            <button class="btn btn-sm btn-primary mr-1">Add Outcome</button>
+          </div>
+        </div> -->
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end of add new -->
+<div class="row bg-light mx-0 py-2 mb-4">
+  <div class="col-2">
+    <button
+      class="btn btn-xs py-1 btn-outline-primary btn-block"
+      (click)="toggleNonFinancialBenefit()"
+    >
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Add New Benefit
+    </button>
+  </div>
+</div>

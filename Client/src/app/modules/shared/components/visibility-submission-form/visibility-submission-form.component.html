@@ -1,0 +1,54 @@
+<div class="custom-control custom-radio mb-2 mt-2 pb-2 dottedBottomBorder">
+  <input
+    type="radio"
+    id="public"
+    name="customRadio"
+    class="custom-control-input"
+    [checked]="submissionObj?.public"
+    (click)="changeVisibilitySettings('public')"
+  />
+  <label class="custom-control-label font-weight-normal text-medium" for="public">
+    <b>All Community Members</b> - All users who have access to the community can view
+    submissions to this challenge.
+  </label>
+</div>
+<div class="custom-control custom-radio mb-2 pb-2 pt-1 dottedBottomBorder">
+  <input
+    type="radio"
+    id="specificGroups"
+    name="customRadio"
+    class="custom-control-input"
+    [checked]="submissionObj?.specificGroups"
+    (click)="changeVisibilitySettings('specificGroups')"
+  />
+  <label class="custom-control-label font-weight-normal text-medium" for="specificGroups"
+    ><b>Specific Community Members</b> - Only users you select can view
+    submissions to this challenge.</label
+  >
+</div>
+<!-- if specific groups is selected -->
+<div class="card bg-white mb-2 shadow-sm" *ngIf="submissionObj?.specificGroups">
+  <div class="card-body pt-2">
+    <label class="small bold">Select Groups or Users</label>
+    <app-search-groups
+      [selection]="submissionObj?.groups"
+      (dataEmitter)="
+        submissionObj.groups = $event; formatVisibiltySubmissionData()
+      "
+    ></app-search-groups>
+  </div>
+</div>
+<!-- end if specific groups is selected -->
+<div class="custom-control custom-radio mb-2 pb-2 pt-1 dottedBottomBorder">
+  <input
+    type="radio"
+    id="private"
+    name="customRadio"
+    class="custom-control-input"
+    [checked]="submissionObj?.private"
+    (click)="changeVisibilitySettings('private')"
+  />
+  <label class="custom-control-label font-weight-normal text-medium" for="private">
+    <b>Private</b> - Only Administrators, Moderators, and Submitters can see submissions to this challenge.
+  </label>
+</div>

@@ -1,0 +1,198 @@
+<div class="alert alert-info rounded-0 negativeAlertMargins">
+  <p class="text-center mb-0">
+    This insight has been saved as a draft. You can view it in
+    <a routerLink="/profile-container">your drafts from your profile</a>.
+  </p>
+</div>
+<!-- when in post mode or edit mode -->
+<div class="container pageTopPadding">
+  <div class="row">
+    <div class="col-8">
+      <div class="card mb-4">
+        <div class="card-header">
+          <p class="uppercase bold text-muted mb-0 small">Post New Insight</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <form>
+                <!-- <div class="form-group">
+                  <label>Insight Targeting</label>
+                  <input type="text" class="form-control" placeholder="Start typing to see groups...">
+                </div> -->
+                <div class="form-group">
+                  <div class="featuredImageContainer rounded">
+                    <ul class="list-unstyled">
+                      <li>
+                        <fa-icon [icon]="['fas', 'image']"></fa-icon>
+                      </li>
+                      <li>
+                        <p class="text-muted">Drop a featured image here</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Insight Type</label>
+                  <select class="form-control">
+                    <option>List of types</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Post Title</label>
+                  <input type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Post Body</label>
+                  <app-markup-editor></app-markup-editor>
+                  <textarea class="form-control" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Add Tags</label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bg-white border-right-0">
+                        <fa-icon [icon]="['fas', 'hashtag']"></fa-icon>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control border-left-0"
+                      placeholder="Start typing to search tags..."
+                    />
+                  </div>
+                </div>
+                <!-- <div class="form-row">
+                  <div class="form-group col-6">
+                    <label>Categories</label>
+                    <select class="form-control">
+                      <option>List of cats user can select multiple</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-6">
+                    <label>Industries</label>
+                    <select class="form-control">
+                      <option>List of cats user can select multiple</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label>Demographics</label>
+                    <select class="form-control">
+                      <option>List of cats user can select multiple</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-6">
+                    <label>Locations</label>
+                    <select class="form-control">
+                      <option>List of locations user can select multiple</option>
+                    </select>
+                  </div>
+                </div> -->
+                <h4 class="border-bottom pb-1 mb-2">Insight Settings</h4>
+                <div class="form-row dottedBottomBorder pt-2 pb-2">
+                  <div class="form-group col-8 mb-0">
+                    <label>Sharable in Challenges</label>
+                    <p class="small text-muted mb-0">
+                      If enabled, this insight will show up if its category is
+                      selected for a challenge topic.
+                    </p>
+                  </div>
+                  <div class="form-group col-4">
+                    <div
+                      class="custom-control custom-switch mr-auto float-right"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input pointer"
+                        id="emailStatus"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="emailStatus"
+                        >Disabled</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row pt-3 pb-2">
+                  <div class="form-group col-8 mb-0">
+                    <label>Ideabox Canvas Suggestions</label>
+                    <p class="small text-muted mb-0">
+                      If enabled, this insight will show up on relevant sections
+                      of the business model canvas to help users add to their
+                      ideas and prototype faster. IF ENABLED, SELECT SECTIONS OF
+                      BUSINESS MODEL CANVAS THIS INSIGHT IS RELEVANT TO?
+                    </p>
+                  </div>
+                  <div class="form-group col-4 mb-1">
+                    <div
+                      class="custom-control custom-switch mr-auto float-right"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input pointer"
+                        id="emailStatus"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="emailStatus"
+                        >Disabled</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row border-top">
+                  <div class="form-group col-4 mb-0 pt-3">
+                    <button class="btn btn-light border">
+                      Preview Insight
+                    </button>
+                  </div>
+                  <div class="form-group col-8 mb-0">
+                    <div class="float-right pt-3">
+                      <button class="btn btn-dark ml-3">Save Draft</button>
+                      <button class="btn btn-primary ml-3">
+                        Publish Insight
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <p class="uppercase bold text-muted mb-0 small">Tips and Tricks</p>
+        </div>
+        <div class="card-body">
+          Tips / similar insights / etc here
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-header">
+          <p class="uppercase bold text-muted mb-0 small">Preview</p>
+        </div>
+        <div class="card-body">
+          We could also do a preview of what the insight card would look like.
+          Final thought is displaying similar insights...
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-header">
+          <p class="uppercase bold text-muted mb-0 small">
+            Related / Similar Insights
+          </p>
+        </div>
+        <div class="card-body">
+          Users would be able to link these insights to ideas or opportunities?
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- when in edit mode -->

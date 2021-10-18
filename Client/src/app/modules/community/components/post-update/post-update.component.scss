@@ -1,0 +1,31 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.setMaxWidth {
+  max-width: 1350px;
+}
+
+.addFiles {
+  padding: 0.7rem 0;
+  background-color: $light;
+  border: 1px solid $defaultBorder;
+  border-top: none;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
+}
+
+.addFiles:hover {
+  padding: 0.7rem 0;
+  background-color: $gray-200;
+  border: 1px solid $defaultBorder;
+  border-top: none;
+  cursor: pointer;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

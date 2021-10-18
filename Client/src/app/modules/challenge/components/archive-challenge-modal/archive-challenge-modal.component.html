@@ -1,0 +1,32 @@
+<div class="modal-header text-white card-header bold bg-info">
+  {{ 'ChallengeTop.Labels.ArchiveChallenge' | translationPipe }}
+  <button type="button" class="close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')" style="position: relative; top: .2rem;">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row py-2">
+    <div class="col-12">
+      <label>Are You Sure You Would Like to Archive This Challenge?</label>
+      <p>If you archive this challenge users will no longer be able to see it and new ideas will not be able to be posted in it.
+      Instead of deleting the challenge, we suggest "closing" it on your challenge page.</p>
+      <!-- <p>{{ 'ChallengeTop.Labels.AreYouSure' | translationPipe }}</p> -->
+      <!-- <ul class="pl-4">
+        <li class="text-medium mb-2">
+          {{ 'ChallengeTop.Labels.TermOne' | translationPipe }}
+        </li>
+        <li class="text-medium">
+          {{ 'ChallengeTop.Labels.TermTwo' | translationPipe }}
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light mr-auto">
+  <button class="btn btn-light border" (click)="modal.dismiss()">
+    {{ 'ChallengeTop.Labels.Cancel' | translationPipe }}
+  </button>
+  <button class="btn btn-info ml-1" (click)="archive.emit()">
+    {{ 'ChallengeTop.Labels.ArchiveThisChallenge' | translationPipe }}
+  </button>
+</div>

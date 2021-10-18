@@ -1,0 +1,218 @@
+<!-- edit visibility settings -->
+<div *ngIf="this.type === 'VISIBILITY'">
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold text-muted mb-0 small">
+      Edit Visibility Settings of {{ this.selected.length }} Submission(s)
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="bold mb-1 montserrat">Visibility Settings</p>
+    <hr class="mb-2 mt-1" />
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="public"
+        name="visibilityRadio"
+        [value]="entityVisibilities.PUBLIC"
+        class="custom-control-input"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label class="custom-control-label font-weight-normal" for="public"
+        ><b>Public</b> - All users who have access to the community can view
+        this idea under "open ideas."</label
+      >
+    </div>
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="specificGroups"
+        [value]="entityVisibilities.GROUPS"
+        name="visibilityRadio"
+        class="custom-control-input"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label
+        class="custom-control-label font-weight-normal"
+        for="specificGroups"
+        ><b>Specific Groups</b> - Only the groups you designate will be able to
+        view this idea.</label
+      >
+    </div>
+    <!-- if specific groups is selected -->
+    <div
+      class="card bg-light mb-2 shadow-sm"
+      *ngIf="currentVisibility == entityVisibilities.GROUPS"
+    >
+      <div class="card-body pt-2">
+        <label class="small bold">Select Groups</label>
+        <app-search-groups
+          (dataEmitter)="getSelectedGroups($event)"
+          [isGroup]="true"
+        ></app-search-groups>
+      </div>
+    </div>
+    <!-- end if specific groups is selected -->
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="private"
+        name="visibilityRadio"
+        class="custom-control-input"
+        [value]="entityVisibilities.PRIVATE"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label class="custom-control-label font-weight-normal" for="private"
+        ><b>Private</b> - Only Community Admins, Moderators, Owners, Team
+        Members, and the idea submitter will be able to see this idea.</label
+      >
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="close()">
+      Cancel
+    </button>
+    <button class="btn btn-primary" (click)="save()">Save Changes</button>
+  </div>
+</div>
+<!-- edit visibility settings -->
+
+<!-- edit commenting settings -->
+<div *ngIf="this.type === 'COMMENTING'">
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold mb-0 small">
+      Edit Commenting Settings of {{ this.selected.length }} Submission(s)
+    </p>
+  </div>
+  <div class="modal-body">
+    <p>
+      Currently {{ experienceSettingsCount }} submission(s) have commenting
+      enabled and {{ this.selected.length - experienceSettingsCount }} have
+      commenting disabled.
+    </p>
+    <label class="mb-3">Select Commenting Settings</label>
+    <hr class="mt-0" />
+    <div class="text-medium">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="allowCommentingEnabled"
+          name="allowCommenting"
+          [value]="true"
+          (change)="entityExperienceChangedHandler($event)"
+        />
+        <label
+          class="form-check-label font-weight-normal"
+          for="allowCommentingEnabled"
+        >
+          <b>Commenting Enabled</b> - Users will be able to comment on selected
+          submissions.
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="allowCommentingDisabled"
+          name="allowCommenting"
+          [value]="false"
+          (change)="entityExperienceChangedHandler($event)"
+        />
+        <label
+          class="form-check-label font-weight-normal"
+          for="allowCommentingDisabled"
+        >
+          <b>Commenting Disabled</b> - Users will <b>not</b> be able to comment
+          on selected submission(s).
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light mt-4">
+    <button class="btn btn-light border" (click)="close()">
+      Cancel
+    </button>
+    <button class="btn btn-primary" (click)="save()">Save Changes</button>
+  </div>
+</div>
+<!-- edit commenting settings -->
+
+<!-- edit voting settings -->
+<div *ngIf="this.type === 'VOTING'">
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold text-muted mb-0 small">
+      Update Voting Settings for {{ this.selected.length }} Submission(s)
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Currently
+      {{ experienceSettingsCount }} submission(s) have voting enabled and
+      {{ this.selected.length - experienceSettingsCount }}
+      have voting disabled.
+    </p>
+    <label class="mb-3">Select Voting Setting</label>
+    <hr class="mt-0" />
+    <div class="text-medium">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="allowVotingEnabled"
+          name="allowVoting"
+          [value]="true"
+          (change)="entityExperienceChangedHandler($event)"
+        />
+        <label
+          class="form-check-label font-weight-normal"
+          for="allowVotingEnabled"
+        >
+          <b>Voting Enabled</b> - Users will be able to vote on selected
+          submission(s).
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="allowVotingDisabled"
+          name="allowVoting"
+          [value]="false"
+          (change)="entityExperienceChangedHandler($event)"
+        />
+        <label
+          class="form-check-label font-weight-normal"
+          for="allowVotingDisabled"
+        >
+          <b>Voting Disabled</b> - Users will <b>not</b> be able to vote on
+          selected submission(s).
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="close()">
+      Cancel
+    </button>
+    <button class="btn btn-primary" (click)="save()">
+      Save Changes
+    </button>
+  </div>
+</div>
+<!-- edit voting settings -->

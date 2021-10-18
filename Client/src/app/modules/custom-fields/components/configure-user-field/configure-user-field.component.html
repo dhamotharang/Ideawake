@@ -1,0 +1,43 @@
+<label>Configure Your User or Group Field</label>
+<div class="card bg-light mb-3">
+  <div class="card-body py-2 px-3">
+    <div class="form-row">
+      <div class="form-group col-8 mb-0">
+        <label class="text-medium">Pre-Select Responses</label>
+        <p class="small text-muted">
+          Limit the options that users completing this field can choose from to specific users or groups.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="preselectOptions"
+            [checked]="inputData?.data?.isPreselected"
+            (click)="isPreselected()"
+          />
+          <label class="custom-control-label font-weight-normal" for="preselectOptions"
+            >
+              <span *ngIf="inputData?.data?.isPreselected" class="pl-1">{{ 'ChallengePost.Labels.Enabled' | translationPipe }}</span>
+              <span *ngIf="!inputData?.data?.isPreselected">Disabled</span>
+            </label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-0" *ngIf="inputData?.data?.isPreselected">
+      <label class="text-medium">Choose Users or Groups Who Can be Selected</label>
+      <app-search-groups
+        [isUser]="true"
+        [closeOnSelect]="true"
+        [selection]="preSelects"
+        (dataEmitter)="getPreSelect($event)"
+      >
+      </app-search-groups>
+      <p class="small text-muted pt-1">
+        Select the users or groups that will be selectable when users complete this field.
+      </p>
+    </div>
+  </div>
+</div>

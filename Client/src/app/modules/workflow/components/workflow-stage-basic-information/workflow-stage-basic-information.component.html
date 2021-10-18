@@ -1,0 +1,636 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label>Stage Action</label>
+    <div ngbDropdown>
+      <div class="removeCaret py-2 px-3 border rounded" ngbDropdownToggle>
+        <div class="row">
+          <div class="col-11">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="mb-0">
+                  <fa-icon
+                    [icon]="[
+                      'fas',
+                      actionItemsIcon[selectedTool.abbreviation].icon
+                    ]"
+                    class="{{
+                      actionItemsIcon[selectedTool.abbreviation].color
+                    }}"
+                  ></fa-icon>
+                  {{ selectedTool.title }}
+                </p>
+              </li>
+              <!-- <li
+                class="list-inline-item mr-4"
+                [ngbPopover]="selectedTool.description"
+                triggers="mouseenter:mouseleave"
+                [popoverTitle]="selectedTool.title"
+                placement="right"
+              >
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted mr-1"
+                ></fa-icon>
+              </li> -->
+            </ul>
+          </div>
+          <div class="col-1">
+            <fa-icon
+              [icon]="['fas', 'sort']"
+              class="text-muted float-right"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+      <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+        <button
+          *ngFor="let tool of tools"
+          (click)="selectTool(tool)"
+          class="pl-3 py-2"
+          ngbDropdownItem
+        >
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="mb-0">
+                <fa-icon
+                  [icon]="['fas', actionItemsIcon[tool.abbreviation].icon]"
+                  class="mr-1 {{ actionItemsIcon[tool.abbreviation].color }}"
+                ></fa-icon>
+                {{ tool.title }}
+              </p>
+            </li>
+            <!-- <li
+              class="list-inline-item mr-4"
+              [ngbPopover]="tool.description"
+              triggers="mouseenter:mouseleave"
+              [popoverTitle]="tool.title"
+              placement="right"
+            >
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted"
+              ></fa-icon>
+            </li> -->
+          </ul>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Stage Name</label>
+    <input
+      type="text"
+      formControlName="title"
+      class="form-control"
+      placeholder="Enter a name for your stage..."
+    />
+  </div>
+  <div class="form-group">
+    <label>Stage Description</label>
+    <textarea
+      class="form-control"
+      rows="3"
+      formControlName="description"
+      placeholder="Enter a description for your stage..."
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label>Global Status</label>
+    <!-- <span
+      class="link text-medium float-right"
+      (click)="open(manageglobalstatuses)"
+      >Manage Global Statuses</span
+    > -->
+    <div ngbDropdown>
+      <div class="removeCaret py-2 px-3 border rounded" ngbDropdownToggle>
+        <div class="row">
+          <div class="col-11">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              [ngStyle]="{ color: selectedStatus?.colorCode }"
+              class="mr-1"
+            ></fa-icon>
+            {{ 'Statuses.' + selectedStatus?.title | translationPipe }}
+          </div>
+          <div class="col-1">
+            <fa-icon
+              [icon]="['fas', 'sort']"
+              class="text-muted float-right"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+      <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+        <button
+          *ngFor="let status of statuses"
+          (click)="selectStatus(status)"
+          class="pl-3 py-2"
+          ngbDropdownItem
+        >
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            [ngStyle]="{ color: status?.colorCode }"
+            class="mr-1"
+          ></fa-icon>
+          {{ 'Statuses.' + status.title | translationPipe }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="form-row mb-2 pb-2 dottedBottomBorder">
+    <div class="form-group col-8 mb-0">
+      <label>Stage Enabled</label>
+    </div>
+    <div class="form-group col-4 mb-0">
+      <div class="custom-control custom-switch mr-auto float-right">
+        <input
+          type="checkbox"
+          class="custom-control-input pointer"
+          id="stageEnabled"
+          checked
+        />
+        <label class="custom-control-label" for="stageEnabled">Enabled</label>
+      </div>
+    </div>
+  </div> -->
+</form>
+
+<!-- start of status list modal -->
+<ng-template #manageglobalstatuses let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Global Statuses</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-2">
+    <!-- one status -->
+    <div class="row pt-2 pb-2">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-3 moveOnHover"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-9">
+                <h5 class="mb-1">
+                  Status Name
+                  <span
+                    class="badge badge-primary small pl-2 pr-2 ml-1 adjustFloatUp"
+                    >1st</span
+                  >
+                </h5>
+                <p class="text-muted small mb-0">
+                  This is the status description this is the status description
+                  this is...
+                </p>
+              </div>
+              <div class="col-3">
+                <ul class="list-inline mb-0 float-right">
+                  <li
+                    class="list-inline-item inverseLink mr-2"
+                    (click)="open(addEditStatus)"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </li>
+                  <li class="list-inline-item" ngbDropdown>
+                    <span class="removeCaret" ngbDropdownToggle>
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 inverseLink"
+                      ></fa-icon>
+                    </span>
+                    <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteStatus)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                          (click)="open(deleteStatus)"
+                        >
+                        </fa-icon>
+                        Archive Status
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end one status -->
+    <hr class="mb-1 mt-1" />
+    <!-- one status -->
+    <div class="row pt-2 pb-2">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-3 moveOnHover"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-9">
+                <h5 class="mb-1">
+                  Status Name
+                  <span
+                    class="badge badge-secondary small pl-2 pr-2 ml-1 adjustFloatUp"
+                    >2nd</span
+                  >
+                </h5>
+                <p class="text-muted small mb-0">
+                  This is the status description this is the status description
+                  this is...
+                </p>
+              </div>
+              <div class="col-3">
+                <ul class="list-inline mb-0 float-right">
+                  <li
+                    class="list-inline-item inverseLink mr-2"
+                    (click)="open(addEditStatus)"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </li>
+                  <li class="list-inline-item" ngbDropdown>
+                    <span class="removeCaret" ngbDropdownToggle>
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 inverseLink"
+                      ></fa-icon>
+                    </span>
+                    <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteStatus)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                          (click)="open(deleteStatus)"
+                        >
+                        </fa-icon>
+                        Archive Status
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end one status -->
+    <hr class="mb-1 mt-1" />
+    <!-- one status -->
+    <div class="row pt-2 pb-2">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-3 moveOnHover"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-9">
+                <h5 class="mb-1">
+                  Status Name
+                  <span
+                    class="badge badge-dark small pl-2 pr-2 ml-1 adjustFloatUp"
+                    >3rd</span
+                  >
+                </h5>
+                <p class="text-muted small mb-0">
+                  This is the status description this is the status description
+                  this is...
+                </p>
+              </div>
+              <div class="col-3">
+                <ul class="list-inline mb-0 float-right">
+                  <li
+                    class="list-inline-item inverseLink mr-2"
+                    (click)="open(addEditStatus)"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </li>
+                  <li class="list-inline-item" ngbDropdown>
+                    <span class="removeCaret" ngbDropdownToggle>
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 inverseLink"
+                      ></fa-icon>
+                    </span>
+                    <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteStatus)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Archive Status
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end one status -->
+    <hr class="mb-1 mt-1" />
+    <!-- one status -->
+    <div class="row pt-2 pb-2">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-3 moveOnHover"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-9">
+                <h5 class="mb-1">
+                  Status Name
+                  <span
+                    class="badge badge-info small pl-2 pr-2 ml-1 adjustFloatUp"
+                    >4th</span
+                  >
+                </h5>
+                <p class="text-muted small mb-0">
+                  This is the status description this is the status description
+                  this is...
+                </p>
+              </div>
+              <div class="col-3">
+                <ul class="list-inline mb-0 float-right">
+                  <li
+                    class="list-inline-item inverseLink mr-2"
+                    (click)="open(addEditStatus)"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </li>
+                  <li class="list-inline-item" ngbDropdown>
+                    <span class="removeCaret" ngbDropdownToggle>
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 inverseLink"
+                      ></fa-icon>
+                    </span>
+                    <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteStatus)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Archive Status
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end one status -->
+    <hr class="mb-1 mt-1" />
+    <!-- one status -->
+    <div class="row pt-2 pb-2">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-3 moveOnHover"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-9">
+                <h5 class="mb-1">
+                  Parking Lot
+                  <span
+                    class="badge badge-warning small pl-2 pr-2 ml-1 adjustFloatUp"
+                    >5th</span
+                  >
+                </h5>
+                <p class="text-muted small mb-0">
+                  This is the status description this is the status description
+                  this is...
+                </p>
+              </div>
+              <div class="col-3">
+                <ul class="list-inline mb-0 float-right">
+                  <li
+                    class="list-inline-item inverseLink mr-2"
+                    (click)="open(addEditStatus)"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  </li>
+                  <li class="list-inline-item" ngbDropdown>
+                    <span class="removeCaret" ngbDropdownToggle>
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 inverseLink"
+                      ></fa-icon>
+                    </span>
+                    <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteStatus)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Archive Status
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end one status -->
+    <hr />
+    <!-- add status -->
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-primary btn-block" (click)="open(addEditStatus)">
+          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+          Add New Status
+        </button>
+      </div>
+    </div>
+    <!-- end of add status -->
+  </div>
+</ng-template>
+<!-- end of status list modal -->
+
+<!-- start of edit status modal -->
+<ng-template #addEditStatus let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Create / Edit Status</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- one status -->
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label>Status Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter status title here..."
+            />
+          </div>
+          <div class="form-group">
+            <label>Status Description</label>
+            <textarea
+              class="form-control"
+              placeholder="Enter a status description here..."
+            ></textarea>
+          </div>
+          <div class="form-group mb-0">
+            <label>Select Color</label>
+          </div>
+          <app-color-select></app-color-select>
+          <div class="form-group">
+            <label class="mb-1 pt-2">Filter Visibility Settings</label>
+            <hr class="mb-2 mt-1" />
+            <div class="custom-control custom-radio mb-2 text-medium">
+              <input
+                type="radio"
+                id="limitedVisibility"
+                name="customRadio"
+                class="custom-control-input"
+                checked
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="limitedVisibility"
+                ><b>Full Visibility</b> - Opportunities under this status will
+                be visible under the "all status" filter.</label
+              >
+            </div>
+            <div class="custom-control custom-radio mb-2 text-medium">
+              <input
+                type="radio"
+                id="limitedVisibility"
+                name="customRadio"
+                class="custom-control-input"
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="limitedVisibility"
+                ><b>Limited Visiblity</b> - Opportunities will only be visible
+                when filtered by this specific status, they will not be visible
+                under the "all statuses" filter.</label
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- end one status -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary">
+      Save Changes
+    </button>
+  </div>
+</ng-template>
+<!-- end of edit status modal -->
+
+<ng-template #deleteStatus let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive This Status</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-warning">
+      <p class="mb-0 small">
+        This status currently has <span class="bold">27</span> ideas active
+        inside of it. Please select a new status to update these ideas to before
+        archiving it.
+      </p>
+    </div>
+    <form>
+      <div class="form-group">
+        <p class="mb-2 bold">Select New Status</p>
+        <!-- <app-idea-status></app-idea-status> -->
+        <p class="pt-2 mb-0 small text-muted">
+          The <span class="bold">27</span> ideas in this status you're about to
+          archive will be updated to the new status you select above.
+        </p>
+      </div>
+    </form>
+    <hr />
+    <label>Effects of Archiving This Status</label>
+    <p>
+      By archiving this status, you will no longer be able to put ideas into it,
+      but you will still be able to get analytics on this status and access it
+      in reports. Are you sure you would like to archive this status?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-danger">Yes, Archive This Status</button>
+  </div>
+</ng-template>

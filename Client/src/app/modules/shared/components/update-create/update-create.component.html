@@ -1,0 +1,227 @@
+<button
+  ngbDropdownItem
+  class="py-1 btn btn-sm"
+  style="padding-left: 0.75rem;"
+  (click)="open(postUpdateModalOne)"
+  *ngIf="!inNavigation && !inView"
+>
+  <div class="media">
+    <fa-icon
+      [icon]="['fas', 'bullhorn']"
+      class="text-info iconLarge mt-1"
+      style="margin-right: 0.65rem;"
+    ></fa-icon>
+    <div class="media-body">
+      <label class="mb-0 pointer pt-1 text-medium">
+        {{ 'ChallengeTop.Labels.PostUpdate' | translationPipe }}
+      </label>
+      <p class="small text-muted mb-1">
+        Send in app and email notifications to targeted users
+      </p>
+    </div>
+  </div>
+</button>
+<button
+  ngbDropdownItem
+  class="pl-3 py-2 btn montserrat"
+  (click)="open(postUpdateModalOne)"
+  *ngIf="inNavigation"
+>
+  {{ 'ChallengeTop.Labels.PostUpdate' | translationPipe }}
+</button>
+<button
+  class="btn btn-primary montserrat py-1"
+  (click)="open(postUpdateModalOne)"
+  *ngIf="inView"
+>
+  {{ 'ChallengeTop.Labels.PostUpdate' | translationPipe }}
+</button>
+
+<ng-template #postUpdateModalOne let-modal>
+  <div class="modal-header card-header border-bottom-0 px-3 bg-light">
+    <p class="uppercase bold text-muted mb-0 small mt-1 montserrat">
+      Post New Update
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="dismissModal()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light pt-2 modalScrollMaxHeight">
+    <div class="alert alert-light border bg-white">
+      <div class="row">
+        <div class="col-12">
+          <div class="media">
+            <fa-icon
+              [icon]="['fas', 'bullhorn']"
+              class="text-muted"
+              style="font-size: 1.5rem;"
+            ></fa-icon>
+            <div class="media-body pl-3">
+              <p class="text-muted small mb-0">
+                Use updates to send targeted messages about new happenings on submissions, reminders, and news. Learn more about updates on our <a href="https://academy.ideawake.com/knowledge/community-updates-and-management" target="_blank">knowledgebase</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="alert alert-light border bg-white">
+      <div class="row">
+        <div class="col-12">
+          <p class="text-muted small mb-0">
+            Use updates to send targeted messages about new happenings on submissions, reminders, and news. Learn more about updates on our knowledgebase.
+          </p>
+        </div>
+      </div>
+    </div> -->
+    <label>Who Should This Update Be Sent To?</label>
+    <hr class="mt-1 mb-3 shadow-sm" />
+    <app-update-audience
+      [level]="level"
+      [targeting]="targeting"
+      (updatedSettings)="updateAssigneeSettings($event)"
+    ></app-update-audience>
+  </div>
+  <div class="modal-footer bg-light">
+    <button type="button" class="btn btn-light border" (click)="dismissModal()">
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.dismiss('Cross click'); navigate()"
+    >
+      Next - Update Details
+    </button>
+  </div>
+</ng-template>
+
+<!-- IGNORE! THIS IS NOW ON SEPARATE PAGE -->
+
+<!-- <ng-template #postUpdateModalTwo let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Update Details</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="overflow-y: scroll; max-height: 35rem;">
+    <form>
+      <div class="form-group">
+        <label>Update Title</label>
+        <div class="ml-1 py-1" ngbDropdown>
+          <div class="removeCaret py-2 px-3 border rounded addHover" ngbDropdownToggle>
+            <div class="row">
+              <div class="col-11">
+                Select Targeting
+              </div>
+              <div class="col-1">
+                <fa-icon [icon]="['fas', 'sort']" class="text-muted float-right"></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+            <div style="min-width: 15rem;">
+              <form class="p-1">
+                <div class="form-group mb-0">
+                  <input type="text" class="form-control" placeholder="Search options..." />
+                </div>
+              </form>
+            </div>
+            <button class="pl-3 py-2" ngbDropdownItem>
+              Response option one
+            </button>
+            <button class="pl-3 py-2" ngbDropdownItem>
+              Response option two
+            </button>
+            <button class="pl-3 py-2" ngbDropdownItem>
+              Response option three
+            </button>
+          </div>
+        </div>
+        <p class="form-text text-muted small mb-0">
+          This is the title of your update. If you send an email, it will be
+          shown as the subject line.
+        </p>
+      </div>
+      <div class="form-group">
+        <label>Update Title</label>
+        <input type="text" class="form-control" placeholder="Enter a title for your prize..." />
+        <p class="form-text text-muted small mb-0">
+          This is the title of your update. If you send an email, it will be
+          shown as the subject line.
+        </p>
+      </div>
+      <div class="form-group">
+        <label>Featured Image or Video</label>
+        <div class="featuredImageContainer rounded">
+          <ul class="list-unstyled text-center mb-0">
+            <li>
+              <fa-icon [icon]="['fas', 'image']" class="text-muted iconLarge"></fa-icon>
+            </li>
+            <li>
+              <p class="text-medium text-muted mb-0">
+                Upload a featured image or video for your update
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-group mb-2">
+        <label>Update Message</label>
+        <textarea class="form-control" rows="6"
+          placeholder="Include how users can win, what the prize includes, and when it will be awarded..."></textarea>
+      </div>
+      <div class="form-group">
+        <app-upload-content-options></app-upload-content-options>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button type="button" class="btn btn-light border float-left" (click)="modal.dismiss('Cross click')">
+      Save Draft
+    </button>
+    <button type="button" class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')"
+      (click)="open(postUpdateModalThree)">
+      Confirmation
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #postUpdateModalThree let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Post Update Confirmation</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="overflow-y: scroll; max-height: 35rem;">
+    <p>
+      You are about to send an update to <b>3,356 people</b>. Click on the
+      button below to confirm and send out your update!
+    </p>
+    <form>
+      <div class="form-group">
+        <label>Please Type Confirm</label>
+        <input type="text" class="form-control form-control-lg" placeholder="CONFIRM" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button type="button" class="btn btn-light border" (click)="modal.dismiss('Cross click')"
+      (click)="open(postUpdateModalTwo)">
+      Go Back
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">
+      Post Update
+    </button>
+  </div>
+</ng-template> -->

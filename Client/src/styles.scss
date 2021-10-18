@@ -1,0 +1,2867 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~ngx-toastr/toastr-bs4-alert';
+@import 'variables-custom';
+
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap
+
+:root {
+  --c1ab394: #1ab394;
+  --cffffff: #ffffff;
+  --c000105: #000105;
+  --c3e6158: #3e6158;
+  --c3f7a89: #3f7a89;
+  --c96c582: #96c582;
+  --cb7d5c4: #b7d5c4;
+  --cbcd6e7: #bcd6e7;
+  --c7c90c1: #7c90c1;
+  --c9d8594: #9d8594;
+  --cdad0d8: #dad0d8;
+  --c4b4fce: #4b4fce;
+  --c4e0a77: #4e0a77;
+  --ca367b5: #a367b5;
+  --cee3e6d: #ee3e6d;
+  --cd63d62: #d63d62;
+  --cc6a670: #c6a670;
+  --cf46600: #f46600;
+  --ccf0500: #cf0500;
+  --cefabbd: #efabbd;
+  --c8e0622: #8e0622;
+  --cf0ca68: #f0ca68;
+  --c62382f: #62382f;
+  --cc97545: #c97545;
+  --cc1800b: #c1800b;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-33 {
+  width: 33.333333%;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-5 {
+  width: 5%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-85 {
+  width: 85%;
+}
+
+.w-89 {
+  width: 8%;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.setWidgetHeight {
+  height: 23rem;
+}
+
+.myOwnClass {
+  background-color: $primary;
+}
+
+.addRadius {
+  border-radius: 45px;
+}
+
+.notificationButton {
+  padding-bottom: 0.2rem;
+  padding-top: 0.05rem;
+}
+
+.container-fluid {
+  // overflow: hidden;
+  min-height: 100%;
+  position: relative;
+  // padding-bottom: 72px;
+}
+
+.addDarkenLayer {
+  -webkit-box-shadow: inset 4px 10px 134px 165px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: inset 4px 10px 134px 165px rgba(0, 0, 0, 0.45);
+  box-shadow: inset 4px 10px 134px 165px rgba(0, 0, 0, 0.45);
+}
+
+// .modal-open .container-fluid, .modal-open .container {
+//   filter: blur(5px) grayscale(90%);
+//   -webkit-filter: blur(5px) grayscale(90%);
+// }
+
+// .modal-open .container-fluid {
+//   filter: blur(5px) grayscale(90%);
+//   -webkit-filter: blur(5px) grayscale(90%);
+// }
+
+.modal-header {
+  padding: 0.9rem 1rem 0.7rem 1rem;
+}
+
+.modal-header .close {
+  padding: 0.6rem 1.5rem;
+}
+
+.tagIcon {
+  font-size: 0.65rem;
+  padding-right: 0.1rem;
+}
+
+.tagPadding {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.15rem;
+}
+
+.disabledDiv {
+  pointer-events: none;
+  opacity: 0.5;
+  display: none;
+}
+
+// authorization views background
+.loginBackground {
+  background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+  background-color: $primary;
+  // background: linear-gradient(135deg,#8f75da 0,#727cf5 60%);
+  background-repeat: repeat-y;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  // height: 90.7vh !important;
+  height: 100vh !important;
+  overflow-y: auto;
+}
+
+.loginBackgroundNonFixed {
+  background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+  background-color: $primary;
+  // background: linear-gradient(135deg,#8f75da 0,#727cf5 60%);
+  background-repeat: repeat-y;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+// customize scrollbar
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  height: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 15px;
+}
+
+// challenge post nav pills
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: $primary;
+  // background-color: $primary;
+  background-color: #e4e9f0;
+}
+
+.nav-pills {
+  // justify-content: space-between;
+  flex: 1 1 auto;
+  text-align: left;
+  position: absolute;
+  left: -12rem;
+  width: 12rem;
+  margin-top: 0.4rem;
+}
+
+.nav-pills .nav-item {
+  // flex: 1 1 auto;
+  text-align: left;
+}
+
+.nav-pills .nav-item .nav-link.active p {
+  color: $primary;
+}
+
+.nav-pills .nav-link {
+  margin-bottom: 0.5rem;
+  color: $gray-600;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  margin-bottom: 0.5rem;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+// stage progress bar
+
+.stageProgressContainer {
+  margin-left: -0.1rem;
+  margin-right: 0.1rem;
+}
+
+.stageProgressBar {
+  height: 0.5rem;
+  background-color: $defaultBorder;
+}
+
+.stageProgressSeparator {
+  padding-right: 0.1rem;
+  padding-left: 0.1rem;
+}
+
+.outcomes-modal .modal-dialog {
+  max-width: 635px;
+}
+
+.moveDropdownUp.show {
+  position: absolute;
+  top: -2.6rem !important;
+}
+
+.montserrat {
+  // font-family: montserrat;
+  font-family: 'Nunito', sans-serif;
+  // font-weight: 600 !important;
+}
+
+.nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.nunito-bold {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+
+.lead {
+  line-height: 2.35rem;
+}
+
+// .gold{
+//   color: $gold;
+// }
+
+.increaseLineHeight {
+  line-height: 1.5rem;
+}
+
+.removeRowHeight {
+  height: 0;
+}
+
+.colorSelect {
+  min-height: 2.45rem;
+}
+
+.adjustForFixedNav {
+  padding-top: 4.5rem;
+}
+
+.adjustTableFilterRight {
+  position: relative;
+  right: 0.5rem;
+}
+
+.negativeSideMargins {
+  margin-left: -0.95rem;
+  margin-right: -0.95rem;
+}
+
+.negativeAlertMargins {
+  margin-left: -0.95rem;
+  margin-right: -0.95rem;
+}
+
+.negativeModalMargins {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.removeTag {
+  padding-left: 2px;
+}
+
+.showEditOnHover {
+  background-color: inherit;
+  border: 0.04rem solid transparent;
+  border-radius: 0.15rem;
+  padding-left: 0.4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  position: relative;
+  right: 0.4rem;
+  width: 101%;
+}
+
+.showEditOnHover:hover {
+  background-color: $light;
+  border: 0.04rem solid $defaultBorder;
+  cursor: pointer;
+  border-radius: 0.15rem;
+  padding-left: 0.4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  position: relative;
+  right: 0.4rem;
+  width: 101%;
+}
+
+.noFieldEntry {
+  background-color: $light;
+  border: 0.04rem solid $defaultBorder;
+  border-radius: 0.15rem;
+  padding-left: 0.6rem;
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+  position: relative;
+  right: 0.4rem;
+  width: 101%;
+}
+
+.noFieldEntry:hover {
+  background-color: #e9ecef;
+  border: 0.04rem solid $defaultBorder;
+  cursor: pointer;
+  border-radius: 0.15rem;
+  padding-left: 0.6rem;
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+  position: relative;
+  right: 0.4rem;
+  width: 101%;
+}
+
+.zindexSet {
+  z-index: 1000;
+}
+
+.bg-gray {
+  background-color: $defaultBorder !important;
+}
+
+.bg-light-gray {
+  background-color: #f1f1f1 !important;
+}
+
+.bg-tertiary {
+  background-color: $tertiary;
+}
+
+.text-tertiary {
+  color: $tertiary;
+}
+
+.bg-pink {
+  background-color: $pink;
+}
+
+.text-medium {
+  font-size: 0.9rem;
+}
+
+.dottedBottomBorder {
+  border-bottom: 1px dotted $defaultBorder;
+}
+
+hr.dotted {
+  border-style: dotted;
+}
+
+.rounded-bottom-0 {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.rounded-top-0 {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.rounded-right-0 {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rounded-left-0 {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.75rem;
+  line-height: 0.3;
+  border-radius: 0.15rem;
+}
+
+.btn-disabled {
+  background-color: #f8f9fa;
+}
+
+.btn-disabled:hover {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.btn-white {
+  background-color: $white;
+  border-radius: 0.25rem;
+  // border: 0.075rem solid $defaultBorder;
+  // padding: 0.2rem 0.75rem;
+}
+
+.btn-white:hover {
+  background-color: $gray-200;
+  border-radius: 0.25rem;
+  // border: 0.075rem solid $defaultBorder;
+  // padding: 0.2rem 0.75rem;
+}
+
+.btn-white.active {
+  background-color: $gray-200;
+  border-radius: 0.25rem;
+}
+
+.btnGray {
+  background-color: #f5f6f7;
+  border-radius: 0.15rem;
+  border: 0.075rem solid $defaultBorder;
+  padding: 0.2rem 0.75rem;
+}
+
+.btnGray:hover {
+  background-color: #dcddde;
+  border-radius: 0.15rem;
+  border: 0.075rem solid $defaultBorder;
+  padding: 0.2rem 0.75rem;
+}
+
+.pageTopPadding {
+  padding-top: 0;
+}
+
+.modal-header {
+  padding: 0.9rem 1rem 0.7rem 1rem;
+}
+
+.modal-header .close {
+  padding: 0.6rem 1.5rem;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.badgeOverlay {
+  position: absolute;
+  top: 0.2rem;
+  left: 10.75rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.form-control {
+  border-radius: 0.15rem;
+}
+
+.form-control:focus {
+  border-color: $primary !important;
+  -webkit-box-shadow: 0px 0px 5px 0px $primary;
+  -moz-box-shadow: 0px 0px 5px 0px $primary;
+  box-shadow: 0px 0px 5px 0px $primary;
+  // -webkit-box-shadow: 0px 0px 5px 0px rgba(26, 179, 148, 0.75);
+  // -moz-box-shadow: 0px 0px 5px 0px rgba(26, 179, 148, 0.75);
+  // box-shadow: 0px 0px 5px 0px rgba(26, 179, 148, 0.75);
+  // border-color: #ced4da !important;
+  // -webkit-box-shadow: inherit;
+  // -moz-box-shadow: inherit;
+  // box-shadow: inherit;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+  border-radius: 0.15rem;
+}
+
+.dropdownSelect {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: $gray-200;
+  color: inherit;
+}
+
+.adjustFilterCounter {
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.adjustSmallLabel {
+  padding-top: 0.17rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.tagLink {
+  color: $gray-600;
+}
+
+.tagLink:hover {
+  color: $primaryHover;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.whiteTagLink {
+  color: $white;
+}
+
+.whiteTagLink:hover {
+  color: $primaryHover;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.grayTagLink {
+  color: $gray-500;
+}
+
+.grayTagLink:hover {
+  color: $primaryHover;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.grab {
+  cursor: grab;
+}
+
+.adjustSubmitterText {
+  padding-top: 0.16rem;
+}
+
+.adjustFloat {
+  margin-top: 0.1rem;
+}
+
+.adjustFloatUpSmall {
+  position: relative;
+  bottom: 0.04rem;
+}
+
+.adjustFloatUp {
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.quickLink {
+  padding: 0.25rem 1rem 0.25rem 0.25rem;
+  background-color: inherit;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  position: relative;
+  right: 0.4rem;
+}
+
+.quickLink:hover {
+  padding: 0.25rem 1rem 0.25rem 0.25rem;
+  background-color: $gray-100;
+  border-top: 1px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.bulkActionPadding {
+  padding-top: 0.17rem;
+}
+
+.bulkAction {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  background-color: inherit;
+  border: 1px solid transparent;
+  border-radius: 0.15rem;
+  position: relative;
+  right: 0.2rem;
+}
+
+.bulkAction:hover {
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  background-color: $gray-100;
+  border: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.2rem;
+  cursor: pointer;
+  color: $primaryHover;
+}
+
+.rotateBars {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  transform: rotate(90deg);
+}
+
+.addHover {
+  background-color: inherit;
+}
+
+.addHover:hover {
+  cursor: pointer;
+  background-color: $gray-100;
+}
+
+.addHoverTwo {
+  background-color: $light;
+}
+
+.addHoverTwo:hover {
+  cursor: pointer;
+  background-color: $gray-200;
+}
+
+.moveOnHover {
+  background-color: inherit;
+}
+
+.moveOnHover:hover {
+  cursor: grab;
+  background-color: $gray-100;
+}
+
+.moveOnHover:focus {
+  cursor: grabbing;
+  background-color: $gray-100;
+}
+
+.link {
+  color: $primary;
+}
+
+.link:hover {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.editLink {
+  color: $gray-600;
+}
+
+.editLink:hover {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.interactive-element {
+  color: inherit;
+  margin-bottom: 0;
+}
+
+.interactive-element:hover {
+  color: $primaryHover;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.userImageOverlayWrapper {
+  position: absolute;
+  right: -16px;
+  bottom: -5px;
+}
+
+.userImageOverlayOne {
+  position: relative;
+  right: 0;
+  border: 2px solid $primary;
+}
+
+.userImageOverlayTwo {
+  position: relative;
+  right: 0.8rem;
+  border: 2px solid $primary;
+}
+
+.userImageOverlayThree {
+  position: relative;
+  right: 1.6rem;
+  border: 2px solid $primary;
+}
+
+.ideaIcon {
+  // font-size: 1rem;
+  color: $gray-600;
+}
+
+.ideaIcon:hover {
+  // font-size: 1rem;
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.commentIcon {
+  font-size: 1rem;
+  color: $gray-600;
+}
+
+.commentIcon:hover {
+  font-size: 1rem;
+  color: $gray-700;
+  cursor: pointer;
+}
+
+.activityFeedProfileImage {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.activityIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 0.4rem;
+  font-size: 1rem;
+}
+
+.activityIconSmall {
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  padding-top: 0.16rem;
+  vertical-align: middle;
+  // padding-top: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.botImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  padding-top: 0.15rem;
+  font-size: 1.25rem;
+}
+
+.userImageGroup0 {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.userImageGroup1 {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  // position: relative;
+  // right: 0.8rem;
+  border: 2px solid white;
+  margin-left: -6px;
+}
+
+.userImageGroup2 {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  // position: relative;
+  // right: 1.5rem;
+  border: 2px solid white;
+  margin-left: -6px;
+}
+
+.separatorIcon {
+  font-size: 5px;
+  position: relative;
+  bottom: 2px;
+}
+
+.nav-underline {
+  border-bottom: 0.2rem solid transparent;
+  padding: 0 0.4rem 0.35rem 0.4rem;
+}
+
+.nav-underline:hover {
+  border-bottom: 0.2rem solid $primaryHover;
+  padding: 0 0.4rem 0.35rem 0.4rem;
+  cursor: pointer;
+}
+
+.nav-underline.active {
+  border-bottom: 0.2rem solid $primary;
+  padding: 0 0.4rem 0.35rem 0.4rem;
+  cursor: pointer;
+}
+
+.repositionFilterItem {
+  position: relative;
+  bottom: 0.1rem;
+}
+
+.repositionBadge {
+  position: absolute;
+  bottom: 25px;
+  transform: rotate(-30deg);
+  right: -25px;
+}
+
+.filterCounter {
+  position: absolute;
+  bottom: 10px;
+  color: $gray-600;
+  font-weight: normal;
+  right: -10px;
+  font-size: 85%;
+}
+
+.filterCounterDanger {
+  position: absolute;
+  bottom: 10px;
+  color: $danger;
+  font-weight: normal;
+  right: -10px;
+  font-size: 85%;
+}
+
+.inverseLink {
+  color: $gray-600;
+}
+
+.inverseLink:hover {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.inverseLinkSelected {
+  color: $secondary;
+  cursor: pointer;
+}
+
+.inverseLink:hover p {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.inverseLink:hover .ideaIcon {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.inverseLink:active {
+  color: $primary;
+  cursor: pointer;
+}
+
+.inverseLink:focus {
+  color: $primary;
+  cursor: pointer;
+}
+
+.inverseLinkDark {
+  color: $gray-900;
+}
+
+.inverseLinkDark:hover {
+  color: $primaryHover;
+  cursor: pointer;
+}
+
+.inverseLinkDanger {
+  color: $gray-600;
+}
+
+.inverseLinkDanger:hover {
+  color: $danger;
+  cursor: pointer;
+}
+
+.tabs-navigation a.nav-link {
+  color: gray;
+  font-weight: bold;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: $white;
+  // border-left: 1px solid $defaultBorder;
+  border-radius: 0;
+}
+
+.tabs-navigation a.nav-link:hover {
+  color: $primary;
+  font-weight: bold;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: $white;
+  // border-left: 1px solid $defaultBorder;
+  border-radius: 0;
+  border: none;
+}
+
+.tabs-navigation a.nav-link .active {
+  color: $primary;
+  font-weight: bold;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: $primary;
+  // border-left: 1px solid $defaultBorder;
+  border-radius: 0;
+  border: none;
+}
+.card-height {
+  min-height: 22rem;
+}
+.featuredProfileImage {
+  width: 8.75rem;
+  height: 8.75rem;
+}
+
+.opportunityImage {
+  width: 100%;
+  height: 8.75rem;
+  object-fit: cover;
+}
+
+.ideaCardSubmitterImage {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.05rem;
+}
+
+.cardTopImage {
+  height: 8.5rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.cardAnimation {
+  box-shadow: none;
+}
+
+.cardAnimation:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.ideaCardPadding {
+  padding: 0.5rem 1.25rem;
+}
+
+.customCardPadding {
+  padding-left: 0.7rem;
+}
+
+.badgePadding {
+  padding: 0.4rem 0.75rem;
+}
+
+.customFieldPreview {
+  min-width: 16rem;
+  max-height: 20rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.popoverUserMinWidth {
+  min-width: 18rem;
+}
+
+.popoverStyle {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  min-width: 14rem;
+}
+
+.popoverStageInfo {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  min-width: 25rem;
+}
+
+.tooltip .arrow {
+  display: none;
+}
+
+.descriptionClass {
+  min-width: 23rem !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  padding: 0.25rem 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.globalUserSearch {
+  z-index: 2000;
+  position: absolute;
+  width: 100%;
+  border: 1px solid $defaultBorder;
+  top: -2rem;
+  border-radius: 0.15rem;
+}
+
+.globalUserSearchResult {
+  padding: 0.5rem;
+  border-bottom: 0.05rem solid $defaultBorder;
+}
+
+// move this to content card on profile
+
+.ideaDescriptionHeight {
+  min-height: 105px;
+  max-height: 105px;
+  overflow-y: hidden;
+}
+
+.ideaStatus {
+  position: absolute;
+  left: -1px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.card .quickActionsToggle {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.card .quickActionsToggle:hover {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.ideaCardListPadding {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+// move this to social images component
+
+.userImageGroup1 {
+  width: 2.5rem;
+  border: 2px solid white;
+  margin-left: -10px;
+}
+
+.userImageGroup2 {
+  width: 2.5rem;
+  // position: relative;
+  margin-left: -10px;
+  border: 2px solid white;
+}
+
+.userImageGroup3 {
+  width: 2.5rem;
+  // position: relative;
+  // right: 2rem;
+  margin-left: -10px;
+  border: 2px solid white;
+}
+
+.shareDropdown::after {
+  content: none;
+}
+
+.removeCaret::after {
+  content: none;
+}
+
+.dropup .removeCaret::after {
+  content: none;
+}
+
+app-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.error-txt {
+  color: red;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+/* overwrites for bootstrap alerts */
+
+.alert-info {
+  background-color: #e5f5f8;
+  border: 1px solid #7fd1de;
+}
+
+.alert-warning {
+  background-color: #fef8f0;
+  border: 1px solid #fae0b5;
+}
+
+.alert-danger {
+  background-color: #fdedee;
+  border: 1px solid #f8a9ad;
+}
+
+.alert-success {
+  background-color: #e6f8f6;
+  border: 1px solid #83ded2;
+}
+
+/*STYLING FOR TOASTERS START*/
+
+/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
+
+/* position */
+.toast-center-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.toast-top-center {
+  // top: 90px;
+  top: 0;
+  right: 0;
+  width: 100%;
+  border-top-right-radius: 0 !important;
+}
+
+.toast-bottom-center {
+  // bottom: 0;
+  bottom: 2.5rem;
+  right: 0;
+  width: 100%;
+}
+
+.toast-top-full-width {
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.toast-bottom-full-width {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+.toast-top-left {
+  top: 12px;
+  left: 12px;
+}
+
+.toast-top-right {
+  top: 12px;
+  right: 12px;
+}
+
+.toast-bottom-right {
+  right: 22px;
+  bottom: 12px;
+  font-size: 14px !important;
+}
+
+.toast-bottom-left {
+  bottom: 12px;
+  left: 12px;
+}
+
+/* toast styles */
+.toast-title {
+  font-weight: bold;
+}
+
+.toast-message {
+  word-wrap: break-word;
+}
+
+.toast-message a,
+.toast-message label {
+  color: #ffffff;
+}
+
+.toast-message a:hover {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+.toast-close-button {
+  position: relative;
+  right: -0.3em;
+  top: -0.3em;
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 1px 0 #ffffff;
+  /* opacity: 0.8; */
+}
+
+.toast-close-button:hover,
+.toast-close-button:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+/*Additional properties for button version
+ iOS requires the button element instead of an anchor tag.
+ If you want the anchor version, it requires `href="#"`.*/
+button.toast-close-button {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.toast-container {
+  pointer-events: none;
+  position: fixed;
+  z-index: 999999;
+}
+
+.toast-container * {
+  box-sizing: border-box;
+}
+
+#toast-container > .toast {
+  background-image: none !important;
+}
+
+.toast-container .ngx-toastr {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 5px 5px 5px 5px;
+  max-width: 315px;
+  text-align: center;
+  // border-radius: 3px 3px 3px 3px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  // box-shadow: 0 0 12px #999999;
+  // color: #FFFFFF;
+}
+
+.toast-container .ngx-toastr:hover {
+  box-shadow: 0 0 12px #000000;
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */
+.toast-info {
+  background-image: none !important;
+}
+/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/times-circle.svg */
+.toast-error {
+  background-image: none !important;
+}
+/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/check.svg */
+.toast-success {
+  background-image: none !important;
+}
+/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/exclamation-triangle.svg */
+.toast-warning {
+  background-image: none !important;
+}
+.toast-container.toast-top-center .ngx-toastr,
+.toast-container.toast-bottom-center .ngx-toastr {
+  width: 100%;
+  max-width: 225px;
+  padding: 10px 5px 10px 5px !important;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 13px;
+  // color: black;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  box-shadow: none;
+  font-weight: bold;
+}
+
+.toast-container.toast-top-full-width .ngx-toastr,
+.toast-container.toast-bottom-full-width .ngx-toastr {
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ngx-toastr {
+  background-color: #030303;
+  pointer-events: auto;
+}
+
+.toast-success {
+  // background-color: #d4edda;
+  background-color: #e6f8f6;
+  // border-left: 8px solid $primary;
+  color: #186a3b;
+  border-color: #83ded2;
+  // border-color: #186a3b;
+  // color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+}
+
+.toast-error {
+  background-color: #fdedee;
+  border-color: #f8a9ad;
+  color: #78281f;
+  // color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+}
+
+.toast-info {
+  // background-color: #d1ecf1;
+  background-color: #e5f5f8;
+  border-color: #7fd1de;
+  color: #0c5460;
+  // border-color: #39afd1;
+  // color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+}
+
+.toast-warning {
+  background-color: #fef8f0;
+  border-color: #fae0b5;
+  color: #856404;
+  // border-color: #ffc107;
+  // color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+}
+
+.toast-gamification {
+  background: linear-gradient(135deg, #39afd1 0, #727cf5 60%);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-bottom: 25px !important;
+  padding-top: 25px !important;
+}
+
+.toast-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  background-color: #000000;
+  opacity: 0.4;
+}
+
+table.dataTable thead th {
+  padding: 8px 10px;
+}
+
+/* Responsive Design */
+@media all and (max-width: 240px) {
+  .toast-container .ngx-toastr.div {
+    padding: 8px 8px 8px 8px;
+    width: 11em;
+  }
+
+  .toast-container .toast-close-button {
+    right: -0.2em;
+    top: -0.2em;
+  }
+}
+
+@media all and (min-width: 241px) and (max-width: 480px) {
+  .toast-container .ngx-toastr.div {
+    padding: 8px 8px 8px 8px;
+    width: 10em;
+    text-align: center;
+  }
+
+  .toast-container .toast-close-button {
+    right: -0.2em;
+    top: -0.2em;
+  }
+}
+
+@media all and (min-width: 481px) and (max-width: 768px) {
+  .toast-container .ngx-toastr.div {
+    padding: 15px 15px 15px 50px;
+    width: 10em;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .toast-container.toast-top-center .ngx-toastr,
+  .toast-container.toast-bottom-center .ngx-toastr {
+    max-width: 100px;
+  }
+}
+
+/*STYLING FOR TOASTERS END*/
+
+button:focus {
+  outline: none;
+}
+
+// Inline Filters
+
+.filterItem {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $gray-500;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $gray-600 !important;
+  background-color: transparent;
+}
+
+.filterItem:hover {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  background-color: transparent;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $primaryHover;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $primaryHover !important;
+}
+
+.filterItem.active {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  background-color: transparent;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $primary;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $primary !important;
+}
+
+.filterItemWarning {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $warning;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $warning;
+}
+
+.filterItemWarning:hover {
+  padding-top: 0.25rem;
+  padding-top: 0.25rem;
+  background-color: $warning;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $warning;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $white;
+}
+
+.filterItemDanger {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $danger;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $danger;
+}
+
+.filterItemDanger:hover {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  background-color: $danger;
+  border-radius: 0.75rem !important;
+  border: 0.1rem solid $danger;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  color: $white;
+}
+
+.filterItemActive {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0.75rem !important;
+  cursor: pointer;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  border: 0.1rem solid $primary;
+  background-color: transparent !important;
+  color: $primary !important;
+}
+
+// Group list page
+
+.selectedUser {
+  background-color: inherit;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.selectedUser:hover {
+  background-color: $gray-100;
+  padding-top: 0.49rem;
+  padding-bottom: 0.49rem;
+  border-top: 0.01rem solid $defaultBorder;
+  border-bottom: 0.01rem solid $defaultBorder;
+  cursor: pointer;
+}
+
+.featuredImageContainer {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border: 0.15rem dotted #dddddd;
+  cursor: pointer;
+  background-color: $white !important;
+}
+
+.featuredImageContainer:hover {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border: 0.15rem solid #dddddd;
+  cursor: pointer;
+  background-color: $light !important;
+}
+
+.contentContainerUploader {
+  border-radius: 0.15rem;
+  background-color: $light;
+  height: 110px;
+  width: 140px;
+  vertical-align: middle;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  margin-bottom: 0.5rem;
+}
+
+.contentContainer {
+  border-radius: 0.15rem;
+  background-color: $light;
+  height: 110px;
+  max-width: 140px;
+  vertical-align: middle;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  margin-bottom: 0.5rem;
+}
+
+.contentContainer:hover {
+  border-radius: 0.15rem;
+  background-color: $light;
+  border-color: #bee5eb;
+  cursor: pointer;
+  height: 110px;
+  max-width: 140px;
+  vertical-align: middle;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  margin-bottom: 0rem;
+}
+.contentContainer img {
+  // max-width: 100%;
+  // height: 100%;
+  // vertical-align: middle;
+  // object-fit: contain;
+  // padding: .5rem;
+  height: 50px;
+}
+.contentContainer .cross-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.iconLarge {
+  font-size: 1.5rem;
+}
+
+.iconExtraLarge {
+  font-size: 4.5rem;
+}
+
+.anonymousUser {
+  padding: 0.9rem 1.1rem;
+  background: $gray-300;
+  color: $primary;
+  position: relative;
+  top: 0.75rem;
+  border: 2px solid $white;
+}
+
+.anonymousUserSmall {
+  padding: 0.28rem 0.67rem;
+  background: $gray-300;
+  color: $primary;
+  border: 2px solid $white;
+}
+
+.ideaSummaryModal .modal-dialog {
+  max-width: 1140px;
+}
+
+.custom-field-modal .modal-dialog {
+  max-width: 635px;
+}
+
+.ideabox-test-modal .modal-dialog {
+  max-width: 1100px;
+  margin: 3rem auto;
+}
+
+.ideabox-test-modal .modal-content {
+  background-color: transparent;
+  border: none;
+}
+
+.modalPageHeight {
+  max-height: 66vh;
+  overflow-y: scroll;
+}
+
+.disableMaxHeight {
+  max-height: auto;
+  min-height: auto;
+}
+
+.modalMinWidth {
+  min-width: 15rem;
+}
+
+.filtersMobile {
+  min-width: 20rem;
+  max-height: 75vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.challengeScrollMaxHeight {
+  max-height: 60vh;
+  min-height: 20rem;
+  overflow-y: scroll;
+}
+
+.dropdownScrollMaxHeight {
+  max-height: 15rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 200;
+}
+
+.customDropdown {
+  font-size: 1rem;
+  padding: 0.45rem 0.5rem 0.45rem 0.8rem;
+  border: 1px solid #ced4da;
+  color: $gray-600;
+  cursor: pointer;
+}
+
+.customDropdown:focus {
+  border-color: $primary;
+  box-shadow: 0px 0px 5px 0px rgba(26, 179, 148, 0.75);
+  cursor: pointer;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.75rem;
+  line-height: 0.3;
+  border-radius: 0.15rem;
+}
+
+.btn {
+  border-radius: 0.15rem;
+}
+
+.btn-rounded {
+  border-radius: 1rem;
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+  border-radius: 0.15rem;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+// START NG-SELECT CUSTOM STYLING
+
+.ellipse-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ng-mentions highlighted {
+  display: inline;
+  border-radius: 3px;
+  padding: 1px;
+  margin: -1px;
+  overflow-wrap: break-word;
+  background-color: $primary !important;
+}
+
+.ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
+  background-color: #e8f7f4;
+}
+
+.ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value
+  .ng-value-icon.left {
+  border-right: 1px solid #a3e0d4;
+}
+
+// END NG-SELECT CUSTOM STYLING
+
+.userImageGroupOne {
+  width: 2.5rem;
+  /* border: 2px solid white; */
+}
+
+.userImage {
+  height: 2.7rem;
+  width: 2.7rem;
+  object-fit: cover;
+  border: 1px solid white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.userImageLarge {
+  height: 4.5rem;
+  width: 4.5rem;
+  object-fit: cover;
+  border: 1px solid white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.card-upload-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  margin-left: 10px;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.upload-content-container {
+  display: flex;
+  width: auto;
+  overflow-x: auto;
+}
+
+.contentContainerSelected {
+  &:hover {
+    background-color: #d1ecf1;
+  }
+  border-radius: 0.15rem;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  cursor: pointer;
+  // height: 110px;
+  // max-width: 140px;
+  // vertical-align: middle;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  margin-bottom: 0rem;
+}
+
+// angular datatable start
+
+.dataTables_filter label {
+  display: none;
+}
+
+thead tr {
+  background-color: white;
+}
+
+thead tr th {
+  font-weight: 600;
+}
+
+table.dataTable thead .sorting {
+  background-image: none !important;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+  padding: 10px 5px !important;
+}
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+  padding: 10px 5px !important;
+}
+
+table.dataTable thead .sorting_asc {
+  background-image: none !important;
+}
+
+table.dataTable thead .sorting_desc {
+  background-image: none !important;
+}
+
+.alwaysWhite {
+  background-color: white !important;
+}
+
+.alwaysWhite:hover {
+  background-color: white !important;
+}
+
+.alwaysWhite:visited {
+  background-color: #898989 !important;
+}
+
+.colorGrey:hover {
+  background-color: grey !important;
+}
+
+table {
+  border-color: grey !important;
+  border-width: 1px !important;
+}
+
+table.dataTable tbody th,
+table.dataTable tbody td {
+  border-top: 1px solid #dee2e6 !important;
+}
+table.dataTable.no-footer,
+table.dataTable thead th,
+table.dataTable thead td,
+table.dataTable thead th,
+table.dataTable thead td {
+  border-color: #dee2e6 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  clear: both !important;
+  float: left !important;
+  position: absolute !important;
+  right: 300px;
+  bottom: 12px;
+}
+
+.dataTables_wrapper.abc .dataTables_info {
+  right: 15px;
+}
+
+.dataTables_wrapper .dataTables_length {
+  bottom: 6px !important;
+  position: absolute !important;
+  right: 130px;
+}
+.dataTables_length select {
+  height: 26px;
+  background: none;
+  border-radius: 4px;
+  border-color: #dee2e6;
+  width: 60px !important;
+  visibility: visible;
+  margin-right: 30px;
+}
+.dataTables_length label {
+  visibility: hidden;
+}
+.dataTables_wrapper {
+  padding: 0 0 47px;
+}
+
+// angular datatable end
+
+/* Upvote Button Styling */
+// .modal-content{
+//   .upvoted-idea-button-wo-hover {
+//       background: #717cf5;
+//       border-color: #717cf5;
+//       &:focus{
+//         box-shadow: none;
+//       }
+//   }
+// }
+// .modal-content{
+//   .upvoted-idea-button {
+//       background: #717cf5;
+//       border-color: #717cf5;
+//       &:focus{
+//         box-shadow: none;
+//       }
+//       &:hover:after {
+//         content: attr(data-hover);
+//       }
+//       &:hover {
+//         .upvote-button-content {
+//             display: none;
+//           }
+//           background:#fff;
+//           color: #717cf5;
+//       }
+//   }
+// }
+/* Upvote Button Styling */
+
+// ngbBootstrap Carousel start
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23000000' width='8' height='8' viewBox='0 0 8 8'><path d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/></svg>") !important;
+}
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23000000' width='8' height='8' viewBox='0 0 8 8'><path d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/></svg>") !important;
+}
+// ngbBootstrap Carousel end
+
+// spinner start
+.sk-chase {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  animation: sk-chase 2.5s infinite linear both;
+}
+
+.sk-chase-dot {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: sk-chase-dot 2s infinite ease-in-out both;
+}
+
+.sk-chase-dot:before {
+  content: '';
+  display: block;
+  width: 25%;
+  height: 25%;
+  background-color: black;
+  border-radius: 100%;
+  animation: sk-chase-dot-before 2s infinite ease-in-out both;
+}
+
+.sk-chase-dot:nth-child(1) {
+  animation-delay: -1.1s;
+}
+.sk-chase-dot:nth-child(2) {
+  animation-delay: -1s;
+}
+.sk-chase-dot:nth-child(3) {
+  animation-delay: -0.9s;
+}
+.sk-chase-dot:nth-child(4) {
+  animation-delay: -0.8s;
+}
+.sk-chase-dot:nth-child(5) {
+  animation-delay: -0.7s;
+}
+.sk-chase-dot:nth-child(6) {
+  animation-delay: -0.6s;
+}
+.sk-chase-dot:nth-child(1):before {
+  animation-delay: -1.1s;
+}
+.sk-chase-dot:nth-child(2):before {
+  animation-delay: -1s;
+}
+.sk-chase-dot:nth-child(3):before {
+  animation-delay: -0.9s;
+}
+.sk-chase-dot:nth-child(4):before {
+  animation-delay: -0.8s;
+}
+.sk-chase-dot:nth-child(5):before {
+  animation-delay: -0.7s;
+}
+.sk-chase-dot:nth-child(6):before {
+  animation-delay: -0.6s;
+}
+
+@keyframes sk-chase {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sk-chase-dot {
+  80%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sk-chase-dot-before {
+  50% {
+    transform: scale(0.4);
+  }
+  100%,
+  0% {
+    transform: scale(1);
+  }
+}
+// spinner end
+
+/* router-animations start */
+router-outlet {
+  display: none;
+}
+
+.routeContainer > * {
+  display: block;
+}
+/* router-animations end */
+.highlight {
+  background: #e8f4f8;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 0.25rem;
+}
+
+// Lock Component Styling START
+
+.settings-unauthorized {
+  position: absolute;
+  z-index: 2000;
+  right: 0rem;
+  bottom: 4.45rem;
+  color: white;
+  background-color: $danger;
+  border-top-right-radius: 0.15rem;
+  padding: 0.25rem 0.5rem;
+}
+
+// Lock Component Styling END
+
+// switch css
+
+// .custom-switch .custom-control-label::before{
+//   width: 4.75rem;
+//   height: 1.5rem !important;
+//   left: -0.75rem;
+// }
+
+// .custom-switch .custom-control-input{
+//   content: "OFF";
+//   transform: translateX(5.5rem);
+// }
+
+// .custom-switch .custom-control-input:checked ~ .custom-control-label::after{
+//   content: "ON";
+//   text-align: left;
+//   transform: translateX(5.5rem);
+// }
+
+// .custom-switch .custom-control-label::after{
+//  left: calc(-3rem + 2px);
+//  width: calc(1.5rem - 4px);
+//  height: calc(1.5rem - 4px);
+//  border-radius: .35rem;
+//  transform: translateX(2.25rem);
+// }
+
+/*--------- END --------*/
+
+// extra small devices
+
+.standardModalCloseButton {
+  font-size: 1.65rem;
+  position: relative;
+  top: 0.25rem;
+  left: 0.75rem;
+}
+
+.standardModalClose {
+  color: #585858;
+}
+
+.standardModalClose:hover {
+  color: $dark;
+}
+
+.card-footer {
+  background-color: transparent;
+}
+
+.containerMarginMobile {
+  margin-bottom: 3rem;
+}
+
+.removePaddingOnMobile {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.addTopMarginMobile {
+  margin-top: 2.5rem;
+}
+
+.routeContainer {
+  position: relative;
+  margin-top: 60px;
+}
+
+.headerMobile {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 500;
+}
+
+.navItem {
+  color: $gray-600;
+}
+
+.navItem:hover {
+  color: $primaryHover;
+  text-decoration: none;
+}
+
+.footerNav {
+  position: fixed;
+  bottom: 0;
+  background-color: $white;
+  padding-top: 0.6rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  border-top: 1px solid $defaultBorder;
+  z-index: 200;
+}
+
+// .container-fluid{
+//   padding-left: 0 !important;
+//   padding-right: 0 !important;
+//   overflow-x: hidden;
+// }
+
+.card {
+  border: none;
+}
+
+.card-header {
+  padding: 0.5rem 1rem;
+}
+
+.card-body {
+  // padding: 1.25rem 0;
+  padding: 1.25rem;
+}
+
+.shadow-sm {
+  box-shadow: none !important;
+}
+
+.shadow-sm {
+  box-shadow: none !important;
+}
+
+.alignCenterMobileLeft {
+  text-align: center;
+}
+
+.alignCenterMobileRight {
+  text-align: center;
+}
+
+.alignLeftMobileRight {
+  float: left;
+}
+
+.modal-header .close {
+  font-size: 2rem;
+}
+
+.modalPageMinHeight {
+  min-height: 50vh;
+}
+
+.modalScrollMaxHeight {
+  max-height: 83vh;
+  min-height: 83vh;
+  overflow-y: auto;
+}
+
+.scoreScrollMaxHeight {
+  max-height: 15rem;
+  min-height: 15rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.noMaxHeight {
+  max-height: none;
+  min-height: none;
+}
+
+.post-idea-modal .modal-dialog {
+  margin: 0 auto 0 auto;
+  max-width: 635px;
+}
+
+.scrollTableOnMobile {
+  max-width: 106%;
+  overflow-x: scroll;
+}
+
+.darkModalBody {
+  background-color: #ffffff;
+}
+
+.filterWidth {
+  width: 0%;
+}
+
+.tableWidth {
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.marginAdjustPostChallenge {
+  margin-top: 0;
+}
+
+#hubspot-messages-iframe-container {
+  display: none !important;
+  visibility: hidden;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .card-footer {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .containerMarginMobile {
+    margin-bottom: 3rem;
+  }
+
+  .removePaddingOnMobile {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .addTopMarginMobile {
+    margin-top: 2.5rem;
+  }
+
+  .routeContainer {
+    position: relative;
+    margin-top: 60px;
+  }
+
+  .footerNav {
+    position: fixed;
+  }
+
+  body {
+    background-color: $bodyBackground;
+    min-height: 6rem;
+  }
+
+  // .container-fluid{
+  //   padding-left: 0 !important;
+  //   padding-right: 0 !important;
+  //   overflow-x: hidden;
+  // }
+
+  .card {
+    border: inherit;
+  }
+
+  .card-header {
+    padding: 0.5rem 1rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .shadow-sm {
+    box-shadow: none !important;
+  }
+
+  .negativeRowMargin {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  // .container-fluid {
+  //   padding-left: 0;
+  //   padding-right: 0;
+  // }
+
+  .postOpportunityInChallenge {
+    height: 3rem;
+    background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+    background-color: $primary;
+  }
+
+  .alignCenterMobileLeft {
+    text-align: center;
+  }
+
+  .alignCenterMobileRight {
+    text-align: center;
+  }
+
+  .alignLeftMobileRight {
+    float: left;
+  }
+
+  .modalPageMinHeight {
+    min-height: 50vh;
+  }
+
+  .modalScrollMaxHeight {
+    max-height: 32rem;
+    min-height: 23rem;
+    overflow-y: auto;
+  }
+
+  .post-idea-modal .modal-dialog {
+    margin: 1.75rem auto 1.75rem auto;
+    max-width: 635px;
+  }
+
+  .scrollTableOnMobile {
+    max-width: 106%;
+    overflow-x: scroll;
+  }
+
+  .darkModalBody {
+    background-color: #ffffff;
+  }
+
+  .filterWidth {
+    width: 0%;
+  }
+
+  .tableWidth {
+    width: 100%;
+    padding-left: 1rem;
+  }
+
+  .marginAdjustPostChallenge {
+    margin-top: 0;
+  }
+
+  #hubspot-messages-iframe-container {
+    display: none !important;
+    visibility: hidden;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .card-footer {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .containerMarginMobile {
+    margin-bottom: 0;
+  }
+
+  .removePaddingOnMobile {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .addTopMarginMobile {
+    margin-top: 0;
+  }
+
+  .routeContainer {
+    position: relative;
+    margin-top: 0;
+  }
+
+  body {
+    background-color: $white;
+    min-height: 6rem;
+  }
+
+  // .container-fluid{
+  //   padding-left: 15px;
+  //   padding-right: 15px;
+  // }
+
+  .card {
+    border: 1px solid $defaultBorder;
+  }
+
+  .card-header {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+
+  .pageTopPadding {
+    padding-top: 2rem;
+  }
+
+  .container-alt {
+    max-width: 1330px;
+    margin: 0 auto;
+  }
+
+  .workflowContainerPadding {
+    padding-left: 2.5rem;
+    padding-right: 2.75rem;
+  }
+
+  .noDataStyle {
+    min-height: 22.25rem;
+  }
+
+  .postOpportunityInChallenge {
+    height: 24.85rem;
+    background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+    background-color: $primary;
+  }
+
+  .alignCenterMobileLeft {
+    text-align: left;
+  }
+
+  .alignCenterMobileRight {
+    text-align: right;
+  }
+
+  .alignLeftMobileRight {
+    float: right;
+  }
+
+  .modalPageMinHeight {
+    min-height: 50vh;
+  }
+
+  .modalScrollMaxHeight {
+    // max-height: 32rem;
+    max-height: 79vh;
+    min-height: 23rem;
+    overflow-y: auto;
+  }
+
+  .post-idea-modal .modal-dialog {
+    margin: 1.75rem auto 1.75rem auto;
+    // max-width: 635px;
+    max-width: 805px;
+  }
+
+  .scrollTableOnMobile {
+    max-width: 106%;
+    overflow-x: auto;
+  }
+
+  .darkModalBody {
+    // background-color: #f3f3f4;
+    background-color: #f4f6f9;
+  }
+
+  .filterWidth {
+    width: 15%;
+  }
+
+  .tableWidth {
+    width: 85%;
+    padding-left: 1rem;
+  }
+
+  .marginAdjustPostChallenge {
+    margin-top: 0.3rem;
+  }
+
+  #hubspot-messages-iframe-container {
+    display: flex !important;
+    visibility: visible;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .card-footer {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .removePaddingOnMobile {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .addTopMarginMobile {
+    margin-top: 0;
+  }
+
+  .containerMarginMobile {
+    margin-bottom: 0;
+  }
+
+  .routeContainer {
+    position: relative;
+    margin-top: 0;
+  }
+
+  body {
+    background-color: $bodyBackground;
+    min-height: 6rem;
+  }
+
+  // .container-fluid{
+  //   padding-left: 15px;
+  //   padding-right: 15px;
+  // }
+
+  .card {
+    border: 1px solid $defaultBorder;
+  }
+
+  .card-header {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .postOpportunityInChallenge {
+    height: 24.85rem;
+    background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+    background-color: $primary;
+  }
+
+  .alignCenterMobileLeft {
+    text-align: left;
+  }
+
+  .alignCenterMobileRight {
+    text-align: right;
+  }
+
+  .alignLeftMobileRight {
+    float: right;
+  }
+
+  .modalPageMinHeight {
+    min-height: 50vh;
+  }
+
+  .modalScrollMaxHeight {
+    // max-height: 32rem;
+    max-height: 79vh;
+    min-height: 23rem;
+    overflow-y: auto;
+  }
+
+  .post-idea-modal .modal-dialog {
+    margin: 1.75rem auto 1.75rem auto;
+    // max-width: 635px;
+    max-width: 805px;
+  }
+
+  .scrollTableOnMobile {
+    max-width: 106%;
+    overflow-x: auto;
+  }
+
+  .darkModalBody {
+    background-color: #f4f6f9;
+  }
+
+  .marginAdjustPostChallenge {
+    margin-top: 0.3rem;
+  }
+
+  #hubspot-messages-iframe-container {
+    display: flex !important;
+    visibility: visible;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .routeContainer {
+    position: relative;
+    margin-top: 0;
+  }
+
+  body {
+    background-color: $bodyBackground;
+    min-height: 6rem;
+  }
+
+  // .container-fluid {
+  //   padding-left: 15px;
+  //   padding-right: 15px;
+  // }
+
+  .card-header {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .postOpportunityInChallenge {
+    height: 24.85rem;
+    background: url('https://ideawake-test.s3.us-east-2.amazonaws.com/assets/media/main-bg.png');
+    background-color: $primary;
+  }
+
+  .alignCenterMobileLeft {
+    text-align: left;
+  }
+
+  .alignCenterMobileRight {
+    text-align: right;
+  }
+
+  .alignLeftMobileRight {
+    float: right;
+  }
+
+  .modalPageMinHeight {
+    min-height: 50vh;
+  }
+
+  .modalScrollMaxHeight {
+    // max-height: 32rem;
+    max-height: 79vh;
+    min-height: 23rem;
+    overflow-y: auto;
+  }
+
+  .post-idea-modal .modal-dialog {
+    margin: 1.75rem auto 1.75rem auto;
+    // max-width: 635px;
+    max-width: 935px;
+  }
+
+  .scrollTableOnMobile {
+    max-width: 106%;
+    overflow-x: auto;
+  }
+
+  .darkModalBody {
+    background-color: #f4f6f9;
+  }
+
+  .marginAdjustPostChallenge {
+    margin-top: 0.3rem;
+  }
+
+  #hubspot-messages-iframe-container {
+    display: flex !important;
+    visibility: visible;
+  }
+}
+
+.tooltip-title-class {
+  width: 120px !important;
+}
+
+// Customize Bootstrap outside
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.btn-outline-primary {
+  color: $primary !important;
+  border-color: $primary;
+}
+
+.btn-primary:hover {
+  color: #ffffff;
+  background-color: $primaryHover;
+  border-color: $primaryHover;
+}
+
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active {
+  color: #ffffff;
+  background-color: $primary;
+  border-color: $primaryHover;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #ffffff;
+  background-color: $primary;
+}
+
+.btn-outline-primary:hover {
+  color: #ffffff !important;
+  background-color: $primaryHover !important;
+  border-color: $primaryHover !important;
+}
+
+a {
+  color: $primary;
+}
+
+.text-primary {
+  color: $primary !important;
+}
+
+.bg-primary {
+  background-color: $primary !important;
+}
+
+.badge-primary {
+  background-color: $primary;
+}
+
+.link:hover {
+  color: $primaryHover;
+}
+
+a:hover {
+  color: $primaryHover;
+}
+
+.page-item.active .page-link {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.list-group-item.active {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.ng-dropdown-panel {
+  opacity: 1 !important;
+}
+
+.workflowGroup
+  .ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-optgroup:first-child {
+  margin-top: -14px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  overflow: visible !important;
+  white-space: pre-wrap !important;
+}
+
+.customModalClass .modal-content {
+  height: 200px !important;
+}

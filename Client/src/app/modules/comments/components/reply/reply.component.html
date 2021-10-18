@@ -1,0 +1,895 @@
+<div class="row mb-3" *ngIf="simpleReply">
+  <div class="col-sm-11 offset-sm-1">
+    <div class="row">
+      <!-- start of replies -->
+      <div class="col-sm-12">
+        <div class="row" *ngFor="let reply of thread; let i = index">
+          <!-- start of one comment -->
+          <div
+            class="col-12"
+            [id]="'comment' + reply?.comment?.id"
+            *ngIf="!reply.comment.isDeleted"
+          >
+            <div
+              class="card bg-light commentLeftBorder rounded-0 border-top-0"
+              style="border-bottom-right-radius: 0;"
+            >
+              <div class="card-body px-3 pb-0 pt-3">
+                <div class="media">
+                  <fa-icon
+                    [icon]="['fas', 'ghost']"
+                    *ngIf="reply.comment.anonymous || reply.comment.isDeleted"
+                    class="anonymousUser rounded-circle mr-1"
+                  ></fa-icon>
+                  <img
+                    class="rounded-circle mr-2"
+                    height="50"
+                    width="50"
+                    *ngIf="!reply.comment.anonymous && !reply.comment.isDeleted"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="reply.comment.user.profileImage.url"
+                  />
+                  <div class="media-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <p class="text-medium mb-0">
+                          <span
+                            class="text-muted bold"
+                            *ngIf="
+                              reply.comment.anonymous &&
+                              !reply.comment.isDeleted
+                            "
+                          >
+                            {{ 'Comments.Anonymous' | translationPipe }}
+                          </span>
+                          <span
+                            class="text-muted bold"
+                            *ngIf="reply.comment.isDeleted"
+                            >[Deleted]</span
+                          >
+                          <a
+                            (click)="this.modalRef.close()"
+                            [routerLink]="[
+                              '/profile/view',
+                              reply.comment.user.id
+                            ]"
+                            *ngIf="
+                              !reply.comment.anonymous &&
+                              !reply.comment.isDeleted
+                            "
+                            class="bold inverseLinkDark pointer"
+                            >{{
+                              reply.comment.user.firstName +
+                                ' ' +
+                                reply.comment.user.lastName
+                            }}</a
+                          >
+                          <!-- <span
+                            class="badge badge-info small mx-1 stakeholderBadge adjustFloatUp uppercase"
+                            >Owner</span
+                          > -->
+                          <span
+                            class="ml-1 text-comment"
+                            [innerHTML]="reply.messageHtml"
+                          ></span>
+                          <span
+                            *ngIf="
+                              reply.comment.commentAttachments.length !== 0
+                            "
+                            class="comment-file"
+                          >
+                            <a
+                              *ngFor="
+                                let attachment of reply.comment
+                                  .commentAttachments
+                              "
+                              [href]="attachment.userAttachment?.url"
+                              target="_blank"
+                            >
+                              <img
+                                class="mb-2 thumbnailImage shadow-sm border cardAnimation active"
+                                [defaultImage]="defaultImage"
+                                [lazyLoad]="'../../../../../assets/file'"
+                                *ngIf="
+                                  attachment.attachmentType === 'application' ||
+                                  attachment.attachmentType === 'text'
+                                "
+                              />
+
+                              <img
+                                class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                                [defaultImage]="defaultImage"
+                                [lazyLoad]="
+                                  'https://i.stack.imgur.com/PtbGQ.png'
+                                "
+                                *ngIf="attachment.attachmentType === 'video'"
+                              />
+
+                              <img
+                                class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                                [defaultImage]="defaultImage"
+                                [lazyLoad]="attachment.userAttachment?.url"
+                                *ngIf="
+                                  attachment.attachmentType !== 'application' &&
+                                  attachment.attachmentType !== 'text' &&
+                                  attachment.attachmentType !== 'video'
+                                "
+                              />
+                            </a>
+                          </span>
+                          <li class="d-block list-inline-item">
+                            <ul class="list-inline mb-0">
+                              <li
+                                class="list-inline-item mb-2"
+                                *ngFor="let tag of reply.comment.tags"
+                                (click)="searchByTag($event)"
+                              >
+                                <span
+                                  class="badge badge-light tag border pointer"
+                                  [ngbPopover]=""
+                                  [openDelay]="100"
+                                  triggers="mouseenter"
+                                  [autoClose]="true"
+                                  popoverClass="popoverStyle"
+                                  container="body"
+                                >
+                                  <!--taginformation in ngbpopover-->
+                                  <fa-icon
+                                    [icon]="['fas', 'hashtag']"
+                                    class="text-muted"
+                                  ></fa-icon
+                                  >{{ tagsData[tag] }}
+                                  <fa-icon
+                                    [icon]="['fas', 'times']"
+                                    class="text-muted align-middle removeTag"
+                                    placement="right"
+                                    ngbTooltip="Remove Tag"
+                                    (click)="removeTag($event)"
+                                  ></fa-icon>
+                                </span>
+                              </li>
+                            </ul>
+                          </li>
+                        </p>
+                        <div class="row pt-1">
+                          <div class="col-sm-12">
+                            <ul class="list-inline mb-3">
+                              <li
+                                class="list-inline-item"
+                                *ngIf="!reply.comment.isDeleted"
+                              >
+                                <p
+                                  class="small bold uppercase mb-0 inverseLink interactive-element"
+                                  (click)="open(editComment)"
+                                >
+                                  <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                                  {{ 'Comments.Edit' | translationPipe }}
+                                </p>
+
+                                <ng-template #editComment let-close="close">
+                                  <app-edit-comment
+                                    [comment]="reply"
+                                    [mentionGroups]="mentionGroups"
+                                    [mentionTags]="mentionTags"
+                                    [mentionUsers]="mentionUsers"
+                                    [permissions]="permissions"
+                                    [entityConfig]="entityConfig"
+                                    [close]="close"
+                                    (update)="updateReply($event, i)"
+                                  ></app-edit-comment>
+                                </ng-template>
+                              </li>
+                              <li class="list-inline-item">
+                                <app-upvote-text
+                                  [entity]="reply.comment"
+                                  [upvotes]="commentUpvotes"
+                                  [isUpvote]="reply.isUpvoted"
+                                  [upvoteData]="reply.myVoteData"
+                                ></app-upvote-text>
+                              </li>
+                              <li
+                                class="list-inline-item"
+                                *ngIf="!reply.comment.isDeleted"
+                                (click)="showReplyBox(reply.comment)"
+                              >
+                                <p
+                                  class="small bold inverseLink mb-0 uppercase interactive-element"
+                                >
+                                  <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                                  {{ 'Comments.Reply' | translationPipe }}
+                                </p>
+                              </li>
+                              <!-- <li class="list-inline-item">
+                                        <p class="small interactive-element">Share</p>
+                                      </li> -->
+                              <ng-template #deleteComment let-modal>
+                                <div class="modal-header card-header bg-info">
+                                  <p
+                                    class="uppercase bold text-white mb-0 small"
+                                  >
+                                    {{
+                                      'Comments.ArchiveHeader' | translationPipe
+                                    }}
+                                  </p>
+                                  <button
+                                    type="button"
+                                    class="close text-white"
+                                    aria-label="Close"
+                                    (click)="modalRef.dismiss('Cross click')"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p class="mb-0">
+                                    {{
+                                      'Comments.ArchiveDescription'
+                                        | translationPipe
+                                    }}
+                                  </p>
+                                </div>
+                                <div class="modal-footer border-top-0 mr-auto">
+                                  <button
+                                    class="btn btn-light border"
+                                    (click)="modalRef.close()"
+                                  >
+                                    {{ 'Comments.Cancel' | translationPipe }}
+                                  </button>
+                                  <button
+                                    class="btn btn-info"
+                                    (click)="archiveComment(reply.comment.id)"
+                                  >
+                                    {{
+                                      'Comments.ConfirmArchive'
+                                        | translationPipe
+                                    }}
+                                  </button>
+                                </div>
+                              </ng-template>
+                              <li
+                                class="list-inline-item"
+                                (click)="open(deleteComment)"
+                                *ngIf="!reply.comment.isDeleted"
+                              >
+                                <p
+                                  class="small bold inverseLinkDanger mb-0 uppercase interactive-element"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                  ></fa-icon>
+                                  {{ 'Comments.Archive' | translationPipe }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item float-right">
+                                <ul class="list-inline mb-0">
+                                  <!-- <li class="list-inline-item">
+                                    <p class="small text-muted mb-0 font-italic" ngbTooltip="">
+                                      {{
+                                        commentUpvotes[reply.comment.id] > 0
+                                          ? commentUpvotes[reply.comment.id] +
+                                            ' Upvote(s)'
+                                          : ''
+                                      }}
+                                    </p>
+                                  </li> -->
+                                  <!-- <li class="list-inline-item">
+                                    <p class="small text-muted mb-0">
+                                      <fa-icon [icon]="['fas', 'eye']" class="text-success"></fa-icon>
+                                      Public
+                                    </p>
+                                  </li> -->
+                                  <li class="list-inline-item ml-1">
+                                    <p
+                                      class="small bold font-italic mb-0 uppercase text-muted"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'clock']"
+                                      ></fa-icon>
+                                      {{ reply.createdAt | timeAgo }}
+                                    </p>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one reply -->
+      </div>
+    </div>
+    <!-- end of replies list -->
+    <!-- start of reply to comment or reply -->
+
+    <div class="row mb-3" *ngIf="showInputField">
+      <div class="col-sm-12">
+        <div
+          class="card bg-light commentLeftBorder border-top-0 rounded-left-0 pb-0"
+          style="border-top-right-radius: 0;"
+        >
+          <div class="card-body px-3 pb-0 pt-3">
+            <div class="form-row">
+              <div class="col-12 form-group">
+                <div class="media">
+                  <img
+                    class="rounded-circle mr-2 userImage"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="currentUser.profileImage.url"
+                    width="50"
+                    height="50"
+                  />
+                  <div class="media-body">
+                    <app-mentionable-area
+                      *ngIf="mentionGroups && mentionUsers && mentionTags"
+                      [placeholder]="'Comments.PlaceholderLarge'"
+                      [preMention]="preMention"
+                      [rows]="3"
+                      [maxLength]="500"
+                      [groups]="mentionGroups"
+                      [users]="mentionUsers"
+                      [tags]="mentionTags"
+                      [element]="'textarea'"
+                      (selectedMention)="selectedReplyMentions($event)"
+                      (selectedTag)="selectedReplyTags($event)"
+                      #replyBox
+                      (getText)="setReply($event)"
+                    >
+                    </app-mentionable-area>
+                    <div
+                      class="upload-content-container bg-white border-left border-right py-2"
+                      style="
+                        position: relative;
+                        bottom: 0.1rem;
+                        border-color: #ced4da !important;
+                      "
+                    >
+                      <div
+                        class="card-upload-content contentContainer uploadedContentContainer"
+                        *ngFor="let file of selectedFiles; let i = index"
+                        #fileContainer
+                      >
+                        <div class="card-body px-2 py-1">
+                          <ul class="list-unstyled mb-0">
+                            <li>
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item small text-muted">
+                                  <fa-icon
+                                    [icon]="
+                                      file.fontawesomeIcon
+                                        ? file.fontawesomeIcon
+                                        : file.attachmentType
+                                    "
+                                  ></fa-icon>
+                                  {{
+                                    file.url | fileNameUpdate: 'extensionOnly'
+                                  }}
+                                  <!-- file.fontawesomeIcon -->
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <img
+                                *ngIf="file.type === 'image'"
+                                [defaultImage]="defaultImage"
+                                [lazyLoad]="file.url"
+                                width="100"
+                                height="100"
+                              />
+
+                              <p
+                                *ngIf="file.type !== 'image'"
+                                class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+                              >
+                                {{ file.url | fileNameUpdate }}
+                              </p>
+                            </li>
+
+                            <li>
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item small text-muted">
+                                  {{ file.size }} KB
+                                </li>
+                                <li class="list-inline-item float-right">
+                                  <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                    class="inverseLinkDanger small"
+                                    ngbTooltip="Delete Media"
+                                    (click)="deleteMedia(file)"
+                                  >
+                                  </fa-icon>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="row mx-0 border-left border-right border-bottom bg-white rounded-bottom"
+                      style="
+                        position: relative;
+                        bottom: 2px;
+                        border-color: #ced4da !important;
+                      "
+                    >
+                      <div class="col-12 pl-0">
+                        <app-upload-content-options
+                          [from]="'comment'"
+                          (postAnonymously)="setAnonymousStatus($event)"
+                          (trigger)="ngMentionTriggers($event)"
+                          [data]=""
+                          [permissions]="permissions"
+                        >
+                        </app-upload-content-options>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-9 pr-0" ngbDropdown>
+                        <!-- <app-comment-visibility-settings></app-comment-visibility-settings> -->
+                      </div>
+                      <div class="col-3">
+                        <button
+                          class="btn btn-primary btn-block mt-2"
+                          (click)="postReply()"
+                          [disabled]="disableReplyButton"
+                        >
+                          {{ 'Comments.Reply' | translationPipe }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- simple inline replies -->
+<div class="row mb-2 mt-1" *ngIf="!simpleReply">
+  <div class="col-sm-12">
+    <div class="row">
+      <!-- start of replies -->
+      <div class="col-sm-12">
+        <div class="row" *ngFor="let reply of thread; let i = index">
+          <!-- start of one comment -->
+          <div
+            class="col-12"
+            [id]="'comment' + reply?.comment?.id"
+            *ngIf="!reply.comment.isDeleted"
+          >
+            <div
+              class="card bg-white commentLeftBorder border-top-0 ml-1"
+              style="border-bottom-right-radius: 0;"
+            >
+              <div class="card-body px-2 pb-0 pt-2">
+                <div class="media">
+                  <fa-icon
+                    [icon]="['fas', 'ghost']"
+                    *ngIf="reply.comment.anonymous || reply.comment.isDeleted"
+                    class="anonymousUserSmall rounded-circle mr-1"
+                  ></fa-icon>
+                  <img
+                    class="rounded-circle userImageSmall mr-2"
+                    height="50"
+                    width="50"
+                    *ngIf="!reply.comment.anonymous && !reply.comment.isDeleted"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="reply.comment.user.profileImage.url"
+                  />
+                  <div class="media-body pl-1">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <p class="small mb-0">
+                          <span
+                            class="text-muted bold"
+                            *ngIf="
+                              reply.comment.anonymous &&
+                              !reply.comment.isDeleted
+                            "
+                            >{{ 'Comments.Anonymous' | translationPipe }}</span
+                          >
+                          <span
+                            class="text-muted bold"
+                            *ngIf="reply.comment.isDeleted"
+                            >[Deleted]</span
+                          >
+                          <a
+                            (click)="this.modalRef.close()"
+                            [routerLink]="[
+                              '/profile/view',
+                              reply.comment.user.id
+                            ]"
+                            *ngIf="
+                              !reply.comment.anonymous &&
+                              !reply.comment.isDeleted
+                            "
+                            class="bold inverseLinkDark pointer"
+                            >{{
+                              reply.comment.user.firstName +
+                                ' ' +
+                                reply.comment.user.lastName
+                            }}</a
+                          >
+                        </p>
+                        <p
+                          class="small mb-0 text-muted"
+                          style="font-size: 65%;"
+                        >
+                          {{ reply.createdAt | timeAgo }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- start of insert -->
+                <p class="small mb-0 pl-1">
+                  <span [innerHTML]="reply.messageHtml"></span>
+                </p>
+                <span
+                  *ngIf="reply.comment.commentAttachments.length !== 0"
+                  class="comment-file"
+                >
+                  <a
+                    *ngFor="let attachment of reply.comment.commentAttachments"
+                    [href]="attachment.userAttachment?.url"
+                    target="_blank"
+                  >
+                    <img
+                      class="mb-2 thumbnailImage shadow-sm border cardAnimation active"
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="'../../../../../assets/file'"
+                      *ngIf="
+                        attachment.attachmentType === 'application' ||
+                        attachment.attachmentType === 'text'
+                      "
+                    />
+
+                    <img
+                      class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="'https://i.stack.imgur.com/PtbGQ.png'"
+                      *ngIf="attachment.attachmentType === 'video'"
+                    />
+
+                    <img
+                      class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="attachment.userAttachment?.url"
+                      *ngIf="
+                        attachment.attachmentType !== 'application' &&
+                        attachment.attachmentType !== 'text' &&
+                        attachment.attachmentType !== 'video'
+                      "
+                    />
+                  </a>
+                </span>
+                <div class="d-block list-inline-item">
+                  <ul class="list-inline mb-0">
+                    <li
+                      class="list-inline-item mb-2"
+                      *ngFor="let tag of reply.comment.tags"
+                      (click)="searchByTag($event)"
+                    >
+                      <span
+                        class="badge badge-light tag border pointer"
+                        [ngbPopover]=""
+                        [openDelay]="100"
+                        triggers="mouseenter"
+                        [autoClose]="true"
+                        popoverClass="popoverStyle"
+                        container="body"
+                      >
+                        <!--taginformation in ngbpopover-->
+                        <fa-icon
+                          [icon]="['fas', 'hashtag']"
+                          class="text-muted"
+                        ></fa-icon
+                        >{{ tagsData[tag] }}
+                        <fa-icon
+                          [icon]="['fas', 'times']"
+                          class="text-muted align-middle removeTag"
+                          placement="right"
+                          ngbTooltip="Remove Tag"
+                          (click)="removeTag($event)"
+                        ></fa-icon>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="row pt-1">
+                  <div class="col-sm-12">
+                    <ul class="list-inline mb-2 pl-1 small">
+                      <li
+                        class="list-inline-item"
+                        *ngIf="!reply.comment.isDeleted"
+                      >
+                        <p
+                          class="small bold uppercase mb-0 inverseLink interactive-element"
+                          (click)="open(editComment)"
+                        >
+                          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                          {{ 'Comments.Edit' | translationPipe }}
+                        </p>
+
+                        <ng-template #editComment let-close="close">
+                          <app-edit-comment
+                            [comment]="reply"
+                            [mentionGroups]="mentionGroups"
+                            [mentionTags]="mentionTags"
+                            [mentionUsers]="mentionUsers"
+                            [permissions]="permissions"
+                            [entityConfig]="entityConfig"
+                            [close]="close"
+                            (update)="updateReply($event, i)"
+                          ></app-edit-comment>
+                        </ng-template>
+                      </li>
+                      <li class="list-inline-item">
+                        <app-upvote-text
+                          [entity]="reply.comment"
+                          [upvotes]="commentUpvotes"
+                          [isUpvote]="reply.isUpvoted"
+                          [upvoteData]="reply.myVoteData"
+                        ></app-upvote-text>
+                      </li>
+                      <li
+                        class="list-inline-item"
+                        *ngIf="!reply.comment.isDeleted"
+                        (click)="showReplyBox(reply.comment)"
+                      >
+                        <p
+                          class="small bold inverseLink mb-0 uppercase interactive-element"
+                        >
+                          <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                          {{ 'Comments.Reply' | translationPipe }}
+                        </p>
+                      </li>
+                      <!-- <li class="list-inline-item">
+                                <p class="small interactive-element">Share</p>
+                              </li> -->
+                      <ng-template #deleteComment let-modal>
+                        <div class="modal-header card-header bg-info">
+                          <p class="uppercase bold text-white mb-0 small">
+                            {{ 'Comments.ArchiveHeader' | translationPipe }}
+                          </p>
+                          <button
+                            type="button"
+                            class="close text-white"
+                            aria-label="Close"
+                            (click)="modalRef.dismiss('Cross click')"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="mb-0">
+                            {{
+                              'Comments.ArchiveDescription' | translationPipe
+                            }}
+                          </p>
+                        </div>
+                        <div class="modal-footer border-top-0 mr-auto">
+                          <button
+                            class="btn btn-light border"
+                            (click)="modalRef.close()"
+                          >
+                            Cancel
+                            {{ 'Comments.Cancel' | translationPipe }}
+                          </button>
+                          <button
+                            class="btn btn-info"
+                            (click)="archiveComment(reply.comment.id)"
+                          >
+                            {{ 'Comments.ConfirmArchive' | translationPipe }}
+                          </button>
+                        </div>
+                      </ng-template>
+                      <li
+                        class="list-inline-item"
+                        (click)="open(deleteComment)"
+                        *ngIf="!reply.comment.isDeleted"
+                      >
+                        <p
+                          class="small bold inverseLinkDanger mb-0 uppercase interactive-element"
+                        >
+                          <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                          {{ 'Comments.Archive' | translationPipe }}
+                        </p>
+                      </li>
+                      <li class="list-inline-item float-right">
+                        <ul class="list-inline mb-0">
+                          <!-- <li class="list-inline-item">
+                            <p class="small text-muted mb-0 font-italic" ngbTooltip="">
+                              {{
+                                commentUpvotes[reply.comment.id] > 0
+                                  ? commentUpvotes[reply.comment.id] +
+                                    ' Upvote(s)'
+                                  : ''
+                              }}
+                            </p>
+                          </li> -->
+                          <!-- <li class="list-inline-item">
+                            <p class="small text-muted mb-0">
+                              <fa-icon [icon]="['fas', 'eye']" class="text-success"></fa-icon>
+                              Public
+                            </p>
+                          </li> -->
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- end of insert -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one reply -->
+      </div>
+    </div>
+    <!-- end of replies list -->
+    <!-- start of reply to comment or reply -->
+
+    <div class="row mb-3" *ngIf="showInputField">
+      <div class="col-sm-12">
+        <div
+          class="card bg-white commentLeftBorder border-top-0 rounded-left-0 pb-0 ml-1"
+          style="border-top-right-radius: 0;"
+        >
+          <div class="card-body p-0">
+            <div class="form-row">
+              <div class="col-12 form-group mb-0">
+                <div class="media">
+                  <!-- <img
+                    class="rounded-circle mr-2 userImage"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="currentUser.profileImage.url"
+                    width="50"
+                    height="50"
+                  /> -->
+                  <div class="media-body">
+                    <app-mentionable-area
+                      *ngIf="mentionGroups && mentionUsers && mentionTags"
+                      [placeholder]="'Comments.PlaceholderSmall'"
+                      [preMention]="preMention"
+                      [rows]="3"
+                      [maxLength]="500"
+                      [groups]="mentionGroups"
+                      [users]="mentionUsers"
+                      [tags]="mentionTags"
+                      [element]="'textarea'"
+                      (selectedMention)="selectedReplyMentions($event)"
+                      (selectedTag)="selectedReplyTags($event)"
+                      #replyBox
+                      (getText)="setReply($event)"
+                    >
+                    </app-mentionable-area>
+                    <div
+                      class="upload-content-container bg-white border-left border-right py-2"
+                      style="
+                        position: relative;
+                        bottom: 0.1rem;
+                        border-color: #ced4da !important;
+                      "
+                    >
+                      <div
+                        class="card-upload-content contentContainer uploadedContentContainer"
+                        *ngFor="let file of selectedFiles; let i = index"
+                        #fileContainer
+                      >
+                        <div class="card-body p-0">
+                          <ul class="list-unstyled mb-0">
+                            <li>
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item small text-muted">
+                                  <fa-icon
+                                    [icon]="
+                                      file.fontawesomeIcon
+                                        ? file.fontawesomeIcon
+                                        : file.attachmentType
+                                    "
+                                  ></fa-icon>
+                                  {{
+                                    file.url | fileNameUpdate: 'extensionOnly'
+                                  }}
+                                  <!-- file.fontawesomeIcon -->
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <img
+                                *ngIf="file.type === 'image'"
+                                [defaultImage]="defaultImage"
+                                [lazyLoad]="file.url"
+                                width="30"
+                                height="30"
+                              />
+
+                              <p
+                                *ngIf="file.type !== 'image'"
+                                class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+                              >
+                                {{ file.url | fileNameUpdate }}
+                              </p>
+                            </li>
+
+                            <li>
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item small text-muted">
+                                  {{ file.size }} KB
+                                </li>
+                                <li class="list-inline-item float-right">
+                                  <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                    class="inverseLinkDanger small"
+                                    ngbTooltip="Delete Media"
+                                    (click)="deleteMedia(file)"
+                                  >
+                                  </fa-icon>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="row mx-0 border-left border-right border-bottom bg-white rounded-bottom"
+                      style="
+                        position: relative;
+                        bottom: 2px;
+                        border-color: #ced4da !important;
+                      "
+                    >
+                      <div class="col-12 pl-0">
+                        <app-upload-content-options
+                          [from]="'comment'"
+                          (postAnonymously)="setAnonymousStatus($event)"
+                          (trigger)="ngMentionTriggers($event)"
+                          [data]=""
+                          [permissions]="permissions"
+                          [simpleUploadOptions]="true"
+                        >
+                        </app-upload-content-options>
+                      </div>
+                    </div>
+                    <div class="row" style="height: 0;">
+                      <div class="col-7 pr-0" ngbDropdown>
+                        <!-- <app-comment-visibility-settings></app-comment-visibility-settings> -->
+                      </div>
+                      <div class="col-4">
+                        <button
+                          class="btn btn-xs py-2 btn-primary btn-block mt-0 repositionSmallButton"
+                          (click)="postReply()"
+                          [disabled]="disableReplyButton"
+                        >
+                          {{ 'Comments.Reply' | translationPipe }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end simple inline replies -->

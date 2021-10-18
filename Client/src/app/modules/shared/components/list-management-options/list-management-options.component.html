@@ -1,0 +1,947 @@
+<ul class="list-inline mb-0 d-none d-md-inline-block">
+  <li class="list-inline-item mr-0">
+    <div ngbDropdown container="body">
+      <button
+        class="btn btn-light bg-transparent btn-sm removeCaret"
+        ngbTooltip="Edit Default Columns and Filters"
+        [openDelay]="400"
+        ngbDropdownToggle
+        container="body"
+        *ngIf="
+          userCommunityPermissions?.manageOpportunityFilters ||
+          userCommunityPermissions?.manageOpportunityColumns
+        "
+      >
+        <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+        <!-- <fa-icon
+          [icon]="['fas', 'angle-down']"
+          class="text-muted ml-1"
+        ></fa-icon> -->
+      </button>
+      <div ngbDropdownMenu class="shadow p-2">
+        <button
+          class="btn btn-sm pl-2"
+          ngbDropdownItem
+          container="body"
+          (click)="openEditFilters()"
+          *ngIf="userCommunityPermissions?.manageOpportunityFilters"
+        >
+          <!-- <fa-icon
+            [icon]="['fas', 'filter']"
+            class="text-muted"
+            style="font-size: 0.725rem;"
+          ></fa-icon> -->
+          <fa-icon
+            [icon]="['fas', 'filter']"
+            class="text-muted text-medium"
+          ></fa-icon>
+          Edit Filters
+        </button>
+        <button
+          class="btn btn-sm pl-2"
+          container="body"
+          (click)="openEditColumns()"
+          *ngIf="userCommunityPermissions?.manageOpportunityColumns"
+        >
+          <fa-icon
+            [icon]="['fas', 'edit']"
+            class="text-muted text-medium"
+          ></fa-icon>
+          Edit Columns
+        </button>
+      </div>
+    </div>
+  </li>
+  <!-- <li class="list-inline-item mr-1">
+    <button
+      class="btn btn-light btn-xs rounded-circle border shadow-sm"
+      container="body"
+      ngbTooltip="Edit List Settings"
+      (click)="open(editListSettings)"
+    >
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+    </button>
+  </li> -->
+</ul>
+
+<ng-template #editIdeaList let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">
+      Manage Visible Fields and Properties
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0 pb-0">
+    <div class="row">
+      <div class="col-5 pl-2 pr-0">
+        <div class="row pt-2">
+          <div class="col-12">
+            <form>
+              <div class="form-group p-2 mb-2">
+                <p class="mb-1 uppercase bold small text-muted">
+                  Search Fields
+                </p>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Start typing to search fields..."
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="modalScrollMaxHeight">
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Description</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Days in Current Stage
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Previous Stage</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Days in Previous Stage
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Date Submitted</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Custom Field Title (Refine Stage)
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Question Title (Scorecard Stage)
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Numerical Title (Scorecard Stage)
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-7 bg-light border-left modalScrollMaxHeight">
+        <div class="row pt-2">
+          <div class="col-12">
+            <p class="mb-2 uppercase bold pt-1 small text-muted">
+              Selected Columns (2)
+            </p>
+          </div>
+        </div>
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <div class="media-body ml-1">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">ID and Title</p>
+                    <!-- <ul class="list-inline mb-0">
+                      <li class="list-inline-item mr-0">
+                        <p class="small mb-0 text-muted">Default Field</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item mr-0">
+                        <p class="small mb-0 text-muted">Dropdown Select</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item mr-0">
+                        <p class="small mb-0 text-muted">Optional</p>
+                      </li>
+                    </ul> -->
+                  </div>
+                  <div class="col-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Total Score</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Stage Score</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Assigned To</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Stage Progress</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Due Date</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Last Touched</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Owners</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Team Members</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-2">
+          <div class="card-body py-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Submitters & Co-Submitters</p>
+                  </div>
+                  <div class="col-3">
+                    <fa-icon
+                      container="body"
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink float-right"
+                      ngbTooltip="Remove Column"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+
+<!-- end of edit columns modal -->
+
+<!-- start of edit list settings modal -->
+<ng-template #createNewView let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Edit List Settings</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0 pb-0"></div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+<!-- end of edit settings modal -->
+
+<ng-template #editFilters let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Edit On Page Filters</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pt-0 pb-0">
+    <div class="row">
+      <div class="col-5 p-0">
+        <div class="row pt-2">
+          <div class="col-12">
+            <form>
+              <div class="form-group p-2 mb-2">
+                <p class="mb-1 uppercase bold small text-muted">
+                  Search Fields
+                </p>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Start typing to search fields..."
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="modalScrollMaxHeight">
+              <p
+                class="mb-0 pl-2 pt-2 pb-2 uppercase bold small text-muted text-center bg-light border-bottom"
+              >
+                On Page Filters
+              </p>
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">
+                      Workflow Stage
+                    </p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Status</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Category</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Tags</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+              <!-- start of one -->
+              <div class="globalUserSearchResult addHover">
+                <div class="custom-control custom-checkbox pointer">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="selectUser"
+                  />
+                  <label
+                    class="custom-control-label pointer w-100"
+                    for="selectUser"
+                  >
+                    <p class="mt-0 mb-0 font-weight-normal">Source</p>
+                  </label>
+                </div>
+              </div>
+              <!-- end of one -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-7 bg-light border-left">
+        <div class="row pt-2">
+          <div class="col-12">
+            <p class="mb-2 uppercase bold pt-1 small text-muted">
+              On Page Filters (2)
+            </p>
+          </div>
+        </div>
+        <!-- start of one entry -->
+        <div class="card mb-1">
+          <div class="card-body pt-2 pb-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Status</p>
+                  </div>
+                  <div class="col-3">
+                    <ul class="list-inline mb-0 float-right">
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="inverseLink"
+                        ></fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-1">
+          <div class="card-body pt-2 pb-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-9">
+                    <p class="mb-0">Category</p>
+                  </div>
+                  <div class="col-3">
+                    <ul class="list-inline mb-0 float-right">
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="inverseLink"
+                        ></fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of one entry -->
+        <!-- start of one entry -->
+        <div class="card mb-1">
+          <div class="card-body pt-2 pb-2 pl-2 pr-3">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="mr-2 text-muted"
+              ></fa-icon>
+              <div class="media-body">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="mb-0">Tags</p>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="inverseLink"
+                    ></fa-icon>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+<!-- end of edit filters modal -->
+
+<!-- start of create new view modal -->
+<ng-template #editListSettings let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Edit List Settings</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group mb-2">
+        <label>View Name</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter a name for your view..."
+        />
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customCheck1"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="customCheck1"
+            >Set this view as my default opportunity view
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              class="text-primary"
+              placement="top"
+              ngbTooltip="If checked, you will automatically be directed to this page when you go to the opportunity list page."
+            >
+            </fa-icon
+          ></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Default Sort Option</label>
+        <!-- <app-sort-options></app-sort-options> -->
+        <div ngbDropdown>
+          <button
+            class="btn btn-light border shadow-sm btn-sm text-muted removeCaret"
+            id="sortDropdown"
+            ngbDropdownToggle
+          >
+            <small>
+              <fa-icon [icon]="['fas', 'sort']" class="mr-1"></fa-icon>
+              <strong>Sort - Selected Option</strong>
+              <fa-icon [icon]="['fas', 'caret-down']" class="ml-1"></fa-icon>
+            </small>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="sortDropdown">
+            <button ngbDropdownItem class="btn-sm">
+              Sort options
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label>Opportunity Types to Display in this List</label>
+        <div class="custom-control custom-checkbox pt-1">
+          <input type="checkbox" class="custom-control-input" id="communityAdmins" />
+          <label class="custom-control-label font-weight-normal" for="communityAdmins">Opportunity Type One</label>
+        </div>
+        <div class="custom-control custom-checkbox pointer">
+          <input type="checkbox" class="custom-control-input" id="communityModerators" />
+          <label class="custom-control-label font-weight-normal" for="communityModerators">Opportunity Type Two</label>
+        </div>
+        <div class="custom-control custom-checkbox pointer">
+          <input type="checkbox" class="custom-control-input" id="communityUsers" />
+          <label class="custom-control-label font-weight-normal" for="communityUsers">Opportunity Type Three</label>
+        </div>
+        <div class="custom-control custom-checkbox pointer">
+          <input type="checkbox" class="custom-control-input" id="communityUsers" />
+          <label class="custom-control-label font-weight-normal" for="communityUsers">Etc</label>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <label>Who Has Access to This View?</label>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'question-circle']"
+              class="text-muted"
+              ngbTooltip="Explanation coming..."
+            >
+            </fa-icon>
+          </li>
+        </ul>
+        <div class="card bg-light shadow-sm mb-3">
+          <div class="card-body py-2">
+            <!-- <app-select-members></app-select-members> --><!-- In Workflow Module (To be used later)-->
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="mb-1 pt-3">Other Settings</label>
+        <hr class="mb-0 mt-1 mx-0" />
+        <div class="form-row dottedBottomBorder mx-0 pt-2 pb-2">
+          <div class="form-group col-9 mb-0">
+            <label class="mb-0 font-weight-normal">Display in Navigation</label>
+          </div>
+          <div class="form-group col-3 mb-0">
+            <div class="custom-control custom-switch mr-auto float-right">
+              <input
+                type="checkbox"
+                class="custom-control-input pointer"
+                id="allowVoting"
+                checked
+              />
+              <label class="custom-control-label" for="allowVoting"
+                >Enabled</label
+              >
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+<!-- end of create new view modal -->

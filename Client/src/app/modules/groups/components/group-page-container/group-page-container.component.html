@@ -1,0 +1,401 @@
+<div class="row">
+  <div class="col-12 col-md-2 pr-md-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row mb-2 pageTopPadding">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-7 col-md-7">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a
+                      class="mb-0 uppercase bold pt-1"
+                      routerLink="/groups/list"
+                      >Groups</a
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon
+                      [icon]="['fas', 'angle-right']"
+                      class="mr-1 ml-1 text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="mb-0 uppercase bold pt-1">
+                      <span class="d-none d-md-inline">Manage </span>
+                      <span class="d-none d-md-inline">{{ group?.name }}</span>
+                      <span class="d-inline d-md-none">
+                        {{ group?.name.substring(0, 10) }}
+                        <span *ngIf="group?.name.length > 10">
+                          ...
+                        </span>
+                      </span>
+                      ({{ totalCount }})
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-5 col-md-5">
+                <span class="float-right">
+                  <button
+                    class="btn btn-primary btn-sm mr-2"
+                    (click)="open(addUserstoGroup)"
+                  >
+                    <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                    Add Users<span class="d-none d-md-inline"> to Group</span>
+                  </button>
+                  <span ngbDropdown>
+                    <button
+                      class="btn btn-light border btn-sm removeCaret"
+                      ngbDropdownToggle
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="mr-1 text-muted"
+                      ></fa-icon>
+                      <span class="d-none d-md-inline">More Options</span>
+                      <fa-icon
+                        [icon]="['fas', 'caret-down']"
+                        class="text-muted"
+                      ></fa-icon>
+                    </button>
+                    <div
+                      ngbDropdownMenu
+                      aria-labelledby="groupPageMore"
+                      class="shadow pt-0 pb-0"
+                    >
+                      <button
+                        *ngIf="resolved"
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        [routerLink]="[
+                          '',
+                          { outlets: { modal: ['edit-group', group.id] } }
+                        ]"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'edit']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Edit Group
+                      </button>
+                      <button ngbDropdownItem class="pt-2 pb-2">
+                        <fa-icon
+                          [icon]="['fas', 'sync']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Resend Invites
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="exportUserList()"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'angle-double-down']"
+                          class="mr-1"
+                        ></fa-icon>
+                        Export User List
+                      </button>
+                      <!-- <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(manageGroupRoles)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'dice-d20']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Manage Group Roles
+                      </button> -->
+                      <hr class="mb-0 mt-0" />
+                      <button
+                        ngbDropdownItem
+                        class="pt-2 pb-2"
+                        (click)="open(deleteGroup)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-muted"
+                        ></fa-icon>
+                        Archive Group
+                      </button>
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="row pt-2 mb-0">
+              <div class="col-sm-12">
+                <div class="card rounded-0 mb-2 shadow-sm">
+                  <div class="card-body pt-3 pb-3 px-0 px-md-3 bg-white">
+                    <div class="row">
+                      <div class="col-12 col-sm-4">
+                        <app-search-inline
+                          (search)="search1($event)"
+                        ></app-search-inline>
+                      </div>
+                      <div class="col-8">
+                        <ul class="nav alignLeftMobileRight mt-3 mt-sm-0">
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem"
+                              [ngClass]="{ active: currFilter == 'users' }"
+                              (click)="changeFilter('users')"
+                            >
+                              Active ({{ count?.active }})
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem"
+                              [ngClass]="{ active: currFilter == 'invites' }"
+                              (click)="changeFilter('invites')"
+                            >
+                              Pending ({{ count?.pending }})
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem"
+                              [ngClass]="{ active: currFilter == 'archived' }"
+                              (click)="changeFilter('archived')"
+                            >
+                              Archived ({{ count?.archived }})
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-5 scrollTableOnMobile">
+          <div class="col-12 removePaddingOnMobile">
+            <div class="row">
+              <div class="col-12">
+                <!-- group list -->
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <app-custom-data-table
+                          *ngIf="totalCount"
+                          [columnConfigs]="columnConfigs"
+                          [rows]="rows"
+                          [totalCount]="totalCount"
+                          [isLoading]="isLoading"
+                          (changePageEmitter)="tablePageChange($event)"
+                        >
+                        </app-custom-data-table>
+                        <div
+                          class="card pt-0 pt-md-4 pb-0 pb-md-5 rounded-top-0 shadow-sm"
+                          *ngIf="!totalCount"
+                        >
+                          <div class="card-body">
+                            <ul class="list-unstyled text-center">
+                              <li>
+                                <fa-icon
+                                  [icon]="['fas', 'user-plus']"
+                                  class="mr-1 iconExtraLarge text-muted"
+                                ></fa-icon>
+                              </li>
+                              <li>
+                                <h4 class="montserrat">
+                                  No Users Have Been Added to This Group Yet
+                                </h4>
+                              </li>
+                              <li>
+                                <p class="text-muted mb-4">
+                                  Add users to your group to target and control
+                                  access to ideas, insights, workflows, and
+                                  challenges.
+                                </p>
+                              </li>
+                              <li>
+                                <button
+                                  class="btn btn-primary mr-2"
+                                  (click)="open(addUserstoGroup)"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'plus-circle']"
+                                    class="mr-1"
+                                  ></fa-icon>
+                                  Add Users to Group
+                                </button>
+                                <button
+                                  class="btn btn-light border"
+                                  (click)="open(deleteGroup)"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                  Archive Group
+                                </button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end group list -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- start of add users to group modal -->
+<ng-template #addUserstoGroup let-close="close" let-dismiss="dismiss" let-modal>
+  <app-user-modal
+    *ngIf="users"
+    [groupId]="groupId"
+    [users]="users"
+    [dismiss]="dismiss"
+    [close]="close"
+    [successfulImplementation]="refreshState$"
+  ></app-user-modal>
+</ng-template>
+<!-- end of add users to group modal -->
+
+<ng-template #manageGroupRoles let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold mb-0 small">Manage Group Roles</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary">Save Changes</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteGroup let-modal let-close="close" let-dismiss="dismiss">
+  <app-archive-groups
+    [groupId]="groupId"
+    [dismiss]="dismiss"
+    [close]="close"
+  ></app-archive-groups>
+</ng-template>
+
+<ng-template #nameColumnTemplate let-data>
+  <div class="media">
+    <img
+      [defaultImage]="defaultImage"
+      [lazyLoad]="data.row?.profileImage?.url || image"
+      class="mr-2 rounded-circle image"
+    />
+    <div class="media-body">
+      <p class="mt-0 mb-0 bold">
+        <a [routerLink]="['/profile/view', data.row.id]">{{
+          data.row[data.col.key] || '-'
+        }}</a>
+      </p>
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item mr-0">
+          <p class="small mb-0 text-muted">{{ data.row.username || '-' }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+<ng-template #groupsColumnTemplate let-data>
+  <span class="badge" *ngFor="let elem of data.row[data.col.key]">
+    {{ elem.circle.name }}
+  </span>
+</ng-template>
+
+<ng-template #manageCol let-data>
+  <span class="text-left">
+    <fa-icon
+      *ngIf="data.row.inviteId"
+      [icon]="['fas', 'sync']"
+      class="mr-3 editLink"
+      placement="top"
+      ngbTooltip="Resend Invite Email"
+      (click)="open(resendInviteUser)"
+    ></fa-icon>
+    <ng-template #resendInviteUser let-modal>
+      <div class="modal-header card-header">
+        <p class="uppercase bold mb-0 small">
+          Resend Invite to {{ data.row.name }}
+        </p>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you'd like to resend invite ?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-light border">Cancel</button>
+        <button class="btn btn-primary" (click)="resendInvitesUser(data.row)">
+          Resend Invite
+        </button>
+      </div>
+    </ng-template>
+    <button
+      class="btn btn-outline-danger btn-sm"
+      style="padding-right: 5px;"
+      placement="top"
+      ngbTooltip="Remove User from Group"
+      (click)="open(deleteUser)"
+    >
+      <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Remove
+    </button>
+    <ng-template #deleteUser let-modal let-close="close" let-dismiss="dismiss">
+      <div class="modal-header card-header bg-danger">
+        <p class="uppercase bold text-white mb-0 small">
+          Remove <b>{{ data.row.name }}</b> from group?
+        </p>
+        <button
+          type="button"
+          class="close text-white"
+          aria-label="Close"
+          (click)="dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="">
+          Are you sure you would like to remove user from group?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-light border" (click)="dismiss()">
+          Cancel
+        </button>
+        <button class="btn btn-danger" (click)="removeUserGrp(data.row)">
+          Yes
+        </button>
+      </div>
+    </ng-template>
+  </span>
+</ng-template>

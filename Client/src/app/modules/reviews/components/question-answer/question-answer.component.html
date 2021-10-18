@@ -1,0 +1,19 @@
+<div class="row mt-2">
+  <div class="col-12">
+    <ng-container
+      *ngFor="let criteria of criteriaQuestions"
+      [ngSwitch]="criteria.evaluationCriteria.evaluationType.abbreviation"
+    >
+      <app-question
+        *ngSwitchCase="evaluationTypes.QUESTION"
+        [criteria]="criteria"
+        (data)="userResponse($event)"
+      ></app-question>
+      <app-range
+        *ngSwitchCase="evaluationTypes.NUMERICAL_RANGE"
+        [criteria]="criteria"
+        (data)="userResponse($event)"
+      ></app-range>
+    </ng-container>
+  </div>
+</div>

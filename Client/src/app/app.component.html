@@ -1,0 +1,12 @@
+<div class="container-fluid containerMarginMobile">
+  <app-header *ngIf="loggedIn"></app-header>
+  <!-- <app-header></app-header> -->
+
+  <app-page-loader *ngIf="loggedIn"></app-page-loader>
+
+  <div id="page" class="routeContainer">
+    <router-outlet></router-outlet>
+  </div>
+  <router-outlet name="modal"></router-outlet>
+  <!-- <app-footer *ngIf="hideFooter"></app-footer> -->
+</div>

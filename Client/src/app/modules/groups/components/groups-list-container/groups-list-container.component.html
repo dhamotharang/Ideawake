@@ -1,0 +1,266 @@
+<div class="row">
+  <div class="col-12 col-md-2 pr-md-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10 pageTopPadding">
+    <div class="container">
+      <!-- group list one -->
+      <div class="row">
+        <div class="col-12 removePaddingOnMobile">
+          <div class="row">
+            <div class="col-12">
+              <div class="row mb-0 mb-sm-2">
+                <div class="col-4 col-md-7">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="mb-0 uppercase bold pt-1">
+                        <span class="d-none d-md-inline">Manage </span>Groups
+                        ({{ totalCount }})
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-8 col-md-5">
+                  <span class="float-right">
+                    <button
+                      class="btn btn-primary btn-sm"
+                      [routerLink]="[
+                        '',
+                        { outlets: { modal: ['create-group', ''] } }
+                      ]"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'plus-circle']"
+                        class="mr-1"
+                      ></fa-icon>
+                      Create Group
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <div class="col-sm-12">
+                  <div class="card rounded-0 shadow-sm mb-2">
+                    <div class="card-body pt-3 pb-3 px-0 px-md-3 bg-white">
+                      <div class="row">
+                        <div class="col-12 col-md-4">
+                          <app-search-inline
+                            (search)="getGroupsList($event)"
+                          ></app-search-inline>
+                        </div>
+                        <div class="col-12 col-md-2 pl-0"></div>
+                        <div class="col-12 col-md-6 pt-1">
+                          <ul class="nav alignLeftMobileRight mt-2 mt-md-0">
+                            <li class="list-inline-item pr-2 mr-0">
+                              <a
+                                class="text-medium filterItem"
+                                (click)="showArchived(false)"
+                                [ngClass]="{ active: !archived }"
+                              >
+                                Active Groups ({{ count.active }})
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a
+                                class="text-medium filterItem"
+                                (click)="showArchived(true)"
+                                [ngClass]="{ active: archived }"
+                              >
+                                Archived Groups {{ count.archived }}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end group list one -->
+      <!-- group list -->
+      <div class="row mb-5 scrollTableOnMobile">
+        <div class="col-12 removePaddingOnMobile">
+          <div class="row">
+            <div class="col-sm-12 removePaddingOnMobile">
+              <app-custom-data-table
+                *ngIf="totalCount"
+                [columnConfigs]="columnConfigs"
+                [rows]="rows"
+                [totalCount]="totalCount"
+                (changePageEmitter)="tablePageChange($event)"
+              >
+              </app-custom-data-table>
+              <div
+                class="card pt-4 pb-5 rounded-top-0 shadow-sm"
+                *ngIf="!totalCount"
+              >
+                <div class="card-body">
+                  <ul class="list-unstyled text-center">
+                    <li>
+                      <fa-icon
+                        [icon]="['fas', 'users']"
+                        class="mr-1 iconExtraLarge text-muted"
+                      ></fa-icon>
+                    </li>
+                    <li>
+                      <h4 class="montserrat">
+                        You Haven't Added Any Groups Yet
+                      </h4>
+                    </li>
+                    <li>
+                      <p class="text-muted mb-4">
+                        Use groups to target and control access to ideas,
+                        insights, workflows, and challenges.
+                      </p>
+                    </li>
+                    <li>
+                      <button
+                        class="btn btn-primary"
+                        [routerLink]="[
+                          '',
+                          { outlets: { modal: ['create-group', ''] } }
+                        ]"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'plus-circle']"
+                          class="mr-1"
+                        ></fa-icon>
+                        Create Your First Group
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end group list -->
+    </div>
+  </div>
+</div>
+<router-outlet name="modal"></router-outlet>
+<ng-template #createGroups let-close="close" let-dismiss="dismiss">
+  <!-- <app-create-groups
+    [c]="close"
+    [d]="dismiss"
+    [submitt]="createGroup"
+    [parent]="parent"
+  ></app-create-groups> -->
+</ng-template>
+
+<!-- start of add users to group modal -->
+<ng-template #addUserstoGroup let-close="close" let-dismiss="dismiss" let-modal>
+  <app-user-modal
+    *ngIf="users"
+    [users]="users"
+    [dismiss]="dismiss"
+    [close]="close"
+  ></app-user-modal>
+</ng-template>
+<!-- end of add users to group modal -->
+<!-- name the $implicit variable 'let-whateverIwant', see below for where we set $implicit -->
+<ng-template #anchorTag let-data>
+  <a [routerLink]="['/groups/view', data.row.id]">
+    <b>{{ data.row[data.col.key] }}</b></a
+  >
+</ng-template>
+
+<ng-template #manageCol let-data>
+  <span class="text-left">
+    <fa-icon
+      [icon]="['fas', 'user-plus']"
+      class="mr-3 editLink"
+      placement="top"
+      ngbTooltip="Add Users to This Group"
+      (click)="open(addUserstoGroup)"
+    ></fa-icon>
+
+    <ng-template
+      #addUserstoGroup
+      let-close="close"
+      let-dismiss="dismiss"
+      let-modal
+    >
+      <div *ngIf="users">
+        <app-user-modal
+          [groupId]="data.row.id"
+          [users]="users"
+          [dismiss]="dismiss"
+          [close]="close"
+        >
+        </app-user-modal>
+      </div>
+    </ng-template>
+
+    <fa-icon
+      [icon]="['fas', 'edit']"
+      class="mr-3 editLink"
+      placement="top"
+      ngbTooltip="Edit This Group"
+      [routerLink]="['', { outlets: { modal: ['edit-group', data.row.id] } }]"
+    ></fa-icon>
+
+    <fa-icon
+      [icon]="['fas', 'sync']"
+      class="mr-3 editLink"
+      placement="top"
+      ngbTooltip="Resend Invites to Members of This Group Who Have Not Yet Signed Up"
+      (click)="open(resendInvites)"
+    ></fa-icon>
+
+    <ng-template #resendInvites let-modal>
+      <div class="modal-header card-header bg-info">
+        <p class="uppercase bold mb-0 small text-white">
+          Resend Pending Invites to This Group
+        </p>
+        <button
+          type="button"
+          class="close text-white"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Completing this action will send an email invite to all users who have
+          not yet signed up in this group. Are you sure you'd like to resend
+          pending invites to all members of groups and sub-groups of groupName?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-light border"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+        <button class="btn btn-info" (click)="resendInvite(data.row)">
+          Yes, Resend Pending Invites
+        </button>
+      </div>
+    </ng-template>
+    <fa-icon
+      *ngIf="!archived"
+      [icon]="['fas', 'trash']"
+      class="mr-3 editLink"
+      placement="top"
+      ngbTooltip="Archive Group"
+      (click)="open(deleteGroup)"
+    ></fa-icon>
+    <ng-template #deleteGroup let-modal let-close="close" let-dismiss="dismiss">
+      <app-archive-groups
+        [groupId]="data.row.id"
+        [dismiss]="dismiss"
+        [close]="close"
+        [onArchivingItemSub]="onArchivingItem$"
+      ></app-archive-groups>
+    </ng-template>
+  </span>
+</ng-template>

@@ -1,0 +1,46 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.selectStakeholder {
+  background-color: $white;
+  color: $gray-900;
+}
+
+.selectStakeholder:hover {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder.active {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder .icon {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .icon {
+  color: $white;
+}
+
+.selectStakeholder.active .icon {
+  color: $white;
+}
+
+.setLeftRadius {
+  border-top-left-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
+}
+
+.setRightRadius {
+  border-top-right-radius: 0.15rem;
+  border-bottom-right-radius: 0.15rem;
+}
+
+[contentEditable='true']:empty:not(:focus):before {
+  content: attr(data-text);
+  color: #6c757d;
+}

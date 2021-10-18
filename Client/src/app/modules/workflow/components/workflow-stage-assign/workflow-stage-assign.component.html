@@ -1,0 +1,816 @@
+<div class="row">
+  <div class="col-md-8 col-12">
+    <div class="card mb-3 shadow-sm">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <p class="uppercase bold text-muted mb-0">
+              Assign Who Should Complete This Stage
+            </p>
+          </div>
+          <!-- <div class="col-12 col-md-4">
+            <div class="form-group mb-0">
+              <select class="form-control">
+                <option>Select a Template</option>
+              </select>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <!-- <label class="mb-1 pt-3"
+              >Assign Stakeholders Responsible for this Stage</label
+            >
+            <hr class="mb-2 mt-1 mx-0" /> -->
+            <div
+              class="alert alert-warning shadow-sm animated fadeInUp"
+              *ngIf="
+                assigneeSettings?.allMembers &&
+                stageAssignmentSettings.emailNotification
+              "
+            >
+              <div class="row">
+                <div class="col-12">
+                  <label
+                    >Your Current Settings May Result in Unintentional Emails
+                  </label>
+                  <p class="mb-0 text-medium">
+                    Warning! You have assigned "all community members" to
+                    complete this stage and also have an email being sent when
+                    an idea enters this stage. This could result in
+                    unintentionally sending emails to your entire organization.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-row pt-2">
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                  [ngClass]="{ active: assigneeSettings?.unassigned }"
+                  (click)="toggleSpecificMembers('unassigned')"
+                >
+                  <div class="card-body px-2 py-4">
+                    <ul class="list-unstyled text-center mb-0">
+                      <li class="mb-1">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="icon iconLarge"
+                        ></fa-icon>
+                      </li>
+                      <li class="montserrat">
+                        <h5 class="mb-1">Unassigned</h5>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                  [ngClass]="{ active: specificMembers }"
+                  (click)="toggleSpecificMembers('specific')"
+                >
+                  <div class="card-body px-2 py-4">
+                    <ul class="list-unstyled text-center mb-0">
+                      <li class="mb-1">
+                        <fa-icon
+                          [icon]="['fas', 'users']"
+                          class="icon iconLarge"
+                        ></fa-icon>
+                      </li>
+                      <li class="montserrat">
+                        <h5 class="mb-1">Specific Members</h5>
+                      </li>
+                    </ul>
+                    <!-- <fa-icon [icon]="['fas', 'users']" class="icon"></fa-icon>
+                    Specific Members -->
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                  [ngClass]="{ active: assigneeSettings?.allMembers }"
+                  (click)="toggleSpecificMembers('allMembers')"
+                >
+                  <div class="card-body px-2 py-4">
+                    <ul class="list-unstyled text-center mb-0">
+                      <li class="mb-1">
+                        <fa-icon
+                          [icon]="['fas', 'globe']"
+                          class="icon iconLarge"
+                        ></fa-icon>
+                      </li>
+                      <li class="montserrat">
+                        <h5 class="mb-1">All Members</h5>
+                      </li>
+                    </ul>
+                    <!-- <fa-icon [icon]="['fas', 'globe']" class="icon"></fa-icon> -->
+                    <!-- WHO HAVE ACCESS TO IDEA (opportunity settings take precedence) -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row mx-0" *ngIf="specificMembers">
+              <div class="col-12 form-group px-0">
+                <div class="card">
+                  <div class="card-body p-3 bg-light">
+                    <p class="mb-1 small text-muted montserrat uppercase bold">
+                      Select Members to Complete This Stage
+                    </p>
+                    <hr class="my-2" />
+                    <app-select-stage-members
+                      [assigneeSettings]="assigneeSettings"
+                      [potentialCounts]="potentialCounts"
+                      (emitMembers)="assigneeSpecificMembersInfo($event)"
+                    ></app-select-stage-members>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <label class="mb-1 pt-3">Who Can View Stage Activity?</label>
+            <hr class="mb-2 mt-1 mx-0" />
+            <div class="form-row pt-2">
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation shadow-sm pointer selectStakeholder"
+                  [ngClass]="{ active: stageActivityVisibilitySettings?.unassigned }"
+                  (click)="toggleSpecificMembersStageActivity('unassigned')"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'users']" class="icon"></fa-icon>
+                    Stage Completers
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation shadow-sm pointer selectStakeholder"
+                  [ngClass]="{ active: specificMembersStageVisibility }"
+                  (click)="toggleSpecificMembersStageActivity('specific')"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'users']" class="icon"></fa-icon>
+                    Specific Members
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation shadow-sm pointer selectStakeholder"
+                  [ngClass]="{ active: stageActivityVisibilitySettings?.allMembers }"
+                  (click)="toggleSpecificMembersStageActivity('allMembers')"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'globe']" class="icon"></fa-icon>
+                    All Members
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- stage activity visibility -->
+            <div class="form-row mx-0" *ngIf="specificMembersStageVisibility">
+              <div class="col-12 form-group px-0">
+                <div class="card">
+                  <div class="card-body p-3 bg-light">
+                    <p class="mb-1 uppercase bold">
+                      Select Members to Complete This Stage
+                    </p>
+                    <hr class="my-2" />
+                    <div class="custom-control custom-checkbox pt-1 pb-1">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityGroupIndividual"
+                        (click)="visibilityGroups = !visibilityGroups"
+                        [checked]="visibilityGroups"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityGroupIndividual"
+                        >Groups or Individuals</label
+                      >
+                    </div>
+                    <!-- if groups or individuals -->
+                    <app-search-groups
+                      *ngIf="visibilityGroups"
+                      [isUser]="true"
+                      [selection]="individualVisibilityUsers"
+                      (dataEmitter)="getIndividuals($event)"
+                    >
+                    </app-search-groups>
+                    <!-- end if groups or individuals -->
+                    <div class="custom-control custom-checkbox pt-1">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityCommunityAdmins"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.communityAdmins
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityCommunityAdmins"
+                        >Community Administrators</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox pointer">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityCommunityModerators"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.communityModerators
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityCommunityModerators"
+                        >Community Moderators</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox pointer">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityCommunityUsers"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.communityUsers
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityCommunityUsers"
+                        >Community Users (covers all community members / suggest
+                        doing crowdsourced vs. regular task)</label
+                      >
+                    </div>
+                    <!-- <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="challengeSponsors">
+                        <label class="custom-control-label font-weight-normal" for="challengeSponsors">Challenge Sponsors</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="challengeModerators">
+                        <label class="custom-control-label font-weight-normal" for="challengeModerators">Challenge
+                          Moderators</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="challengeParticipants">
+                        <label class="custom-control-label font-weight-normal" for="challengeParticipants">Challenge
+                          Participants</label>
+                      </div> -->
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityIdeaOwners"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.opportunityOwners
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityIdeaOwners"
+                        >Idea Owners</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityIdeaTeam"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.opportunityTeams
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityIdeaTeam"
+                        >Idea Team</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityIdeaSubmitter"
+                        [(ngModel)]="
+                          stageActivityVisibilitySettings.opportunitySubmitters
+                        "
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityIdeaSubmitter"
+                        >Idea Submitter</label
+                      >
+                    </div>
+                    <div class="custom-control custom-checkbox pb-1">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="activityAssignByCustomField"
+                        [(ngModel)]="assignByCustomFields"
+                        (ngModelChange)="emitValues()"
+                      />
+                      <label
+                        class="custom-control-label font-weight-normal"
+                        for="activityAssignByCustomField"
+                        >Assign By Custom Field</label
+                      >
+                    </div>
+                    <!-- if by custom field -->
+                    <div
+                      *ngIf="assignByCustomFields"
+                      class="card bg-white shadow-sm"
+                    >
+                      <app-stage-assign-by-custom-filed
+                        [customFieldAssignee]="
+                          stageActivityVisibilitySettings.customFieldAssignee
+                        "
+                        (output)="customFieldAssignee($event)"
+                      ></app-stage-assign-by-custom-filed>
+                      <!-- <div class="card-body py-2 px-2">
+                        <div class="alert alert-info small py-2 px-2 mb-2">
+                          <label class="mb-0"
+                            >Don't See All the Custom Fields You've Created?</label
+                          >
+                          That's because you'll only be able to choose custom fields
+                          that are single select or select multiple select dropdown
+                          fields.
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-5 mb-0">
+                            <label class="text-medium">Select Custom Field</label>
+                            <p class="small text-muted mb-0">
+                              Please select the custom field associated with this stage.
+                            </p>
+                          </div>
+                          <div class="form-group col-7 mb-0">
+                            <app-search-fields></app-search-fields>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="form-row flex-row mb-2">
+                          <div class="form-group col-5 mb-0 align-self-center">
+                            <label class="mb-0 text-medium font-weight-normal"
+                              >Select Custom Field</label
+                            >
+                          </div>
+                          <div class="form-group col-7 mb-0">
+                            <app-search-groups></app-search-groups>
+                          </div>
+                        </div>
+                        <div class="form-row flex-row mb-2">
+                          <div class="form-group col-5 mb-0 align-self-center">
+                            <label class="mb-0 text-medium font-weight-normal"
+                              >Select Custom Field</label
+                            >
+                          </div>
+                          <div class="form-group col-7 mb-0">
+                            <app-search-groups></app-search-groups>
+                          </div>
+                        </div>
+                        <div class="form-row flex-row mb-2">
+                          <div class="form-group col-5 mb-0 align-self-center">
+                            <label class="mb-0 text-medium font-weight-normal"
+                              >Select Custom Field</label
+                            >
+                          </div>
+                          <div class="form-group col-7 mb-0">
+                            <app-search-groups></app-search-groups>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                    <!-- end if by custom field -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end stage activity visibility -->
+            <!-- <div class="form-row mb-0 pt-2 pb-2 mx-0 border-bottom">
+                <div class="form-group col-8 mb-0">
+                  <label class="mb-0 font-weight-normal"
+                    >Create Action Item for This Stage</label
+                  >
+                </div>
+                <div class="form-group col-4 mb-0">
+                  <div class="custom-control custom-switch mr-auto float-right">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input pointer"
+                      id="enableActionItem"
+                      (click)="toggleShowActionItem()"
+                    />
+                    <label class="custom-control-label" for="enableActionItem"
+                      >Enabled</label
+                    >
+                  </div>
+                </div>
+              </div> -->
+            <p class="mb-1 pt-2 bold uppercase text-medium montserrat">
+              Assignment Settings
+            </p>
+            <hr class="mb-0 mt-1 mx-0" />
+            <div class="form-row mb-0 mx-0 pt-3 pb-0">
+              <div class="form-group col-6 mb-0 mt-1">
+                <label>Enter Action Item Title</label>
+              </div>
+              <div class="form-group col-6 mb-2">
+                <input
+                  type="text"
+                  [(ngModel)]="stageAssignmentSettings.title"
+                  class="form-control"
+                  placeholder="Action Item Title..."
+                  (ngModelChange)="emitValues()"
+                />
+              </div>
+            </div>
+            <div class="form-row mb-0 mx-0 pb-3 pt-0 border-bottom">
+              <div class="form-group col-6 mb-0">
+                <label>Enter Stage Specific Instructions</label>
+                <p class="small text-muted mb-0">
+                  Stage specific instructions will display inline as a user
+                  completes their assigned stage.
+                </p>
+              </div>
+              <div class="form-group col-6 mb-0">
+                <textarea
+                  [(ngModel)]="stageAssignmentSettings.instructions"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Start typing your instructions here..."
+                  (ngModelChange)="emitValues()"
+                ></textarea>
+              </div>
+            </div>
+            <div class="form-row mb-0 mx-0 py-3 border-bottom">
+              <div class="form-group col-8 mb-0">
+                <label class="mb-1">Set Time Limit on This Stage</label>
+                <p class="small mb-0 text-muted">
+                  Configure the number of days assignees have to complete this
+                  stage.
+                </p>
+              </div>
+              <div class="form-group col-4 mb-0">
+                <div class="custom-control custom-switch mr-auto float-right">
+                  <input
+                    [checked]="dueDate"
+                    type="checkbox"
+                    class="custom-control-input pointer"
+                    id="setActionItemTimeLimit"
+                    (click)="toggleDueDate()"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal"
+                    for="setActionItemTimeLimit"
+                  >
+                    <span *ngIf="dueDate" class="pl-1">{{
+                      'ChallengePost.Labels.Enabled' | translationPipe
+                    }}</span>
+                    <span *ngIf="!dueDate">Disabled</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- if set time limit enabled -->
+            <div class="card bg-light rounded-0 border-top-0" *ngIf="dueDate">
+              <div class="card-body py-3 pl-2 pr-3">
+                <div class="form-row mb-0">
+                  <div class="form-group col-8 mb-0">
+                    <label class="text-medium bold mb-0"
+                      >Number of Days to Complete Stage</label
+                    >
+                    <p class="small text-muted mb-1">
+                      Enter the number of days assignees have to complete this
+                      stage.
+                    </p>
+                  </div>
+                  <div class="form-group col-4 mb-0 d-flex align-items-center">
+                    <div class="input-group mb-1 mr-sm-2">
+                      <input
+                        type="number"
+                        min="0"
+                        [(ngModel)]="stageAssignmentSettings.stageTimeLimit"
+                        (ngModelChange)="emitValues()"
+                        class="form-control border-right-0"
+                        placeholder="Enter number of days"
+                      />
+                      <div class="input-group-prepend">
+                        <div class="input-group-text bg-light">
+                          Days
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end if set time limit enabled -->
+            <div class="form-row py-3 mx-0 border-bottom">
+              <div class="form-group col-9 mb-0">
+                <label class="mb-1">Send Email Notification to Assignees</label>
+                <p
+                  class="small mb-0 text-success"
+                  *ngIf="stageAssignmentSettings.emailNotification"
+                >
+                  <b>Enabled</b> - An email will be sent to assigned members
+                  when a submission enters this stage.
+                </p>
+                <p
+                  class="small mb-0 text-danger"
+                  *ngIf="!stageAssignmentSettings.emailNotification"
+                >
+                  <b>Disabled</b> - An email will <b>not</b> be sent to assigned
+                  members when a submission enters this stage.
+                </p>
+              </div>
+              <div class="form-group col-3 mb-0">
+                <div class="custom-control custom-switch mr-auto float-right">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="stageAssignmentSettings.emailNotification"
+                    (ngModelChange)="emitValues()"
+                    class="custom-control-input pointer"
+                    id="sendEmailCompleters"
+                  />
+                  <label
+                    class="custom-control-label font-weight-normal"
+                    for="sendEmailCompleters"
+                  >
+                    <span
+                      *ngIf="stageAssignmentSettings.emailNotification"
+                      class="pl-1"
+                      >{{
+                        'ChallengePost.Labels.Enabled' | translationPipe
+                      }}</span
+                    >
+                    <span *ngIf="!stageAssignmentSettings.emailNotification"
+                      >Disabled</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row py-3 mx-0">
+              <div class="form-group col-8 mb-0 align-items-center">
+                <!-- <label class="mb-0 font-weight-normal text-medium">Send Email Reminder to Assignees Who Haven't Completed Stage</label> -->
+                <p class="mb-1 bold">Send Email Reminder to Assignees</p>
+                <p class="small mb-0 text-muted">
+                  Send reminders to assignees who have not yet completed this
+                  stage.
+                </p>
+              </div>
+              <div class="form-group col-4 mb-0 align-self-center">
+                <select
+                  [(ngModel)]="stageAssignmentSettings.emailReminder"
+                  class="form-control"
+                  (ngModelChange)="emitValues()"
+                >
+                  <option
+                    *ngFor="let type of remainderTypes"
+                    [value]="type.key"
+                    >{{ type.name }}</option
+                  >
+                </select>
+              </div>
+            </div>
+            <!-- <div class="form-row mb-0 pt-2 pb-2 border-bottom">
+                <div class="form-group col-8 mb-0">
+                  <label class="mb-0 font-weight-normal"
+                    >Add Stage Specific Instructions</label
+                  >
+                </div>
+                <div class="form-group col-4 mb-0">
+                  <div class="custom-control custom-switch mr-auto float-right">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input pointer"
+                      id="stageSpecificInstructions"
+                      (click)="toggleShowStageInstructions()"
+                    />
+                    <label class="custom-control-label" for="stageSpecificInstructions"
+                      >Enabled</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card bg-light rounded-0 border-top-0"
+                *ngIf="showInstructions"
+              >
+                <div class="card-body pt-3 pb-3">
+                  <div class="form-row mb-0">
+                    <div class="form-group col-5 mb-0">
+                      <label class="font-weight-normal mb-0"
+                        >Enter stage specific instructions</label
+                      >
+                      <p class="small text-muted mb-0">
+                        Stage specific instructions will show up on the top of the area
+                        where a user will be redirected to complete your stage.
+                      </p>
+                    </div>
+                    <div class="form-group col-7 mb-0">
+                      <textarea
+                        class="form-control"
+                        rows="3"
+                        placeholder="Start typing your instructions here..."
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            <!-- <div class="form-row mb-0 mx-0 pt-2 pb-2 border-bottom">
+              <div class="form-group col-8 mb-0">
+                <label class="mb-0 font-weight-normal text-medium"
+                  >Enable Stage Specific Comments Section</label
+                >
+              </div>
+              <div class="form-group col-4 mb-0">
+                <div class="custom-control custom-switch mr-auto float-right">
+                  <input
+                    [(ngModel)]="stageAssignmentSettings.stageComments"
+                    type="checkbox"
+                    (ngModelChange)="emitValues()"
+                    class="custom-control-input pointer"
+                    id="stageSpecificComments"
+                  />
+                  <label class="custom-control-label" for="stageSpecificComments"
+                    >Enabled</label
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-header">
+        <p class="uppercase bold text-muted mb-0">
+          Completion Settings - When Would You Like to Mark This Stage as
+          Completed?
+        </p>
+      </div>
+      <div class="card-body pb-4">
+        <div>
+          <!-- <label class="mb-3 mt-2">When Would You Like to Mark This Stage as Completed?</label> -->
+          <!-- <hr class="mb-3 mt-1 mx-0" /> -->
+          <div class="form-row pt-2">
+            <div class="form-group col-6 mb-2">
+              <div
+                class="card text-center shadow-sm cardAnimation pointer selectStakeholder"
+                [ngClass]="{
+                  active: !stageAssignmentSettings?.allAssigneesCompleted
+                }"
+                (click)="toggleCompletionSettings('minimum')"
+              >
+                <div class="card-body p-2">
+                  <fa-icon [icon]="['fas', 'user']" class="icon"></fa-icon>
+                  {{ completionSettings.min_response_btn }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6 mb-2">
+              <div
+                class="card text-center shadow-sm cardAnimation pointer selectStakeholder"
+                [ngClass]="{
+                  active: stageAssignmentSettings?.allAssigneesCompleted
+                }"
+                (click)="toggleCompletionSettings('all')"
+              >
+                <div class="card-body p-2">
+                  <fa-icon
+                    [icon]="['fas', 'check-circle']"
+                    class="icon"
+                  ></fa-icon>
+                  {{ completionSettings.all_btn }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-row pt-2"
+            *ngIf="!stageAssignmentSettings.allAssigneesCompleted"
+          >
+            <div class="form-group col-12">
+              <div class="card">
+                <div class="card-body p-3 bg-light">
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="mb-0 text-medium">
+                        {{ completionSettings.min_response_label }}
+                      </p>
+                    </div>
+                    <div class="col-6">
+                      <div class="input-group input-group-sm mb-1 mr-sm-2">
+                        <input
+                          type="number"
+                          min="0"
+                          [(ngModel)]="stageAssignmentSettings.minimumResponses"
+                          (ngModelChange)="emitValues()"
+                          class="form-control border-right-0"
+                          placeholder="Enter number minimum number of respondents..."
+                        />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text bg-light">
+                            {{ completionSettings.min_response_postfix }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="form-row mb-0 mx-0 pt-2 pb-2">
+            <div class="form-group col-8 mb-0">
+              <label class="mb-0"
+                >Set Timeout for This Stage to be Marked as Complete</label
+              >
+            </div>
+            <div class="form-group col-4 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input pointer"
+                  id="timeLimit"
+                  (click)="toggleTimeLimit()"
+                  [checked]="timeLimit"
+                />
+                <label
+                  class="custom-control-label font-weight-normal"
+                  for="timeLimit"
+                >
+                  <span *ngIf="timeLimit" class="pl-1">{{
+                    'ChallengePost.Labels.Enabled' | translationPipe
+                  }}</span>
+                  <span *ngIf="!timeLimit">Disabled</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="timeLimit">
+            <div class="form-group col-12 mb-0">
+              <div class="card">
+                <div class="card-body p-3 bg-light">
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="mb-0 small bold">Enter Time Limit</p>
+                      <p class="small text-muted mb-0">
+                        Enter the number of days an opportunity can be in this
+                        stage before it is automatically marked as complete.
+                      </p>
+                    </div>
+                    <div class="col-6">
+                      <div class="input-group input-group-sm mb-1 mr-sm-2">
+                        <input
+                          type="number"
+                          min="0"
+                          [(ngModel)]="
+                            stageAssignmentSettings.completionTimeLimit
+                          "
+                          (ngModelChange)="emitValues()"
+                          class="form-control border-right-0"
+                          placeholder="Enter number of days"
+                        />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text bg-light">
+                            Days
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 pl-0 d-none d-sm-block">
+    <!-- <div class="alert alert-info shadow-sm">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-0 bold">Stage Info</p>
+          <hr class="mt-2 mb-3" />
+          Show high level / summary information about the stage here...
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

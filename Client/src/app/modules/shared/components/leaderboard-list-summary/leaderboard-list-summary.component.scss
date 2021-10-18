@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.firstPlace {
+  color: white;
+  background-color: #d4af37;
+  border: 2px solid #d4af37;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.secondPlace {
+  color: white;
+  background-color: #c0c0c0;
+  border: 2px solid #c0c0c0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.thirdPlace {
+  color: white;
+  background-color: #cd7f32;
+  border: 2px solid #cd7f32;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.leaderboardBadge {
+  color: white;
+  width: 2.5rem;
+  background: $primary;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.changeNegative {
+  position: relative;
+  top: 0.05rem;
+  color: $danger !important;
+}
+
+.changePositive {
+  position: relative;
+  top: 0.05rem;
+  color: $primary !important;
+}
+
+.badgeColumn {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.userImage {
+  border: 2px solid white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

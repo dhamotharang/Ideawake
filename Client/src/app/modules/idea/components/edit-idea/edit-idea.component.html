@@ -1,0 +1,291 @@
+<div class="modal-header pt-2 pb-1 bg-light">
+  <!-- <ul class="nav nav-tabs nav-fill mb-0 pb-1 w-100">
+    <li
+      class="nav-item"
+      *ngFor="let key of objectKeys(tabsList)"
+      [ngClass]="
+        tab == tabsList[key].key
+          ? 'list-inline-item nav-underline active'
+          : 'list-inline-item nav-underline'
+      "
+    >
+      <p
+        class="uppercase mb-1 text-muted small bold"
+        (click)="switchTab(tabsList[key].key)"
+      >
+        <fa-icon
+          [icon]="['fas', tabsList[key].icon]"
+          class="text-muted"
+        ></fa-icon>
+        {{ tabsList[key].title }}
+      </p>
+    </li>
+  </ul> -->
+  <p class="mb-0 uppercase bold text-muted">Edit</p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!-- Edit Content -->
+<ng-container *ngIf="tab == tabsList.edit.key">
+  <div class="modal-body py-0 modalScrollMaxHeight">
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <div class="row mx-0 mt-3">
+          <div class="col-5 pr-1">
+            <p class="text-medium bold mb-0 mt-2">Edit Submission Date</p>
+            <div
+              class="removeCaret py-1 px-2 border addHover"
+              style="border-radius: 0.15rem;"
+              ngbDropdown
+              container="body"
+            >
+              <p class="mb-0 py-1 text-medium removeCaret" ngbDropdownToggle>
+                {{ submissionDate?.month }}/{{ submissionDate?.day }}/{{
+                  submissionDate?.year
+                }}
+                <fa-icon
+                  [icon]="['fas', 'angle-down']"
+                  class="text-muted float-right mr-2"
+                ></fa-icon>
+              </p>
+              <div
+                ngbDropdownMenu
+                class="shadow pt-0"
+                style="min-width: 15rem;"
+              >
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Change Submission Date</label
+                  >
+                </div>
+                <div>
+                  <!-- <form class="px-3">
+                            <div class="form-group mb-1">
+                              <p class="small mb-1 bold">Select Date</p>
+                              <input type="text" class="form-control form-control-sm" placeholder="Change Date Submitted" />
+                            </div>
+                          </form> -->
+                </div>
+                <div class="p-3">
+                  <ngb-datepicker
+                    [(ngModel)]="submissionDate"
+                    #dateDisplay
+                  ></ngb-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-post-idea *ngIf="idea" #postIdea [idea]="idea"></app-post-idea>
+      </div>
+      <!-- <div class="d-none d-md-block col-4">
+        <div class="row h-100 bg-light border-left pt-2">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+
+
+              </div>
+            </div>
+            <hr class="mt-2 mb-3" />
+            <app-idea-team-container [idea]="idea"></app-idea-team-container>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="modal-footer bg-light mr-auto">
+    <button class="btn btn-light border" (click)="activeModal.close()">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="updateIdea()">
+      Save Changes
+    </button>
+  </div>
+</ng-container>
+<!-- Settings Content -->
+<ng-container *ngIf="tab == tabsList.settings.key">
+  <div class="modal-body">
+    <p class="bold mb-1 montserrat">Visibility Settings</p>
+    <hr class="mb-2 mt-1" />
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="public"
+        name="visibilityRadio"
+        [value]="entityVisibilities.PUBLIC"
+        class="custom-control-input"
+        [(ngModel)]="currentVisibility"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label class="custom-control-label font-weight-normal" for="public"
+        ><b>Public</b> - All users who have access to the community can view
+        this idea under "open ideas."</label
+      >
+    </div>
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="specificGroups"
+        [value]="entityVisibilities.GROUPS"
+        name="visibilityRadio"
+        class="custom-control-input"
+        [(ngModel)]="currentVisibility"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label
+        class="custom-control-label font-weight-normal"
+        for="specificGroups"
+        ><b>Specific Groups</b> - Only the groups you designate will be able to
+        view this idea.</label
+      >
+    </div>
+    <!-- if specific groups is selected -->
+    <div
+      class="card bg-light mb-2 shadow-sm"
+      *ngIf="currentVisibility == entityVisibilities.GROUPS"
+    >
+      <div class="card-body pt-2">
+        <label class="small bold">Select Groups</label>
+        <app-search-groups
+          [selection]="preSelectedGroups"
+          (dataEmitter)="getSelectedGroups($event)"
+        ></app-search-groups>
+      </div>
+    </div>
+    <!-- end if specific groups is selected -->
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="private"
+        name="visibilityRadio"
+        class="custom-control-input"
+        [value]="entityVisibilities.PRIVATE"
+        [(ngModel)]="currentVisibility"
+        (change)="visibilityChangedHandler($event)"
+      />
+      <label class="custom-control-label font-weight-normal" for="private"
+        ><b>Private</b> - Only Community Admins, Moderators, Owners, Team
+        Members, and the idea submitter will be able to see this idea.</label
+      >
+    </div>
+    <!-- <p class="uppercase bold mb-1 text-medium pt-3">
+      Filter Visibility Settings
+    </p>
+    <hr class="mb-2 mt-1" />
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="limitedVisibility"
+        name="customRadio"
+        class="custom-control-input"
+        checked
+      />
+      <label
+        class="custom-control-label font-weight-normal"
+        for="limitedVisibility"
+        ><b>Open Ideas</b> - This idea will be visible under the "open ideas"
+        filter without needing to be filtered by status or stage.</label
+      >
+    </div>
+    <div class="custom-control custom-radio mb-2 text-medium">
+      <input
+        type="radio"
+        id="limitedVisibility"
+        name="customRadio"
+        class="custom-control-input"
+      />
+      <label
+        class="custom-control-label font-weight-normal"
+        for="limitedVisibility"
+        ><b>Limited Visiblity</b> - This idea will only be visible when filtered
+        by the specific stage or status that it is currently in.</label
+      >
+    </div> -->
+    <p class="montserrat bold mb-1 pt-4">Collaboration Settings</p>
+    <hr class="mb-0 mt-1" />
+    <div class="form-row mx-0 dottedBottomBorder pt-2 pb-2">
+      <div class="form-group col-9 mb-0">
+        <label class="mb-0 font-weight-normal">Allow Voting</label>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="allowVoting"
+            [(ngModel)]="experienceSettings.allowVoting"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="allowVoting"
+          >
+            <span *ngIf="experienceSettings.allowVoting" class="pl-1">{{
+              'ChallengePost.Labels.Enabled' | translationPipe
+            }}</span>
+            <span *ngIf="!experienceSettings.allowVoting">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row mx-0 dottedBottomBorder pt-2 pb-2">
+      <div class="form-group col-9 mb-0">
+        <label class="mb-0 font-weight-normal">Allow Commenting</label>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="allowCommenting"
+            [(ngModel)]="experienceSettings.allowCommenting"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="allowCommenting"
+          >
+            <span *ngIf="experienceSettings.allowCommenting" class="pl-1">{{
+              'ChallengePost.Labels.Enabled' | translationPipe
+            }}</span>
+            <span *ngIf="!experienceSettings.allowCommenting">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row mx-0 dottedBottomBorder pt-2 pb-2">
+      <div class="form-group col-9 mb-0">
+        <label class="mb-0 font-weight-normal">Allow Sharing</label>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="allowSharing"
+            [(ngModel)]="experienceSettings.allowSharing"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="allowSharing"
+          >
+            <span *ngIf="experienceSettings.allowSharing" class="pl-1">{{
+              'ChallengePost.Labels.Enabled' | translationPipe
+            }}</span>
+            <span *ngIf="!experienceSettings.allowSharing">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="activeModal.close()">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="updateIdeaSettings()">
+      Save Changes
+    </button>
+  </div>
+</ng-container>

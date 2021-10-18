@@ -1,0 +1,194 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+nav {
+  background-color: $white;
+  border-bottom: 1px solid $defaultBorder;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.logoNav {
+  max-width: 190px;
+  max-height: 40px;
+}
+
+a.gray {
+  color: $gray-600;
+  background-color: $white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: $font-family-base;
+  font-size: 0.8rem;
+}
+
+a.gray:hover {
+  color: $primary;
+  background-color: $gray-100;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+a.gray .active {
+  color: $primary;
+  background-color: $gray-100;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+a.active {
+  color: $primary;
+  background-color: $gray-100;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  // padding: 1rem 1rem;
+  padding: 1rem 0.65rem;
+}
+
+.navbarSearchStyle {
+  width: 20rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.navbarSearchButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link-icon {
+  padding: 1rem 1rem 2.5rem 1rem;
+}
+
+.navigationIcon {
+  font-size: 1.25rem;
+  position: relative;
+  top: 0.85rem;
+}
+
+.grayIcon .navigationIcon {
+  color: $gray-600;
+  background-color: $white;
+}
+
+.grayIcon:hover .navigationIcon {
+  color: $primary;
+  background-color: $white;
+}
+
+.navNotificationCounter {
+  position: absolute;
+  top: 0.55rem;
+  left: 1.3rem;
+  padding: 0.25rem 0.35rem;
+  font-size: 7.5px;
+  border-radius: 100px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.profileDropdown {
+  left: -8.5rem;
+  width: 12rem;
+  position: absolute;
+  top: 3.7rem;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.commmunitiesDropdown {
+  left: -12.5rem;
+  min-width: 15rem;
+  position: absolute;
+  top: 3.75rem;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.moreDropdown {
+  left: -12rem;
+  position: absolute;
+  top: 3.75rem;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.taskNotificationsDropdown {
+  left: -26.5rem;
+  width: 30rem;
+  position: absolute;
+  top: 3.75rem;
+  border-radius: 0;
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.createDropdownMobile {
+  // top: -38.8rem !important;
+  // width: 101vw;
+  // height: 82vh;
+  // position: absolute !important;
+  // left: -10.5rem !important;
+  width: 100vw;
+  height: 84.75vh;
+}
+
+// Challenge Template CSS
+.navbar {
+  min-height: 4rem;
+}
+
+h5.challengeTitle {
+  line-height: 1.75rem;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 0.05rem;
+  left: 32.9rem;
+  padding: 0.5rem 2rem;
+  border-radius: 0.19rem;
+}
+
+.templateImage {
+  z-index: 9;
+  object-fit: cover;
+  min-height: 5rem;
+}
+
+.challengeStatus {
+  position: absolute;
+  top: -176px;
+  left: -1px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.challengeParticipants {
+  position: absolute;
+  top: -45px;
+  left: 15px;
+}
+
+.userImage {
+  border: 2px solid white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  height: 2.7rem;
+  width: 2.7rem;
+  object-fit: cover;
+}
+
+.userRole {
+  position: absolute;
+  right: 3.5rem;
+  z-index: 200;
+  top: 0.75rem;
+  border-radius: 100px;
+}

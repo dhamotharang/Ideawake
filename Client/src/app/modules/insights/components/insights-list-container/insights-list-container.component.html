@@ -1,0 +1,1234 @@
+<div class="row bg-dark pt-4 pb-4">
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="row mt-3">
+      <div class="col-12">
+        <h2 class="text-white text-center font-weight-light">Insights</h2>
+        <p class="lead text-white text-center mb-4">
+          Leverage the learnings of others throughout your organization to
+          validate new ideas, faster.
+        </p>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-2 offset-md-4">
+        <button class="btn btn-primary btn-block" (click)="open(add)">
+          Add New Insight
+        </button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-secondary btn-block" (click)="open(add)">
+          Browse Insights
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid pageTopPadding">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-3">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
+              <div class="card">
+                <div class="card-header">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="uppercase mb-0 bold text-muted">
+                        Filter Results
+                      </p>
+                    </li>
+                    <li class="list-inline-item float-right">
+                      <span class="text-primary bold">Clear All</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <p class="uppercase small text-muted bold mb-2">
+                    Insight Types
+                  </p>
+                  <ul class="list-unstyled ml-1">
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >All Types</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Lessons and Learnings</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Blog Posts</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Market Trends</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Consumer Insights</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Emerging Technologies</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Orthodoxies</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                  <p class="uppercase small text-muted bold mb-2">Categories</p>
+                  <ul class="list-unstyled ml-1">
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Stats / Did You know?</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Front Line Challenges</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >White Space Challenges</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Prototyping</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Investment Opportunities</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Planning and Conducting Pilots</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          Uncategorized (100)</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          Sections of BMC? (100)</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                  <p class="uppercase small text-muted bold mb-2">Tags</p>
+                  <ul class="list-unstyled ml-1">
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >All
+                        </label>
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          #aginginplace (55)
+                        </label>
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          #millennialengagement (55)
+                        </label>
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          #patientaccess (55)
+                        </label>
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          #virtualcare (55)
+                        </label>
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                        >
+                          #healthandwellness (55)
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                  <p class="uppercase small text-muted bold mb-2">Industries</p>
+                  <ul class="list-unstyled ml-1">
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >All Industries</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Health Care (10,000)</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Financial Services (10,000)</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                  <p class="uppercase small text-muted bold mb-2">
+                    Source
+                    <fa-icon
+                      [icon]="['fas', 'cog']"
+                      class="text-primary float-right"
+                    ></fa-icon>
+                  </p>
+                  <ul class="list-unstyled ml-1">
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >All Sources</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Interviews</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Observations</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Assumptions?</label
+                        >
+                      </div>
+                    </li>
+                    <li class="small">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="allContentTypes"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal pointer adjustSmallLabel"
+                          for="allContentTypes"
+                          >Experiments</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="row mb-2">
+            <div class="col-8">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <h5>Insights for Your Ideas</h5>
+                </li>
+                <li class="list-inline-item">
+                  <span class="badge badge-dark badgePadding pointer"
+                    >See All</span
+                  >
+                </li>
+              </ul>
+              <p class="mb-1 text-muted small">
+                Based on your ideas tags, these are insights that may help you
+                build a better solution, faster.
+              </p>
+            </div>
+            <div class="col-4">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <h6 class="quickLink pl-3 pt-2 pb-2 pr-3">
+                    <fa-icon
+                      [icon]="['fas', 'angle-left']"
+                      class="text-primary mr-1"
+                    ></fa-icon>
+                    Previous
+                  </h6>
+                </li>
+                <li class="list-inline-item">
+                  <h6 class="quickLink pl-3 pt-2 pb-2 pr-3">
+                    Next
+                    <fa-icon
+                      [icon]="['fas', 'angle-right']"
+                      class="text-primary ml-1"
+                    ></fa-icon>
+                  </h6>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <!-- start of one -->
+            <div class="col-4 mb-3">
+              <div class="card">
+                <div class="card-header p-0">
+                  <span class="badgeOverlay">
+                    <span class="badge badge-dark mr-2">TYPE</span>
+                    <span class="badge badge-dark mr-2">CATEGORY</span>
+                  </span>
+                  <img
+                    class="w-100"
+                    src="https://prediction-market.s3.amazonaws.com/Staging%20test/5d55b6d95b9718001d49e718/challengePage/ideawake-healthcare-innovation-bottom-image.png"
+                  />
+                </div>
+                <div
+                  class="card-body addHover pl-3 pr-2"
+                  routerLink="/insights/page"
+                >
+                  <h6>The Uber for "X"</h6>
+                  <p class="mb-2 small text-muted">
+                    On demand service from your smartphone has travelled far
+                    beyond taxis. Now everything from from vet services, to dog
+                    walking, to food delivery...
+                  </p>
+                  <ng-template #popTitle>
+                    <span class="badge badge-primary">Follow</span>
+                  </ng-template>
+                  <ng-template #popContent>
+                    <div class="row">
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Ideas</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'rss']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase text-muted">
+                              Follow
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'atom']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Insights</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <span
+                    class="tagLink small mr-2"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [openDelay]="600"
+                    [closeDelay]="600"
+                    [autoClose]="'outside'"
+                    triggers="mouseenter"
+                  >
+                    #aginginplace
+                  </span>
+                  <span class="tagLink small mr-2">#testing</span>
+                  <span class="tagLink small mr-2">+4</span>
+                </div>
+                <div class="card-footer pl-3 pt-2 pb-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item uppercase bold small tagLink"
+                        >
+                          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                          Add To
+                        </li>
+                        <li class="list-inline-item float-right">
+                          <ul class="list-inline">
+                            <li
+                              class="list-inline-item small bold tagLink mr-3"
+                              placement="top"
+                              ngbTooltip="Linked Insights"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'link']"
+                                class="tagLink"
+                              ></fa-icon>
+                              125
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'bookmark']"
+                                class="tagLink"
+                                placement="top"
+                                ngbTooltip="Bookmark Insight"
+                              ></fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+            <!-- start of one -->
+            <div class="col-4 mb-3">
+              <div class="card">
+                <div class="card-header p-0">
+                  <span class="badgeOverlay">
+                    <span class="badge badge-dark mr-2">TYPE</span>
+                    <span class="badge badge-dark mr-2">CATEGORY</span>
+                  </span>
+                  <img
+                    class="w-100"
+                    src="https://prediction-market.s3.amazonaws.com/Staging%20test/5d55b6d95b9718001d49e718/challengePage/ideawake-healthcare-innovation-bottom-image.png"
+                  />
+                </div>
+                <div
+                  class="card-body addHover pl-3 pr-2"
+                  routerLink="/insight-page-container"
+                >
+                  <h6>The Uber for "X"</h6>
+                  <p class="mb-2 small text-muted">
+                    On demand service from your smartphone has travelled far
+                    beyond taxis. Now everything from from vet services, to dog
+                    walking, to food delivery...
+                  </p>
+                  <ng-template #popTitle>
+                    <span class="badge badge-primary">Follow</span>
+                  </ng-template>
+                  <ng-template #popContent>
+                    <div class="row">
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Ideas</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'rss']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase text-muted">
+                              Follow
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'atom']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Insights</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <span
+                    class="tagLink small mr-2"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [openDelay]="600"
+                    [closeDelay]="300"
+                    triggers="mouseenter:mouseleave"
+                  >
+                    #aginginplace
+                  </span>
+                  <span class="tagLink small mr-2">#virtualcare</span>
+                  <span class="tagLink small mr-2">+4</span>
+                </div>
+                <div class="card-footer pl-3 pt-2 pb-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item uppercase bold small tagLink"
+                        >
+                          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                          Add To
+                        </li>
+                        <li class="list-inline-item float-right">
+                          <ul class="list-inline">
+                            <li
+                              class="list-inline-item small bold tagLink mr-3"
+                              placement="top"
+                              ngbTooltip="Linked Insights"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'link']"
+                                class="tagLink"
+                              ></fa-icon>
+                              125
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'bookmark']"
+                                class="tagLink"
+                                placement="top"
+                                ngbTooltip="Bookmark Insight"
+                              >
+                              </fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+            <!-- start of one -->
+            <div class="col-4 mb-3">
+              <div class="card">
+                <div class="card-header p-0">
+                  <span class="badgeOverlay">
+                    <span class="badge badge-dark mr-2">TYPE</span>
+                    <span class="badge badge-dark mr-2">CATEGORY</span>
+                  </span>
+                  <img
+                    class="w-100"
+                    src="https://prediction-market.s3.amazonaws.com/Staging%20test/5d55b6d95b9718001d49e718/challengePage/ideawake-healthcare-innovation-bottom-image.png"
+                  />
+                </div>
+                <div
+                  class="card-body addHover pl-3 pr-2"
+                  routerLink="/insight-page-container"
+                >
+                  <h6>The Uber for "X"</h6>
+                  <p class="mb-2 small text-muted">
+                    On demand service from your smartphone has travelled far
+                    beyond taxis. Now everything from from vet services, to dog
+                    walking, to food delivery...
+                  </p>
+                  <ng-template #popTitle>
+                    <span class="badge badge-primary">Follow</span>
+                  </ng-template>
+                  <ng-template #popContent>
+                    <div class="row">
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Ideas</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'rss']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase text-muted">
+                              Follow
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'atom']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Insights</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <span
+                    class="tagLink small mr-2"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [openDelay]="600"
+                    [closeDelay]="300"
+                    triggers="mouseenter:mouseleave"
+                  >
+                    #aginginplace
+                  </span>
+                  <span class="tagLink small mr-2">#virtualcare</span>
+                  <span class="tagLink small mr-2">+4</span>
+                </div>
+                <div class="card-footer pl-3 pt-2 pb-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item uppercase bold small tagLink"
+                        >
+                          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                          Add To
+                        </li>
+                        <li class="list-inline-item float-right">
+                          <ul class="list-inline">
+                            <li
+                              class="list-inline-item small bold tagLink mr-3"
+                              placement="top"
+                              ngbTooltip="Linked Insights"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'link']"
+                                class="tagLink"
+                              ></fa-icon>
+                              125
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'bookmark']"
+                                class="tagLink"
+                                placement="top"
+                                ngbTooltip="Bookmark Insight"
+                              >
+                              </fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+          </div>
+          <!-- end of section -->
+          <div class="row mb-2 mt-3 pt-4 border-top">
+            <div class="col-8">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <h5>Tags You Follow</h5>
+                </li>
+                <li class="list-inline-item">
+                  <span class="badge badge-dark badgePadding pointer"
+                    >See All</span
+                  >
+                </li>
+              </ul>
+              <p class="mb-1 text-muted small">
+                Based on your ideas tags, these are insights that may help you
+                build a better solution, faster.
+              </p>
+            </div>
+            <div class="col-4">
+              <ul class="list-inline float-right">
+                <li class="list-inline-item">
+                  <h6 class="quickLink pl-3 pt-2 pb-2 pr-3">
+                    <fa-icon
+                      [icon]="['fas', 'angle-left']"
+                      class="text-primary mr-1"
+                    ></fa-icon>
+                    Previous
+                  </h6>
+                </li>
+                <li class="list-inline-item">
+                  <h6 class="quickLink pl-3 pt-2 pb-2 pr-3">
+                    Next
+                    <fa-icon
+                      [icon]="['fas', 'angle-right']"
+                      class="text-primary ml-1"
+                    ></fa-icon>
+                  </h6>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <!-- start of one -->
+            <div class="col-6 mb-3">
+              <div class="card">
+                <div class="card-header p-0">
+                  <span class="badgeOverlay">
+                    <span class="badge badge-dark mr-2">TYPE</span>
+                    <span class="badge badge-dark mr-2">CATEGORY</span>
+                  </span>
+                  <img
+                    class="w-100"
+                    src="https://prediction-market.s3.amazonaws.com/Staging%20test/5d55b6d95b9718001d49e718/challengePage/ideawake-healthcare-innovation-bottom-image.png"
+                  />
+                </div>
+                <div
+                  class="card-body addHover pl-3 pr-2"
+                  routerLink="/insight-page-container"
+                >
+                  <h6>The Uber for "X"</h6>
+                  <p class="mb-2 small text-muted">
+                    On demand service from your smartphone has travelled far
+                    beyond taxis. Now everything from from vet services, to dog
+                    walking, to food delivery...
+                  </p>
+                  <ng-template #popTitle>
+                    <span class="badge badge-primary">Follow</span>
+                  </ng-template>
+                  <ng-template #popContent>
+                    <div class="row">
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Ideas</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'rss']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase text-muted">
+                              Follow
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'atom']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Insights</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <span
+                    class="tagLink small mr-2"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [openDelay]="600"
+                    [closeDelay]="300"
+                    triggers="mouseenter:mouseleave"
+                  >
+                    #aginginplace
+                  </span>
+                  <span class="tagLink small mr-2">#virtualcare</span>
+                  <span class="tagLink small mr-2">+4</span>
+                </div>
+                <div class="card-footer pl-3 pt-2 pb-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item uppercase bold small tagLink"
+                        >
+                          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                          Add To
+                        </li>
+                        <li class="list-inline-item float-right">
+                          <ul class="list-inline">
+                            <li
+                              class="list-inline-item small bold tagLink mr-3"
+                              placement="top"
+                              ngbTooltip="Linked Insights"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'link']"
+                                class="tagLink"
+                              ></fa-icon>
+                              125
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'bookmark']"
+                                class="tagLink"
+                                placement="top"
+                                ngbTooltip="Bookmark Insight"
+                              ></fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+            <!-- start of one -->
+            <div class="col-6 mb-3">
+              <div class="card">
+                <div class="card-header p-0">
+                  <span class="badgeOverlay">
+                    <span class="badge badge-dark mr-2">TYPE</span>
+                    <span class="badge badge-dark mr-2">CATEGORY</span>
+                  </span>
+                  <img
+                    class="w-100"
+                    src="https://prediction-market.s3.amazonaws.com/Staging%20test/5d55b6d95b9718001d49e718/challengePage/ideawake-healthcare-innovation-bottom-image.png"
+                  />
+                </div>
+                <div
+                  class="card-body addHover pl-3 pr-2"
+                  routerLink="/insight-page-container"
+                >
+                  <h6>The Uber for "X"</h6>
+                  <p class="mb-2 small text-muted">
+                    On demand service from your smartphone has travelled far
+                    beyond taxis. Now everything from from vet services, to dog
+                    walking, to food delivery...
+                  </p>
+                  <ng-template #popTitle>
+                    <span class="badge badge-primary">Follow</span>
+                  </ng-template>
+                  <ng-template #popContent>
+                    <div class="row">
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Ideas</p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'rss']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase text-muted">
+                              Follow
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <ul class="list-unstyled text-center">
+                          <li class="mb-2">
+                            <fa-icon
+                              [icon]="['fas', 'atom']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li>
+                            <h6 class="mb-1 bold">422</h6>
+                            <p class="small mb-0 uppercase">Insights</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <span
+                    class="tagLink small mr-2"
+                    [ngbPopover]="popContent"
+                    [popoverTitle]="popTitle"
+                    [openDelay]="600"
+                    [closeDelay]="300"
+                    triggers="mouseenter:mouseleave"
+                  >
+                    #aginginplace
+                  </span>
+                  <span class="tagLink small mr-2">#virtualcare</span>
+                  <span class="tagLink small mr-2">+4</span>
+                </div>
+                <div class="card-footer pl-3 pt-2 pb-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item uppercase bold small tagLink"
+                        >
+                          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                          Add To
+                        </li>
+                        <li class="list-inline-item float-right">
+                          <ul class="list-inline">
+                            <li
+                              class="list-inline-item small bold tagLink mr-3"
+                              placement="top"
+                              ngbTooltip="Linked Insights"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'link']"
+                                class="tagLink"
+                              ></fa-icon>
+                              125
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'bookmark']"
+                                class="tagLink"
+                                placement="top"
+                                ngbTooltip="Bookmark Insight"
+                              >
+                              </fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of container -->
+
+<!-- start of modals -->
+<ng-template #add let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Add New Insight</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+</ng-template>

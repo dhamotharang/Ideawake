@@ -1,0 +1,534 @@
+<span
+  class="btn btn-light btn-xs border shadow-sm btn-block mt-3 py-2"
+  (click)="open(addNewActionItem)"
+>
+  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+  Add Action Item
+</span>
+<div class="row d-none">
+  <div class="col-12">
+    <div class="card bg-light shadow-sm bg-light">
+      <div class="card-body p-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="small mb-3 text-muted uppercase bold">Add Action Items</p>
+          </li>
+          <li class="list-inline-item float-right">
+            <span
+              class="badge badge-primary badgePadding pointer cardAnimation"
+              (click)="open(addNewActionItem)"
+            >
+              <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+              Add Action Item
+            </span>
+          </li>
+        </ul>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mb-2">
+            <span
+              class="badge badge-info badgePadding cardAnimation pointer"
+              (click)="open(addNewActionItem)"
+              ngbTooltip="Custom action item title, description, and refinement fields to be completed"
+            >
+              <fa-icon [icon]="['fas', 'list']"></fa-icon>
+              What problem does this solve?
+            </span>
+          </li>
+          <li class="list-inline-item">
+            <span
+              class="badge badge-danger badgePadding cardAnimation pointer"
+              (click)="open(addNewActionItem)"
+              ngbTooltip="Custom action item title, description, and choices under question"
+            >
+              <fa-icon [icon]="['fas', 'poll-h']"></fa-icon>
+              Go / Kill Decision
+            </span>
+          </li>
+          <li class="list-inline-item">
+            <span
+              class="badge badge-info badgePadding cardAnimation pointer"
+              (click)="open(addRefinementFields)"
+              ngbTooltip="Nothing"
+            >
+              <fa-icon [icon]="['fas', 'list']" class="mr-1"></fa-icon>
+              Add Refinement Fields
+            </span>
+          </li>
+          <li class="list-inline-item">
+            <span
+              class="badge badge-warning badgePadding cardAnimation pointer"
+              (click)="open(addScorecard)"
+              ngbTooltip="Add a scorecard for specific stakeholders to complete"
+            >
+              <fa-icon [icon]="['fas', 'star']"></fa-icon>
+              Add Scorecard
+            </span>
+          </li>
+          <li class="list-inline-item">
+            <span
+              class="badge badge-secondary badgePadding cardAnimation pointer"
+              (click)="open(addQuestion)"
+              ngbTooltip="Add a question or poll to complete for specific stakeholders"
+            >
+              <fa-icon [icon]="['fas', 'poll-h']"></fa-icon>
+              Add Question / Poll
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- start of add action item modal -->
+
+<ng-template #addNewActionItem let-modal>
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold text-muted mb-0 small">Add New Action Item</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <!-- <div class="alert alert-light border bg-light">
+                      <div class="row">
+                        <div class="col-1">
+                          <fa-icon [icon]="['fas', 'flag']" class="text-muted mt-2" style="font-size: 1.5rem;"></fa-icon>
+                        </div>
+                        <div class="col-11">
+                          <span class="text-muted small">Use actions items to take full control of your innovation pipeline
+                            by assigning stakeholders to complete actions on opportunities at
+                            the right time. <a href="#">Learn more about action items</a>.
+                          </span>
+                        </div>
+                      </div>
+                    </div> -->
+        <form>
+          <div class="form-group">
+            <label class="montserrat">Action Item Title</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="What do you want done?"
+            />
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Select Action</label>
+            <hr class="mt-0 mb-2" />
+            <div class="form-row pt-2">
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm active"
+                  (click)="open(addQuestion)"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'poll-h']" class="icon"></fa-icon>
+                    Ask Question / Poll
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                  (click)="open(addRefinementFields)"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'list']" class="icon"></fa-icon>
+                    Collect Information
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                  (click)="open(addScorecard)"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'star']" class="icon"></fa-icon>
+                    Scorecard
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon
+                      [icon]="['fas', 'thumbs-up']"
+                      class="icon"
+                    ></fa-icon>
+                    Voting / Pairwise
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'gem']" class="icon"></fa-icon>
+                    Forecast Impact
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-4 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'gem']" class="icon"></fa-icon>
+                    Add Outcomes
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Action Item Recurrency</label>
+            <hr class="mt-0 mb-2" />
+            <div class="form-row pt-2">
+              <div class="form-group col-6 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm active"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'clock']" class="icon"></fa-icon>
+                    One Time
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-6 mb-2">
+                <div
+                  class="card text-center cardAnimation pointer selectStakeholder shadow-sm"
+                >
+                  <div class="card-body p-2">
+                    <fa-icon [icon]="['fas', 'clock']" class="icon"></fa-icon>
+                    Recurring
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="open(selectCompleters)"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Step Two of Three
+    </button>
+  </div>
+</ng-template>
+
+<!-- end of action item modal -->
+
+<!-- assign action item completers -->
+
+<ng-template #selectCompleters let-modal>
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold text-muted mb-0 small">Assign Action Item</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-assign></app-assign>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="open(actionItemSettings)"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Step Two of Three
+    </button>
+  </div>
+</ng-template>
+
+<!-- end assign action item completers -->
+
+<!-- action item settings -->
+
+<ng-template #actionItemSettings let-modal>
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold text-muted mb-0 small">Add New Action Item</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="open(addRefinementFields)"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Step Two of Three
+    </button>
+  </div>
+</ng-template>
+
+<!-- end action item settings -->
+
+<ng-template #addRefinementFields let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">
+      Add Refinement Fields (or Template?)
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0 modalScrollMaxHeight">
+    <div class="p-3">
+      <div class="row">
+        <div class="col-8">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+                Select Fields
+              </h6>
+            </li>
+            <li class="list-inline-item float-right adjustFloatUp">
+              <app-add-scorecard></app-add-scorecard>
+            </li>
+          </ul>
+          <!-- <app-search-fields></app-search-fields> -->
+          <app-field-list></app-field-list>
+        </div>
+        <div class="col-4 h-100 bgGray">
+          <div class="row">
+            <div class="col-12">
+              use group add users to list ux / ui for this
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Add Field
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #addScorecard let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Add Scorecard</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <div class="row">
+      <div class="col-12 flex-column">
+        <ul class="list-inline mb-2">
+          <li class="list-inline-item">
+            <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+              Select Scorecard(s) - user can select multiple scorecards
+            </h6>
+          </li>
+          <li class="list-inline-item float-right adjustFloatUp">
+            <app-add-scorecard></app-add-scorecard>
+          </li>
+        </ul>
+        <app-search-scorecards></app-search-scorecards>
+        <!-- <app-scorecard-list></app-scorecard-list> -->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Create Scorecard
+    </button>
+  </div>
+</ng-template>
+
+<!-- start of add question modal -->
+<ng-template #addQuestion let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Add New Question</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 flex-column">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+                  Select Questions You'd Like to Ask
+                </h6>
+              </li>
+              <li class="list-inline-item float-right adjustFloatUp">
+                <app-add-question></app-add-question>
+              </li>
+            </ul>
+            <app-search-questions></app-search-questions>
+          </div>
+        </div>
+        <app-question-list></app-question-list>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Create Question
+    </button>
+  </div>
+</ng-template>
+
+<!-- end of add question modal -->
+
+<ng-template #assignCompleters let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Title</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <div class="modal-body p-0 modalScrollMaxHeight">
+      <div class="p-3">
+        <div class="row">
+          <div class="col-8">
+            <!-- <app-workflow-stage-assign></app-workflow-stage-assign> -->
+          </div>
+          <div class="col-4 h-100 bgGray">
+            <div class="row">
+              <div class="col-12">
+                use group add users to list ux / ui for this
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Save Changes
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmSettings let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Title</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0 modalScrollMaxHeight">
+    <div class="p-3">
+      <div class="row">
+        <div class="col-8">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+                Select Fields
+              </h6>
+            </li>
+            <li class="list-inline-item float-right adjustFloatUp">
+              <app-add-scorecard></app-add-scorecard>
+            </li>
+          </ul>
+          <!-- <app-search-fields></app-search-fields> -->
+          <app-field-list></app-field-list>
+        </div>
+        <div class="col-4 h-100 bgGray">
+          <div class="row">
+            <div class="col-12">
+              use group add users to list ux / ui for this
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Save Changes
+    </button>
+  </div>
+</ng-template>

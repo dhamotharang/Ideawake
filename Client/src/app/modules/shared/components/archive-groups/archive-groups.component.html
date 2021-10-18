@@ -1,0 +1,29 @@
+<div class="modal-header card-header bg-info">
+  <p class="uppercase bold text-white mb-0 small">Archive This Group</p>
+  <button
+    type="button"
+    class="close text-white"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="">
+    Are you sure you would like to archive this group? Please review the effects
+    of archiving groups before proceeding.
+  </p>
+  <label>Effects of Archiving Groups</label>
+  <ul class="pl-4">
+    <li>This group will no longer be visible in group lists</li>
+    <li>You will not be able to use this group for targeting of challenges</li>
+    <li>You will not be able to assign this group to complete stages in your workflow</li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-light border" (click)="closeModal()">Cancel</button>
+  <button class="btn btn-info" (click)="archiveGroup()">
+    Yes, Archive This Group
+  </button>
+</div>

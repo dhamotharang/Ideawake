@@ -1,0 +1,19 @@
+<ul class="list-inline mb-0">
+  <li *ngFor="let user of users" class="list-inline-item removeMargins">
+    <div *ngIf="user.showAnonymous" class="mb-2" style="min-height: 2.5rem;">
+      <fa-icon
+        ngbTooltip="Anonymous"
+        [icon]="['fas', 'ghost']"
+        class="anonymousUserTeam rounded-circle mb-2"
+      >
+      </fa-icon>
+    </div>
+    <img
+      *ngIf="!user.showAnonymous"
+      class="rounded-circle pointer teamImage"
+      [ngbTooltip]="getUserName(user)"
+      [defaultImage]="defaultImage"
+      [lazyLoad]="getUserImage(user)"
+    />
+  </li>
+</ul>

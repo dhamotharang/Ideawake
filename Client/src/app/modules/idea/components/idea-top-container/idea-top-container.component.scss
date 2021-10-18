@@ -1,0 +1,333 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.nav-tabs .nav-link a {
+  color: $gray-300;
+  font-size: 0.7rem;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: $primary;
+  font-size: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: $gray-600 !important;
+  font-size: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+  border-top: 3px solid transparent;
+}
+
+.nav-link i {
+  color: $gray-300 !important;
+  font-size: 0.9rem;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: 0;
+}
+
+.nav-link:hover {
+  color: $primary !important;
+  font-size: 0.7rem;
+  border-top: 3px solid $defaultBorder;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+.nav-link.active {
+  color: $primary !important;
+  font-size: 0.9rem;
+  border-top: 3px solid $primary;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+//secondary nav on scroll
+
+.nav-tabs-top .nav-link-top a {
+  color: $gray-300;
+  font-size: 0.7rem;
+}
+
+.nav-tabs-top .nav-link-top.active,
+.nav-tabs-top .nav-item.show .nav-link {
+  color: $primary;
+  font-size: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+}
+
+.nav-link-top {
+  color: $gray-600 !important;
+  font-size: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+  border-top: 3px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.nav-link-top i {
+  color: $gray-300 !important;
+  font-size: 0.9rem;
+}
+
+.nav-tabs-top .nav-item {
+  margin-bottom: 0;
+}
+
+.nav-link-top:hover {
+  color: $primary !important;
+  font-size: 0.9rem;
+  border-top: 3px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  text-decoration: none;
+}
+
+.nav-link-top.active {
+  color: $primary !important;
+  font-size: 0.7rem;
+  border-top: 3px solid $primary;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  // padding-bottom: .3rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.topCallout {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 60px;
+  border: 1px solid $defaultBorder;
+  background-color: #fafbfc;
+  z-index: 200;
+  padding-top: 0.6rem;
+}
+
+.hide-navigation {
+  display: none;
+}
+
+// extra small devices
+
+.ideaTitle {
+  text-align: center;
+  line-height: 1.95rem;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .ideaTitle {
+    text-align: center;
+    line-height: 1.95rem;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .ideaTitle {
+    text-align: left;
+    line-height: 1.95rem;
+  }
+
+  .alignCenterMobileLeft {
+    text-align: left;
+  }
+
+  .alignCenterMobileRight {
+    text-align: right;
+  }
+
+  .nav-tabs .nav-link a {
+  color: $gray-300;
+  font-size: 0.9rem;
+  }
+
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    color: $primary;
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+  }
+
+  .nav-link {
+    color: $gray-600 !important;
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+    border-top: 3px solid transparent;
+  }
+
+  .nav-link i {
+    color: $gray-300 !important;
+    font-size: 0.9rem;
+  }
+
+  .nav-tabs .nav-item {
+    margin-bottom: 0;
+  }
+
+  .nav-link:hover {
+    color: $primary !important;
+    font-size: 0.9rem;
+    border-top: 3px solid $defaultBorder;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+  }
+
+  .nav-link.active {
+    color: $primary !important;
+    font-size: 0.9rem;
+    border-top: 3px solid $primary;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+  }
+
+  //secondary nav on scroll
+
+  .nav-tabs-top .nav-link-top a {
+    color: $gray-300;
+    font-size: 0.9rem;
+  }
+
+  .nav-tabs-top .nav-link-top.active,
+  .nav-tabs-top .nav-item.show .nav-link {
+    color: $primary;
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+  }
+
+  .nav-link-top {
+    color: $gray-600 !important;
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+    border-top: 3px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-radius: 0.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .nav-link-top i {
+    color: $gray-300 !important;
+    font-size: 0.9rem;
+  }
+
+  .nav-tabs-top .nav-item {
+    margin-bottom: 0;
+  }
+
+  .nav-link-top:hover {
+    color: $primary !important;
+    font-size: 0.9rem;
+    border-top: 3px solid $defaultBorder;
+    border-bottom: 1px solid $defaultBorder;
+    border-left: 1px solid $defaultBorder;
+    border-right: 1px solid $defaultBorder;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    text-decoration: none;
+  }
+
+  .nav-link-top.active {
+    color: $primary !important;
+    font-size: 0.9rem;
+    border-top: 3px solid $primary;
+    border-bottom: 1px solid $defaultBorder;
+    border-left: 1px solid $defaultBorder;
+    border-right: 1px solid $defaultBorder;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    // padding-bottom: .3rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .topCallout {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 60px;
+    border: 1px solid $defaultBorder;
+    background-color: #fafbfc;
+    z-index: 200;
+    padding-top: 0.6rem;
+  }
+
+
+
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .ideaTitle {
+    text-align: left;
+    line-height: 1.95rem;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .ideaTitle {
+    text-align: left;
+    line-height: 1.95rem;
+  }
+}

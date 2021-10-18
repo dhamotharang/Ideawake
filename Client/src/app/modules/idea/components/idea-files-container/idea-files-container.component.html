@@ -1,0 +1,27 @@
+<div class="container px-0" *ngIf="idea">
+  <div class="row mb-3 mt-0 mt-md-3">
+    <div class="col-12 removePaddingOnMobile">
+      <div class="card mb-1 mb-md-5">
+        <div class="card-header pb-0 border-bottom-0 bg-white px-md-3">
+          <p class="uppercase text-muted mb-1 small bold montserrat">
+            {{ 'IdeaPage.Attachments' | translationPipe }}
+          </p>
+        </div>
+        <div class="card-body px-0 px-md-3">
+          <app-upload-content
+            *ngIf="userOpportunityPermissions?.addFilesToOpportunity"
+            [filesForUploadContent]="files"
+            [inModal]="false"
+          ></app-upload-content>
+          <hr />
+          <app-media-feature
+            [files]="files"
+            [from]="'idea'"
+            [userOpportunityPermissions]="userOpportunityPermissions"
+            (update)="editIdeaImages()"
+          ></app-media-feature>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

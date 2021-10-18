@@ -1,0 +1,34 @@
+<!-- <button
+  [ngbTooltip]="'Follow'"
+  (click)="toggle()"
+  class="btn btn-light btn-sm border btn-block"
+  [ngClass]="{ inverseLinkSelected: data.following }"
+>
+  <fa-icon [icon]="['fas', 'rss']" class="text-muted"> </fa-icon>
+  {{ !data?.following ? 'Follow' : 'Following' }}
+  <p class="small mb-0" *ngIf="showText">
+    {{ !data?.following ? 'Follow' : 'Following' }}
+  </p>
+</button> -->
+<!-- <span (click)="toggle()" [ngClass]="{ inverseLinkSelected: data.following }">
+  <fa-icon [icon]="['fas', 'rss']" style="font-size: 1.25rem;"> </fa-icon>
+  <p class="mb-0" *ngIf="showText">
+    {{ !data?.following ? 'Follow' : 'Following' }}
+  </p>
+</span> -->
+<span (click)="toggle()">
+  <button
+    [ngClass]="{ inverseLinkSelected: data.following }"
+    class="btn btn-white btn-sm montserrat bold inverseLink"
+    *ngIf="showText"
+  >
+    <fa-icon [icon]="['fas', 'rss']"> </fa-icon>
+    <span class="d-none d-md-inline">
+      {{
+        !data?.following
+          ? ('SocialActivity.Follow' | translationPipe)
+          : ('SocialActivity.Following' | translationPipe)
+      }}
+    </span>
+  </button>
+</span>

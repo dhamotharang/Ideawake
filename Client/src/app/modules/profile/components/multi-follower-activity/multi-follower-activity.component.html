@@ -1,0 +1,49 @@
+<div class="card rounded-0 border-top-0">
+  <div class="card-body pt-3 pb-3">
+    <div class="media">
+      <div class="botImage rounded-circle bg-secondary mr-3">
+        <fa-icon
+          [icon]="['fas', 'robot']"
+          class="text-white iconLarge align-middle text-center"
+        ></fa-icon>
+      </div>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-12">
+            <p class="text-medium mb-2">
+              {{ act.activity.users[0].fullname }},
+              {{ act.activity.users[1].fullname }} and
+              {{ act.activity.users.length }} others participated on
+              <a class="inverseLink" routerLink="/challenge-view-container">{{
+                act.activity.title
+              }}</a>
+            </p>
+            <app-social-images
+              [upvoters]="act.activity.users"
+            ></app-social-images>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ act.createdAt | timeAgo }}
+                </p>
+              </li>
+              <li class="list-inline-item ml-2 mr-2">
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="small separatorIcon text-muted"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">You follow this challenge</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

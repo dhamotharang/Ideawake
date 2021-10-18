@@ -1,0 +1,171 @@
+<div class="row mb-1">
+  <div class="col-4">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="mb-2 text-medium bold">
+          StageName
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="Stage Description if it exists..."
+          >
+          </fa-icon>
+        </p>
+      </li>
+      <li class="list-inline-item float-right pt-2"></li>
+    </ul>
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        aria-valuenow="25"
+        aria-valuemin="34"
+        aria-valuemax="100"
+        style="width: 25%;"
+      ></div>
+    </div>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item pt-1">
+        <p class="small text-muted mb-0 mr-1 pt-1">
+          10 / 25 completed
+        </p>
+      </li>
+      <li class="list-inline-item float-right adjustFloat">
+        <p class="small text-muted mb-0 mr-1 pt-2">
+          28%
+        </p>
+      </li>
+    </ul>
+    <div class="showEditOnHover mt-3" ngbDropdown container="body">
+      <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+        <!-- <fa-icon [icon]="['fas', 'clock']"></fa-icon> -->
+        <span class="bold">Due Date</span> - 10/28/20
+        <fa-icon
+          [icon]="['fas', 'caret-down']"
+          class="text-muted float-right mr-2"
+        ></fa-icon>
+      </p>
+      <div ngbDropdownMenu class="shadow py-0">
+        <div class="card border-0">
+          <div class="card-body pt-2">
+            <div class="pb-2">
+              <label class="text-medium">Select Date</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="10/22/20"
+              />
+            </div>
+            <ngb-datepicker #dateDisplay></ngb-datepicker>
+            <div class="pt-2">
+              <button class="btn btn-light border btn-sm mr-1 shadow-sm">
+                Cancel
+              </button>
+              <button class="btn btn-primary btn-sm shadow-sm">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="showEditOnHover" ngbDropdown>
+      <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+        <!-- <fa-icon [icon]="['fas', 'clock']"></fa-icon> -->
+        <span class="bold">Completion Rules</span> - Once All Assignees Complete
+        <fa-icon
+          [icon]="['fas', 'caret-down']"
+          class="text-muted float-right mr-2"
+        ></fa-icon>
+      </p>
+      <div ngbDropdownMenu class="shadow w-100">
+        <button ngbDropdownItem class="pl-3 btn-sm">
+          Once All Assignees Complete
+        </button>
+        <button ngbDropdownItem class="pl-3 btn-sm">
+          Minimum Number of Assignees Complete
+        </button>
+      </div>
+    </div>
+    <div class="showEditOnHover" ngbDropdown>
+      <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+        <!-- <fa-icon [icon]="['fas', 'clock']"></fa-icon> -->
+        <span class="bold">Automation Rules</span> - None
+        <fa-icon
+          [icon]="['fas', 'caret-down']"
+          class="text-muted float-right mr-2"
+        ></fa-icon>
+      </p>
+      <div ngbDropdownMenu class="shadow pt-0">
+        <div style="min-width: 15rem;">
+          <form class="p-1">
+            <div class="form-group mb-0">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Search sources..."
+              />
+            </div>
+          </form>
+        </div>
+        <div class="dropdownScrollMaxHeight">
+          Allow user to set automation rules here
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item pt-1">
+        <p class="text-medium mb-2 mt-2">Currently Assigned (100)</p>
+      </li>
+      <!-- <li class="list-inline-item float-right">
+            <button class="btn btn-xs btn-light border py-2">Edit Assignees</button>
+          </li> -->
+    </ul>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item removeMargins">
+        <img
+          class="userImage rounded-circle"
+          ngbTooltip="Full Name"
+          src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+        />
+      </li>
+      <li class="list-inline-item removeMargins">
+        <img
+          class="userImage rounded-circle"
+          ngbTooltip="Full Name"
+          src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+        />
+      </li>
+      <li class="list-inline-item removeMargins">
+        <img
+          class="userImage rounded-circle"
+          ngbTooltip="Full Name"
+          src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+        />
+      </li>
+      <li class="list-inline-item removeMargins">
+        <img
+          class="userImage rounded-circle"
+          ngbTooltip="Full Name"
+          src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-light shadow-sm btn-xs border py-2 mt-3 btn-block">
+      <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+      Manage Stage
+    </button>
+  </div>
+  <!-- <div class="col-4">
+        <button class="btn btn-light btn-xs border mt-3 btn-block">Change Stage</button>
+      </div>
+      <div class="col-4">
+        <button class="btn btn-light btn-xs border mt-3 btn-block">Change Stage</button>
+      </div> -->
+</div>

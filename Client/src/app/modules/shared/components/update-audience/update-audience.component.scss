@@ -1,0 +1,11 @@
+.custom-control-label::before {
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0.1rem;
+}
+
+.custom-checkbox .custom-control-label:hover {
+  cursor: pointer;
+}

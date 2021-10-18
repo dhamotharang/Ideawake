@@ -1,0 +1,400 @@
+<div ngbDropdown #myDrop="ngbDropdown">
+  <div class="input-group mb-0">
+    <!-- <div class="input-group-prepend">
+      <span
+        class="input-group-text bg-white border-right-0 pl-2 pr-1 py-0"
+        id="basic-addon1"
+      >
+        <fa-icon [icon]="['fas', 'search']" class="text-muted"></fa-icon>
+      </span>
+    </div> -->
+    <input
+      class="form-control mr-sm-2 mr-md-0 inputMinWidth pl-2"
+      style="font-size: 0.9rem; height: 2.25rem;"
+      type="search"
+      [(ngModel)]="text"
+      (ngModelChange)="onSearch($event)"
+      placeholder="{{ 'Search.SearchCommunity' | translationPipe }}..."
+      aria-label="Search"
+      ngbDropdownToggle
+    />
+    <!-- {{ 'Search.SearchCommunity' | translationPipe }} -->
+  </div>
+
+  <div class="row searchDropdownComponent border shadow-lg" ngbDropdownMenu>
+    <div class="col-sm-12">
+      <!-- <div class="row dottedBottomBorder mb-3">
+        <div class="col-sm-12">
+          <p class="uppercase small text-muted bold mb-2">DISCOVER</p>
+          <ul class="list-inline">
+            <li class="list-inline-item pr-2">
+              <button class="btn btn-outline-secondary btn-sm pr-3 pl-3">
+                Ideas
+              </button>
+            </li>
+            <li class="list-inline-item pr-2">
+              <button class="btn btn-outline-secondary btn-sm pr-3 pl-3">
+                Insights
+              </button>
+            </li>
+            <li class="list-inline-item pr-2">
+              <button class="btn btn-outline-secondary btn-sm pr-3 pl-3">
+                Users
+              </button>
+            </li>
+            <li class="list-inline-item pr-2">
+              <button
+                class="btn btn-outline-secondary btn-sm pr-3 pl-3"
+                routerLink="/profile-container"
+              >
+                Profile
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div> -->
+      <div
+        *ngIf="recentOpened && recentOpened.length && !text"
+        class="row border-bottom mb-3"
+      >
+        <!-- start of recently viewed -->
+        <div class="col-sm-12">
+          <p class="uppercase small text-muted bold mb-2">
+            RECENTLY VIEWED
+            <!-- <span
+              class="float-right font-weight-normal small pointer text-primary adjustFloatUp"
+              >View all</span
+            > -->
+          </p>
+          <ul class="list-inline mb-0">
+            <li
+              *ngFor="let recent of recentOpened"
+              class="list-inline-item w-25 mr-0 mb-2 pt-2 pb-2 addHover"
+            >
+              <ng-container [ngSwitch]="recent.type">
+                <ng-container *ngSwitchCase="dataTypes.OPPORTUNITY">
+                  <ul
+                    (click)="opportunityClicked(recent)"
+                    class="list-unstyled text-center"
+                  >
+                    <li>
+                      <img
+                        class="rounded-circle imagePreview"
+                        [defaultImage]="defaultImage"
+                        [lazyLoad]="getOpportunityImage(recent)"
+                      />
+                    </li>
+                    <li>
+                      <p
+                        [ngbTooltip]="getValue(recent, 'data.title')"
+                        tooltipClass="tooltip-title-class"
+                        class="small mb-0 mt-1 bold"
+                      >
+                        {{ getTitle(recent, 'data.title', 12) }}
+                      </p>
+                    </li>
+                    <li>
+                      <p
+                        class="mb-0"
+                        [ngStyle]="{
+                          color: getValue(recent, 'data.opportunityType.color')
+                        }"
+                      >
+                        <fa-icon
+                          [icon]="[
+                            'fas',
+                            getValue(recent, 'data.opportunityType.icon')
+                          ]"
+                        ></fa-icon>
+                        {{ getValue(recent, 'data.opportunityType.name') }}
+                      </p>
+                    </li>
+                  </ul>
+                </ng-container>
+                <ng-container *ngSwitchCase="dataTypes.CHALLENGE">
+                  <ul
+                    (click)="challengeClicked(recent)"
+                    class="list-unstyled text-center"
+                  >
+                    <li>
+                      <img
+                        class="rounded-circle imagePreview"
+                        [defaultImage]="defaultImageChallenge"
+                        [lazyLoad]="
+                          getValue(
+                            recent,
+                            'data.bannerImage',
+                            defaultImageChallenge
+                          )
+                        "
+                      />
+                    </li>
+                    <li>
+                      <p
+                        [ngbTooltip]="getValue(recent, 'data.title')"
+                        tooltipClass="tooltip-title-class"
+                        class="small mb-0 mt-1 bold"
+                      >
+                        {{ getTitle(recent, 'data.title', 15) }}
+                      </p>
+                    </li>
+                    <li>
+                      <p class="text-success mb-0 text-medium pt-1">
+                        <fa-icon [icon]="['fas', 'trophy']"></fa-icon> Challenge
+                      </p>
+                    </li>
+                  </ul>
+                </ng-container>
+                <ng-container *ngSwitchCase="dataTypes.USER">
+                  <ul
+                    (click)="userClicked(recent)"
+                    class="list-unstyled text-center"
+                  >
+                    <li>
+                      <img
+                        class="rounded-circle imagePreview"
+                        [defaultImage]="defaultImage"
+                        [lazyLoad]="getValue(recent, 'data.profileImage.url')"
+                      />
+                    </li>
+                    <li>
+                      <p class="small mb-0 mt-1 bold">
+                        {{ getValue(recent, 'data.firstName') }}
+                        {{ getValue(recent, 'data.lastName') }}
+                      </p>
+                    </li>
+                    <li>
+                      <p class="text-tertiary mb-0">
+                        <fa-icon [icon]="['fas', 'user']"></fa-icon> User
+                      </p>
+                    </li>
+                  </ul>
+                </ng-container>
+              </ng-container>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="!text" class="row border-bottom">
+        <!-- start of recently viewed -->
+        <div class="col-sm-12">
+          <p class="uppercase small text-muted bold mb-2">
+            <!-- {{ 'Search.RecentSearches' | translationPipe }} -->
+            Recent Searches
+            <!-- <span class="float-right font-weight-normal small pointer text-primary adjustFloatUp"
+                >View all</span
+            > -->
+          </p>
+          <ul
+            *ngIf="!recentSearch || !recentSearch.length"
+            class="list-inline mb-0 pl-3 pt-2 pb-2 negativeSideMargins"
+          >
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'search']"
+                class="text-muted text-medium"
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <p class="small mb-0 mt-1 bold">
+                <!-- {{ 'Search.StartTyping' | translationPipe }} -->
+                Start typing to search.
+              </p>
+            </li>
+          </ul>
+          <ng-container *ngFor="let search of recentSearch">
+            <ul
+              (click)="searchAgain(search)"
+              class="list-inline addHover mb-0 pl-4 pt-2 pb-2 negativeSideMargins"
+            >
+              <li class="list-inline-item">
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="small mb-0 mt-1 bold">{{ search }}</p>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </div>
+      <div *ngIf="searching" class="spinner-class" style="min-height: 15rem;">
+        <fa-icon
+          [icon]="['fas', 'spinner']"
+          size="15px"
+          [spin]="true"
+        ></fa-icon>
+        Searching...
+      </div>
+      <div class="row">
+        <!-- return search results -->
+        <div *ngIf="!searching" class="col-12">
+          <ng-container *ngFor="let dataObject of datasetArray">
+            <ng-container [ngSwitch]="dataObject.type">
+              <ng-container *ngSwitchCase="dataTypes.OPPORTUNITY">
+                <div
+                  (click)="opportunityClicked(dataObject)"
+                  class="media addHover dottedBottomBorder mb-0 pl-3 searchResultPadding negativeSideMargins"
+                >
+                  <img
+                    class="rounded-circle mr-3 imagePreview"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="getOpportunityImage(dataObject)"
+                  />
+                  <div class="media-body">
+                    <p class="mb-0 mt-1 montserrat">
+                      {{ getTitle(dataObject, 'data.title') }}
+                    </p>
+                    <p
+                      class="mb-0 pt-1 text-medium"
+                      [ngStyle]="{
+                        color: getValue(
+                          dataObject,
+                          'data.opportunityType.color'
+                        )
+                      }"
+                    >
+                      <fa-icon
+                        [icon]="[
+                          'fas',
+                          getValue(dataObject, 'data.opportunityType.icon')
+                        ]"
+                        style="font-size: 0.8rem;"
+                      ></fa-icon>
+                      {{ getValue(dataObject, 'data.opportunityType.name') }}
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="dataTypes.CHALLENGE">
+                <div
+                  (click)="challengeClicked(dataObject)"
+                  class="media addHover dottedBottomBorder mb-0 pl-3 searchResultPadding negativeSideMargins"
+                >
+                  <img
+                    class="rounded-circle mr-3 imagePreview"
+                    [defaultImage]="defaultImageChallenge"
+                    [lazyLoad]="
+                      getValue(
+                        dataObject,
+                        'data.bannerImage',
+                        defaultImageChallenge
+                      )
+                    "
+                  />
+                  <div class="media-body">
+                    <p class="mb-0">
+                      {{ getTitle(dataObject, 'data.title') }}
+                    </p>
+                    <p class="text-success text-medium pt-1 mb-0">
+                      <fa-icon
+                        [icon]="['fas', 'trophy']"
+                        style="font-size: 0.8rem;"
+                      ></fa-icon>
+                      Challenge
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="dataTypes.USER">
+                <div
+                  (click)="userClicked(dataObject)"
+                  class="media addHover dottedBottomBorder mb-0 pl-3 searchResultPadding negativeSideMargins"
+                >
+                  <img
+                    class="rounded-circle mr-3 imagePreview"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="getValue(dataObject, 'data.profileImage.url')"
+                  />
+                  <div class="media-body">
+                    <p class="mb-0 mt-1">
+                      {{ getValue(dataObject, 'data.firstName') }}
+                      {{ getValue(dataObject, 'data.lastName') }}
+                    </p>
+                    <p class="text-tertiary mb-0 pt-1 text-medium">
+                      <fa-icon
+                        [icon]="['fas', 'user']"
+                        style="font-size: 0.8rem;"
+                      ></fa-icon>
+                      User
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="dataTypes.TAG">
+                <div
+                  class="media addHover dottedBottomBorder mb-0 pl-3 searchResultPadding negativeSideMargins"
+                >
+                  <img
+                    class="rounded-circle mr-3"
+                    src="https://via.placeholder.com/50x50"
+                  />
+                  <div class="media-body">
+                    <p class="mb-0 mt-1">Tag title...</p>
+                    <p class="text-muted mb-0 pt-1 text-medium">
+                      <fa-icon
+                        [icon]="['fas', 'hashtag']"
+                        style="font-size: 0.8rem;"
+                      ></fa-icon
+                      >Tag
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="dataTypes.SOLUTION">
+                <div
+                  class="media addHover dottedBottomBorder mb-0 pl-3 searchResultPadding negativeSideMargins"
+                >
+                  <img
+                    class="rounded-circle mr-3"
+                    src="https://via.placeholder.com/50x50"
+                  />
+                  <div class="media-body">
+                    <p class="mb-0 mt-1 bold">Leverage VR to Engage...</p>
+                    <p class="text-secondary mb-0 pt-1 text-medium">
+                      <fa-icon
+                        [icon]="['fas', 'rocket']"
+                        style="font-size: 0.8rem;"
+                      ></fa-icon>
+                      Solution
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <div
+            *ngIf="!datasetArray || !datasetArray.length || !text"
+            class="media dottedBottomBorder mb-0 pl-3 pt-2 pb-2 negativeSideMargins"
+          >
+            <div class="media-body">
+              <p class="mb-0 my-1">
+                No results to display
+              </p>
+            </div>
+          </div>
+          <!-- <div
+            class="media addHover dottedBottomBorder mb-0 pl-2 pt-2 pb-2 negativeSideMargins"
+          >
+            <img
+              class="rounded-circle mr-3"
+              src="https://via.placeholder.com/50x50"
+            />
+            <div class="media-body">
+              <p class="mb-0 mt-1 bold">Insight title...</p>
+              <p class="text-secondary mb-0">
+                <fa-icon [icon]="['fas', 'atom']"></fa-icon> Insight
+              </p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- <div class="row addHover border-top">
+        <div class="col-12">
+          <p class="mb-0 pt-2 pb-2 text-primary bold">
+            See all results for "searchTerm"
+          </p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

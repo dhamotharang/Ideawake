@@ -1,0 +1,151 @@
+<div class="float-right pt-2">
+  <button
+    ngbDropdownToggle
+    class="btn btn-xs btn-white text-muted mt-2 px-2 py-1 removeCaret"
+    placement="bottom"
+    ngbTooltip="Edit Visibility of this Post"
+  >
+    <fa-icon [icon]="['fas', 'eye']" class="text-primary"></fa-icon>
+    Who Can See This Post - Public
+    <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+  </button>
+  <div ngbDropdownMenu class="shadow">
+    <button class="btn-sm pl-3" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'eye']"
+        class="mr-1 text-primary small"
+      ></fa-icon>
+      Public
+    </button>
+    <button class="btn-sm pl-3" ngbDropdownItem>
+      <fa-icon [icon]="['fas', 'eye']" class="mr-1 text-info small"></fa-icon>
+      Stage Completers Only
+    </button>
+    <button class="btn-sm pl-3" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'eye']"
+        class="mr-1 text-warning small"
+      ></fa-icon>
+      Owners & Team Only
+    </button>
+    <button class="btn-sm pl-3" ngbDropdownItem>
+      <fa-icon
+        [icon]="['fas', 'eye']"
+        class="mr-1 text-secondary small"
+      ></fa-icon>
+      Submitters Only
+    </button>
+    <hr class="my-0" />
+    <button
+      class="btn-sm pl-3 mt-1"
+      ngbDropdownItem
+      (click)="open(changeCommentSettings)"
+    >
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted small"></fa-icon>
+      Change Default Setting
+    </button>
+  </div>
+</div>
+
+<ng-template #changeCommentSettings let-modal>
+  <div class="modal-header card-header">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="small uppercase bold mb-0">Change Comment Settings</p>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <div
+      class="alert alert-light bg-light text-medium p-2 border shadow-sm mb-0"
+    >
+      <p class="mb-0 text-dark">
+        Note that regardless of the setting selected, administrators and
+        moderators of your community will be able to see and reply to all posted
+        comments.
+      </p>
+    </div>
+    <form>
+      <div class="form-group">
+        <p class="uppercase bold mb-1 text-medium pt-3">
+          Select Default Comment Visibility Settings
+        </p>
+        <hr class="mb-2 mt-1" />
+        <div class="custom-control custom-radio mb-2 text-medium">
+          <input
+            type="radio"
+            id="public"
+            name="customRadio"
+            class="custom-control-input"
+            checked
+          />
+          <label class="custom-control-label font-weight-normal" for="public">
+            <b>Public</b> - All users who have access to this idea will be able
+            to see these comments.</label
+          >
+        </div>
+        <div class="custom-control custom-radio mb-2 text-medium">
+          <input
+            type="radio"
+            id="stageCompleters"
+            name="customRadio"
+            class="custom-control-input"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="stageCompleters"
+          >
+            <b>Stage Completers Only</b> - Only users assigned to complete the
+            current stage will be able to see these comments.</label
+          >
+        </div>
+        <div class="custom-control custom-radio mb-2 text-medium">
+          <input
+            type="radio"
+            id="ownersAndTeam"
+            name="customRadio"
+            class="custom-control-input"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="ownersAndTeam"
+          >
+            <b>Owners & Team Only</b> - Only opportunity owners and team members
+            will be able to see these comments.</label
+          >
+        </div>
+        <div class="custom-control custom-radio mb-2 text-medium">
+          <input
+            type="radio"
+            id="ownersAndTeam"
+            name="customRadio"
+            class="custom-control-input"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="ownersAndTeam"
+          >
+            <b>Submitters Only</b> - Only opportunity submitters and
+            co-submitters will be able to see these comments.</label
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      Save Changes
+    </button>
+  </div>
+</ng-template>

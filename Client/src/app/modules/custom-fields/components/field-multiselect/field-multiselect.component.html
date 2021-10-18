@@ -1,0 +1,78 @@
+<!-- single select field -->
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      *ngIf="!dataAvailable && view && !editMode"
+      (click)="customField.permissions.editCustomFieldData ? autoFocus() : null"
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Select options for this field...
+    </p>
+    <p
+      class="showEditOnHover mb-0"
+      *ngIf="dataAvailable && view && !editMode"
+      (click)="customField.permissions.editCustomFieldData ? autoFocus() : null"
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      <span
+        *ngFor="let item of selectedOption"
+        class="badge badgePadding mr-1 adjustFloatUp bg-light font-weight-normal border"
+        style="
+          position: relative;
+          top: 1px;
+          font-size: 0.85rem;
+          white-space: pre-wrap;
+        "
+      >
+        {{ item?.label || '' }}
+      </span>
+    </p>
+    <!-- edit category -->
+    <!-- IF NO ENTRY EVER MADE -->
+    <ng-select
+      *ngIf="editMode || !view"
+      [items]="loaded"
+      bindLabel="label"
+      bindValue="value"
+      [multiple]="true"
+      [placeholder]="customField?.placeholderText || 'Select an Option'"
+      (change)="!view ? emitData() : null"
+      [(ngModel)]="selected"
+      (search)="emitSearchTerm($event)"
+      [multiple]="false"
+      style="width: 100%;"
+      appearance="outline"
+      [hideSelected]="true"
+      [virtualScroll]="true"
+      #select
+    ></ng-select>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="cancelChanges()"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <!-- END IF NO ENTRY EVER MADE -->
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.SELECTED"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>
+<!-- single select field -->

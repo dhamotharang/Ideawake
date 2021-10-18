@@ -1,0 +1,119 @@
+<div class="modal-header card-header bg-white border-bottom-0">
+  <p class="uppercase bold small mb-0">Configure {{ gadgetType }} Chart</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modalScrollMaxHeight">
+  <h1>THIS VIEW SHOULD NOT EXIST, DELETE IT AND JUST AUTOMATICALLY ADD NEW GADGETS TO THE VIEW ONCLICK OF A GADGET FROM THE FIRST MODAL :)</h1>
+  <h5 class="montserrat">What Type of Data Do You Want to Graph?</h5>
+  <div class="row">
+    <div class="col-4 mb-3">
+      <div
+        class="card cardAnimation shadow-sm pointer selectStakeholder"
+        (click)="selectEntity(entitiesTypes.IDEA)"
+      >
+        <div class="card-body px-3 py-3">
+          <div class="custom-control custom-checkbox pointer">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [checked]="entitiesTypes.IDEA === selectedEntity"
+            />
+            <label class="custom-control-label font-weight-normal pointer">
+              Idea (Post Type)
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-4 mb-3">
+      <div
+        class="card cardAnimation shadow-sm pointer selectStakeholder"
+        (click)="selectEntity(entitiesTypes.USER)"
+      >
+        <div class="card-body px-3 py-3">
+          <div class="custom-control custom-checkbox pointer">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [checked]="entitiesTypes.USER === selectedEntity"
+            />
+            <label class="custom-control-label font-weight-normal pointer">
+              Users
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 mb-3">
+      <div
+        class="card cardAnimation shadow-sm pointer selectStakeholder"
+        (click)="selectEntity(entitiesTypes.CIRCLE)"
+      >
+        <div class="card-body px-3 py-3">
+          <div class="custom-control custom-checkbox pointer">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              [checked]="entitiesTypes.CIRCLE === selectedEntity"
+            />
+            <label class="custom-control-label font-weight-normal pointer">
+              Groups
+            </label>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div ngbDropdown>
+        <div
+          class="removeCaret py-2 pl-2 pr-3 border bg-white rounded addHover"
+          ngbDropdownToggle
+        >
+          Select Filters
+          <span class="float-right">
+            <fa-icon [icon]="['fas', 'sort']" class="text-muted"></fa-icon>
+          </span>
+        </div>
+
+        <div ngbDropdownMenu class="shadow p-2">
+          <div class="filtersMobile">
+            <div class="mr-2">
+              <div class="alert alert-info py-1 px-2 mb-2">
+                <p class="small mb-0" style="line-height: 1.25rem;">
+                  Filters will activate on the page as you select them. To hide
+                  filtering options, simply click anywhere outside of this
+                  dropdown.
+                </p>
+              </div>
+              <app-idea-filters
+                [entity]="entity"
+                [pageType]="'table'"
+                [appFilters]="appliedFilters"
+                (filterApplied)="applyFilters($event)"
+              >
+              </app-idea-filters>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of one -->
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+    Cancel
+  </button>
+  <button *ngIf="entity" class="btn btn-primary" (click)="createWidget()">
+    Save
+  </button>
+</div>

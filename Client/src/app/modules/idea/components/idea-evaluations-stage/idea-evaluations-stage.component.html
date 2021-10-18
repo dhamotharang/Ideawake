@@ -1,0 +1,178 @@
+<div class="row">
+  <div class="removePaddingOnMobile col-12">
+    <div class="card shadow-sm text-center" *ngIf="!evaluationSummary.length">
+      <div class="card-body pt-3 pb-5">
+        <fa-icon
+          [icon]="['fas', 'star']"
+          class="iconExtraLarge text-muted"
+        ></fa-icon>
+        <h4 class="montserrat bold mb-3 mt-4">
+          No Evaluations Have Been Completed On This Submission Yet
+        </h4>
+        <p class="lead mb-4">
+          Once an evaluation has been completed on this submission, you will see
+          a score between 0 - 100 on the ideas list page.
+        </p>
+        <button
+          class="btn btn-light btn-lg"
+          aria-label="Close"
+          (click)="close()"
+        >
+          Close Window
+        </button>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4" *ngIf="evaluationSummary.length">
+      <div class="card-header py-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="bold text-muted mb-0 uppercase pt-1 montserrat">
+              Evaluations
+            </p>
+          </li>
+          <li class="list-inline-item float-right">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+                <app-idea-evaluations-export
+                  [idea]="idea"
+                  [entityTypeId]="stageTypeEntity.id"
+                ></app-idea-evaluations-export>
+              </li>
+              <li class="list-inline-item">
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="close()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body modalScrollMaxHeight py-0 rounded">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="row">
+              <div class="col-12">
+                <!-- start of table -->
+                <table style="width: 100%">
+                  <thead class="pb-2 mb-2 border-bottom">
+                    <th
+                      scope="col"
+                      class="py-2 columnWidthExtraShort border-top-0 border-bottom-0"
+                    >
+                      Evaluation
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 columnWidthExtraShort border-top-0 border-bottom-0"
+                    >
+                      Assignees
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                    >
+                      Score
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                    >
+                      Days in Stage
+                    </th>
+                    <th
+                      scope="col"
+                      class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                    >
+                      Completion %
+                    </th>
+                  </thead>
+                  <tbody class="text-medium">
+                    <tr
+                      class="dottedBottomBorder"
+                      *ngFor="let evaluation of evaluationSummary"
+                    >
+                      <td class="my-0 py-2" scope="row">
+                        <p
+                          class="link mb-0"
+                          (click)="
+                            openIdeaEvalutionsCriteria(
+                              evaluation?.stage,
+                              evaluation?.score
+                            )
+                          "
+                        >
+                          {{ evaluation?.stage.title }}
+                        </p>
+                      </td>
+                      <td class="py-2">
+                        <p class="mb-0">
+                          {{
+                            evaluation?.assignees &&
+                            evaluation?.assignees.assigneeText
+                              ? evaluation?.assignees.assigneeText
+                              : '--'
+                          }}
+                        </p>
+                      </td>
+                      <td class="text-center py-2">
+                        <p class="mb-0">
+                          {{ evaluation?.score | number: '1.0-2' }} / 100
+                        </p>
+                      </td>
+                      <td class="text-center py-2">
+                        <p class="mb-0">
+                          {{ evaluation?.stage.daysInStage | number: '1.0-2' }}
+                          Days
+                        </p>
+                      </td>
+                      <td class="text-center py-2">
+                        <p
+                          class="mb-0"
+                          *ngIf="
+                            evaluation?.completionStats &&
+                            evaluation?.completionStats.completed &&
+                            evaluation?.completionStats.total
+                          "
+                        >
+                          {{
+                            evaluation?.completionStats.completed
+                              | number: '1.0-2'
+                          }}
+                          /
+                          {{
+                            evaluation?.completionStats.total | number: '1.0-2'
+                          }}
+                          ({{
+                            (evaluation?.completionStats.completed /
+                              evaluation?.completionStats.total) *
+                              100 | number: '1.0-2'
+                          }}%)
+                        </p>
+                        <p
+                          class="mb-0"
+                          *ngIf="
+                            !evaluation?.completionStats ||
+                            !evaluation?.completionStats.completed ||
+                            !evaluation?.completionStats.total
+                          "
+                        >
+                          --
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- end of table -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

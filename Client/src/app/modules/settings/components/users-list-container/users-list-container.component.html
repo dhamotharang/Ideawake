@@ -1,0 +1,479 @@
+<div class="row">
+  <div class="col-12 col-md-2 pr-md-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row mb-2 pt-3 pt-md-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-4 col-md-7">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="mb-0 uppercase bold pt-1">
+                      <span class="d-none d-md-inline">Manage </span>Users ({{
+                        totalCount || 0
+                      }})
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-8 col-md-5">
+                <span class="float-right">
+                  <button
+                    class="btn btn-primary btn-sm mr-2"
+                    routerLink="/settings/send-invites"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'envelope']"
+                      class="mr-1"
+                    ></fa-icon>
+                    Send Invites
+                  </button>
+                  <button
+                    class="btn btn-light border btn-sm"
+                    ngbTooltip="Export User List to CSV"
+                    (click)="exportUserList()"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'file-spreadsheet']"
+                      class="mr-1 text-muted"
+                    ></fa-icon>
+                    Export <span class="d-none d-md-inline">Users</span>
+                    <fa-icon
+                      [icon]="['fas', 'arrow-down']"
+                      class="text-muted small"
+                    ></fa-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="row pt-2 mb-0">
+              <div class="col-sm-12">
+                <div class="card rounded-0 shadow-sm mb-2">
+                  <div class="card-body pt-3 pb-3 px-0 px-md-3 bg-white">
+                    <div class="row">
+                      <div class="col-12 col-md-4">
+                        <app-search-inline
+                          (search)="searchUser($event)"
+                        ></app-search-inline>
+                      </div>
+                      <div class="col-12 col-md-2 pl-0">
+                        <ul
+                          class="list-inline mb-0"
+                          *ngIf="
+                            selected.length > 0 &&
+                            (currFilter == filters.active ||
+                              currFilter == filters.archived)
+                          "
+                        >
+                          <li class="list-inline-item">
+                            <ng-container *ngIf="currFilter == filters.active">
+                              <button
+                                (click)="bulkArchive()"
+                                class="btn btn-light btn-sm border"
+                                ngbTooltip="Archive Selected Users"
+                              >
+                                <small class="bold">
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                  Archive Users
+                                </small>
+                              </button>
+                            </ng-container>
+                            <ng-container
+                              *ngIf="currFilter == filters.archived"
+                            >
+                              <button
+                                (click)="bulkUnarchive()"
+                                class="btn btn-light btn-sm border"
+                                ngbTooltip="Archive Selected Users"
+                              >
+                                <small class="bold">
+                                  <fa-icon
+                                    [icon]="['fas', 'times-circle']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                  Unarchive Users
+                                </small>
+                              </button>
+                            </ng-container>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-12 col-md-6 pt-1">
+                        <ul class="nav alignLeftMobileRight mt-2 mt-md-0">
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem rounded"
+                              [ngClass]="{
+                                active: currFilter == filters.active
+                              }"
+                              (click)="changeFilter(filters.active)"
+                            >
+                              Active<span class="d-none d-md-inline">
+                                Users</span
+                              >
+                              ({{ count.active || 0 }})
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem"
+                              [ngClass]="{
+                                active: currFilter == filters.pending
+                              }"
+                              (click)="changeFilter(filters.pending)"
+                            >
+                              Pending<span class="d-none d-md-inline">
+                                Users</span
+                              >
+                              ({{ count.pending || 0 }})
+                            </a>
+                          </li>
+                          <li class="list-inline-item">
+                            <a
+                              class="text-medium filterItem"
+                              [ngClass]="{
+                                active: currFilter == filters.archived
+                              }"
+                              (click)="changeFilter(filters.archived)"
+                            >
+                              Archived<span class="d-none d-md-inline">
+                                Users</span
+                              >
+                              ({{ count.archived || 0 }})
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row pt-2 mb-0">
+              <div class="col-sm-12">
+                <div class="card rounded-0 shadow-sm mb-2">
+                  <div class="card-body bg-white">
+                    <div class="float-right">
+                      <app-table-pagination maxSize="2" [totalCount]="totalCount" (changePage)="changePage($event)"></app-table-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <!-- Data Table -->
+        <div class="row scrollTableOnMobile">
+          <div class="col-12 removePaddingOnMobile">
+            <table
+              *ngIf="currFilter != filters.pending"
+              class="table table-striped bg-white"
+              style="overflow-x: hidden;"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="selectAll"
+                      (ngModelChange)="changeAllSelection(selectAll)"
+                    />
+                  </th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Groups</th>
+                  <th class="w-15" scope="col">Last Login</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Points</th>
+                  <th scope="col">Ideas</th>
+                  <th scope="col">Comm</th>
+                  <th scope="col">Votes</th>
+                  <th class="w-10" scope="col">
+                    Manage
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of rows">
+                  <td>
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="row.checked"
+                      (ngModelChange)="selections()"
+                    />
+                  </td>
+                  <td class="pl-0">
+                    <div class="media">
+                      <img
+                        class="rounded-circle userImage mr-2"
+                        [defaultImage]="defaultImage"
+                        [lazyLoad]="row?.profileImage?.url || image"
+                        width="40px"
+                        height="40px"
+                      />
+                      <div class="media-body">
+                        <p class="mb-0 bold">
+                          <a
+                            [routerLink]="['/profile/view/', row.id]"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ boolean: true }"
+                          >
+                            {{ row.fullName }}
+                          </a>
+                        </p>
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item mr-0">
+                            <p class="small mb-0 text-muted">
+                              @{{ row?.userName }}
+                            </p>
+                          </li>
+                          <li class="list-inline-item ml-1 mr-1">
+                            <fa-icon
+                              [icon]="['fas', 'circle']"
+                              class="small separatorIcon text-muted"
+                            ></fa-icon>
+                          </li>
+                          <li class="list-inline-item">
+                            <p class="small mb-0 text-muted">{{ row.email }}</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge badge-light shadow-sm badgePadding">
+                      <fa-icon [icon]="['fas', 'dice-d20']"></fa-icon>
+                      {{ row.role?.role?.title }}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      class="badge badgeStyle"
+                      *ngFor="let elem of row.userCircles"
+                    >
+                      {{ elem?.circle?.name }}
+                    </span>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ row.lastLogin | timeAgo | dynamicTranslation }}
+                    </p>
+                  </td>
+                  <td>
+                    <span class="badge leaderboardBadge">
+                      {{ populateDetail('rank', row.id) }}
+                    </span>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ populateDetail('points', row.id) }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ populateDetail('ideas', row.id) }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ populateDetail('comment', row.id) }}
+                    </p>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ populateDetail('vote', row.id) }}
+                    </p>
+                  </td>
+                  <td *ngIf="currFilter === filters.active">
+                    <span class="d-inline">
+                      <fa-icon
+                        [icon]="['fas', 'edit']"
+                        class="mr-2 editLink"
+                        placement="top"
+                        ngbTooltip="Edit Profile"
+                        [routerLink]="[
+                          '',
+                          { outlets: { modal: ['edit-profile', row.id] } }
+                        ]"
+                      >
+                      </fa-icon>
+                      <fa-icon
+                        *ngIf="
+                          currentUser.user.id !== row.id &&
+                          currentUser.userCommunityPermissions
+                            .manageUserRoles &&
+                          !(
+                            row.role?.role?.abbreviation === 'admin' &&
+                            currentUser.userCommunityPermissions
+                              .manageUserRoles === permissionsMap.PARTIAL_ACCESS
+                          )
+                        "
+                        [icon]="['fas', 'dice-d20']"
+                        class="mr-2 editLink"
+                        placement="top"
+                        ngbTooltip="Edit Role"
+                        (click)="open(editRole)"
+                      >
+                        <ng-template
+                          #editRole
+                          let-modal
+                          let-dismiss="dismiss"
+                          let-close="close"
+                        >
+                          <app-edit-user-role-modal
+                            [user]="row"
+                            [dismiss]="dismiss"
+                            [close]="close"
+                            (outPut)="getList()"
+                          ></app-edit-user-role-modal>
+                        </ng-template>
+                      </fa-icon>
+                      <fa-icon
+                        *ngIf="
+                          !(currentUser.user.id === row.id) &&
+                          currentUser.userCommunityPermissions.archiveUser
+                        "
+                        [icon]="['fas', 'trash']"
+                        class="mr-2 editLink"
+                        placement="top"
+                        ngbTooltip="Archive User"
+                        (click)="archiveUser(row.id)"
+                      >
+                      </fa-icon>
+                    </span>
+                  </td>
+                  <td *ngIf="currFilter === filters.archived">
+                    <span class="d-inline">
+                      <fa-icon
+                        [icon]="['fas', 'undo']"
+                        class="mr-2 editLink"
+                        placement="top"
+                        ngbTooltip="Unarchive User"
+                        (click)="unarchiveUser(row.id)"
+                      >
+                      </fa-icon>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table
+              *ngIf="currFilter == filters.pending"
+              class="table table-striped bg-white"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Groups</th>
+                  <th scope="col">Date Sent</th>
+                  <th scope="col">Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let invite of rows">
+                  <td>
+                    <p class="mb-0">{{ invite.name }}</p>
+                    <span class="text-muted small">{{ invite.email }}</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-light badgePadding shadow-sm">
+                      {{ invite.role.title }}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      class="badge badgeStyle"
+                      *ngFor="let elem of invite.groups"
+                    >
+                      {{ elem.name }}
+                    </span>
+                  </td>
+                  <td>
+                    <p class="text-medium mb-0">
+                      {{ invite.createdAt | timeAgo | dynamicTranslation }}
+                    </p>
+                  </td>
+                  <td>
+                    <span
+                      *ngIf="
+                        !invite.inviteAccepted &&
+                        invite.statusCode !== 'Rejected'
+                      "
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'sync']"
+                        class="mr-3 editLink"
+                        placement="top"
+                        ngbTooltip="Resend Invite Email"
+                        (click)="resendInvite(invite.id)"
+                      ></fa-icon>
+                      <fa-icon
+                        [icon]="['fas', 'copy']"
+                        class="mr-3 editLink"
+                        placement="top"
+                        ngbTooltip="Copy Invite Link to Clipboard"
+                        (click)="copyToClipboard(invite.inviteUrl)"
+                      >
+                      </fa-icon>
+                      <fa-icon
+                        [icon]="['fas', 'trash']"
+                        class="mr-3 editLink"
+                        placement="top"
+                        ngbTooltip="Revoke Invite"
+                        (click)="deleteInvite(invite.id)"
+                      >
+                      </fa-icon>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-sm-12" *ngIf="rows.length !== 0">
+                        <app-datatable [rows]="rows" [columns]="columns" [selectAllRowsOnPage]="false"
+                          [selectionType]="'checkbox'" [limit]="10" [rowHeight]="50" [headerHeight]="50"
+                          [footerHeight]="10" [columnWidth]="690" [columnSortable]="true" [columnAutoResizable]="true"
+                          [columnDraggable]="false" [columnResizable]="false" [headerCheckboxable]="true"
+                          [checkboxable]="true" [modalCallback]="open" [actions]="'usersList'"
+                          (Select)="onSelect($event)">
+                        </app-datatable>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="row pt-2 mb-0">
+          <div class="col-sm-12">
+            <div class="card rounded-0 shadow-sm mb-2">
+              <div class="card-body bg-white">
+                <div class="float-right">
+                  <app-table-pagination
+                    maxSize="2"
+                    [totalCount]="totalCount"
+                    (changePage)="changePage($event)"
+                  >
+                  </app-table-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Table End -->
+      </div>
+    </div>
+  </div>
+</div>

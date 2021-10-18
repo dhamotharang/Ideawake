@@ -1,0 +1,281 @@
+<button class="btn btn-primary btn-sm" (click)="open(addNewScorecard)">
+  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+  Add New Scorecard
+</button>
+
+<!-- start of add field modal -->
+<ng-template #addNewScorecard let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Add New Scorecard</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-12 mb-2">
+          <label class="montserrat">Scorecard Title</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter a title for your scorecard..."
+          />
+        </div>
+      </div>
+      <!-- <div class="form-row">
+        <div class="col-7 form-group">
+          <label>Scorecard Type</label>
+          <select class="form-control">
+            <option>Stars</option>
+            <option>Smileys</option>
+            <option>Hearts</option>
+          </select>
+        </div>
+        <div class="col-5 form-group">
+          <label>Scale</label>
+          <select class="form-control">
+            <option>Five</option>
+            <option>Six</option>
+            <option>Seven</option>
+            <option>Eight</option>
+            <option>Nine</option>
+            <option>Ten</option>
+          </select>
+        </div>
+      </div> -->
+
+      <hr class="mt-2 mb-2" />
+      <!-- start of one section -->
+      <div class="row">
+        <div class="col-12">
+          <label class="montserrat">Scorecard Criteria</label>
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <!-- start of one -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-row flex-row align-items-center">
+                    <div class="col-8 mb-0 form-group">
+                      <div class="media">
+                        <div style="padding-top: 1.75rem;">
+                          <fa-icon
+                            [icon]="['fas', 'grip-vertical']"
+                            class="text-muted mr-3 iconLarge moveOnHover"
+                            placement="left"
+                            ngbTooltip="Drag and drop to change order"
+                          ></fa-icon>
+                        </div>
+                        <div class="media-body">
+                          <label class="font-weight-normal">Criteria One</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="This will positively impact customer experience"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2 mb-0 form-group">
+                      <label class="font-weight-normal">Weight</label>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="1"
+                          value="1"
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"
+                        />
+                        <div class="input-group-append">
+                          <span
+                            class="input-group-text text-muted px-2"
+                            id="basic-addon1"
+                            >.25</span
+                          >
+                        </div>
+                      </div>
+                      <!-- <input type="text" class="form-control" placeholder=".25" /> -->
+                    </div>
+                    <div
+                      class="col-2 mt-4 mb-0 form-group addRemoveOptionPadding"
+                    >
+                      <div class="float-right">
+                        <button
+                          class="btn btn-primary rounded-circle mr-1"
+                          ngbTooltip="Add criteria"
+                        >
+                          <fa-icon [icon]="['fas', 'plus']"> </fa-icon>
+                        </button>
+                        <button
+                          class="btn btn-light border rounded-circle"
+                          ngbTooltip="Remove criteria"
+                        >
+                          <fa-icon [icon]="['fas', 'times']"> </fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-12 mb-3 form-group descriptionFormGroup">
+                      <textarea
+                        *ngIf="criteriaDescription"
+                        class="form-control mt-2 criteriaDescription"
+                        placeholder="Add criteria description here..."
+                        rows="2"
+                      ></textarea>
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="inverseLink small mt-1 mb-0" (click)="toggleLabels()">
+                            <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                            Edit Responses
+                            <fa-icon [icon]="['fas', 'angle-down']" *ngIf="!editLabels"></fa-icon>
+                            <fa-icon [icon]="['fas', 'angle-up']" *ngIf="editLabels"></fa-icon>
+                          </p>
+                          <!-- <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="editLabels" />
+                            <label class="custom-control-label font-weight-normal" for="editLabels" (click)="toggleLabels()">Edit
+                              Labels</label>
+                          </div> -->
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="inverseLink small mt-1 mb-0" (click)="toggleCriteriaDescription()">
+                            <fa-icon [icon]="['fas', 'plus-circle']" *ngIf="!criteriaDescription"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" *ngIf="criteriaDescription"></fa-icon>
+                            Add Criteria Description
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of one -->
+            </div>
+          </div>
+          <!-- if edit labels -->
+          <div class="card bg-light shadow-sm mb-2" *ngIf="editLabels">
+            <div class="card-body px-3">
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <label class="mb-1 font-weight-normal text-medium">Response Labels</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..." value="Strongly Agree" />
+                </div>
+                <div class="col-2 form-group mb-0">
+                  <label class="mb-1 font-weight-normal text-medium">Points</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="5" />
+                </div>
+                <div class="col-4 mb-0 form-group"></div>
+              </div>
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..." value="Strongly Agree" />
+                </div>
+                <div class="col-2 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="5" />
+                </div>
+                <div class="col-3 mb-0 form-group">
+                  <button class="btn btn-primary btn-sm mr-1" ngbTooltip="Add criteria">
+                    <fa-icon [icon]="['fas', 'plus']"> </fa-icon> Add
+                  </button>
+                  <button class="btn btn-light btn-sm border" ngbTooltip="Remove Response Option">
+                    <fa-icon [icon]="['fas', 'times']" class="adjustFloat"></fa-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..." value="Agree" />
+                </div>
+                <div class="col-3 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="4" />
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..." value="Neutral" />
+                </div>
+                <div class="col-3 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="3" />
+                </div>
+                <div class="col-2 mb-0 form-group">
+                  <div class="float-right">
+                    <!-- <button class="btn btn-primary btn-sm mr-1" ngbTooltip="Add criteria">
+                      <fa-icon [icon]="['fas', 'plus']"> </fa-icon> Add
+                    </button> -->
+                    <button class="btn btn-light btn-sm border" ngbTooltip="Remove Response Option">
+                      <fa-icon [icon]="['fas', 'times']" class="adjustFloat"></fa-icon> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..." value="Disagree" />
+                </div>
+                <div class="col-3 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="2" />
+                </div>
+                <div class="col-2 mb-0 form-group">
+                  <div class="float-right">
+                    <!-- <button class="btn btn-primary btn-sm mr-1" ngbTooltip="Add criteria">
+                                      <fa-icon [icon]="['fas', 'plus']"> </fa-icon> Add
+                                    </button> -->
+                    <button class="btn btn-light btn-sm border" ngbTooltip="Remove Response Option">
+                      <fa-icon [icon]="['fas', 'times']" class="adjustFloat"></fa-icon> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                <div class="col-7 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="Enter label..."
+                    value="Strongly Disagree" />
+                </div>
+                <div class="col-3 form-group mb-0">
+                  <input type="text" class="form-control form-control-sm" placeholder="5" value="1" />
+                </div>
+                <div class="col-2 mb-0 form-group">
+                  <div class="float-right">
+                    <!-- <button class="btn btn-primary btn-sm mr-1" ngbTooltip="Add criteria">
+                                      <fa-icon [icon]="['fas', 'plus']"> </fa-icon> Add
+                                    </button> -->
+                    <button class="btn btn-light btn-sm border" ngbTooltip="Remove Response Option">
+                      <fa-icon [icon]="['fas', 'times']" class="adjustFloat"></fa-icon> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end if edit labels -->
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <button class="btn btn-primary btn-sm">
+                <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                Add New Criteria
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- end of one section -->
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border mr-auto">Cancel</button>
+    <button class="btn btn-outline-primary ml-2">
+      Save & Add New
+    </button>
+    <button class="btn btn-primary ml-2">
+      Save Question
+    </button>
+  </div>
+</ng-template>
+
+<!-- end of add scorecard modal -->

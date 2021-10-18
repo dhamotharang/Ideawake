@@ -1,0 +1,241 @@
+<div class="modal-header border-bottom-0 px-3 card-header">
+  <p class="small montserrat text-muted uppercase bold mb-0 pt-1">
+    Add New Question
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light pt-2 modalScrollMaxHeight" style="overflow-x: hidden;">
+  <form [formGroup]="form">
+    <div class="form-group mb-2">
+      <label class="montserrat">Question Title</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Start typing your question here..."
+      />
+    </div>
+    <div class="form-group mb-1" *ngIf="questionDescription">
+      <label class="montserrat">Question Description</label>
+      <textarea
+        class="form-control"
+        rows="2"
+        formControlName="description"
+        placeholder="Add further information needed to answer your question..."
+      ></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <p
+        class="mb-0 mt-2 text-medium inverseLink"
+        (click)="toggleDescription()"
+      >
+        <fa-icon
+          [icon]="['fas', 'plus-circle']"
+          placement="left"
+          *ngIf="!questionDescription"
+        ></fa-icon>
+        <fa-icon
+          [icon]="['fas', 'minus-circle']"
+          placement="left"
+          *ngIf="questionDescription"
+        ></fa-icon>
+        Question Description
+      </p>
+    </div>
+    <hr />
+    <label class="montserrat">
+      Enter Possible Responses
+      <fa-icon
+        [icon]="['fas', 'info-circle']"
+        class="text-muted"
+        ngbTooltip="Enter the different options a user can respond to with this question"
+      ></fa-icon>
+    </label>
+    <div class="card bg-white shadow-sm mb-3">
+      <div
+        cdkDropList
+        class="card-body pl-3 pr-2 pt-2 pb-3"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="form-row mb-1">
+          <div class="col-7 form-group mb-0">
+            <label
+              class="mb-0 font-weight-normal text-medium"
+              style="margin-left: 1.1rem;"
+              >Choices</label
+            >
+          </div>
+          <div class="col-2 form-group mb-0">
+            <label class="mb-0 font-weight-normal text-medium">Points</label>
+          </div>
+        </div>
+        <!-- Options Start -->
+        <div
+          cdkDrag
+          *ngFor="let option of options; let i = index"
+          class="form-row mb-2"
+        >
+          <div class="col-7 form-group mb-0">
+            <div class="media">
+              <fa-icon
+                cdkDragHandle
+                [icon]="['fas', 'grip-vertical']"
+                class="text-muted mr-2 moveOnHover pt-1"
+                placement="right"
+                container="body"
+                ngbTooltip="Drag and drop to change order"
+              ></fa-icon>
+              <div class="media-body">
+                <input
+                  type="text"
+                  (keyup)="setUniqueId(i)"
+                  class="form-control form-control-sm"
+                  placeholder="Enter choice..."
+                  [(ngModel)]="options[i].label"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-2 form-group mb-0">
+            <input
+              type="number"
+              min="0"
+              class="form-control form-control-sm"
+              placeholder="Points (5)"
+              [(ngModel)]="options[i].value"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+          <div class="col-3 mb-0 form-group pl-0">
+            <div class="float-right w-100">
+              <!-- <button
+                *ngIf="i == options?.length - 1"
+                (click)="addNew()"
+                class="btn btn-outline-primary border btn-sm mr-1"
+                ngbTooltip="Add Option"
+              >
+                <fa-icon
+                  [icon]="['fas', 'plus']"
+                  style="font-size: 0.75rem;"
+                ></fa-icon>
+                Add
+              </button> -->
+              <button (click)="addNew()" class="btn btn-outline-primary border btn-sm mr-1 w-50"
+                ngbTooltip="Add Option">
+                <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                Add
+              </button>
+              <button
+                (click)="remove(i)"
+                class="btn btn-outline-danger border btn-sm w-45"
+                ngbTooltip="Remove Option"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Options End -->
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <label class="montserrat">
+          Question Weight
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="What is this criteria weight relative to the other criteria?"
+          ></fa-icon>
+        </label>
+        <div class="card bg-white shadow-sm">
+          <div class="card-body p-3">
+            <div class="input-group">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                placeholder="Enter Question weight..."
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                formControlName="criteriaWeight"
+                (keyup)="getWeight()"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text text-muted" id="basic-addon1"
+                  >{{ weightPercentage }}%</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row d-none">
+      <div class="form-group col-12">
+        <label class="montserrat">
+          Display Settings
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="How would you like this data to be displayed?"
+          ></fa-icon>
+        </label>
+        <div class="card-group">
+          <div
+            class="card cardAnimation selectStakeholder active shadow-sm pointer"
+          >
+            <div class="card-body py-2">
+              <p class="card-title montserrat mb-0">
+                <fa-icon
+                  [icon]="['fas', 'hashtag']"
+                  ngbTooltip="How would you like this data to be displayed?"
+                >
+                </fa-icon>
+                Average Rating
+              </p>
+            </div>
+          </div>
+          <div class="card cardAnimation selectStakeholder shadow-sm pointer">
+            <div class="card-body py-2">
+              <p class="card-title montserrat mb-0">
+                <fa-icon [icon]="['fas', 'chart-pie']"> </fa-icon>
+                Distribution
+              </p>
+            </div>
+          </div>
+          <div class="card cardAnimation selectStakeholder shadow-sm pointer">
+            <div class="card-body py-2">
+              <p class="card-title montserrat mb-0">
+                <fa-icon [icon]="['fas', 'text']"> </fa-icon>
+                Top Response
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border mr-auto" (click)="close()">Cancel</button>
+  <button
+    *ngIf="!id"
+    class="btn btn-outline-primary ml-2"
+    [disabled]="!form.valid"
+    (click)="submit(addNewAgain)"
+  >
+    Save & Add New
+  </button>
+  <button
+    class="btn btn-primary ml-2"
+    [disabled]="!form.valid"
+    (click)="submit('')"
+  >
+    Save Question
+  </button>
+</div>
+<!-- end of add field modal -->

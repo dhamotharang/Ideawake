@@ -1,0 +1,144 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.navigationIcon {
+  font-size: 1.25rem;
+  position: relative;
+  top: 0.85rem;
+}
+
+.grayIcon .navigationIcon {
+  color: $gray-600;
+  background-color: $white;
+}
+
+.grayIcon:hover .navigationIcon {
+  color: $primary;
+  background-color: $white;
+}
+
+.navNotificationCounter {
+  position: absolute;
+  top: 0.4rem;
+  left: 1.3rem;
+  padding: 0.3rem 0.2rem;
+  font-size: 8.5px;
+  border-radius: 100px;
+  min-width: 1.15rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.profileDropdown {
+  left: -8.5rem;
+  position: absolute;
+  top: 4rem;
+  border-radius: 0;
+}
+
+.moreDropdown {
+  left: -10.5rem;
+  position: absolute;
+  top: 4rem;
+  border-radius: 0;
+}
+
+.taskNotificationsDropdown {
+  left: -25rem;
+  width: 30rem;
+  position: absolute;
+  top: 4rem;
+  border-radius: 0;
+}
+
+.notificationTextSize {
+  font-size: 95%;
+  word-wrap: break-word;
+}
+
+.unread {
+  background-color: #e8f7f4;
+}
+
+// extra small devices
+
+.navNotificationsDropdown {
+  left: -27.5rem !important;
+  width: 100vw;
+  position: absolute;
+  top: 2.05rem !important;
+  border-radius: 0;
+}
+
+.setNotificationHeight {
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .navNotificationsDropdown {
+    left: -27.5rem !important;
+    width: 100vw;
+    position: absolute;
+    top: 2.05rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 90vh;
+    overflow-y: scroll;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .navNotificationsDropdown {
+    left: -26.5rem !important;
+    width: 30rem;
+    position: absolute;
+    top: 3.9rem !important;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .navNotificationsDropdown {
+    left: -26.5rem;
+    width: 30rem;
+    position: absolute;
+    top: 3.9rem;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .navNotificationsDropdown {
+    left: -26.5rem;
+    width: 30rem;
+    position: absolute;
+    top: 3.9rem;
+    border-radius: 0;
+  }
+
+  .setNotificationHeight {
+    max-height: 30rem;
+    overflow-y: scroll;
+  }
+}

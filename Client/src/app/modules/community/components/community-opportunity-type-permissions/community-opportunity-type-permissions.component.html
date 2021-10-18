@@ -1,0 +1,295 @@
+<div class="card rounded-bottom-0">
+  <div class="card-header">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="mb-0 bold pt-1 uppercase text-muted">
+          Ownership, Team Member, and Co-Submitter Settings
+        </p>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body pt-0">
+    <div class="form-row border-bottom pt-3">
+      <div class="form-group col-8 mb-0">
+        <label>Idea Ownership</label>
+        <p class="small text-muted">
+          Enable idea ownership if you would like to be able to assign and hold
+          individuals accountable for progression of ideas in your system.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="allowOpportunityOwnership"
+            [(ngModel)]="
+              visibilityAndPermissionSettings.allowOpportunityOwnership
+            "
+            (change)="settings.emit(visibilityAndPermissionSettings)"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="allowOpportunityOwnership"
+          >
+            <span
+              *ngIf="visibilityAndPermissionSettings.allowOpportunityOwnership"
+              class="pl-1"
+              >Enabled</span
+            >
+            <span
+              *ngIf="!visibilityAndPermissionSettings.allowOpportunityOwnership"
+              >Disabled</span
+            >
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-row border-bottom pt-3">
+                              <div class="form-group col-8 mb-0">
+                                <label>Multiple Ownership</label>
+                                <p class="small text-muted">
+                                  If enabled, multiple idea owners will be able
+                                  to be assigned to a single idea.
+                                </p>
+                              </div>
+                              <div class="form-group col-4 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="multipleOwnership" />
+                                  <label class="custom-control-label" for="multipleOwnership">Enabled</label>
+                                </div>
+                              </div>
+                            </div> -->
+    <div class="form-row border-bottom pt-3 pb-3">
+      <div class="form-group col-8 mb-0">
+        <label>Assign Idea Submitter as Idea Owner</label>
+        <p class="small text-muted mb-0">
+          If enabled, the idea submitter will be added automatically as the
+          owner of the idea they submit.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="assignSubmitterAsOwner"
+            [(ngModel)]="
+              visibilityAndPermissionSettings.assignOpportunitySubmitterAsOwner
+            "
+            (change)="settings.emit(visibilityAndPermissionSettings)"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="assignSubmitterAsOwner"
+          >
+            <span
+              *ngIf="
+                visibilityAndPermissionSettings.assignOpportunitySubmitterAsOwner
+              "
+              class="pl-1"
+              >Enabled</span
+            >
+            <span
+              *ngIf="
+                !visibilityAndPermissionSettings.assignOpportunitySubmitterAsOwner
+              "
+              >Disabled</span
+            >
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-row border-bottom pt-3">
+                              <div class="form-group col-8 mb-0">
+                                <label>Require Confirmation Before Assigning
+                                  Ownership</label>
+                                <p class="small text-muted">
+                                  If enabled, owners will not be assigned as the
+                                  owner to an idea until they confirm that they
+                                  are the correct owner for it.
+                                </p>
+                              </div>
+                              <div class="form-group col-4 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="requireConfirmation" />
+                                  <label class="custom-control-label" for="requireConfirmation">Enabled</label>
+                                </div>
+                              </div>
+                            </div> -->
+    <!-- <div class="form-row border-bottom pt-3">
+                              <div class="form-group col-8 mb-0">
+                                <label>Pre-Select Potential Owners</label>
+                                <p class="small text-muted">
+                                  If enabled, only specific users that you
+                                  select within your community will be able to
+                                  be assigned as owners of an idea.
+                                </p>
+                              </div>
+                              <div class="form-group col-4 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="preSelectOwners" />
+                                  <label class="custom-control-label" for="preSelectOwners">Enabled</label>
+                                </div>
+                              </div>
+                            </div> -->
+    <!-- show if preselect potential owners is enabled -->
+
+    <!-- end show if preselect potential owners is enabled -->
+    <div class="form-row border-bottom pt-3">
+      <div class="form-group col-8 mb-0">
+        <label>Idea Teams</label>
+        <p class="small text-muted">
+          Enable idea teams if you would like to encourage collaboration around
+          ideas.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="teamMember"
+            [(ngModel)]="visibilityAndPermissionSettings.allowOpportunityTeams"
+            (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label font-weight-normal" for="teamMember">
+            <span *ngIf="visibilityAndPermissionSettings.allowOpportunityTeams" class="pl-1">Enabled</span>
+            <span *ngIf="!visibilityAndPermissionSettings.allowOpportunityTeams">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row border-bottom pt-3 d-none">
+      <div class="form-group col-8 mb-0">
+        <label>Team Based Idea Submission (OUT OF SCOPE)</label>
+        <p class="small text-muted">
+          If enabled, idea submitters will be able to invite other collaborators
+          to build a draft idea submission and co-submit an idea with them.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="allowTeamBasedOpportunitySubmission" [(ngModel)]="
+                  visibilityAndPermissionSettings.allowTeamBasedOpportunitySubmission
+                " (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label" for="allowTeamBasedOpportunitySubmission">Enabled</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row pt-3 pb-3 border-bottom">
+      <div class="form-group col-8 mb-0">
+        <label>Assign Idea Submitter as a Team Member</label>
+        <p class="small text-muted mb-0">
+          If enabled, the idea submitter will be added automatically as a team
+          member of the idea they submit.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="assignOpportunitySubmitterAsContributor"
+            [(ngModel)]="
+                  visibilityAndPermissionSettings.assignOpportunitySubmitterAsContributor
+                " (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label font-weight-normal" for="assignOpportunitySubmitterAsContributor">
+            <span *ngIf="
+                    visibilityAndPermissionSettings.assignOpportunitySubmitterAsContributor
+                  " class="pl-1">Enabled</span>
+            <span *ngIf="
+                    !visibilityAndPermissionSettings.assignOpportunitySubmitterAsContributor
+                  ">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row border-bottom pt-3 d-none">
+      <div class="form-group col-8 mb-0">
+        <label>Assign Team Members of Merged Ideas as Team Members of Parent Idea
+          (OUT OF SCOPE)</label>
+        <p class="small text-muted">
+          If enabled, child idea team members will automatically be added as
+          team members to a parent idea.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="assignMergedContributorsToParent" [(ngModel)]="
+                  visibilityAndPermissionSettings.assignMergedContributorsToParent
+                " (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label" for="assignMergedContributorsToParent">Enabled</label>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-row border-bottom pt-3">
+                                  <div class="form-group col-8 mb-0">
+                                    <label>Require Confirmation Before Adding New Member
+                                      to a Team</label>
+                                    <p class="small text-muted">
+                                      If enabled, once a team member is invited they
+                                      will show as a "pending" team member until
+                                      they accept the request to join an idea team.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <div class="custom-control custom-switch mr-auto float-right">
+                                      <input type="checkbox" class="custom-control-input pointer" id="requireConfirmation" />
+                                      <label class="custom-control-label" for="requireConfirmation">Enabled</label>
+                                    </div>
+                                  </div>
+                                </div> -->
+    <!-- <div class="form-row border-bottom pt-3">
+                                  <div class="form-group col-8 mb-0">
+                                    <label>Allow Users to Request to Join Teams (Limit
+                                      by stage or status)</label>
+                                    <p class="small text-muted">
+                                      If enabled, users will be able to request to
+                                      join the team of an idea.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-4 mb-0">
+                                    <div class="custom-control custom-switch mr-auto float-right">
+                                      <input type="checkbox" class="custom-control-input pointer" id="preSelectOwners" />
+                                      <label class="custom-control-label" for="preSelectOwners">Enabled</label>
+                                    </div>
+                                  </div>
+                                </div> -->
+    <div class="form-row pt-3">
+      <div class="form-group col-8 mb-0">
+        <label>Co-Submitters</label>
+        <p class="small text-muted mb-0">
+          If enabled, idea submitters will be able to invite other collaborators
+          to build a draft idea submission and co-submit an idea with them.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="allowOpportunityCosubmitters" [(ngModel)]="
+                  visibilityAndPermissionSettings.allowOpportunityCosubmitters
+                " (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label font-weight-normal" for="allowOpportunityCosubmitters">
+            <span *ngIf="
+                    visibilityAndPermissionSettings.allowOpportunityCosubmitters
+                  " class="pl-1">Enabled</span>
+            <span *ngIf="
+                    !visibilityAndPermissionSettings.allowOpportunityCosubmitters
+                  ">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row border-bottom pt-3 d-none">
+      <div class="form-group col-8 mb-0">
+        <label>Assign Co-Submitters of Merged Ideas as Co-Submitters of Parent
+          Idea</label>
+        <p class="small text-muted">
+          If enabled, child idea team members will automatically be added as
+          team members to a parent idea.
+        </p>
+      </div>
+      <div class="form-group col-4 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input type="checkbox" class="custom-control-input pointer" id="assignMergedCosubmittersToParent" [(ngModel)]="
+                  visibilityAndPermissionSettings.assignMergedCosubmittersToParent
+                " (change)="settings.emit(visibilityAndPermissionSettings)" />
+          <label class="custom-control-label" for="assignMergedCosubmittersToParent">Enabled</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,190 @@
+<div class="row" *ngIf="isLoading">
+  <div class="col-12">
+    <app-stage-progress-loader></app-stage-progress-loader>
+  </div>
+</div>
+<div class="row mb-0" *ngIf="idea?.workflow && !isLoading">
+  <div class="col-12">
+    <!-- if unassigned -->
+    <div class="row" *ngIf="!stageAssignees || stageAssignees?.length === 0">
+      <div class="col-12 removePaddingOnMobile">
+        <div
+          class="alert alert-warning pb-2 pt-2 px-3 mb-2"
+          (click)="manageStage()"
+        >
+          <div class="media">
+            <p class="small mb-0 align-self-center">
+              {{ 'IdeaPage.StageUnassigned' | translationPipe }}
+            </p>
+            <div class="media-body ml-2">
+              <button
+                class="btn btn-warning btn-sm text-white notificationButton float-right"
+                style="font-size: 65%;"
+              >
+                Assign Stage
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end if unassigned -->
+    <div class="row d-none" *ngIf="stageStats?.completed === stageStats?.total">
+      <div class="col-12 removePaddingOnMobile">
+        <div class="alert alert-success p-2">
+          <div class="row">
+            <div class="col-8">
+              <p class="mb-0 small">
+                This stage is now completed. Please change the stage of this
+                idea to keep it progressing.
+              </p>
+            </div>
+            <div class="col-4">
+              <ul class="list-inline mb-0 float-right">
+                <li class="list-inline-item">
+                  <span
+                    class="badge badge-danger badgePadding cardAnimation pointer"
+                    ngbTooltip="Move this idea to the parking lot."
+                    style="border-radius: 50px;"
+                  >
+                    <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                    Archive
+                  </span>
+                </li>
+                <li class="list-inline-item">
+                  <span
+                    class="badge badge-success badgePadding cardAnimation pointer"
+                    ngbTooltip="Progress this idea to the next stage."
+                    style="border-radius: 50px;"
+                  >
+                    <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+                    Progress
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 3 columns information -->
+    <div
+      class="row"
+      *ngIf="
+        currentStage?.actionItem?.abbreviation === actionItemsAbbr.SCORECARD ||
+        currentStage?.actionItem?.abbreviation === actionItemsAbbr.REFINEMENT
+      "
+    >
+      <div class="col-6 col-md-4">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="mt-1 mb-0 small text-muted adjustFloatUpSmall">
+              {{ 'SharedText.Assigned' | translationPipe }}
+              ({{ stageAssignees?.length || 0 }})
+            </p>
+          </li>
+          <li
+            *ngIf="userOpportunityPermissions?.changeOpportunityStage"
+            class="list-inline-item"
+          >
+            <button
+              class="btn btn-light py-1 btn-xs border"
+              (click)="manageStage()"
+            >
+              <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+              {{ 'SharedText.EditStage' | translationPipe }}
+            </button>
+          </li>
+        </ul>
+        <div class="row">
+          <div class="col-12 removePaddingOnMobile">
+            <ul class="list-inline mb-0">
+              <li
+                class="list-inline-item removeMargins mb-1"
+                *ngFor="let assignee of stageAssignees"
+              >
+                <img
+                  class="userImageStageAssignee rounded-circle"
+                  [ngbTooltip]="assignee.firstName + ' ' + assignee.lastName"
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="assignee.profileImage.url"
+                />
+              </li>
+              <li class="list-inline-item removeMargins mb-1">
+                <button
+                  class="btn btn-light btn-sm text-primary shadow-sm rounded-circle pointer"
+                  style="border: 2px solid white;"
+                  (click)="manageStage()"
+                  ngbTooltip="Add or Edit Assignees"
+                  placement="right"
+                >
+                  <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- *ngIf="stageAssignees?.length > 0" -->
+      <div class="col-5">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="mb-0 small text-muted">
+              {{ 'SharedText.Progress' | translationPipe }}
+              ({{
+                ceiling((stageStats?.completed / stageStats?.total) * 100) || 0
+              }}%)
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p class="small text-muted mb-0 mr-1">
+                  {{ stageStats?.completed || 0 }}/{{ stageStats?.total || 0 }}
+                  {{ 'IdeaPage.Completed' | translationPipe }}
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div
+          class="progress"
+          style="
+            height: 1.55rem;
+            border-radius: 25px;
+            position: relative;
+            top: 0.35rem;
+          "
+          *ngIf="
+            currentStage?.actionItem?.abbreviation ===
+              actionItemsAbbr.SCORECARD ||
+            currentStage?.actionItem?.abbreviation ===
+              actionItemsAbbr.REFINEMENT
+          "
+        >
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-valuenow="25"
+            aria-valuemin="34"
+            aria-valuemax="100"
+            [ngStyle]="{
+              width:
+                (ceiling((stageStats?.completed / stageStats?.total) * 100) ||
+                  0) + '%'
+            }"
+          ></div>
+        </div>
+      </div>
+      <div class="col-3">
+        <p class="mt-1 mb-0 small text-muted adjustFloatUpSmall">
+          {{ 'SharedText.DueDate' | translationPipe }}
+        </p>
+        <p class="text-muted montserrat" style="font-size: 24px;">
+          {{ stageDueDate.format('MM/DD/YY') }}
+        </p>
+      </div>
+    </div>
+    <!-- end 3 columns information -->
+  </div>
+</div>

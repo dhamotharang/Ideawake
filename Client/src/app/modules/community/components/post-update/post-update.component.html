@@ -1,0 +1,710 @@
+<div class="container-fluid pageTopPadding setMaxWidth">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-2">
+          <!-- testing testing testing testing -->
+        </div>
+        <div class="col-7">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-white border-bottom-0 pb-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p
+                    class="uppercase montserrat text-medium text-muted bold mb-0"
+                  >
+                    Who Should This Update Be Sent To? ({{ totalTargetsCount }}
+                    Members)
+                  </p>
+                </li>
+                <li class="list-inline-item float-right">
+                  <button
+                    class="btn btn-light btn-xs border"
+                    *ngIf="!audienceEditMode"
+                    (click)="onClickButton('')"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Edit Targeting
+                  </button>
+                  <div *ngIf="audienceEditMode">
+                    <button
+                      class="btn btn-light btn-xs border py-2"
+                      (click)="onClickButton('Cancel')"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      class="btn btn-primary btn-xs py-2 ml-2"
+                      (click)="onClickButton('Save')"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body pt-2">
+              <!-- edit mode -->
+              <div class="row" *ngIf="audienceEditMode">
+                <div class="col-12">
+                  <app-update-audience
+                    [level]="level"
+                    [targeting]="targeting"
+                    (updatedSettings)="updateAssigneeSettings($event)"
+                  ></app-update-audience>
+                </div>
+              </div>
+              <!-- end edit mode -->
+              <!-- non edit mode -->
+              <div class="row" *ngIf="!audienceEditMode">
+                <div class="col-12">
+                  <div
+                    class="showEditOnHover"
+                    (click)="audienceEditMode = !audienceEditMode"
+                  >
+                    <p class="mb-0">
+                      {{
+                        assigneeDetail() ||
+                          'This update will target no participants'
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- end non edit mode -->
+            </div>
+          </div>
+          <div class="card mb-md-4 shadow-sm">
+            <div class="card-header bg-white border-bottom-0">
+              <p class="uppercase montserrat text-medium text-muted bold mb-0">
+                Update Details
+              </p>
+            </div>
+            <div class="card-body pt-2">
+              <form [formGroup]="postUpdateForm">
+                <!-- <div class="form-group">
+                  <label>Featured Image or Video</label>
+                  <div class="featuredImageContainer rounded">
+                    <ul class="list-unstyled text-center mb-0">
+                      <li>
+                        <fa-icon [icon]="['fas', 'image']" class="text-muted iconLarge"></fa-icon>
+                      </li>
+                      <li>
+                        <p class="text-medium text-muted mb-0">
+                          Upload a featured image or video for your update
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div> -->
+                <div class="form-group">
+                  <label>Update Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Only two weeks left to submit your solutions"
+                    formControlName="title"
+                  />
+                  <p class="form-text text-muted small mb-0">
+                    This is the title of your update. If you send an email, it
+                    will be shown as the subject line.
+                  </p>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Message</label>
+                  <app-markup-editor
+                    [height]="400"
+                    [text]="postUpdateForm.value.message"
+                    (outputText)="updateMessage($event)"
+                  >
+                  </app-markup-editor>
+                </div>
+                <!-- <div class="form-group">
+                  <app-upload-content-options></app-upload-content-options>
+                </div> -->
+                <div class="form-row pb-2">
+                  <div class="form-group col-12 mb-3">
+                    <div
+                      class="addFiles text-center"
+                      (click)="openUploadComponent()"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'file-alt']"
+                        class="text-muted mr-1"
+                      ></fa-icon>
+                      Add Files, Images, or Video
+                      <!-- <ul class="list-unstyled mb-0 py-2">
+                        <li>
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'file-image']"
+                                class="iconLarge text-muted"
+                              ></fa-icon>
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'file-word']"
+                                style="font-size: 2rem;"
+                                class="iconLarge text-muted"
+                              ></fa-icon>
+                            </li>
+                            <li class="list-inline-item">
+                              <fa-icon
+                                [icon]="['fas', 'file-video']"
+                                class="iconLarge text-muted"
+                              ></fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <p class="mt-1 mb-0">
+                            Click Here to Upload Files, Images, or Video
+                          </p>
+                        </li>
+                      </ul> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- start of files added -->
+                <ul
+                  class="list-unstyled border-bottom mb-0 pb-2"
+                  *ngIf="attachments.length"
+                >
+                  <li
+                    class="mb-1"
+                    *ngFor="let attachment of attachments; let i = index"
+                  >
+                    <div class="media">
+                      <fa-icon
+                        [icon]="['fas', 'file']"
+                        class="text-info text-medium"
+                      ></fa-icon>
+                      <a
+                        class="inverseLinkDark text-medium ml-2"
+                        [href]="attachment.url"
+                        target="_blank"
+                        [ngbTooltip]="attachment.name"
+                      >
+                        {{
+                          attachment.name.length > 40
+                            ? attachment.name.substring(0, 40) + '...'
+                            : attachment.name
+                        }}</a
+                      >
+                      <div class="media-body">
+                        <p
+                          class="float-right mb-0 inverseLinkDanger text-medium"
+                          (click)="deleteMedia(i)"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'times-circle']"
+                            class="text-medium"
+                          ></fa-icon>
+                          {{ 'IdeaUsers.Labels.Remove' | translationPipe }}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <!-- end of files added -->
+                <div class="form-row pt-3">
+                  <div class="form-group col-12 col-md-8 mb-3">
+                    <label>When Would You Like to Send This Update?</label>
+                    <div ngbDropdown container="body" #startDrop="ngbDropdown">
+                      <div class="input-group mb-0">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon2">
+                            <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                          </span>
+                        </div>
+                        <div
+                          class="form-control dateP"
+                          ngbDropdownToggle
+                          (click)="openDatePicker()"
+                        >
+                          <span
+                            *ngIf="postUpdateForm.value.scheduleDate == null"
+                          >
+                            {{ 'Send Now' }}
+                          </span>
+                          <span
+                            *ngIf="
+                              postUpdateForm.value.scheduleDate ||
+                              postUpdateForm.value.scheduleTime
+                            "
+                          >
+                            {{ postUpdateForm.value.scheduleDate }}
+                            {{ postUpdateForm.value.scheduleTime }}
+                          </span>
+                        </div>
+                        <div
+                          ngbDropdownMenu
+                          class="shadow py-0 w-100"
+                          isOpen="dropdownIsOpen"
+                          style="min-width: 30%;"
+                        >
+                          <div class="card bg-light border-0">
+                            <div class="card-body p-3">
+                              <p class="bold text-center mb-2">
+                                Schedule Update
+                              </p>
+                              <hr class="mt-0" />
+                              <div class="form-row mb-3">
+                                <div class="col-6 form-group mb-0">
+                                  <label class="text-medium text-muted"
+                                    >Select Date</label
+                                  >
+                                  <input
+                                    type="text"
+                                    formControlName="scheduleDate"
+                                    class="form-control form-control-sm"
+                                    placeholder="10/22/20"
+                                    [value]="postUpdateForm.value.scheduleDate"
+                                  />
+                                </div>
+                                <div class="col-6 form-group mb-0">
+                                  <label class="text-medium text-muted"
+                                    >Select Time</label
+                                  >
+                                  <input
+                                    type="text"
+                                    formControlName="scheduleTime"
+                                    class="form-control form-control-sm"
+                                    placeholder="10:55 PM"
+                                  />
+                                </div>
+                              </div>
+                              <ngb-datepicker
+                                #d
+                                [minDate]="minDate"
+                                (dateSelect)="
+                                  onDateSelect($event, 'scheduleDate')
+                                "
+                                class="w-100"
+                              ></ngb-datepicker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="form-text text-muted small mb-0">
+                      Unless you specify a time, your update will be sent as
+                      soon as you post it.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="alert alert-warning small text-center py-2 w-100"
+                  *ngIf="postUpdateForm.value.sendEmail"
+                >
+                  This announcement will result in
+                  <b>{{ totalTargetsCount }} emails</b> being sent to your
+                  community.
+                </div>
+                <p class="mb-0 pb-2 bold border-bottom mt-3">
+                  Update Settings
+                </p>
+                <div class="form-row text-medium">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+                      <div class="form-group col-9 mb-0">
+                        <label
+                          class="mb-0 font-weight-normal"
+                          placement="right"
+                          ngbTooltip="If enabled, an email will be sent to {{
+                            totalTargetsCount
+                          }} members targeted for this update."
+                        >
+                          Send as an Email
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted ml-1"
+                          ></fa-icon>
+                        </label>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="sendEmail"
+                            formControlName="sendEmail"
+                          />
+                          <label
+                            class="switchLabel custom-control-label font-weight-normal"
+                            for="sendEmail"
+                          >
+                            <span
+                              *ngIf="postUpdateForm.value.sendEmail"
+                              class="pl-1"
+                            >
+                              {{
+                                'ChallengePost.Labels.Enabled' | translationPipe
+                              }}
+                            </span>
+                            <span *ngIf="!postUpdateForm.value.sendEmail">
+                              Disabled
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row text-medium">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+                      <div class="form-group col-9 mb-0">
+                        <label
+                          class="mb-0 font-weight-normal"
+                          placement="right"
+                          ngbTooltip="If enabled, this update will be visible to all targeted participants on the community home page."
+                        >
+                          Display in Feed
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted ml-1"
+                          ></fa-icon>
+                        </label>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="sendFeed"
+                            formControlName="sendFeed"
+                          />
+                          <label
+                            class="switchLabel custom-control-label font-weight-normal"
+                            for="sendFeed"
+                          >
+                            <span
+                              *ngIf="postUpdateForm.value.sendFeed"
+                              class="pl-1"
+                            >
+                              {{
+                                'ChallengePost.Labels.Enabled' | translationPipe
+                              }}
+                            </span>
+                            <span *ngIf="!postUpdateForm.value.sendFeed">
+                              Disabled
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="form-row text-medium">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+                      <div class="form-group col-9 mb-0">
+                        <label
+                          class="mb-0 font-weight-normal"
+                          placement="right"
+                          ngbTooltip="If enabled"
+                        >
+                          Allow Commenting on This Announcement
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted ml-1"
+                          ></fa-icon>
+                        </label>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="allowCommenting"
+                            formControlName="allowCommenting"
+                          />
+                          <label
+                            class="switchLabel custom-control-label font-weight-normal"
+                            for="allowCommenting"
+                          >
+                            <span
+                              *ngIf="postUpdateForm.value.allowCommenting"
+                              class="pl-1"
+                            >
+                              {{
+                                'ChallengePost.Labels.Enabled' | translationPipe
+                              }}
+                            </span>
+                            <span *ngIf="!postUpdateForm.value.allowCommenting">
+                              Disabled
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row text-medium">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row pt-2 pb-3 mx-0">
+                      <div class="form-group col-9 mb-0">
+                        <label
+                          class="mb-0 font-weight-normal"
+                          placement="right"
+                          ngbTooltip="If enabled"
+                        >
+                          Allow Voting on This Announcement
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted ml-1"
+                          ></fa-icon>
+                        </label>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="allowVoting"
+                            formControlName="allowVoting"
+                          />
+                          <label
+                            class="switchLabel custom-control-label font-weight-normal"
+                            for="allowVoting"
+                          >
+                            <span
+                              *ngIf="postUpdateForm.value.allowVoting"
+                              class="pl-1"
+                            >
+                              {{
+                                'ChallengePost.Labels.Enabled' | translationPipe
+                              }}
+                            </span>
+                            <span *ngIf="!postUpdateForm.value.allowVoting">
+                              Disabled
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+            <div class="card-footer">
+              <!-- <button type="button" class="btn btn-light border float-left">
+                Cancel
+              </button> -->
+              <div class="float-right">
+                <button
+                  *ngIf="!announcement"
+                  type="button"
+                  class="btn btn-white border"
+                  (click)="onSubmit('draft')"
+                >
+                  Save Draft
+                </button>
+                <button
+                  *ngIf="announcement"
+                  type="button"
+                  class="btn btn-primary ml-2"
+                  (click)="
+                    announcement.status == 'draft'
+                      ? onSubmit('draft')
+                      : onSubmit('scheduled')
+                  "
+                >
+                  Save Changes
+                </button>
+                <button
+                  *ngIf="!announcement || announcement.status == 'draft'"
+                  type="button"
+                  class="btn btn-primary ml-2"
+                  (click)="
+                    postUpdateForm.value.sendEmail
+                      ? open(confirmSend)
+                      : onSubmit('scheduled')
+                  "
+                >
+                  {{
+                    postUpdateForm.value.scheduleDate != null
+                      ? 'Schedule'
+                      : 'Post'
+                  }}
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <!-- <p class="uppercase montserrat text-muted small bold mb-0">Annoucement Templates</p>
+          <hr class="mt-2">
+          <div class="row">
+            <div class="col-12">
+              <p class="text-medium mb-2">This is update title This is update title This is update title</p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <button class="btn btn-white py-2 btn-xs mr-2">Use Template</button>
+                  <button class="btn btn-white py-2 btn-xs">Preview</button>
+                </li>
+              </ul>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <p class="text-medium mb-2">This is update title This is update title This is update title</p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <button class="btn btn-white py-2 btn-xs mr-2">Use Template</button>
+                  <button class="btn btn-white py-2 btn-xs">Preview</button>
+                </li>
+              </ul>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <p class="text-medium mb-2">This is update title This is update title This is update title</p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <button class="btn btn-white py-2 btn-xs mr-2">Use Template</button>
+                  <button class="btn btn-white py-2 btn-xs">Preview</button>
+                </li>
+              </ul>
+              <hr>
+            </div>
+          </div>
+          <button class="btn btn-outline-primary btn-block" (click)="open(viewTemplates)">
+            View All Templates
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmSend let-modal>
+  <div class="modal-header border-bottom-0 bg-light card-header pb-0">
+    <div class="alert alert-warning small text-center py-2 w-100">
+      This announcement will result in
+      <b>{{ totalTargetsCount }} emails</b> being sent to your community.
+    </div>
+    <!-- <p class="uppercase bold text-muted mb-0 small">Post Update Confirmation</p> -->
+    <!-- <button type="button" class="close iconLarge" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </div>
+  <div class="modal-body bg-light">
+    <div class="text-center mb-3">
+      <fa-icon
+        [icon]="['fas', 'bullhorn']"
+        class="text-primary p-4 shadow-sm border bg-white rounded-circle iconExtraLarge"
+      ></fa-icon>
+    </div>
+    <h5 class="pt-3 bold text-center montserrat">
+      Ready to Send / Schedule Your Annoucement?
+    </h5>
+    <!-- <p class="text-center pt-2">
+      This annoucement will be sent on <b>now</b> at 3:55PM CST to
+      <b>3,356 people</b>. This update will be sent as an email and will be
+      displayed in the feed.
+    </p> -->
+    <p class="text-center pt-2">
+      This annoucement will be sent on
+      <b>{{
+        postUpdateForm.value.scheduleDate != null
+          ? postUpdateForm.value.scheduleDate
+          : 'now'
+      }}</b>
+      at {{ postUpdateForm.value.scheduleTime || currentTime }}. This update
+      will be sent as an email and will be displayed in the feed.
+    </p>
+    <div class="text-center mt-4">
+      <button
+        type="button"
+        class="btn btn-white border mr-2"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Go Back
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onSubmit('scheduled'); modal.dismiss('Cross click')"
+      >
+        {{ postUpdateForm.value.scheduleDate != null ? 'Schedule' : 'Post' }}
+        Update
+      </button>
+    </div>
+    <!-- <form>
+      <div class="form-group">
+        <label>Please Type Confirm</label>
+        <input type="text" class="form-control form-control-lg" placeholder="CONFIRM" />
+      </div>
+    </form> -->
+  </div>
+  <div class="modal-footer bg-light border-top-0"></div>
+</ng-template>
+
+<ng-template #viewTemplates let-modal>
+  <div class="modal-header border-bottom-0 bg-light card-header">
+    <p class="uppercase bold text-muted mb-0 text-medium montserrat">
+      Update Templates (515)
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div
+    class="modal-body bg-light"
+    style="overflow-y: scroll; max-height: 35rem;"
+  >
+    <div class="row mb-2">
+      <div class="col-12">
+        <app-search-inline></app-search-inline>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <!-- start of one -->
+        <div class="row py-2">
+          <div class="col-9">
+            <p class="mb-1 bold montserrat">Template Title</p>
+            <p class="small mb-0">
+              Template description this is the template description
+            </p>
+            <!-- <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <span class="link">Use Template</span>
+              </li>
+            </ul> -->
+          </div>
+          <div class="col-3">
+            <button class="btn btn-primary btn-xs py-2 float-right">
+              Use Template
+            </button>
+          </div>
+        </div>
+        <hr class="my-1" />
+        <!-- end of one -->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light border-top-0"></div>
+</ng-template>

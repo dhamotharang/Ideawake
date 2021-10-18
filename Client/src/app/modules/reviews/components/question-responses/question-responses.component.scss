@@ -1,0 +1,74 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.reviewIcon {
+  font-size: 2rem;
+}
+
+.resultsDisplay {
+  height: 1.25rem;
+  border-radius: 0.15rem;
+  margin-bottom: 0;
+}
+
+.increaseQuestionWidth {
+  width: 125%;
+}
+
+.selectStakeholder {
+  background-color: $white;
+  color: $gray-900;
+  text-align: center;
+}
+
+.selectStakeholder:hover {
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selectStakeholder.active {
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+}
+
+.selectStakeholder .icon {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .icon {
+  color: $white;
+}
+
+.selectStakeholder.active .icon {
+  color: $white;
+}
+
+.userImage {
+  border: 2px solid white;
+  max-width: 2rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.circleIcon {
+  font-size: 5px;
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.removeMargins {
+  margin-right: -0.6rem;
+}
+
+.repositionUsers {
+  position: relative;
+  bottom: 0.35rem;
+}
+
+.commentImage {
+  width: 2rem;
+}

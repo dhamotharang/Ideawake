@@ -1,0 +1,1257 @@
+<div class="row bg-light py-3 mb-3 border-bottom shadow-sm">
+  <div class="col-12 col-md-8 offset-md-2">
+    <div class="row">
+      <div class="col-6">
+        <ul class="list-inline mb-0 adjustFloat">
+          <li class="list-inline-item">
+            <h4 class="mb-0 montserrat ml-2">Update Challenge Phase</h4>
+          </li>
+          <li class="list-inline-item">
+            <span class="badge badge-info badgePadding ml-1 adjustFloatUp"
+              >Current Phase</span
+            >
+            <!-- <span class="font-italic small ml-2 text-muted">Draft Last Saved on DateTime</span> -->
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <div class="float-right mr-2">
+          <button
+            class="btn btn-light btn-sm border mr-1"
+            routerLink="/challenge-view-container"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-primary btn-sm">
+            <fa-icon [icon]="['fas', 'arrow-down']"></fa-icon>
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+      <div class="row">
+        <div class="col-12">
+          <ngb-tabset type="pills" [justify]="fill">
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <p class="mb-0 montserrat small">
+                  <fa-icon [icon]="['fas', 'lightbulb']"></fa-icon>
+                  Select Submissions
+                </p>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card mb-4 shadow-sm">
+                      <div class="card-header">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            <p class="uppercase bold text-muted mb-0">
+                              Select Ideas
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="card-body">
+                        <form></form>
+                      </div>
+                      <div class="card-footer">
+                        <div class="form-row">
+                          <div class="col-12 col-md-2 form-group mb-0"></div>
+                          <div
+                            class="col-12 col-md-2 offset-md-5 form-group mb-0"
+                          ></div>
+                          <div class="col-12 col-md-3 form-group mb-0">
+                            <button
+                              class="btn btn-primary btn-block"
+                              routerLink="/challenges-view-container"
+                            >
+                              Next
+                              <fa-icon
+                                [icon]="['fas', 'angle-right']"
+                              ></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <p class="mb-0 montserrat small">
+                  <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+                  Confirm Settings
+                </p>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card mb-4 shadow-sm">
+                      <div class="card-header">
+                        <p class="uppercase bold text-muted mb-0">
+                          Challenge Settings
+                        </p>
+                      </div>
+                      <div class="card-body pt-4">
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Select Participants</label>
+                          </div>
+                          <div class="form-group col-md-4 col-12">
+                            <input type="text" class="form-control" />
+                          </div>
+                          <div class="col-md-1"></div>
+                          <div class="form-group col-md-4 col-12">
+                            <input type="text" class="form-control" />
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Select Sponsors</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12">
+                            <app-search-users></app-search-users>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Select Moderators</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12">
+                            <app-search-users></app-search-users>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Challenge Title</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="How might we improve customer experience this year?"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Challenge Description</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12">
+                            <div class="form-group mb-2">
+                              <textarea
+                                class="form-control"
+                                rows="5"
+                                placeholder="At Example Company, our goal is to always deliver a superior customer experience. Let us know how we can transform the way we help add value to our consumers."
+                              ></textarea>
+                            </div>
+                            <div
+                              class="form-row pt-2 pb-2 mx-0 dottedBottomBorder"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Additional Challenge Brief</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="additionalChallengeBrief"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="additionalChallengeBrief"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if additional challenge brief enabled -->
+                            <div
+                              class="card rounded-0"
+                              *ngIf="additionalChallengeBrief"
+                            >
+                              <div class="card-body px-3 py-3 bg-light">
+                                <div class="form-group">
+                                  <label>Additional Challenge Brief</label>
+                                  <app-markup-editor></app-markup-editor>
+                                  <textarea
+                                    class="form-control"
+                                    rows="10"
+                                  ></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Dedicated Terms and Conditions for This
+                                  Challenge</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if special terms enabled -->
+                            <div
+                              class="card rounded-0 border-top-0 bg-light"
+                              *ngIf="dedicatedTerms"
+                            >
+                              <div class="card-body px-3 py-3">
+                                <div class="alert alert-info">
+                                  <p class="small mb-0">
+                                    By requiring participants to opt in to terms
+                                    and conditions, they will first be required
+                                    to "register" for your challenge before
+                                    being able to post an idea.
+                                  </p>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-5 mb-2">
+                                    <label class="font-weight-normal"
+                                      >Introductory Message</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      This is the introductory message that
+                                      participants will see when they click
+                                      "register" to your challenge.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-7 mb-0">
+                                    <input
+                                      type="text"
+                                      class="form-control mb-2"
+                                      placeholder="Enter an introductory message here..."
+                                    />
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-5 mb-0">
+                                    <label class="font-weight-normal"
+                                      >Terms and Conditions for
+                                      Participation</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      Upload your terms and conditions using the
+                                      upload section to the right.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-7 mb-0 pt-1">
+                                    <app-upload-content></app-upload-content>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end if special terms enabled -->
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12 mb-0">
+                            <label>Challenge Tags</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12 mb-0">
+                            <app-search-tags></app-search-tags>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label>Challenge Workflow</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12">
+                            <select class="form-control">
+                              <option>Workflow Options here</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!-- start of insert -->
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label class="pt-2">Experience Settings</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12 mb-0">
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Allow Voting</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Allow Commenting</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow Submission Editing</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="participantsTab">
+                                  <label class="custom-control-label" for="participantsTab">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow File Uploads</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="participantsTab">
+                                  <label class="custom-control-label" for="participantsTab">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow Subscribing to Challenge</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="participantsTab">
+                                  <label class="custom-control-label" for="participantsTab">Enabled</label>
+                                </div>
+                              </div>
+                            </div> -->
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Allow Teams</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Team Based Idea Submission</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Challenge Leaderboard</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Detect Duplicate Submissions</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if duplicate idea submission enabled -->
+                            <div
+                              class="card bg-light rounded-0 border-top-0"
+                              *ngIf="detectDuplicates"
+                            >
+                              <div class="card-body pt-3 pb-3">
+                                <div class="form-row mb-0">
+                                  <div class="form-group col-5 mb-0">
+                                    <label class="font-weight-normal"
+                                      >Select Duplicates Scope</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      Should duplicates be shown for all ideas
+                                      each participant has access to, or just
+                                      duplicate ideas within this challenge?
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-7 mb-0">
+                                    <select class="form-control">
+                                      <option
+                                        >All Ideas User Has Access To</option
+                                      >
+                                      <option>Only This Challenge</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label class="pt-2">Integrations and Access</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12 mb-0">
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Enable Idea Submission via Email</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="emailSubmission"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="emailSubmission"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if enable idea submission via email -->
+                            <div
+                              class="card mb-0 rounded-0 border-top-0 bg-light"
+                              *ngIf="emailSubmission"
+                            >
+                              <div class="card-body px-3 py-3">
+                                <div class="form-row">
+                                  <div class="form-group col-5 mb-0">
+                                    <label class="font-weight-normal"
+                                      >Enter Email Address</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      Enter the email address that users will be
+                                      able to submit ideas to during your
+                                      challenge.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-7 mb-0">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="ideas@examplecompany.com"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end if enable idea submission via email -->
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Enable External Submission Form</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="externalSubmission"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="externalSubmission"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if external submission form enabled -->
+                            <div
+                              class="card rounded-0 border-top-0 bg-light"
+                              *ngIf="externalSubmission"
+                            >
+                              <div class="card-body px-3 py-3">
+                                <div class="form-row">
+                                  <div class="form-group col-7 mb-2">
+                                    <label class="font-weight-normal"
+                                      >Customize External Submission Form</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      An embeddable iframe that you can embed on
+                                      an external webpage will be generated once
+                                      you publish your challenge.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-5 mb-0">
+                                    <button class="btn btn-primary float-right">
+                                      Customize Submission Form
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end if external submission form enabled -->
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-7 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Enable Custom URL for This Challenge</label
+                                >
+                              </div>
+                              <div class="form-group col-5 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="customUrl"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="customUrl"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- if enable custom URL for this challenge -->
+                            <div
+                              class="card mb-0 rounded-0 border-top-0 bg-light"
+                              *ngIf="vanityURL"
+                            >
+                              <div class="card-body px-3 py-3">
+                                <div class="form-row">
+                                  <div class="form-group col-5 mb-0">
+                                    <label class="font-weight-normal"
+                                      >Enter Vanity URL</label
+                                    >
+                                    <p class="small text-muted mb-0">
+                                      This vanity URL will redirect to the home
+                                      page of your challenge.
+                                    </p>
+                                  </div>
+                                  <div class="form-group col-7 mb-0">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"
+                                          >company.ideawake.com/</span
+                                        >
+                                      </div>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="challengename"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label class="pt-2">Anonymous Settings</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12 mb-0">
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Allow Ideas to be Submitted
+                                  Anonymously</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Allow Comments to be Submitted
+                                  Anonymously</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Make All Submissions Anonymous by
+                                  Default</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Make All Comments Anonymous by Default</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="form-row dottedBottomBorder pt-2 pb-2 mx-0"
+                            >
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal"
+                                  >Make All Votes Anonymous by Default</label
+                                >
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="participantsTab"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="participantsTab"
+                                    >Enabled</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end of insert -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <div class="form-row">
+                          <div class="col-12 col-md-2 form-group mb-0">
+                            <button
+                              class="btn btn-light border btn-block"
+                              routerLink="/challenges-view-container"
+                            >
+                              Save Draft
+                            </button>
+                          </div>
+                          <div
+                            class="col-12 col-md-2 offset-md-5 form-group mb-0"
+                          >
+                            <button
+                              class="btn btn-light border btn-block"
+                              routerLink="/challenges-view-container"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'angle-left']"
+                                class="mt-1"
+                              ></fa-icon>
+                              Previous
+                            </button>
+                          </div>
+                          <div class="col-12 col-md-3 form-group mb-0">
+                            <button
+                              class="btn btn-primary btn-block"
+                              routerLink="/challenges-view-container"
+                            >
+                              Next
+                              <fa-icon
+                                [icon]="['fas', 'angle-right']"
+                              ></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <p class="mb-0 montserrat small">
+                  <fa-icon [icon]="['fas', 'bell']"></fa-icon>
+                  Notifications
+                </p>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="card mb-4 shadow-sm">
+                  <div class="card-header">
+                    <p class="uppercase bold text-muted mb-0">
+                      Select Challenge Phases
+                    </p>
+                  </div>
+                  <div class="card-body">
+                    <p class="uppercase bold text-muted">Select Workflow</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- <div class="col-1 h-100">
+                    <p class="small bold vertical-text mb-0 uppercase">Submission</p>
+                  </div> -->
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="row">
+                              <div class="col-12">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item">
+                                    <h6 class="pt-1">Submission (30 Days)</h6>
+                                  </li>
+                                  <li class="list-inline-item">
+                                    <button class="btn btn-sm btn-light border">
+                                      <fa-icon
+                                        [icon]="['fas', 'edit']"
+                                        class="ml-1"
+                                      ></fa-icon>
+                                      Edit
+                                    </button>
+                                  </li>
+                                  <li
+                                    class="list-inline-item float-right adjustFloatUp"
+                                  >
+                                    <div ngbDropdown>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                              <button
+                                                class="btn btn-light btn-sm border text-muted removeCaret"
+                                                id="sortByTime"
+                                                ngbDropdownToggle
+                                              >
+                                                <small>
+                                                  <fa-icon
+                                                    [icon]="['fas', 'clock']"
+                                                    class="mr-1"
+                                                  ></fa-icon>
+                                                  <strong>Timeline</strong>
+                                                  <!-- Nov 14th 2019 - Dec 31st 2019 -->
+                                                  11/14/19 - 12/31/19
+                                                  <fa-icon
+                                                    [icon]="[
+                                                      'fas',
+                                                      'caret-down'
+                                                    ]"
+                                                    class="ml-1"
+                                                  ></fa-icon>
+                                                </small>
+                                              </button>
+                                              <div
+                                                ngbDropdownMenu
+                                                class="shadow"
+                                                style="left: -15px;"
+                                              >
+                                                <div
+                                                  class="row"
+                                                  style="width: 50rem;"
+                                                >
+                                                  <div class="col-8">
+                                                    <div class="row">
+                                                      <div class="col-6">
+                                                        <div class="row">
+                                                          <div class="col-12">
+                                                            <div class="ml-2">
+                                                              <ngb-datepicker
+                                                                #d
+                                                              ></ngb-datepicker>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-6 pl-0">
+                                                        <div class="row">
+                                                          <div class="col-12">
+                                                            <ngb-datepicker
+                                                              #d
+                                                            ></ngb-datepicker>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-4 pl-0">
+                                                    <div class="mr-4">
+                                                      <form>
+                                                        <div class="form-row">
+                                                          <div
+                                                            class="form-group col-6 mb-1"
+                                                          >
+                                                            <p
+                                                              class="small mb-1"
+                                                            >
+                                                              Start Date
+                                                            </p>
+                                                            <input
+                                                              type="text"
+                                                              class="form-control form-control-sm"
+                                                              placeholder="Oct 22, 2019"
+                                                            />
+                                                          </div>
+                                                          <div
+                                                            class="form-group col-6 mb-1"
+                                                          >
+                                                            <p
+                                                              class="small mb-1"
+                                                            >
+                                                              End Date
+                                                            </p>
+                                                            <input
+                                                              type="text"
+                                                              class="form-control form-control-sm"
+                                                              placeholder="Nov 30, 2019"
+                                                            />
+                                                          </div>
+                                                        </div>
+                                                        <hr class="mb-1 mt-2" />
+                                                        <div
+                                                          class="form-row pt-3"
+                                                        >
+                                                          <div
+                                                            class="form-group mb-3"
+                                                          >
+                                                            <button
+                                                              class="btn btn-sm btn-light border"
+                                                            >
+                                                              Cancel
+                                                            </button>
+                                                            <button
+                                                              class="btn btn-sm btn-primary mr-2"
+                                                            >
+                                                              Save
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-4">
+                                <!-- edit participants -->
+                                <div class="showEditOnHover" ngbDropdown>
+                                  <p
+                                    class="mb-0 py-1 text-medium removeCaret"
+                                    ngbDropdownToggle
+                                  >
+                                    <span class="bold">Assigned To</span> - All
+                                    Users
+                                    <fa-icon
+                                      [icon]="['fas', 'caret-down']"
+                                      class="text-muted float-right mr-2"
+                                    >
+                                    </fa-icon>
+                                  </p>
+                                  <div ngbDropdownMenu class="shadow pt-0">
+                                    <div style="min-width: 15rem;">
+                                      <form class="p-1">
+                                        <div class="form-group mb-0">
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            placeholder="Search sources..."
+                                          />
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <div class="dropdownScrollMaxHeight">
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end edit participants -->
+                              </div>
+                              <div class="col-4">
+                                <!-- edit participants -->
+                                <div class="showEditOnHover" ngbDropdown>
+                                  <p
+                                    class="mb-0 py-1 text-medium removeCaret"
+                                    ngbDropdownToggle
+                                  >
+                                    <span class="bold">Can View Activity</span>
+                                    - All Users
+                                    <fa-icon
+                                      [icon]="['fas', 'caret-down']"
+                                      class="text-muted float-right mr-2"
+                                    >
+                                    </fa-icon>
+                                  </p>
+                                  <div ngbDropdownMenu class="shadow pt-0">
+                                    <div style="min-width: 15rem;">
+                                      <form class="p-1">
+                                        <div class="form-group mb-0">
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            placeholder="Search sources..."
+                                          />
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <div class="dropdownScrollMaxHeight">
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end edit participants -->
+                              </div>
+                              <div class="col-4">
+                                <!-- edit participants -->
+                                <div class="showEditOnHover" ngbDropdown>
+                                  <p
+                                    class="mb-0 py-1 text-medium removeCaret"
+                                    ngbDropdownToggle
+                                  >
+                                    <span class="bold">Can View Ideas</span> -
+                                    All Users
+                                    <fa-icon
+                                      [icon]="['fas', 'caret-down']"
+                                      class="text-muted float-right mr-2"
+                                    >
+                                    </fa-icon>
+                                  </p>
+                                  <div ngbDropdownMenu class="shadow pt-0">
+                                    <div style="min-width: 15rem;">
+                                      <form class="p-1">
+                                        <div class="form-group mb-0">
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-sm"
+                                            placeholder="Search sources..."
+                                          />
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <div class="dropdownScrollMaxHeight">
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                      <button
+                                        class="btn-sm pl-2"
+                                        ngbDropdownItem
+                                      >
+                                        Source Option
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end edit participants -->
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-4"></div>
+                        </div>
+                      </div>
+                      <div class="card-footer pt-2 pb-2">
+                        <p class="small mb-0">
+                          Automation Rules / Progresion rules between this stage
+                          and stage two
+                        </p>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="row">
+                              <div class="col-3">
+                                <label>Trigger</label>
+                                <select class="form-control form-control-sm">
+                                  <option>one</option>
+                                </select>
+                              </div>
+                              <div class="col-3">
+                                <label>Trigger</label>
+                                <select class="form-control form-control-sm">
+                                  <option>one</option>
+                                </select>
+                              </div>
+                              <div class="col-3">
+                                <label>Trigger</label>
+                                <select class="form-control form-control-sm">
+                                  <option>one</option>
+                                </select>
+                              </div>
+                              <div class="col-3">
+                                <label>Trigger</label>
+                                <select class="form-control form-control-sm">
+                                  <option>one</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

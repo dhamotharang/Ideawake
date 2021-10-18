@@ -1,0 +1,110 @@
+<ng-select
+  [items]="items"
+  [multiple]="true"
+  bindLabel="name"
+  class="custom"
+  bindValue="selection"
+  [loading]="dropdownPaginationState.isLoading"
+  [clearSearchOnAdd]="true"
+  [(ngModel)]="selected"
+  placeholder="{{ 'Search.StartTyping' | translationPipe }}..."
+  (change)="emitData()"
+  [hideSelected]="true"
+  [closeOnSelect]="closeOnSelect"
+  appearance="outline"
+  dropdownPosition="bottom"
+  style="width: auto;"
+  container="body"
+  [readonly]="readonly"
+  [virtualScroll]="true"
+  (scroll)="onScroll($event)"
+  (scrollToEnd)="onScrollToEnd()"
+  [minTermLength]="2"
+  (search)="onSearch($event)"
+  (close)="onClose()"
+  #select
+>
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span
+      *ngIf="item.isUser"
+      class="ng-value-label"
+      [ngClass]="darkColor ? 'color-label' : ''"
+    >
+      <!-- <img
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item.profileImage?.url || image"
+        width="20px"
+        height="20px"
+      /> -->{{ item.userName }}
+    </span>
+    <span
+      *ngIf="item.isGroup"
+      class="ng-value-label"
+      [ngClass]="darkColor ? 'color-label' : ''"
+    >
+      <!-- <img
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item?.imageUrl || image"
+        width="20px"
+        height="20px"
+        class="mr-2 rounded-circle"
+      /> -->
+      {{ item.name }}
+    </span>
+    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true"
+      >×</span
+    >
+  </ng-template>
+
+  <ng-template ng-option-tmp let-item="item">
+    <div class="media" *ngIf="item.isUser">
+      <img
+        *ngIf="item?.firstName"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item.profileImage?.url || image"
+        class="mr-2 imageWidth rounded-circle"
+        width="30"
+        height="30"
+      />
+      <div class="media-body">
+        <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+          {{ item?.userName || item?.firstName + ' ' + item?.lastName }}
+        </p>
+        <ul *ngIf="item?.firstName" class="list-inline mb-0">
+          <li class="list-inline-item mr-0">
+            <p class="small mb-0 text-muted">
+              {{ item?.role?.title || 'User' }}
+            </p>
+          </li>
+          <li class="list-inline-item ml-1 mr-1">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="small separatorIcon text-muted"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item">
+            <p class="small mb-0 text-muted">{{ item?.email }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="media" *ngIf="item.isGroup">
+      <img
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item?.imageUrl || image"
+        *ngIf="item?.name"
+        class="mr-2 imageWidth rounded-circle"
+      />
+      <div class="media-body">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item bold">
+            {{ item?.name }}
+          </li>
+          <li class="list-inline-item float-right adjustFloat">
+            <p class="small mb-0 text-muted">{{ item?.userCount }} Users</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+</ng-select>

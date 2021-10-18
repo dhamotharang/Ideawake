@@ -1,0 +1,25 @@
+// .page-not-found {
+//   width: 100%;
+//   height: 72vh;
+//   display: flex;
+//   overflow: hidden;
+// }
+// .page-not-found h1 {
+//   margin: auto;
+//   font-size: 40px;
+//   line-height: 45px;
+//   text-align: center;
+// }
+.notFoundContainer {
+  height: 80vh !important;
+}
+
+h1 span {
+  display: block;
+  font-size: 100px;
+  line-height: 115px;
+  background: -webkit-linear-gradient(#6f7ef2, #1ab394);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

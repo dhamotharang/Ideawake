@@ -1,0 +1,24 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.ideaFilterWidth {
+  width: 125%;
+  position: relative;
+  right: 25%;
+}
+
+.bubbleBackground {
+  // background: url('https://i.imgur.com/LKF3M5i.png');
+  background-color: $light;
+  // background: linear-gradient(135deg,#8f75da 0,#727cf5 60%);
+  background-repeat: repeat-y;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 90.75vh !important;
+  overflow-y: hidden !important;
+  z-index: 50000;
+}

@@ -1,0 +1,242 @@
+<div
+  class="modal-header card-header border-bottom-0 bg-white px-3"
+  *ngIf="inModal"
+>
+  <p class="uppercase bold montserrat text-muted mb-0 small">
+    Manage Media and Files
+  </p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="close('Cross Click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group mb-0">
+            <div
+              class="featuredImageContainer rounded"
+              (click)="fileInput.click()"
+              appDragDrop
+              (fileDropped)="uploadFile($event)"
+            >
+              <input
+                hidden
+                type="file"
+                multiple
+                #fileInput
+                (change)="uploadFile($event.target.files)"
+              />
+
+              <ul class="list-unstyled mb-0 py-2">
+                <li>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'file-image']"
+                        class="iconLarge text-muted"
+                      ></fa-icon>
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'file-word']"
+                        style="font-size: 2rem;"
+                        class="iconLarge text-muted"
+                      ></fa-icon>
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'file-video']"
+                        class="iconLarge text-muted"
+                      ></fa-icon>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p class="mt-1 mb-0">
+                    Click Here to Upload Files, Images, or Video
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="inModal">
+            <h5 class="pt-3 pb-2 mb-1 montserrat">Recent Uploads</h5>
+            <hr class="mt-0" />
+            <div class="row" style="overflow-x: hidden; max-height: 42vh;">
+              <div class="col-12">
+                <div *ngIf="files.length === 0" class="text-center py-3">
+                  You haven't uploaded any files yet. Upload files by clicking
+                  on the file upload section above.
+                </div>
+
+                <div class="row">
+                  <!-- upload in progress -->
+                  <ng-container *ngFor="let upload of uploads">
+                    <div
+                      class="ml-2 card contentContainerUploader"
+                      *ngIf="upload.uploading"
+                      style="float: right;"
+                    >
+                      <div class="card-body px-2 py-1">
+                        <ul class="list-unstyled mb-0 text-center">
+                          <li>
+                            <p
+                              class="mb-1 mt-4 font-italic text-muted bold small"
+                            >
+                              Uploading
+                            </p>
+                            <div class="progress" style="height: 10px;">
+                              <div
+                                class="progress-bar progress-bar-striped"
+                                role="progressbar"
+                                [ngStyle]="{ width: upload.progress + '%' }"
+                                aria-valuenow="100"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                              ></div>
+                            </div>
+                            <p class="mb-0 mt-1 text-muted small">
+                              {{ upload.progress }}%
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- end upload in progress -->
+                    </div>
+                  </ng-container>
+                  <!-- end upload in progress -->
+                  <!-- card-upload-content contentContainer -->
+                  <div class="col-3" *ngFor="let file of files; let i = index">
+                    <div
+                      class="card shadow-sm cardAnimation pointer mb-2"
+                      #fileContainer
+                      (click)="selectFile(file, fileContainer)"
+                      [ngClass]="{ contentContainerSelected: file.isSelected }"
+                    >
+                      <div class="card-body p-0" style="height: 7rem;">
+                        <ul class="list-unstyled mb-0">
+                          <li>
+                            <ul class="list-inline mb-0">
+                              <li
+                                class="list-inline-item"
+                                style="
+                                  position: absolute;
+                                  left: 0;
+                                  margin-left: 0.2rem;
+                                "
+                              >
+                                <span class="badge badge-light">
+                                  {{ file.size }} KB
+                                </span>
+                              </li>
+                              <li
+                                class="list-inline-item float-right"
+                                *ngIf="file.isSelected"
+                                style="
+                                  position: absolute;
+                                  right: 0;
+                                  margin-right: 0.2rem;
+                                "
+                              >
+                                <span class="badge badge-info text-white">
+                                  Selected
+                                  <fa-icon
+                                    [icon]="['fas', 'check-circle']"
+                                    class="inverseLinkDanger small text-white"
+                                    ngbTooltip="Delete Media"
+                                  >
+                                  </fa-icon>
+                                </span>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <img
+                              class="filePreviewImage"
+                              *ngIf="file.attachmentType === 'image'"
+                              [defaultImage]="defaultImage"
+                              [lazyLoad]="file.url"
+                              width="100"
+                              height="100"
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                      <div
+                        class="card-footer px-2 pt-0 pb-1 bg-transparent border-top-0"
+                      >
+                        <p
+                          *ngIf="file.type !== 'image'"
+                          class="card-text small inverseLink pt-2 pb-1 text-center ellipse-text"
+                        >
+                          {{ file.url | fileNameUpdate }}
+                        </p>
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item text-muted">
+                            <div class="media">
+                              <p
+                                class="text-medium text-muted mb-0"
+                                *ngIf="
+                                  file.fontawesomeIcon && file.attachmentType
+                                "
+                              >
+                                <fa-icon
+                                  [icon]="
+                                    file.fontawesomeIcon || file.attachmentType
+                                  "
+                                ></fa-icon>
+                                <!-- file.fontawesomeIcon -->
+                              </p>
+                              <div class="media-body">
+                                <p class="text-medium text-muted mb-0">
+                                  {{
+                                    (file.name || file.url)
+                                      .split('.')
+                                      [
+                                        (file.name || file.url).split('.')
+                                          .length - 1
+                                      ].toUpperCase()
+                                  }}
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                          <!-- *ngIf="false" -->
+                          <li class="list-inline-item float-right">
+                            <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                            <fa-icon
+                              [icon]="['fas', 'trash']"
+                              class="inverseLinkDanger text-medium cross-icon"
+                              ngbTooltip="Delete Media"
+                              (click)="deleteMedia(file)"
+                            >
+                            </fa-icon>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light" *ngIf="inModal">
+  <button class="btn btn-light border" (click)="close('Cross Click')">
+    Cancel
+  </button>
+  <button class="btn btn-primary" (click)="onInsertMedia()">
+    Insert Files and Media
+  </button>
+</div>

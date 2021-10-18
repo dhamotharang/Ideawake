@@ -1,0 +1,95 @@
+<!-- history -->
+<ng-container
+  *ngIf="
+    customField.opportunityFieldData[0] &&
+    customField.opportunityFieldData[0].history
+  "
+>
+  <div class="row flex-row">
+    <div class="col-9">
+      <p class="form-text text-muted small mb-0">
+        Last edit was made by
+        {{ historyData[0].user.firstName + ' ' + historyData[0].user.lastName }}
+        on {{ historyData[0].date?.toLocaleDateString() }} at
+        {{ historyData[0].date?.toLocaleTimeString() }}
+      </p>
+    </div>
+    <div class="col-3">
+      <p
+        class="form-text inverseLink small mb-0 float-right align-self-center inverseLink"
+        (click)="viewHistory = !viewHistory"
+      >
+        <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+        View History
+        <fa-icon
+          [icon]="['fas', !viewHistory ? 'caret-down' : 'caret-up']"
+        ></fa-icon>
+      </p>
+    </div>
+  </div>
+  <hr class="mt-1 mb-0" style="border-style: dotted;" />
+  <!-- show full stage history -->
+  <div
+    class="card mb-2 bg-light shadow-sm border-top-0 rounded-top-0"
+    *ngIf="viewHistory"
+  >
+    <div class="card-body p-2">
+      <div class="row flex-row">
+        <div class="col-6">
+          <p class="form-text text-muted small bold mb-0">From</p>
+          <app-history-data
+            [history]="historyData[0].from"
+            [dataType]="dataType"
+            [customField]="customField"
+          ></app-history-data>
+        </div>
+        <div class="col-6">
+          <p class="form-text text-muted small bold mb-0">To</p>
+          <app-history-data
+            [history]="historyData[0].to"
+            [dataType]="dataType"
+            [customField]="customField"
+          ></app-history-data>
+        </div>
+      </div>
+      <!-- start of one -->
+      <hr class="mb-2" />
+      <ng-container *ngFor="let data of historyData; let i = index">
+        <div class="row flex-row" *ngIf="i !== 0">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+                <p class="form-text text-medium mb-2 font-italic">
+                  {{ data.user.firstName + ' ' + data.user.lastName }} on
+                  {{ data.date.toLocaleDateString() }} at
+                  {{ data.date.toLocaleTimeString() }}
+                </p>
+              </div>
+            </div>
+            <div class="row flex-row">
+              <div class="col-6">
+                <p class="form-text text-muted small bold mb-0">From</p>
+                <app-history-data
+                  [history]="data.from"
+                  [dataType]="dataType"
+                  [customField]="customField"
+                ></app-history-data>
+              </div>
+              <div class="col-6">
+                <p class="form-text text-muted small bold mb-0">To</p>
+                <app-history-data
+                  [history]="data.to"
+                  [dataType]="dataType"
+                  [customField]="customField"
+                ></app-history-data>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="mb-2" *ngIf="i !== 0" />
+      </ng-container>
+      <!-- end of one -->
+      <!-- input field -->
+    </div>
+  </div>
+</ng-container>

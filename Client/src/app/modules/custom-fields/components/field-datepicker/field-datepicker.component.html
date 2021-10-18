@@ -1,0 +1,94 @@
+<!-- date field -->
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+    <!-- if completed -->
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry"
+      *ngIf="!dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add an entry for this field...
+    </p>
+    <p
+      class="showEditOnHover mb-0"
+      *ngIf="dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      {{ date.month + '/' + date.day + '/' + date.year }}
+    </p>
+    <!-- non completed or edit -->
+    <div
+      ngbDropdown
+      container="body"
+      *ngIf="editMode || !view"
+      (openChange)="setDateInput($event, d)"
+    >
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Select Date..."
+          [value]="
+            preloaded ? date.month + '/' + date.day + '/' + date.year : null
+          "
+          #d
+          ngbDropdownToggle
+        />
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">
+            <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+          </span>
+        </div>
+        <div ngbDropdownMenu class="shadow py-0">
+          <div class="card border-0">
+            <div class="card-body pt-2">
+              <div class="pb-2">
+                <label class="text-medium">Select Date</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  placeholder="mm/dd/yyyy"
+                  [value]="date.month + '/' + date.day + '/' + date.year"
+                />
+              </div>
+              <ngb-datepicker
+                [(ngModel)]="date"
+                (dateSelect)="selectDate($event)"
+              ></ngb-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="date = backupDate; editMode = false"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.DATE"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>

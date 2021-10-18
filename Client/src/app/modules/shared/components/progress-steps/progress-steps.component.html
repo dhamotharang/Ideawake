@@ -1,0 +1,272 @@
+<!-- link to codepen https://codepen.io/himanshu/pen/syLAh -->
+<!-- <div class="pb-5">
+  <div class="progress">
+    <div class="circle done">
+      <span class="label">
+        <fa-icon [icon]="['fas', 'check']" class="text-white"></fa-icon>
+      </span>
+      <span class="title montserrat">Submission</span>
+    </div>
+    <span class="bar done"></span>
+    <div class="circle done">
+      <span class="label">
+        <fa-icon [icon]="['fas', 'check']" class="text-white"></fa-icon>
+      </span>
+      <span class="title montserrat">Refinement</span>
+    </div>
+    <span class="bar half"></span>
+    <div class="circle active">
+      <span class="label">3</span>
+      <span class="title montserrat">Evaluation</span>
+    </div>
+    <span class="bar"></span>
+    <div class="circle">
+      <span class="label">4</span>
+      <span class="title montserrat">Selection</span>
+    </div>
+    <span class="bar"></span>
+    <div class="circle">
+      <span class="label">5</span>
+      <span class="title montserrat">Implement</span>
+    </div>
+  </div>
+</div> -->
+<!--
+<div
+  class="btn-group d-flex border rounded shadow-sm"
+  role="group"
+  aria-label="Basic example"
+>
+  <button type="button" class="btn btn-light flex-fill">
+    All Ideas (500)
+  </button>
+  <button type="button" class="btn btn-light flex-fill">
+    Submission (100)
+  </button>
+  <button type="button" class="btn btn-light flex-fill">
+    Refinement (50)
+  </button>
+  <button type="button" class="btn btn-light flex-fill" routerLink="/pairwise">
+    Evaluation (25)
+  </button>
+  <button type="button" class="btn btn-primary flex-fill">
+    Selection (10)
+  </button>
+  <button type="button" class="btn btn-light flex-fill" disabled>
+    Implementation (0)
+  </button>
+  <button type="button" class="btn btn-light flex-fill" disabled>
+    Track Outcomes (0)
+  </button>
+</div> -->
+
+<!-- start of statuses -->
+<div class="row statusContainer rounded mx-0">
+  <div class="col-2 px-0">
+    <div class="card border-bottom-0 statusStep">
+      <div class="card-body p-0 text-center">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">10</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-dark">
+          <h4 class="mb-1 montserrat">100</h4>
+          <p class="mb-0 small uppercase bold">All Statuses</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 px-0">
+    <div
+      class="card rounded-0 border-bottom-0 border-left-0 border-top-0 statusStep"
+    >
+      <div class="card-body p-0 text-center active">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">8</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-primary">
+          <h4 class="mb-1 montserrat">100</h4>
+          <p class="mb-0 small uppercase bold">StatusName</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 px-0">
+    <div class="card rounded-0 border-bottom-0 border-left-0 statusStep">
+      <div class="card-body p-0 text-center">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">8</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-info">
+          <h4 class="mb-1 montserrat">100</h4>
+          <p class="mb-0 small uppercase bold">StatusName</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 px-0">
+    <div class="card rounded-0 border-bottom-0 border-left-0 statusStep">
+      <div class="card-body p-0 text-center">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">8</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-secondary">
+          <h4 class="mb-1 montserrat">28</h4>
+          <p class="mb-0 small uppercase bold">StatusName</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 px-0">
+    <div class="card rounded-0 border-bottom-0 border-left-0 statusStep">
+      <div class="card-body p-0 text-center">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">8</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-warning">
+          <h4 class="mb-1 montserrat">28</h4>
+          <p class="mb-0 small uppercase bold">StatusName</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 px-0">
+    <div class="card rounded-0 border-bottom-0 border-left-0 statusStep">
+      <div class="card-body p-0 text-center">
+        <ul class="list-inline float-right mr-2 stageInfoPosition">
+          <li
+            class="list-inline-item"
+            placement="top"
+            ngbTooltip="Opportunities in this status are hidden unless filtered by"
+          >
+            <fa-icon
+              [icon]="['fas', 'eye-slash']"
+              class="text-muted small"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item small">
+            <span
+              placement="top"
+              ngbTooltip="5 opportunities in this status need attention"
+            >
+              <fa-icon
+                [icon]="['fas', 'exclamation-triangle']"
+                class="text-danger small alertPlacement"
+              ></fa-icon>
+              <span class="bold text-muted">8</span>
+            </span>
+          </li>
+        </ul>
+        <div class="py-3 text-muted">
+          <h4 class="mb-1 montserrat">28</h4>
+          <p class="mb-0 small uppercase bold">StatusName</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of statuses -->

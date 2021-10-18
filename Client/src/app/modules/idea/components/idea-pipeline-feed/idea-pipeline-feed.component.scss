@@ -1,0 +1,16 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.leftStatusInProgress {
+  border-left: 4px solid $success;
+}
+
+.leftStatusInDanger {
+  border-left: 4px solid $danger;
+}
+
+.leftStatusInWarning {
+  border-left: 4px solid $warning;
+}

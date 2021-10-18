@@ -1,0 +1,41 @@
+<div class="modal-header card-header">
+  <p class="uppercase bold text-muted mb-0 small">Manage Role</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pb-0">
+  <p class="text-medium">
+    <span class="bold">Current Role</span> - This user currently has role of
+    <b>{{ currentCommunityRole?.role?.title || 'User' }}</b> in your community.
+    <span *ngIf="!canEdit">You can't update role of user above your role.</span>
+  </p>
+  <hr />
+  <form *ngIf="canEdit" [formGroup]="editUserRoleForm">
+    <div class="form-group">
+      <label>Select New Role</label>
+      <select formControlName="userRole" class="form-control">
+        <option *ngFor="let role of roles" [value]="role.id">{{
+          role.title
+        }}</option>
+      </select>
+      <p class="small form-text text-muted">
+        Please select the role that you would like this user to be updated to
+        using the select dropdown options above.
+      </p>
+    </div>
+  </form>
+</div>
+<div *ngIf="canEdit" class="modal-footer">
+  <button class="btn btn-light border" (click)="dismiss('Cancel')">
+    Cancel
+  </button>
+  <button class="btn btn-primary" (click)="saveRole(editUserRoleForm)">
+    Save Changes
+  </button>
+</div>

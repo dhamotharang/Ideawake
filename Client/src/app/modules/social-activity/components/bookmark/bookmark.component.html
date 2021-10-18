@@ -1,0 +1,39 @@
+<span
+  (click)="toggle($event)"
+  [ngClass]="{ inverseLinkSelected: data?.bookmark }"
+>
+  <!-- <p class="mb-1" *ngIf="inlineIcon">
+    <fa-icon
+      ngbTooltip="Bookmark"
+      [icon]="['fas', 'bookmark']"
+      placement="top"
+    ></fa-icon>
+    {{ data.bookmark ? 'Saved' : 'Save' }}
+  </p> -->
+  <button
+    class="btn btn-sm btn-light inverseLink px-3"
+    *ngIf="inlineIcon"
+    ngbTooltip="Save"
+  >
+    <fa-icon [icon]="['fas', 'bookmark']" placement="top"></fa-icon>
+    <!-- {{ data.bookmark ? 'Saved' : 'Save' }} -->
+  </button>
+  <button
+    [ngClass]="{ inverseLinkSelected: data?.bookmark }"
+    class="btn btn-white btn-sm montserrat bold inverseLink"
+    *ngIf="!inlineIcon"
+  >
+    <fa-icon
+      ngbTooltip="Save"
+      [icon]="['fas', 'bookmark']"
+      placement="top"
+    ></fa-icon>
+    <span class="d-none d-md-inline">
+      {{
+        data.bookmark
+          ? ('SocialActivity.Saved' | translationPipe)
+          : ('SocialActivity.Save' | translationPipe)
+      }}
+    </span>
+  </button>
+</span>

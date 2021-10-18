@@ -1,0 +1,1123 @@
+<ul
+  class="list-inline mb-2 adjustFloatUp animated"
+  style="padding-left: 0.75rem;"
+>
+  <li class="list-inline-item mr-0 small">
+    <div class="custom-control custom-checkbox">
+      <input
+        type="checkbox"
+        class="custom-control-input disabled"
+        (click)="onSelectAllIdeas($event.target.checked)"
+        id="selectAll"
+      />
+      <label
+        class="custom-control-label text-muted text-medium"
+        for="selectAll"
+        ngbTooltip="Select All"
+        container="body"
+      >
+        <p class="mb-0 adjustFloat">{{ selected.length }} Selected</p>
+      </label>
+    </div>
+  </li>
+  <span style="position: relative; top: 0.1rem;">
+    <li class="list-inline-item mr-0 ml-3" ngbDropdown>
+      <button
+        class="btn btn-white bold btn-sm removeCaret pl-1"
+        ngbTooltip="Add or edit custom fields for selected ideas"
+        container="body"
+        ngbDropdownToggle
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          <strong> Edit Field</strong>
+          <!-- <fa-icon [icon]="['fas', 'angle-down']" class="ml-1 text-muted">
+          </fa-icon> -->
+        </small>
+      </button>
+      <div
+        ngbDropdownMenu
+        class="shadow modalScrollMaxHeight"
+        style="min-width: 25rem;"
+      >
+        <app-bulk-attach-custom-field-list
+          (customFieldData)="getCustomFieldsData($event)"
+        >
+        </app-bulk-attach-custom-field-list>
+      </div>
+    </li>
+    <li class="list-inline-item mr-0" ngbDropdown>
+      <button
+        class="btn btn-white btn-sm removeCaret pl-1"
+        ngbTooltip="Add or change workflow of selected submissions"
+        container="body"
+        ngbDropdownToggle
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'plus-circle']" class="text-muted">
+          </fa-icon>
+          <strong> Add Workflow</strong>
+          <!-- <fa-icon [icon]="['fas', 'angle-down']" class="ml-1 text-muted"></fa-icon> -->
+        </small>
+      </button>
+      <div ngbDropdownMenu class="shadow stage-change-dropdown">
+        <ng-container *ngTemplateOutlet="stageChange"></ng-container>
+      </div>
+    </li>
+    <li class="list-inline-item mr-0" ngbDropdown>
+      <button
+        class="btn btn-white btn-sm removeCaret"
+        ngbTooltip="Change stage of selected submissions"
+        container="body"
+        ngbDropdownToggle
+      >
+        <small>
+          <fa-icon
+            [icon]="['fas', 'conveyor-belt-alt']"
+            class="mr-1 text-muted"
+          >
+          </fa-icon>
+          <strong>Change Stage</strong>
+          <!-- <fa-icon [icon]="['fas', 'angle-down']" class="ml-1 text-muted"></fa-icon> -->
+        </small>
+      </button>
+      <div ngbDropdownMenu class="shadow stage-change-dropdown">
+        <ng-container *ngTemplateOutlet="stageChange"></ng-container>
+      </div>
+    </li>
+    <li class="list-inline-item mr-0" ngbDropdown>
+      <button
+        class="btn btn-white btn-sm removeCaret"
+        ngbTooltip="Update visibility, commenting, and voting settings of selected submissions"
+        container="body"
+        ngbDropdownToggle
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'cog']" class="mr-1 text-muted"> </fa-icon>
+          <strong>Settings</strong>
+          <!-- <fa-icon [icon]="['fas', 'angle-down']" class="ml-1 text-muted"></fa-icon> -->
+        </small>
+      </button>
+      <div ngbDropdownMenu class="shadow">
+        <button
+          class="pl-3 btn-sm"
+          ngbDropdownItem
+          (click)="openIdeaSettingsModal(OpportunitySettingType.VISIBILITY)"
+        >
+          <fa-icon
+            [icon]="['fas', 'eye']"
+            class="text-muted adjustFloat"
+          ></fa-icon>
+          Edit Visibility Settings
+        </button>
+        <button
+          class="pl-3 btn-sm"
+          ngbDropdownItem
+          (click)="openIdeaSettingsModal(OpportunitySettingType.COMMENTING)"
+        >
+          <fa-icon
+            [icon]="['fas', 'comment']"
+            class="text-muted adjustFloat"
+          ></fa-icon>
+          Edit Commenting Settings
+        </button>
+        <button
+          class="pl-3 btn-sm"
+          ngbDropdownItem
+          (click)="openIdeaSettingsModal(OpportunitySettingType.VOTING)"
+        >
+          <fa-icon
+            [icon]="['fas', 'thumbs-up']"
+            class="text-muted adjustFloat"
+          ></fa-icon>
+          Edit Voting Settings
+        </button>
+      </div>
+    </li>
+    <!-- <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Merge Selected Ideas"
+        (click)="open(mergeSelected)"
+      >
+        <small>
+          <fa-icon
+            [icon]="['fas', 'code-merge']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          <strong>Merge</strong>
+        </small>
+      </button>
+    </li> -->
+    <!-- <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Link Selected Ideas"
+        (click)="open(linkSelected)"
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'link']" class="mr-1 text-muted"></fa-icon>
+          <strong>Link</strong>
+        </small>
+      </button>
+    </li> -->
+    <!-- <li class="list-inline-item mr-0" ngbDropdown>
+      <span
+        class="removeCaret bold text-medium"
+        ngbDropdownToggle
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'user-friends']" class="mr-1 text-muted"></fa-icon>
+          <strong>Add Team</strong>
+          <fa-icon
+            [icon]="['fas', 'angle-down']"
+            class="text-muted small"
+          ></fa-icon>
+        </small>
+      </span>
+      <div
+        ngbDropdownMenu
+        class="shadow pt-0"
+        style="min-width: 15rem;"
+      >
+        <div style="min-width: 15rem;">
+          <form class="p-1">
+            <div class="form-group mb-0">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Search Users..."
+              />
+            </div>
+          </form>
+        </div>
+        <div class="dropdownScrollMaxHeight">
+          <button
+            class="btn-sm pl-2 pr-2"
+            ngbDropdownItem
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="selectOption"
+              />
+              <label
+                class="custom-control-label font-weight-normal pointer"
+                style="padding-top: 0.1rem;"
+                for="selectOption">
+
+              </label>
+            </div>
+          </button>
+        </div>
+      </div>
+    </li> -->
+    <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Assign owners to selected submissions"
+        container="body"
+        (click)="openUserSettingsModal(ideaUserType.owner)"
+      >
+        <small>
+          <fa-icon
+            [icon]="['fas', 'dice-d20']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          <strong>Add Owner</strong>
+        </small>
+      </button>
+    </li>
+    <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Add team members to selected submissions"
+        container="body"
+        (click)="openUserSettingsModal(ideaUserType.contributors)"
+      >
+        <small>
+          <fa-icon
+            [icon]="['fas', 'user-friends']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          <strong>Add Team</strong>
+        </small>
+      </button>
+    </li>
+    <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Add submitters or co-submitters to selected submissions"
+        container="body"
+        (click)="openUserSettingsModal(ideaUserType.submitter)"
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'user']" class="mr-1 text-muted"></fa-icon>
+          <strong>Add Co-submitter</strong>
+        </small>
+      </button>
+    </li>
+    <li class="list-inline-item mr-0">
+      <button
+        class="btn btn-white btn-sm"
+        ngbTooltip="Archive selected submissions"
+        container="body"
+        (click)="open(archiveMultipleIdeas)"
+      >
+        <small>
+          <fa-icon [icon]="['fas', 'trash']" class="mr-1 text-muted"></fa-icon>
+          <strong>Archive</strong>
+        </small>
+      </button>
+    </li>
+  </span>
+</ul>
+<!-- <div class="alert alert-info rounded-0 small py-2 mb-0 mt-1 border-0">
+  <p class="text-center mb-0">
+    All {{ selected.length }} submissions on this page are selected.
+    <span class="link bold">Select all {{ count }} submissions.</span>
+  </p>
+</div> -->
+<!-- end of bulk actions component -->
+<!-- confirm and undo -->
+<!-- <div class="bg-dark text-white rounded undoNotification small shadow">
+  XXXX submissions updated <span class="link underline bold">Undo Changes</span>
+</div> -->
+<!-- end confirm and undo -->
+<ng-template #linkSelected></ng-template>
+<ng-template #changeWorkflow></ng-template>
+<!-- <ng-template #addOwners></ng-template>
+<ng-template #mergeSelected></ng-template>
+<ng-template #addTeamMembers></ng-template>
+<ng-template #addSubmitters></ng-template>
+<ng-template #postIdeaUpdate></ng-template>
+<ng-template #addTags></ng-template>
+<ng-template #editIdeaSettings></ng-template>
+<ng-template #archiveMultipleIdeas></ng-template> -->
+
+<!-- start of merge / link modal -->
+<ng-template #mergeSelected let-modal>
+  <div class="modal-header card-header bg-light border-bottom-0 px-3 pb-0">
+    <p class="small uppercase bold montserrat text-muted mb-0">Merge Ideas</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light modalScrollMaxHeight">
+    <div class="row pt-2">
+      <div class="col-12">
+        <p class="bold uppercase mb-2 text-medium">
+          Parent Idea
+        </p>
+        <div class="card grab mb-2 border-success">
+          <div class="card-body py-2 px-3">
+            <div class="row">
+              <div class="col-12 col-md-7">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="mb-1 mt-1 bold text-medium">
+                      This is idea Title (255)
+                    </p>
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="inverseLink"
+                      ngbTooltip="This is the description for idea if it exists."
+                    >
+                    </fa-icon>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-5">
+                <div class="float-right pt-1">
+                  <!-- popover for parent idea explanation -->
+                  <ng-template #parentIdeaExplainerTitle>
+                    Parent versus Child Ideas
+                  </ng-template>
+                  <ng-template #parentIdeaExplainerDescription>
+                    <label class="mb-0">Parent Idea</label>
+                    <p class="mb-2 small">
+                      The <span class="badge badge-info">Parent Idea</span> will
+                      continue to display in your feed. Unique votes, comments,
+                      and activity from child ideas will be removed from child
+                      ideas and added to the parent idea.
+                    </p>
+                    <label class="mb-0">Child Ideas</label>
+                    <p class="mb-2 small">
+                      Child ideas are merged into the parent idea. Once child
+                      ideas are merged into the parent idea, child ideas will -
+                    </p>
+                    <ul class="mb-0 small pl-3">
+                      <li>
+                        Display under the description section of the parent idea
+                        and no longer be visible in your feed.
+                      </li>
+                      <li>
+                        Comments from children ideas will be added to the parent
+                        idea.
+                      </li>
+                      <li>
+                        Unique votes from children ideas will be added to the
+                        parent idea.
+                      </li>
+                    </ul>
+                  </ng-template>
+                  <!-- end popover for parent idea explanation -->
+                  <span
+                    class="badge badge-success uppercase font-weight-normal"
+                  >
+                    Parent Idea
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-white pointer"
+                      [openDelay]="200"
+                      [closeDelay]="1500"
+                      triggers="mouseenter:mouseleave"
+                      placement="right"
+                      [ngbPopover]="parentIdeaExplainerDescription"
+                      [popoverTitle]="parentIdeaExplainerTitle"
+                      container="body"
+                    ></fa-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <!-- <p class="small text-muted mb-2">
+                  We're already seeing this in several other industries and think
+                  it's time for us to try it out. VR can immerse consumers providing
+                  them with of a product or service.
+                  <span class="link font-underline"><u>read more...</u></span>
+                </p> -->
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-1">
+                    <p class="small text-muted mb-0">PostType</p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <p class="small text-success mb-0">Current Status</p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <p class="small text-muted mb-0">
+                      Posted on 10/22/21 by
+                      <span class="inverseLink">First Last Name</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end parent idea -->
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="text-medium uppercase bold mb-1 mt-3">
+              Child Ideas (5)
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted pointer"
+                [openDelay]="200"
+                [closeDelay]="1500"
+                triggers="mouseenter:mouseleave"
+                placement="right"
+                [ngbPopover]="parentIdeaExplainerDescription"
+                [popoverTitle]="parentIdeaExplainerTitle"
+                container="body"
+              ></fa-icon>
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon [icon]="['fas', 'level-up-alt']"></fa-icon>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <hr class="mb-0 mt-0" /> -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-3 bg-light">
+          <div class="card-body p-3">
+            <form>
+              <div class="form-group mb-0">
+                <p class="bold mb-1 small">
+                  Add Additional Ideas to Merge
+                </p>
+                <app-search-inline></app-search-inline>
+                <!-- <p class="form-text small text-muted mb-0">
+                  Ideas you add here will be added as "child ideas" below.
+                </p> -->
+              </div>
+            </form>
+            <!-- start of parent -->
+            <!-- <p class="bold mb-1 small">
+              Parent Idea
+            </p>
+            <div class="card grab my-2 border-success">
+              <div class="card-body py-2 px-3">
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <p class="mb-1 mt-1 bold text-medium">
+                          This is idea Title (255)
+                        </p>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="inverseLink"
+                          ngbTooltip="This is the description for idea if it exists."
+                        >
+                        </fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="float-right pt-1">
+                      <button class="btn btn-xs btn-outline-success mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          ngbTooltip="Make this idea the parent idea which other child ideas will be merged into."
+                        >
+                        </fa-icon>
+                        Make Parent
+                      </button>
+                      <button class="btn btn-xs btn-light border">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          ngbTooltip="Remove this idea from the child ideas to be merged."
+                        >
+                        </fa-icon>
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <ul class="list-inline mb-0">
+                      <li
+                        class="list-inline-item mr-1"
+                      >
+                        <p class="small text-muted mb-0">PostType</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li
+                        class="list-inline-item ml-1 mr-1"
+                      >
+                        <p class="small text-success mb-0">Current Status</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-muted mb-0">
+                          Posted on 10/22/21 by <span class="inverseLink">First Last Name</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- end of parent -->
+            <!-- <p class="bold mb-1 mt-3 small">
+              Child Ideas (10)
+            </p> -->
+            <hr />
+            <!-- start of one -->
+            <div class="card grab mb-2">
+              <div class="card-body py-2 px-3">
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <p class="mb-1 mt-1 bold text-medium">
+                          This is idea Title (255)
+                        </p>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="inverseLink"
+                          ngbTooltip="This is the description for idea if it exists."
+                        >
+                        </fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="float-right pt-1">
+                      <button class="btn btn-xs btn-outline-success mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          ngbTooltip="Make this idea the parent idea which other child ideas will be merged into."
+                        >
+                        </fa-icon>
+                        Make Parent
+                      </button>
+                      <button class="btn btn-xs btn-light border">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          ngbTooltip="Remove this idea from the child ideas to be merged."
+                        >
+                        </fa-icon>
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <!-- <p class="small text-muted mb-2">
+                      We're already seeing this in several other industries and think
+                      it's time for us to try it out. VR can immerse consumers providing
+                      them with of a product or service.
+                      <span class="link font-underline"><u>read more...</u></span>
+                    </p> -->
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mr-1">
+                        <p class="small text-muted mb-0">PostType</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-success mb-0">Current Status</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-muted mb-0">
+                          Posted on 10/22/21 by
+                          <span class="inverseLink">First Last Name</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+            <!-- start of one -->
+            <div class="card grab mb-2">
+              <div class="card-body py-2 px-3">
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <p class="mb-1 mt-1 bold text-medium">
+                          This is idea Title (255)
+                        </p>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="inverseLink"
+                          ngbTooltip="This is the description for idea if it exists."
+                        >
+                        </fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="float-right pt-1">
+                      <button class="btn btn-xs btn-outline-success mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          ngbTooltip="Make this idea the parent idea which other child ideas will be merged into."
+                        >
+                        </fa-icon>
+                        Make Parent
+                      </button>
+                      <button class="btn btn-xs btn-light border">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          ngbTooltip="Remove this idea from the child ideas to be merged."
+                        >
+                        </fa-icon>
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <!-- <p class="small text-muted mb-2">
+                      We're already seeing this in several other industries and think
+                      it's time for us to try it out. VR can immerse consumers providing
+                      them with of a product or service.
+                      <span class="link font-underline"><u>read more...</u></span>
+                    </p> -->
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mr-1">
+                        <p class="small text-muted mb-0">PostType</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-success mb-0">Current Status</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-muted mb-0">
+                          Posted on 10/22/21 by
+                          <span class="inverseLink">First Last Name</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+            <!-- start of one -->
+            <div class="card grab mb-2">
+              <div class="card-body py-2 px-3">
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <p class="mb-1 mt-1 bold text-medium">
+                          This is idea Title (255)
+                        </p>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="inverseLink"
+                          ngbTooltip="This is the description for idea if it exists."
+                        >
+                        </fa-icon>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="float-right pt-1">
+                      <button class="btn btn-xs btn-outline-success mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          ngbTooltip="Make this idea the parent idea which other child ideas will be merged into."
+                        >
+                        </fa-icon>
+                        Make Parent
+                      </button>
+                      <button class="btn btn-xs btn-light border">
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          ngbTooltip="Remove this idea from the child ideas to be merged."
+                        >
+                        </fa-icon>
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <!-- <p class="small text-muted mb-2">
+                      We're already seeing this in several other industries and think
+                      it's time for us to try it out. VR can immerse consumers providing
+                      them with of a product or service.
+                      <span class="link font-underline"><u>read more...</u></span>
+                    </p> -->
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mr-1">
+                        <p class="small text-muted mb-0">PostType</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-success mb-0">Current Status</p>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <fa-icon
+                          [icon]="['fas', 'circle']"
+                          class="small separatorIcon text-muted"
+                        ></fa-icon>
+                      </li>
+                      <li class="list-inline-item ml-1 mr-1">
+                        <p class="small text-muted mb-0">
+                          Posted on 10/22/21 by
+                          <span class="inverseLink">First Last Name</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of one -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- end of one -->
+    <!-- start of one -->
+    <!-- <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 col-md-7">
+            <ul class="list-inline mb-0 adjustFloatUp">
+              <li class="list-inline-item mr-1 align-middle">
+                <div class="media">
+                  <img
+                    class="float-left rounded-circle mr-2 ideaCardSubmitterImage"
+                    src="https://media.licdn.com/dms/image/C4D03AQGT4h8usocyiw/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=QcSE0CAvN-wayyq_udaMPemlkXGTyXIsChQr9PM-NBY"
+                  />
+                  <div class="media-body">
+                    <p class="small inverseLink adjustFloat mb-0">
+                      First Last Name
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="small separatorIcon text-muted"
+                ></fa-icon>
+              </li>
+              <li
+                class="list-inline-item ml-1 mr-1"
+                ngbTooltip="Status Description here"
+              >
+                <p class="small text-muted mb-0">Current Status</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="small separatorIcon text-muted"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <p class="small text-muted mb-0">
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-5">
+            <div class="adjustFloatUp float-right">
+              <button class="btn btn-xs btn-primary mr-1">
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  ngbTooltip="Make this idea the parent idea which other child ideas will be merged into."
+                >
+                </fa-icon>
+                Make Parent Idea
+              </button>
+              <button class="btn btn-xs btn-light border">
+                <fa-icon
+                  [icon]="['fas', 'times-circle']"
+                  ngbTooltip="Remove this idea from the child ideas to be merged."
+                >
+                </fa-icon>
+                Remove Idea
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h6 class="mb-1 mt-1">
+              #255
+            </h6>
+            <p class="small text-muted mb-2">
+              We're already seeing this in several other industries and think
+              it's time for us to try it out. VR can immerse consumers providing
+              them with of a product or service. Designed to provide a sensory
+              experience, it captures the attention and imagination of a
+              consumer quite unlike any other technology and marketers with
+              vision are
+              <span class="link font-underline"><u>read more...</u></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- end of one -->
+  </div>
+  <div class="modal-footer bg-light">
+    <div class="row">
+      <div class="col-8">
+        <p class="mb-0 small text-muted">
+          By clicking the "Merge Ideas" button, you will be merging XX child
+          ideas into the parent idea ideaTitle.
+        </p>
+      </div>
+      <div class="col-4">
+        <button
+          class="btn btn-light border"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Cancel
+        </button>
+        <button class="btn btn-primary ml-2">Merge 5 Ideas</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- end of merge / link modal -->
+
+<!-- Stage/Workflow Change -->
+<ng-template #stageChange>
+  <ng-select
+    #stageSelect
+    class="stage-select"
+    [items]="stages"
+    bindLabel="title"
+    bindValue="id"
+    [groupBy]="groupByFn"
+    [groupValue]="groupValueFn"
+    (change)="onStageSelect($event); stageSelect.handleClearClick()"
+    [clearable]="false"
+    placeholder="Search Stage..."
+    [isOpen]="true"
+  >
+    <ng-template ng-optgroup-tmp let-item="item">
+      <span style="vertical-align: middle;">{{ item.name }}</span>
+    </ng-template>
+  </ng-select>
+</ng-template>
+<!-- End of Stage/Workflow Change -->
+
+<!-- post idea update modal -->
+<ng-template #postIdeaUpdate let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Post Idea Update</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label>Select Update Targeting</label>
+          </div>
+          <div class="form-group">
+            <label>Update Title</label>
+            <input type="text" class="form-control" />
+            <p class="form-text text-muted mb-0 small">
+              This is the title of your update. If you send an email, it will be
+              shown as the subject line.
+            </p>
+          </div>
+          <div class="form-group">
+            <label>Update Message</label>
+            <!-- <app-markup-editor></app-markup-editor> -->
+            <textarea class="form-control" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary ml-2" (click)="open(confirmBulkSend)">
+      Post Update
+    </button>
+  </div>
+</ng-template>
+<!-- post idea update modal -->
+
+<!-- confirm bulk send modal -->
+<ng-template #confirmBulkSend let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Confirm</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        put image like mailchimp up top
+        <p class="text-center">
+          This update will be sending an email notification to
+          <b>2,900</b> people in your community. Please click the confirm and
+          send button below to complete this action.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="open(postIdeaUpdate)">
+      Go Back
+    </button>
+    <button class="btn btn-primary ml-2">Confirm and Send</button>
+  </div>
+</ng-template>
+<!-- end confirm bulk send modal -->
+
+<!-- add tags settings modal -->
+<ng-template #editIdeaSettings let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Edit Idea Settings</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary ml-2">Add Tags</button>
+  </div>
+</ng-template>
+<!-- add tags modal -->
+
+<!-- archive multiple ideas modal -->
+<ng-template #archiveMultipleIdeas let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">
+      Archive {{ selected.length }} Idea(s)
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Are you sure you would like to archive {{ selected.length }} idea(s)?
+      Please review the effects of archiving ideas before proceeding.
+    </p>
+    <label>Effects of Archiving Ideas</label>
+    <ul class="pl-4">
+      <li>This post type will no longer be visible on list pages.</li>
+      <li>This post type will no longer be visible in search results.</li>
+      <li>This post type will be removed from analytics results.</li>
+    </ul>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-info"
+      (click)="onArchiveIdeas()"
+      [disabled]="selected.length == 0"
+    >
+      Yes, Archive {{ selected.length }} Idea(s)
+    </button>
+  </div>
+</ng-template>
+
+<!-- archive multiple ideas modal -->
+<!-- <ng-template #archiveMultipleIdeas let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive 10 Submissions</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Are you sure you would like to archive these 10
+      submissions? Please review the effects of archiving
+      before proceeding.
+    </p>
+    <label>Effects of Archiving</label>
+    <ul class="pl-4">
+      <li>
+        These submissions will no longer be visible on list
+        pages
+      </li>
+      <li>
+        These submissions will no longer be listed in
+        search results
+      </li>
+      <li>
+        These submissions will be removed from analytics
+        results
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-danger">Yes, Archive 10 Ideas</button>
+  </div>
+</ng-template> -->
+<!-- archive multiple ideas modal -->
+
+<!-- end bulk action modals -->

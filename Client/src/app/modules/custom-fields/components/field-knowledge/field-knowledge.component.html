@@ -1,0 +1,91 @@
+<!-- have to consider settings searchable / can add new -->
+
+<div class="row pb-3">
+  <div class="col-12">
+    <label placement="right" ngbTooltip="Label description if it exists">
+      Label Title
+      <fa-icon
+        [icon]="['fas', 'info-circle']"
+        class="text-muted"
+        ngbTooltip="If description exists..."
+      ></fa-icon>
+    </label>
+    <div class="row" *ngIf="addNewEntry">
+      <div class="col-12">
+        <!-- if can search -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-2 shadow-sm bg-light">
+              <div class="card-body pt-2">
+                <label class="font-weight-normal">Start Typing to Search</label>
+                <app-search-types></app-search-types>
+                <div class="mt-2">
+                  <button
+                    class="btn btn-light border btn-sm mr-1"
+                    (click)="toggleEntry()"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    (click)="toggleEntry()"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end if can search -->
+      </div>
+    </div>
+    <app-types-list></app-types-list>
+    <!-- if user can only add onClick open in new modal based on type -->
+    <div class="row" *ngIf="!addNewEntry">
+      <div class="col-12">
+        <button class="btn btn-primary btn-sm" (click)="toggleEntry()">
+          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+          Add New PostType (Can Search + add)
+        </button>
+        <button
+          class="btn btn-primary btn-sm ml-1"
+          (click)="open(addNewTypeEntry)"
+        >
+          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+          Add New PostType (Can only Add)
+        </button>
+      </div>
+    </div>
+    <!-- end if user can only add onClick open in new modal based on type -->
+  </div>
+</div>
+
+<!-- start of add field modal -->
+<ng-template #addNewTypeEntry let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Add New PostType</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    insert post type submission form based on the settings on the postType page
+    (ie: opportunity or knowledge type)...
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2" (click)="modal.dismiss('Cross click')">
+      Create PostType
+    </button>
+  </div>
+</ng-template>
+
+<!-- end of add field modal -->

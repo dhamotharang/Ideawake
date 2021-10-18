@@ -1,0 +1,17 @@
+<button
+  *ngIf="!smallButton"
+  class="btn btn-primary btn-sm float-right"
+  (click)="openCustomFieldsTypes()"
+>
+  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+  Create New Field
+</button>
+
+<button
+  *ngIf="smallButton"
+  class="btn btn-primary btn-xs float-right"
+  (click)="openCustomFieldsTypes()"
+>
+  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+  Create New Field
+</button>

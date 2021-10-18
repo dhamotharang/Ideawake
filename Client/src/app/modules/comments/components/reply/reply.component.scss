@@ -1,0 +1,51 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.stakeholderBadge {
+  font-size: 0.6rem;
+}
+
+.comment-file {
+  display: block;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.thumbnailImage {
+  width: 6rem;
+  height: 5.5rem;
+  border-radius: 3%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.userImageSmall{
+  border: 2px solid white;
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.commentLeftBorder {
+  border-left: 0.25rem solid $primary;
+}
+
+.text-comment {
+  font-size: 0.85rem;
+}
+
+.repositionSmallButton{
+  position: relative;
+  bottom: 2rem;
+  left: 1.55rem;
+}
+
+.anonymousUser{
+  padding: .5rem .95rem;
+  position: relative;
+  top: 0;
+}
+

@@ -1,0 +1,87 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      style="padding-bottom: 2.5rem !important;"
+      *ngIf="!dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add an entry for this field...
+    </p>
+    <p
+      class="showEditOnHover text-medium mb-0"
+      *ngIf="dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+      [innerHtml]="text"
+    >
+      <!-- {{ text }} -->
+    </p>
+    <!-- if completed -->
+    <ng-container *ngIf="editMode || !view">
+      <app-markup-editor
+        [height]="400"
+        [text]="text"
+        (outputText)="updateText($event)"
+      >
+      </app-markup-editor>
+
+      <!-- <app-markup-editor></app-markup-editor>
+      <textarea
+        class="form-control"
+        rows="6"
+        [placeholder]="
+          customField?.placeholderText || 'Enter ' + customField?.title + '...'
+        "
+        [(ngModel)]="text"
+        (keyup)="!view ? data.emit(text) : null"
+      ></textarea> -->
+
+      <!--       <editor
+        [(ngModel)]="text"
+        (onChange)="!view ? test() : null"
+        [init]="{
+        height: 400,
+        plugins: [
+          'advlist autolink lists link image charmap anchor',
+          'searchreplace code',
+          'insertdatetime media table paste code wordcount'
+        ],
+        toolbar:
+          'undo redo | formatselect | bold italic backcolor | \
+              alignleft aligncenter alignright alignjustify | \
+              bullist numlist outdent indent | removeformat | help'
+          }"
+        ></editor> -->
+    </ng-container>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="text = backupText; editMode = false"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.TEXT"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>

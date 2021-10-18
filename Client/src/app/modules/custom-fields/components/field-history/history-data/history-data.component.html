@@ -1,0 +1,74 @@
+<div class="card shadow-sm" *ngIf="history">
+  <div class="card-body px-2 py-1">
+    <p
+      class="form-text small mb-0"
+      *ngIf="dataType === fieldDataTypes.TEXT"
+      [innerHtml]="history"
+    >
+      <!-- {{ history }} -->
+    </p>
+    <ng-container [ngSwitch]="customField.customFieldType.abbreviation">
+      <span
+        *ngSwitchCase="fieldTypes.SINGLE_SELECT"
+        class="badge ml-2 adjustFloatUp"
+        style="background-color: #6c757d; color: #fff;"
+      >
+        {{ history }}
+      </span>
+
+      <ng-container *ngSwitchCase="fieldTypes.MULTI_SELECT">
+        <span
+          class="badge ml-2 adjustFloatUp"
+          style="background-color: #6c757d; color: #fff;"
+          *ngFor="let item of history"
+        >
+          {{ item }}
+        </span>
+      </ng-container>
+
+      <app-search-groups
+        *ngSwitchCase="fieldTypes.COMMUNITY_USER_GROUP"
+        [readonly]="true"
+        container="body"
+        [isUser]="true"
+        [selection]="history"
+        [darkColor]="true"
+      ></app-search-groups>
+    </ng-container>
+    <p class="form-text small mb-0" *ngIf="dataType === fieldDataTypes.NUMBER">
+      {{ history | number }}
+    </p>
+    <ng-container [ngSwitch]="customField.customFieldType.abbreviation">
+      <img
+        *ngSwitchCase="fieldTypes.IMAGE_UPLOAD"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="history"
+        width="280"
+        height="100"
+      />
+
+      <a
+        *ngSwitchCase="fieldTypes.FILE_UPLOAD"
+        [href]="history"
+        target="_blank"
+      >
+        {{ history.split('/')[history.split('/').length - 1] }}
+      </a>
+
+      <video
+        *ngSwitchCase="fieldTypes.VIDEO_UPLOAD"
+        width="280"
+        height="100"
+        controls
+      >
+        <source [src]="history" type="video/mp4" />
+        <source [src]="history" type="video/ogg" />
+        Your browser does not support the video tag.
+      </video>
+    </ng-container>
+
+    <p class="form-text small mb-0" *ngIf="dataType === fieldDataTypes.DATE">
+      {{ history.day + '/' + history.month + '/' + history.year }}
+    </p>
+  </div>
+</div>

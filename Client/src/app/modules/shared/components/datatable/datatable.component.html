@@ -1,0 +1,404 @@
+<ngx-datatable
+  class="material"
+  [rows]="rows"
+  *ngIf="rows.length > 0"
+  [columns]="columns"
+  headerHeight="headerHeight"
+  footerHeight="footerHeight"
+  rowHeight="rowHeight"
+  [limit]="limit"
+  (page)="pageSelected($event)"
+  (select)="onSelect($event)"
+  [selectionType]="selectionType"
+  [selectAllRowsOnPage]="selectAllRowsOnPage"
+>
+  <!-- [width]="30"
+    [sortable]="false"
+    [canAutoResize]="false"
+    [draggable]="false"
+    [resizeable]="false"
+    [headerCheckboxable]="true"
+    checkboxable="true" -->
+  <!-- <ngx-datatable-column
+    [width]="50"
+    [sortable]="columnSortable"
+    [canAutoResize]="columnAutoResizable"
+    [draggable]="columnDraggable"
+    [resizeable]="columnResizable"
+    [headerCheckboxable]="headerCheckboxable"
+    [checkboxable]="checkboxable"
+  >
+  </ngx-datatable-column> -->
+  <!-- [width]="column.width || columnWidth" -->
+  <ngx-datatable-column
+    [width]="240"
+    [sortable]="columnSortable"
+    [canAutoResize]="columnAutoResizable"
+    [draggable]="columnDraggable"
+    [resizeable]="columnResizable"
+    [headerCheckboxable]="headerCheckboxable"
+    *ngFor="let column of columns"
+    name="{{ column.name }}"
+  >
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <div class="media" *ngIf="column.routerLink && actions == 'groupList'">
+        <!-- <div class="img-box mr-2 rounded-circle light-blue">
+          <img src="https://via.placeholder.com/40x40" class="rounded-circle" />
+        </div> -->
+        <div class="media-body text-left">
+          <p class="mt-0 mb-0 bold" style="padding-top: 0.57rem;">
+            <a routerLink="{{ column.routerLink }}/{{ row.id }}">
+              {{ row[column.key] || '-' }}</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="media"
+        *ngIf="column.routerLink && actions == 'groupUsersList'"
+      >
+        <img
+          [defaultImage]="defaultImage"
+          [lazyLoad]="row?.profileImage?.url || image"
+          class="mr-2 rounded-circle image"
+        />
+        <div class="media-body">
+          <p class="mt-0 mb-0 bold">
+            <a routerLink="/profile/view/{{ row.id }}">{{
+              row[column.key] || '-'
+            }}</a>
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-0">
+              <p class="small mb-0 text-muted">{{ row.username || '-' }}</p>
+            </li>
+            <!-- <li class="list-inline-item ml-1 mr-1">
+              <fa-icon
+                [icon]="['fas', 'circle']"
+                class="small separatorIcon text-muted"
+              >
+              </fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <p class="small mb-0 text-muted">{{ row.email || '-' }}</p>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+      <span *ngIf="!column.routerLink && !column.modified">
+        {{ row[column.key] || '-' }}
+      </span>
+      <span *ngIf="column.modified === 'array'">
+        <span class="badge" *ngFor="let elem of row[column.key]">
+          {{ elem.circle.name }}
+        </span>
+      </span>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <!-- <div *ngIf="actions"> -->
+  <ngx-datatable-column
+    [width]="100"
+    [sortable]="columnSortable"
+    [canAutoResize]="columnAutoResizable"
+    [draggable]="columnDraggable"
+    [resizeable]="columnResizable"
+    [headerCheckboxable]="headerCheckboxable"
+    name="Manage"
+  >
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <ng-container *ngIf="actions === 'groupList'">
+        <span class="text-left">
+          <fa-icon
+            [icon]="['fas', 'user-plus']"
+            class="mr-3 editLink"
+            placement="top"
+            ngbTooltip="Add Users to This Group"
+            (click)="triggerCallback(addUserstoGroup)"
+          ></fa-icon>
+
+          <ng-template
+            #addUserstoGroup
+            let-close="close"
+            let-dismiss="dismiss"
+            let-modal
+          >
+            <div *ngIf="users">
+              <app-user-modal
+                [groupId]="row.id"
+                [users]="users"
+                [dismiss]="dismiss"
+                [close]="close"
+              >
+              </app-user-modal>
+            </div>
+          </ng-template>
+
+          <fa-icon
+            [icon]="['fas', 'edit']"
+            class="mr-3 editLink"
+            placement="top"
+            ngbTooltip="Edit This Group"
+            [routerLink]="['', { outlets: { modal: ['edit-group', row.id] } }]"
+          ></fa-icon>
+
+          <fa-icon
+            [icon]="['fas', 'sync']"
+            class="mr-3 editLink"
+            placement="top"
+            ngbTooltip="Resend Invites to Members of This Group Who Have Not Yet Signed Up"
+            (click)="triggerCallback(resendInvites)"
+          ></fa-icon>
+
+          <ng-template #resendInvites let-modal>
+            <div class="modal-header card-header bg-info">
+              <p class="uppercase bold mb-0 small text-white">
+                Resend Pending Invites to This Group
+              </p>
+              <button
+                type="button"
+                class="close text-white"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Completing this action will send an email invite to all users
+                who have not yet signed up in this group. Are you sure you'd
+                like to resend pending invites to all members of groups and
+                sub-groups of groupName?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-light border"
+                (click)="modal.dismiss('Cross click')"
+              >
+                Cancel
+              </button>
+              <button class="btn btn-info" (click)="resendInvite(row)">
+                Yes, Resend Pending Invites
+              </button>
+            </div>
+          </ng-template>
+
+          <span ngbDropdown style="position: fixed;">
+            <fa-icon
+              [icon]="['fas', 'ellipsis-v']"
+              class="editLink"
+              placement="top"
+              ngbTooltip="More Options"
+              ngbDropdownToggle
+            ></fa-icon>
+            <div
+              ngbDropdownMenu
+              aria-labelledby="groupsListMore"
+              class="shadow pt-0 pb-0 dropdownOnTop"
+            >
+              <!-- <button ngbDropdownItem class="pt-2 pb-2">
+                <fa-icon
+                  [icon]="['fas', 'dice-d20']"
+                  class="text-muted"
+                ></fa-icon>
+                Manage Group Roles
+              </button>
+              <hr class="mb-0 mt-0" /> -->
+              <button
+                ngbDropdownItem
+                class="pt-2 pb-2"
+                *ngIf="row.status != 'Archived'"
+                (click)="triggerCallback(deleteGroup)"
+              >
+                <fa-icon
+                  [icon]="['fas', 'times-circle']"
+                  class="text-muted"
+                ></fa-icon>
+                Archive Group
+              </button>
+              <ng-template
+                #deleteGroup
+                let-modal
+                let-close="close"
+                let-dismiss="dismiss"
+              >
+                <app-archive-groups
+                  [groupId]="row.id"
+                  [dismiss]="dismiss"
+                  [close]="close"
+                ></app-archive-groups>
+              </ng-template>
+            </div>
+          </span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="actions === 'groupUsersList'">
+        <span class="text-left">
+          <fa-icon
+            *ngIf="row.inviteId"
+            [icon]="['fas', 'sync']"
+            class="mr-3 editLink"
+            placement="top"
+            ngbTooltip="Resend Invite Email"
+            (click)="triggerCallback(resendInviteUser)"
+          ></fa-icon>
+          <ng-template #resendInviteUser let-modal>
+            <div class="modal-header card-header">
+              <p class="uppercase bold mb-0 small">
+                Resend Invite to {{ row.name }}
+              </p>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you'd like to resend invite ?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-light border">Cancel</button>
+              <button class="btn btn-primary" (click)="resendInvitesUser(row)">
+                Resend Invite
+              </button>
+            </div>
+          </ng-template>
+          <button
+            class="btn btn-outline-danger btn-sm"
+            style="padding-right: 5px;"
+            placement="top"
+            ngbTooltip="Remove User from Group"
+            (click)="triggerCallback(deleteUser)"
+          >
+            <fa-icon [icon]="['fas', 'trash']"> </fa-icon> Remove
+          </button>
+          <ng-template
+            #deleteUser
+            let-modal
+            let-close="close"
+            let-dismiss="dismiss"
+          >
+            <div class="modal-header card-header bg-danger">
+              <p class="uppercase bold text-white mb-0 small">
+                Remove <b>{{ row.name }}</b> from group?
+              </p>
+              <button
+                type="button"
+                class="close text-white"
+                aria-label="Close"
+                (click)="dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="">
+                Are you sure you would like to remove user from group?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-light border" (click)="dismiss()">
+                Cancel
+              </button>
+              <button class="btn btn-danger" (click)="removeUserGrp(row)">
+                Yes
+              </button>
+            </div>
+          </ng-template>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="actions === 'usersList'">
+        <fa-icon
+          [icon]="['fas', 'users']"
+          class="mr-3 editLink"
+          placement="top"
+          ngbTooltip="Manage Groups"
+          (click)="triggerCallback(manageGroups)"
+        >
+        </fa-icon>
+        <ng-template
+          #manageGroups
+          let-modal
+          let-close="close"
+          let-dismiss="dismiss"
+        >
+          <app-manage-user-groups-modal
+            [user]="row"
+            [dismiss]="dismiss"
+            [close]="close"
+          ></app-manage-user-groups-modal>
+        </ng-template>
+
+        <span ngbDropdown>
+          <span class="removeCaret" ngbDropdownToggle>
+            <fa-icon
+              [icon]="['fas', 'ellipsis-v']"
+              class="mr-1 inverseLink"
+            ></fa-icon>
+          </span>
+          <div ngbDropdownMenu class="shadow pt-0 pb-0">
+            <button
+              ngbDropdownItem
+              class="pt-2 pb-2"
+              (click)="triggerCallback(manageRoles)"
+            >
+              <fa-icon
+                [icon]="['fas', 'dice-d20']"
+                class="text-muted"
+              ></fa-icon>
+              Edit {{ row.inviteId ? 'Invitee' : 'User' }} Role
+            </button>
+
+            <ng-template
+              #manageRoles
+              let-modal
+              let-close="close"
+              let-dismiss="dismiss"
+            >
+              <app-edit-user-role-modal
+                [user]="row"
+                [dismiss]="dismiss"
+                [close]="close"
+              ></app-edit-user-role-modal>
+            </ng-template>
+
+            <hr class="mb-0 mt-0" *ngIf="!row.inviteId" />
+            <button
+              ngbDropdownItem
+              class="pt-2 pb-2"
+              (click)="triggerCallback(deleteUser)"
+              *ngIf="!row.inviteId && row.status != 'Archived'"
+            >
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="text-muted"
+              ></fa-icon>
+              Archive User
+            </button>
+            <ng-template
+              #deleteUser
+              let-modal
+              let-close="close"
+              let-dismiss="dismiss"
+            >
+              <app-archive-user-modal
+                [users]="row"
+                [dismiss]="dismiss"
+                [close]="close"
+              ></app-archive-user-modal>
+            </ng-template>
+          </div>
+        </span>
+      </ng-container>
+    </ng-template>
+  </ngx-datatable-column>
+  <!-- </div> -->
+</ngx-datatable>

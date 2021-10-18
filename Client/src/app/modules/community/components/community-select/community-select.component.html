@@ -1,0 +1,111 @@
+<div class="negativeSideMargins loginBackgroundNonFixed pageTopPadding">
+  <div class="row py-4">
+    <div class="col-md-6 offset-md-3 col-12">
+      <div class="card shadow-lg" style="min-height: 50vh;">
+        <div class="card-header bg-white border-bottom-0">
+          <h4 class="text-center mb-0 montserrat bold">
+            Select Community You'd Like to Login To
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row mt-3">
+            <div class="col-md-10 offset-md-1 col-12">
+              <!-- <p class="uppercase mb-1 bold">Your Communities</p>
+              <p class="text-medium mb-2 text-muted">
+                These are the communities you're already a member of.
+              </p> -->
+              <div
+                class="card cardAnimation shadow-sm pointer mb-3"
+                *ngFor="let community of communities"
+                (click)="saveCommunity(community)"
+              >
+                <div class="card-body p-3">
+                  <!-- *ngIf="community.status === 'active'" -->
+                  <!-- <span class="float-left mr-3">
+                    <img src="https://via.placeholder.com/50" />
+                  </span> -->
+                  <h4 class="mb-4 montserrat">
+                    {{ community.name }}
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted small"
+                      ngbTooltip="{{ community.description }}"
+                    ></fa-icon>
+                  </h4>
+                  <ul class="list-inline mb-0 text-medium">
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'bullseye']"
+                        class="text-muted"
+                      ></fa-icon>
+                      5
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'lightbulb-on']"
+                        class="text-muted"
+                      ></fa-icon>
+                      125
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'comment']"
+                        class="text-muted"
+                      ></fa-icon>
+                      250
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'thumbs-up']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'user']"
+                        class="text-muted"
+                      ></fa-icon>
+                      1,250
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4 mb-4" *ngIf="invites.length">
+            <div class="col-md-10 offset-md-1 col-sm-12">
+              <p class="uppercase mb-1 bold">Your Invites</p>
+              <p class="text-medium mb-2 text-muted">
+                These are communities you've been invited to but haven't signed
+                up for yet.
+              </p>
+              <div
+                class="card mb-2"
+                *ngFor="let invite of invites"
+                routerLink="/login"
+              >
+                <div class="card-body addHover p-3">
+                  <!-- *ngIf="community.status === 'pending'"> -->
+                  <span class="float-left mr-3">
+                    <img
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="'https://via.placeholder.com/50'"
+                    />
+                  </span>
+                  <p class="mb-1">
+                    {{ invite.name }}
+                  </p>
+                  <p class="text-muted font-italic text-sm mb-0">
+                    {{ invite.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

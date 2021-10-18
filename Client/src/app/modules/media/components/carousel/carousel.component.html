@@ -1,0 +1,107 @@
+<div class="modal-header card-header bg-white border-bottom-0 py-0">
+  <!-- <p class="small uppercase bold mb-0">Videos, Images, and Files</p> -->
+  <button
+    type="button"
+    class="close pt-4"
+    style="font-size: 35px;"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="featuredContent">
+        <ngb-carousel
+          #carousel
+          style="text-align: center;"
+          [showNavigationIndicators]="false"
+        >
+          <ng-template ngbSlide *ngFor="let file of files" [id]="file.id">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1">
+                <div class="row">
+                  <div class="col-7 pl-0">
+                    <h5
+                      class="mb-4 bold montserrat"
+                      style="text-align: left;"
+                      [ngbTooltip]="file.name"
+                    >
+                      {{
+                        file.name.length > 50
+                          ? file.name.substring(0, 50) + '...'
+                          : file.name
+                      }}
+                    </h5>
+                  </div>
+                  <div class="col-5 pl-0">
+                    <div class="float-right">
+                      <button
+                        class="btn btn-xs btn-light mr-1 py-2"
+                        (click)="downloadFile(file)"
+                      >
+                        <fa-icon [icon]="['fas', 'arrow-down']"></fa-icon>
+                        Download File
+                      </button>
+                      <button
+                        class="btn btn-xs btn-light py-2"
+                        (click)="viewFile(file)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'external-link-alt']"
+                        ></fa-icon>
+                        New Window
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="list-unstyled mb-0">
+              <li>
+                <img
+                  class="mb-3"
+                  style="width: 225px; height: 225px;"
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="file.icon"
+                />
+              </li>
+              <li class="mb-3">
+                <p class="text-center" *ngIf="file.attachmentType !== 'image'">
+                  We cannot generate a preview for this file. Please download it
+                  or open it in a new window.
+                </p>
+                <button
+                  class="btn btn-primary btn-sm mr-1"
+                  (click)="downloadFile(file)"
+                >
+                  <fa-icon [icon]="['fas', 'arrow-down']"></fa-icon>
+                  Download File
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm mr-1"
+                  (click)="viewFile(file)"
+                >
+                  <fa-icon [icon]="['fas', 'external-link-alt']"></fa-icon>
+                  Open in New Window
+                </button>
+              </li>
+            </ul>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12" style="text-align: center;">
+          <app-media-feature
+            (selectedImageIndex)="selectImage($event)"
+            [openModal]="false"
+            [files]="files"
+          ></app-media-feature>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

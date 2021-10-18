@@ -1,0 +1,55 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #434343 !important;
+  background-color: #f9f9f9 !important;
+  border: 1px solid #dddddd;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.nav-pills {
+  justify-content: space-between;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.nav-pills .nav-item {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.nav-pills .nav-item p {
+  color: white;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  margin-bottom: 0.5rem;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.removeMargins {
+  margin-right: -0.8rem;
+}
+
+.userImage {
+  border: 2px solid white;
+  max-width: 2.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.circleIcon {
+  font-size: 5px;
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.shadow-sm-primary{
+  box-shadow: 0 0rem 0.25rem $primary !important;
+}

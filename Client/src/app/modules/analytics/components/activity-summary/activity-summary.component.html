@@ -1,0 +1,98 @@
+<div class="card shadow-sm">
+  <div class="card-body py-3">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="mb-3 bold small text-muted uppercase montserrat">
+          Activity Summary
+        </p>
+      </li>
+      <li class="list-inline-item float-right adjustFloatUp">
+        <app-widget-manage></app-widget-manage>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-12">
+        <div style="display: block;">
+          <canvas
+            *ngIf="chartData"
+            baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [chartType]="chartType"
+            [legend]="false"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="card-group w-100 d-inline-flex mb-3 mt-3">
+      <div class="card border-0 w-20">
+        <div class="card-body text-center p-1">
+          <fa-icon
+            [icon]="['fas', 'lightbulb-on']"
+            class="text-primary iconLarge"
+          ></fa-icon>
+          <h4 class="montserrat mb-1 mt-1">
+            {{ participationCounts?.submissions }}
+          </h4>
+          <p class="text-medium mb-0 text-muted">Submissions</p>
+        </div>
+      </div>
+      <div class="card border-0 w-20">
+        <div class="card-body text-center p-1">
+          <fa-icon
+            [icon]="['fas', 'comment-alt']"
+            class="text-muted iconLarge"
+          ></fa-icon>
+          <h4 class="montserrat mb-1 mt-1">
+            {{ participationCounts?.comments }}
+          </h4>
+          <p class="text-medium mb-0 text-muted">Comments</p>
+        </div>
+      </div>
+      <div class="card border-0 w-20">
+        <div class="card-body text-center p-1">
+          <fa-icon
+            [icon]="['fas', 'thumbs-up']"
+            class="text-secondary iconLarge"
+          ></fa-icon>
+          <h4 class="montserrat mb-1 mt-1">{{ participationCounts?.votes }}</h4>
+          <p class="text-medium mb-0 text-muted">Votes</p>
+        </div>
+      </div>
+      <div class="card border-0 w-20">
+        <div class="card-body text-center p-1">
+          <fa-icon
+            [icon]="['fas', 'share-alt']"
+            class="text-tertiary iconLarge"
+          ></fa-icon>
+          <h4 class="montserrat mb-1 mt-1">
+            {{ participationCounts?.shares }}
+          </h4>
+          <p class="text-medium mb-0 text-muted">Shares</p>
+        </div>
+      </div>
+      <div class="card border-0 w-20">
+        <div class="card-body text-center p-1">
+          <fa-icon
+            [icon]="['fas', 'star']"
+            class="text-warning iconLarge"
+          ></fa-icon>
+          <h4 class="montserrat mb-1 mt-1">
+            {{ participationCounts?.ratings }}
+          </h4>
+          <p class="text-medium mb-0 text-muted">Ratings</p>
+        </div>
+      </div>
+      <!-- <div class="card border-0">
+                    <div class="card-body text-center p-1">
+                      <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-primary iconLarge"></fa-icon>
+                      <h4 class="montserrat mb-1 mt-1">1,250</h4>
+                      <p class="text-medium mb-0 text-muted">Submissions</p>
+                    </div>
+                  </div> -->
+    </div>
+    <!-- end card group -->
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<span ngbDropdown>
+  <span
+    class="badge badge-light badgePadding border addHover removeCaret"
+    ngbDropdownToggle
+  >
+    <fa-icon [icon]="['fas', 'tag']" class="text-muted"></fa-icon>
+    Marketing
+    <fa-icon [icon]="['fas', 'caret-down']" class="text-muted"></fa-icon>
+  </span>
+  <div ngbDropdownMenu class="shadow pt-0">
+    <div style="min-width: 15rem;">
+      <form class="p-1">
+        <div class="form-group mb-0">
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="Search categories..."
+          />
+        </div>
+      </form>
+    </div>
+    <div class="dropdownScrollMaxHeight">
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+      <button class="btn-sm pl-2" ngbDropdownItem>
+        Category Name
+      </button>
+    </div>
+  </div>
+</span>

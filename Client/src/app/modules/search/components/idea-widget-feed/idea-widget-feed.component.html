@@ -1,0 +1,314 @@
+<div
+  *ngIf="idea?.id"
+  class="card cardAnimation pointer shadow-sm animated fadeIn"
+  (mouseenter)="showManageOptions = true"
+  (mouseleave)="showManageOptions = false"
+>
+  <app-managing-widget
+    *ngIf="showManageOptions"
+    [idea]="idea"
+    (action)="action.emit($event)"
+  ></app-managing-widget>
+  <div class="card-header p-0 showActions">
+    <img
+      class="w-100 cardTopImage rounded-top"
+      [defaultImage]="defaultImage"
+      [lazyLoad]="displayImage"
+    />
+    <span
+      [ngStyle]="{ 'background-color': idea?.stage?.status?.colorCode }"
+      class="badge badgePadding ideaStatus montserrat shadow-sm text-white font-weight-normal"
+    >
+      <!-- <fa-icon
+        [icon]="['fas', 'info-circle']"
+        [ngbTooltip]="
+          idea?.stage?.status?.description || 'No description available'
+        "
+      >
+      </fa-icon> -->
+      <ng-container *ngIf="idea?.stage">
+        <span>
+          {{ 'Statuses.' + idea?.stage?.status?.title | translationPipe }}
+          <!-- - {{ idea?.stage?.title }} -
+          {{ idea?.workflow?.title }} -->
+        </span>
+      </ng-container>
+      <!-- <ng-template #noWorkflow>
+        No Workflow
+      </ng-template> -->
+
+      <!-- <div class="progress" style="height: 10px;">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+          aria-valuemax="100"></div>
+      </div> -->
+    </span>
+    <ul class="list-inline mb-0 repositionType">
+      <li class="list-inline-item mr-1">
+        <p
+          class="uppercase mb-0 text-white montserrat textShadow text-medium"
+          style="letter-spacing: 1.5px;"
+        >
+          <!-- <fa-icon
+            [icon]="['fas', idea?.opportunityType?.icon]"
+            class="text-muted"
+            style="font-size: 0.6rem;"
+          ></fa-icon> -->
+          {{ idea?.opportunityType?.name }}
+        </p>
+      </li>
+      <li class="list-inline-item">
+        <!-- <span
+          class="small visibilityBadge bg-success rounded-circle shadow"
+          style="font-size: 70%;"
+          ngbTooltip="Public - Visible to all users in your community."
+          container="body"
+          *ngIf="idea?.visibility?.public"
+        >
+          <fa-icon [icon]="['fas', 'eye']" class="text-white"></fa-icon>
+        </span> -->
+        <span
+          class="small visibilityBadge bg-warning rounded-circle shadow"
+          style="font-size: 70%;"
+          ngbTooltip="Limited Visibility - Only visible to specific groups or individuals in your community."
+          container="body"
+          *ngIf="idea?.visibility?.groups?.length"
+        >
+          <fa-icon [icon]="['fas', 'eye']" class="text-white"></fa-icon>
+        </span>
+        <span
+          class="small visibilityBadge bg-danger rounded-circle shadow"
+          ngbTooltip="Private - Only submitters, team members, and owners can see this."
+          container="body"
+          *ngIf="idea?.visibility?.roles?.length"
+        >
+          <fa-icon [icon]="['fas', 'eye']" class="text-white"></fa-icon>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="card-body pt-0 pb-1"
+    style="padding-left: 0.8rem; padding-right: 0.8rem;"
+  >
+    <div class="ideaDescriptionHeight">
+      <label class="mb-2 ideaTitle align-top link">
+        <span class="mb-1 pointer">
+          {{ idea?.title?.substring(0, 80) | dynamicTranslation }}
+          <span *ngIf="idea?.title?.length > 80">...</span>
+          <span class="text-muted font-weight-normal">({{ idea?.id }})</span>
+        </span>
+      </label>
+      <p class="mb-1 text-muted" style="font-size: 83%;" [id]="idea?.id">
+        {{
+          util.replaceUrls(idea?.description?.substring(0, 150))
+            | dynamicTranslation
+        }}
+        <span *ngIf="idea?.description?.length > 205">...</span>
+        <!-- <a
+          *ngIf="idea?.description?.length > 205"
+          [routerLink]="['idea/view', idea?.id]"
+          ><span class="text-muted">...</span>
+          {{ 'ChallengeList.Labels.readMore' | translationPipe }}</a
+        > -->
+      </p>
+    </div>
+    <!-- <div class="tagsHeight">
+      <ng-container *ngIf="tagsData">
+        <span
+          *ngFor="let tag of idea?.tags | slice: 0:3"
+          class="small text-muted mr-0"
+        >
+          #{{ tagsData[tag] }}
+        </span>
+        <span *ngIf="idea?.tags.length > 3" class="tagLink small mr-2">+4</span>
+      </ng-container>
+    </div> -->
+    <!-- start of insert -->
+    <ul class="list-inline mb-0 mt-2" style="height: 1.5rem;">
+      <li class="list-inline-item">
+        <div class="media align-items-center mt-1">
+          <!-- <img
+            class="float-left rounded-circle mr-1 ideaCardSubmitterImage"
+            [src]="
+              idea?.anonymous
+                ? 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'
+                : idea?.user?.profileImage?.url
+            "
+            [ngbTooltip]="
+              idea?.anonymous
+                ? 'Anonymous'
+                : idea?.user?.firstName + ' ' + idea?.user?.lastName
+            "
+          /> -->
+          <div class="media-body">
+            <p class="mb-0 small">
+              {{
+                idea?.anonymous
+                  ? 'anonymous'
+                  : idea?.user
+                  ? idea?.user?.firstName.substring(0, 8) +
+                    ' ' +
+                    idea?.user?.lastName?.substring(0, 12)
+                  : null
+              }}
+            </p>
+          </div>
+        </div>
+      </li>
+
+      <!-- <li class="list-inline-item mr-1">
+        <fa-icon
+          [icon]="['fas', 'circle']"
+          class="text-muted"
+          style="
+            position: relative;
+            bottom: 2.5px;
+            font-size: 4px;
+            left: 0.5px;
+          "
+        ></fa-icon>
+      </li>
+      <li class="list-inline-item mr-1">
+        <p class="uppercase mb-0 small bold montserrat text-muted" style="font-size: 70%;">
+          {{ idea.createdAt | date: 'MMM dd' }}
+        </p>
+      </li> -->
+      <!-- <li class="list-inline-item">
+        <p class="uppercase mb-0 small montserrat bold text-muted" style="font-size: 70%;">
+          {{ idea.user.firstName + ' ' + idea.user.lastName }}
+        </p>
+      </li>
+      <li class="list-inline-item mr-1">
+        <fa-icon [icon]="['fas', 'circle']" class="text-muted" style="position: relative; bottom: 3px; font-size: 5px;">
+        </fa-icon>
+      </li> -->
+      <li class="list-inline-item float-right">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mr-1">
+            <p class="uppercase mb-0 small">
+              {{ idea.createdAt | date: "MM'/'dd'/'yy" }}
+            </p>
+          </li>
+          <!-- <li class="list-inline-item mr-0">
+            <button
+              class="btn btn-sm bold uppercase text-muted px-0"
+              ngbTooltip="Views"
+            >
+              <fa-icon [icon]="['fas', 'eye']" class="text-muted"></fa-icon>
+              {{ idea?.viewCount }}
+            </button>
+          </li> -->
+          <!-- <li class="list-inline-item">
+            <p class="uppercase mb-0 small bold montserrat text-muted" style="font-size: 70%;">
+              <fa-icon [icon]="['fas', 'comment']" class="text-muted" style="font-size: .6rem;"></fa-icon>
+              {{ idea?.comment }}
+            </p>
+          </li> -->
+          <!-- <li class="list-inline-item">
+            <p class="uppercase mb-0 small bold montserrat text-muted" style="font-size: 70%;">
+              <fa-icon [icon]="['fas', 'link']" class="text-muted" style="font-size: .6rem;"></fa-icon>
+              5
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <p class="uppercase mb-0 small bold montserrat text-muted" style="font-size: 70%;">
+              <fa-icon [icon]="['fas', 'code-merge']" class="text-muted" style="font-size: .6rem;"></fa-icon>
+              2
+            </p>
+          </li> -->
+        </ul>
+      </li>
+    </ul>
+    <hr class="mt-2 mb-1" />
+    <!-- end of insert -->
+    <div
+      class="card-footer pt-0 border-top-0 bg-white"
+      style="
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-bottom: 0.5rem;
+      "
+    >
+      <div class="row pt-2">
+        <div class="col-12 px-1">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <div
+                *ngIf="!permissions?.allowVoting"
+                ngbTooltip="Voting Currently Disabled"
+              >
+                <button
+                  class="btn btn-sm btn-block btn-light border montserrat bold disabled py-0"
+                  style="font-size: 95%;"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'thumbs-up']"
+                    class="text-muted small"
+                  ></fa-icon>
+                  <!-- Disabled -->
+                </button>
+              </div>
+              <app-upvote
+                *ngIf="permissions?.allowVoting"
+                [entity]="idea"
+                [inlineIcon]="true"
+                [upvotes]="upvotes"
+                [upvoteData]="upvotesData"
+                (upvoteActionEmitter)="removeUpvoter($event)"
+              ></app-upvote>
+            </li>
+            <li class="list-inline-item mr-0 float-right">
+              <ul class="list-inline mb-0 small">
+                <li class="list-inline-item mr-0">
+                  <button
+                    class="btn btn-sm uppercase text-muted px-1 adjustSize"
+                    ngbTooltip="Views"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'eye']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ idea?.viewCount }}
+                  </button>
+                </li>
+                <li class="list-inline-item mr-0" *ngIf="commentCounts">
+                  <button
+                    class="btn btn-sm btn-white bg-white inverseLink uppercase text-muted px-1 adjustSize"
+                    ngbTooltip="Comments"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'comment']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ commentCounts[idea?.id] || 0 }}
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button
+                    class="btn btn-sm uppercase text-muted px-1 adjustSize"
+                    ngbTooltip="Total Score"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'certificate']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ idea?.opportunityScore?.finalScore || 0 }}
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <!-- <li class="list-inline-item" *ngIf="permissions && permissions.allowSharing">
+              <button class="btn btn-sm btn-light inverseLink montserrat px-3" ngbTooltip="Share">
+                <fa-icon [icon]="['fas', 'share']"></fa-icon>
+              </button>
+            </li> -->
+            <!-- <li class="list-inline-item mr-0">
+              <app-bookmark [data]="idea" [inlineIcon]="true" (bookmarked)="updateList($event)"></app-bookmark>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of idea posting card -->
+</div>

@@ -1,0 +1,65 @@
+<div class="modal-header card-header border-bottom-0 px-3 bg-light">
+  <p *ngIf="!edit" class="uppercase bold small mb-0 montserrat text-muted">
+    Create Analytics View
+  </p>
+  <p *ngIf="edit" class="uppercase bold small mb-0 montserrat text-muted">
+    Edit Analytics View
+  </p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light pb-5">
+  <form [formGroup]="dashboardForm" (submit)="onSubmit()">
+    <div class="form-group mb-3">
+      <p class="mb-1 bold">Analytics View Name</p>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Give your dashboard a name..."
+      />
+      <div
+        class="form-text mb-0 small text-danger"
+        *ngIf="
+          dashboardForm.controls.title.errors &&
+          dashboardForm.controls.title.errors.required &&
+          dashboardForm.controls.title.dirty
+        "
+      >
+        Title is Required
+      </div>
+      <p class="inverseLink text-medium pt-2 bold" (click)="desc = !desc">
+        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+        Add Description
+      </p>
+    </div>
+    <div class="form-group mb-3" [hidden]="desc">
+      <p class="mb-1 bold">Dashboard Description</p>
+      <textarea
+        class="form-control"
+        placeholder="Add a description for this dashboard..."
+        formControlName="description"
+        rows="2"
+      ></textarea>
+    </div>
+    <!-- <div class="form-group">
+      <p class="mb-2 bold">Who Can See This Dashboard</p>
+      <img class="w-100" src="https://i.imgur.com/IaSqqML.png" />
+    </div> -->
+    <button hidden #btn></button>
+  </form>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-white border" (click)="modal.dismiss('Cross click')">
+    Cancel
+  </button>
+  <button class="btn btn-primary" (click)="btn.click()">
+    {{ edit ? 'Save Changes' : 'Create View' }}
+  </button>
+</div>

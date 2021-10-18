@@ -1,0 +1,8 @@
+<button
+  class="btn btn-primary btn-xs"
+  (click)="open()"
+  *ngIf="userPermissions?.managePrize"
+>
+  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+  {{ 'AddPrize.Labels.AddPrize' | translationPipe }}
+</button>

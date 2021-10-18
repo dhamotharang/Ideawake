@@ -1,0 +1,65 @@
+<label>Configure Your Number Field</label>
+<div class="card bg-light mb-3">
+  <div class="card-body py-2 px-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group mt-2 mb-3">
+          <label class="text-medium">Select Number Format</label>
+          <select
+            [(ngModel)]="inputData.data.format"
+            (onChange)="emitValue()"
+            class="form-control"
+          >
+            <option
+              *ngFor="let option of numberFieldFormatEnum"
+              [value]="option?.value"
+              >{{ option?.title }}</option
+            >
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="col-6 form-group mb-3">
+            <label class="text-medium">Prefix</label>
+            <input
+              type="text"
+              [(ngModel)]="inputData.data.prefix"
+              class="form-control"
+              placeholder="$"
+            />
+          </div>
+          <div class="col-6 form-group mb-0">
+            <label class="text-medium">Suffix</label>
+            <input
+              type="text"
+              [(ngModel)]="inputData.data.suffix"
+              class="form-control"
+              placeholder="Hours, Dollars, etc."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="text-medium">Field Preview - Number Field</label>
+    <div class="card bg-light mb-3">
+      <div class="card-body px-3 pt-2 pb-0">
+        <!-- preview -->
+        <div class="row">
+          <div class="col-12">
+            <label class="font-weight-normal">
+              {{ outerForm?.title || 'Label' }}
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted"
+                placement="right"
+                [ngbTooltip]="outerForm?.description"
+                *ngIf="outerForm?.description"
+              ></fa-icon>
+            </label>
+            <p class="mb-2">{{ preview() }}</p>
+          </div>
+        </div>
+        <!-- end preview -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div [ngClass]="{ 'row loginBackground pageTopPadding h-100': !modal }">
+  <div [ngClass]="{ 'col-md-6 offset-md-3 col-sm-12 flex-column d-flex': !modal }">
+    <div class="card my-auto">
+      <div class="card-header bg-white border-bottom-0">
+        <button
+          aria-label="Close"
+          class="close"
+          type="button"
+          *ngIf="modal"
+          (click)="modal.close()"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <p class="text-muted text-medium mb-1 mt-2 text-center uppercase bold" *ngIf="!modal">Step 2 of 2</p>
+        <h4 class="text-center mb-0 montserrat bold">Create Your Community</h4>
+      </div>
+      <div class="card-body pb-2">
+        <form [formGroup]="communityAddNewForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Community Name</label>
+            <input
+              type="text"
+              formControlName="communityName"
+              class="form-control"
+              placeholder="Tesla Inc"
+              #commName
+              (keyup)="setCommunityUrl(communityName.value)"
+              (blur)="checkDuplicateURL()"
+            />
+            <div
+              [hidden]="hideErrorMessage || communityName.value !== ''"
+              class="txt-error"
+            >
+              Community Name is Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Community Description</label>
+            <textarea
+              type="text"
+              formControlName="communityDescription"
+              class="form-control"
+              placeholder="A space to engage employees at Tesla to invent the world of tomorrow, today."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>
+              Create a Community URL
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted"
+                ngbTooltip="This is the URL that people will enter in their internet browser to access your community."
+              ></fa-icon>
+
+            </label>
+            <div class="input-group mb-2 mr-sm-2 border-left-0">
+              <input
+                type="text"
+                formControlName="communityUrl"
+                class="form-control form-control"
+                placeholder="tesla"
+                (keyup)="setCommunityUrl(communityUrl.value)"
+                (blur)="checkDuplicateURL()"
+              />
+              <div class="input-group-prepend border-left-0">
+                <div class="input-group-text">.{{ domainName }}</div>
+              </div>
+            </div>
+            <div
+              [hidden]="hideErrorMessage || communityUrl.value !== ''"
+              class="txt-error"
+            >
+              Community URL is Required
+            </div>
+            <div [hidden]="hideDuplicateErrorMessage" class="txt-error">
+              Community URL Already Registered
+            </div>
+          </div>
+          <div class="form-group mb-2 pt-3">
+            <button
+              [disabled]="communityAddNewForm.invalid"
+              class="btn btn-primary montserrat bold btn-block btn-lg"
+            >
+              Create Community
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

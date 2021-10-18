@@ -1,0 +1,142 @@
+<app-jumbotron-loader *ngIf="isLoading"> </app-jumbotron-loader>
+<div
+  *ngIf="!isLoading"
+  class="row pb-3 pt-4 bg-dark shadow-sm"
+  style="background: no-repeat center center; background-size: cover;"
+  [ngStyle]="{
+    'background-image': 'url(\'' + jumbotron?.jumbotronBackgroundImage + '\')'
+  }"
+>
+  <div class="col-12">
+    <div
+      class="row removeRowHeight"
+      *ngIf="userCommunityPermissions?.manageJumbotron"
+    >
+      <div class="col-12">
+        <button
+          class="btn btn-sm btn-light float-right mr-2 d-none d-sm-block"
+          (click)="openModal(editJumbotron)"
+        >
+          <fa-icon [icon]="['fas', 'edit']" class="small"></fa-icon>
+          {{ 'TopJumbo.EditJumbo' | translationPipe }}
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-8 offset-md-2">
+        <h2
+          class="text-white bold text-center mb-3 mt-2 montserrat"
+          [innerHTML]="jumbotron?.jumbotronPageTitle | safeHtml"
+        ></h2>
+        <p
+          class="lead text-center text-white pb-2"
+          [innerHTML]="jumbotron?.jumbotronPageDescription | safeHtml"
+        ></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editJumbotron let-modal>
+  <div class="modal-header card-header px-3 bg-light">
+    <p class="uppercase bold montserrat text-muted mb-0 small mt-1">
+      {{ 'TopJumbo.EditJumbo' | translationPipe }}
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light">
+    <div class="form-group mb-3">
+      <ul class="list-inline mb-1">
+        <li class="list-inline-item">
+          <label>{{ 'TopJumbo.BackgroundImage' | translationPipe }}</label>
+        </li>
+        <li class="list-inline-item float-right">
+          <button
+            class="btn btn-white border btn-xs mr-1"
+            (click)="openSingleFileUpload()"
+          >
+            <fa-icon [icon]="['fas', 'edit']" class="small"></fa-icon>
+            {{ 'TopJumbo.EditImage' | translationPipe }}
+          </button>
+          <button class="btn btn-light btn-xs border" (click)="removeImage()">
+            <fa-icon [icon]="['fas', 'times-circle']" class="small"></fa-icon>
+            {{ 'TopJumbo.RemoveImage' | translationPipe }}
+          </button>
+        </li>
+      </ul>
+      <img
+        class="w-100"
+        style="max-height: 125px; object-fit: cover;"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="jumbotron?.jumbotronBackgroundImage"
+      />
+      <p class="form-text small text-muted">
+        {{ 'TopJumbo.OptimalSize' | translationPipe }}
+      </p>
+    </div>
+    <div class="form-group mb-3">
+      <label>
+        {{ 'TopJumbo.PageTitle' | translationPipe }}
+      </label>
+      <!-- <input
+        type="text"
+        class="form-control"
+        placeholder="Enter in a page title..."
+        [(ngModel)]="jumbotron.jumbotronPageTitle"
+      /> -->
+      <app-markup-editor
+        [height]="150"
+        placeholder="Enter in a page title..."
+        [text]="jumbotron.jumbotronPageTitle"
+        (outputText)="updateTitle($event)"
+      >
+      </app-markup-editor>
+      <div
+        [hidden]="hideErrorMessage || jumbotron?.jumbotronPageTitle !== ''"
+        class="error-txt"
+      >
+        {{ 'TopJumbo.TitleRequired' | translationPipe }}
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label>
+        {{ 'TopJumbo.PageDescription' | translationPipe }}
+      </label>
+      <!-- <textarea
+        class="form-control"
+        rows="3"
+        placeholder="Enter in a page description..."
+        [(ngModel)]="jumbotron.jumbotronPageDescription"
+      ></textarea> -->
+      <app-markup-editor
+        [height]="200"
+        placeholder="Enter in a page description..."
+        [text]="jumbotron.jumbotronPageDescription"
+        (outputText)="updateDescription($event)"
+      >
+      </app-markup-editor>
+
+      <div
+        [hidden]="hideErrorMessage || jumbotron.jumbotronPageDescription !== ''"
+        class="error-txt"
+      >
+        {{ 'TopJumbo.DescriptionRequired' | translationPipe }}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-white border" (click)="reset(modal)">
+      {{ 'TopJumbo.Cancel' | translationPipe }}
+    </button>
+    <button class="btn btn-primary" (click)="saveChanges(modal)">
+      {{ 'TopJumbo.Save' | translationPipe }}
+    </button>
+  </div>
+</ng-template>

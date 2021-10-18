@@ -1,0 +1,38 @@
+<div
+  class="row p-4 footer-navigation-style shadow"
+  style="z-index: 100;"
+  [ngStyle]="{ 'background-color': communitySettings?.footerBackgroundColor }"
+>
+  <div class="col-4">
+    <p class="text-light mb-0 font-italic">Powered by Ideawake</p>
+  </div>
+  <div class="col-8">
+    <ul class="list-inline mb-0 float-right mr-3">
+      <li class="list-inline-item mx-2">
+        <a
+          routerLink="/community/privacy"
+          [ngStyle]="{ color: communitySettings?.footerTextColor }"
+          >Privacy Policy</a
+        >
+      </li>
+      <li class="list-inline-item mx-2">
+        <a
+          routerLink="/community/terms"
+          [ngStyle]="{ color: communitySettings?.footerTextColor }"
+          >Terms</a
+        >
+      </li>
+      <li class="list-inline-item mx-2">
+        <a
+          href="https://academy.ideawake.com/knowledge"
+          [ngStyle]="{ color: communitySettings?.footerTextColor }"
+          target="_blank"
+          >Knowledgebase</a
+        >
+      </li>
+      <!-- <li class="list-inline-item">
+        <a>Contact Support</a>
+      </li> -->
+    </ul>
+  </div>
+</div>

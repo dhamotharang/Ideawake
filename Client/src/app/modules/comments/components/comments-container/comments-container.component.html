@@ -1,0 +1,685 @@
+<app-comments-loader *ngIf="isLoading"> </app-comments-loader>
+<div class="row" *ngIf="!isLoading && !simpleComments">
+  <div class="col-12">
+    <app-comment-post
+      [permissions]="permissions"
+      *ngIf="mentionUsers && mentionTags && mentionGroups"
+      [entityConfig]="entityConfig"
+      [mentionGroups]="mentionGroups"
+      [mentionTags]="mentionTags"
+      [mentionUsers]="mentionUsers"
+    ></app-comment-post>
+    <div class="row mb-3">
+      <div class="col-12">
+        <app-media-feature
+          [files]="selectedFiles"
+          [from]="'comment'"
+        ></app-media-feature>
+      </div>
+    </div>
+    <div class="row" id="allComments" *ngIf="allComments?.length > 0">
+      <div class="col-12">
+        <div class="alert alert-info small d-none">
+          Comments posted here by default will send in app notifications to idea
+          submitters, followers, and team members. Edit
+        </div>
+        <ul class="list-inline border-bottom montserrat">
+          <li class="list-inline-item">
+            <p class="uppercase bold text-muted mb-1 small">
+              {{ commentCounts }} {{ 'Comments.Comments' | translationPipe }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="allComments?.length === 0">
+      <div class="col-12">
+        <ul class="list-inline mb-0 text-center">
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'comment']"
+              class="iconExtraLarge text-muted"
+            ></fa-icon>
+            <p class="text-medium text-muted">
+              {{ 'Comments.NoComments' | translationPipe }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngFor="let comment of allComments; let i = index">
+      <div
+        class="col-12"
+        [id]="'comment' + comment.comment.id"
+        *ngIf="!comment.comment.isDeleted"
+      >
+        <div class="row">
+          <div class="col-12">
+            <div class="media mt-1">
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <fa-icon
+                    [icon]="['fas', 'ghost']"
+                    *ngIf="
+                      comment.comment.anonymous || comment.comment.isDeleted
+                    "
+                    class="anonymousUser shadow-sm userImage rounded-circle customRightMargin"
+                  ></fa-icon>
+                  <img
+                    class="rounded-circle userImage shadow-sm customRightMargin"
+                    height="50"
+                    width="50"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="comment.user.profileImage.url"
+                    *ngIf="
+                      !comment.comment.anonymous && !comment.comment.isDeleted
+                    "
+                  />
+                </li>
+              </ul>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="comments-wrapper-white-background mb-2">
+                      <p class="mb-0 text-comment" #commentMessage>
+                        <span
+                          class="text-muted bold"
+                          *ngIf="
+                            comment.comment.anonymous &&
+                            !comment.comment.isDeleted
+                          "
+                          >{{ 'Comments.Anonymous' | translationPipe }}</span
+                        >
+                        <span
+                          class="text-muted bold"
+                          *ngIf="comment.comment.isDeleted"
+                          >[Deleted]</span
+                        >
+                        <a
+                          [routerLink]="['/profile/view', comment.user.id]"
+                          (click)="this.modalRef.close()"
+                          class="bold inverseLinkDark pointer"
+                          *ngIf="
+                            !comment.comment.anonymous &&
+                            !comment.comment.isDeleted
+                          "
+                          >{{
+                            comment.user.firstName + ' ' + comment.user.lastName
+                          }}</a
+                        >
+                        <span
+                          [innerHTML]="comment.messageHtml | dynamicTranslation"
+                          class="ml-1"
+                        ></span>
+                      </p>
+                      <ul class="list-inline mb-0">
+                        <li
+                          class="list-inline-item mb-2"
+                          *ngFor="let tag of comment.comment.tags"
+                          (click)="searchByTag($event)"
+                        >
+                          <span
+                            class="badge badge-light tag border pointer"
+                            [ngbPopover]=""
+                            [openDelay]="100"
+                            triggers="mouseenter"
+                            [autoClose]="true"
+                            popoverClass="popoverStyle"
+                            container="body"
+                          >
+                            <fa-icon
+                              [icon]="['fas', 'hashtag']"
+                              class="text-muted"
+                            ></fa-icon
+                            >{{ tagsData[tag] }}
+                            <fa-icon
+                              [icon]="['fas', 'times']"
+                              class="text-muted align-middle removeTag"
+                              placement="right"
+                              ngbTooltip="Remove Tag"
+                              (click)="removeTag($event)"
+                            ></fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                      <div
+                        calss="row"
+                        *ngIf="comment.comment.commentAttachments.length !== 0"
+                      >
+                        <div class="col-12">
+                          <div class="d-inline-block">
+                            <span class="comment-file">
+                              <a
+                                *ngFor="
+                                  let attachment of comment.comment
+                                    .commentAttachments
+                                "
+                                [href]="
+                                  attachment.userAttachment?.url ||
+                                  attachment.url
+                                "
+                                target="_blank"
+                              >
+                                <img
+                                  class="mb-2 thumbnailImage shadow-sm border cardAnimation active"
+                                  src="../../../../../assets/file"
+                                  *ngIf="
+                                    attachment.attachmentType ===
+                                      'application' ||
+                                    attachment.attachmentType === 'text'
+                                  "
+                                />
+
+                                <img
+                                  class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                                  [defaultImage]="defaultImage"
+                                  [lazyLoad]="
+                                    'https://i.stack.imgur.com/PtbGQ.png'
+                                  "
+                                  *ngIf="attachment.attachmentType === 'video'"
+                                />
+
+                                <img
+                                  class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                                  [defaultImage]="defaultImage"
+                                  [lazyLoad]="
+                                    attachment.userAttachment?.url ||
+                                    attachment.url
+                                  "
+                                  *ngIf="
+                                    attachment.attachmentType !==
+                                      'application' &&
+                                    attachment.attachmentType !== 'text' &&
+                                    attachment.attachmentType !== 'video'
+                                  "
+                                />
+                              </a>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row pt-2">
+                        <div class="col-sm-12">
+                          <ul class="list-inline mb-0">
+                            <li
+                              class="list-inline-item"
+                              *ngIf="
+                                !comment.comment.isDeleted &&
+                                (userOpportunityPermissions?.editComments ===
+                                  2 ||
+                                  (userOpportunityPermissions?.editComments ===
+                                    1 &&
+                                    isCommentOwner(comment)))
+                              "
+                            >
+                              <p
+                                class="small inverseLink bold mb-0 uppercase interactive-element"
+                                (click)="open(editComment)"
+                              >
+                                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                                {{ 'Comments.Edit' | translationPipe }}
+                              </p>
+
+                              <ng-template #editComment let-close="close">
+                                <app-edit-comment
+                                  [comment]="comment"
+                                  [mentionGroups]="mentionGroups"
+                                  [mentionTags]="mentionTags"
+                                  [mentionUsers]="mentionUsers"
+                                  [entityConfig]="entityConfig"
+                                  [permissions]="permissions"
+                                  [close]="close"
+                                  (update)="updateComment($event, i)"
+                                >
+                                </app-edit-comment>
+                              </ng-template>
+                            </li>
+                            <li class="list-inline-item">
+                              <app-upvote-text
+                                [entity]="comment.comment"
+                                [upvotes]="commentUpvotes"
+                                [isUpvote]="comment.isUpvoted"
+                                [upvoteData]="comment.myVoteData"
+                              ></app-upvote-text>
+                            </li>
+                            <li
+                              class="list-inline-item"
+                              (click)="showReplyBox(replyBox)"
+                            >
+                              <p
+                                class="small bold uppercase mb-0 inverseLink interactive-element"
+                              >
+                                <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                                {{ 'Comments.Reply' | translationPipe }}
+                              </p>
+                            </li>
+                            <ng-template #deleteComment let-modal>
+                              <div class="modal-header card-header bg-info">
+                                <p class="uppercase bold text-white mb-0 small">
+                                  {{
+                                    'Comments.ArchiveHeader' | translationPipe
+                                  }}
+                                </p>
+                                <button
+                                  type="button"
+                                  class="close text-white"
+                                  aria-label="Close"
+                                  (click)="modalRef.dismiss('Cross click')"
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="mb-0">
+                                  {{
+                                    'Comments.ArchiveDescription'
+                                      | translationPipe
+                                  }}
+                                </p>
+                              </div>
+                              <div class="modal-footer border-top-0 mr-auto">
+                                <button
+                                  class="btn btn-light border"
+                                  (click)="modalRef.close()"
+                                >
+                                  {{ 'Comments.Cancel' | translationPipe }}
+                                </button>
+                                <button
+                                  class="btn btn-info"
+                                  (click)="archiveComment(comment.comment.id)"
+                                >
+                                  {{
+                                    'Comments.ConfirmArchive' | translationPipe
+                                  }}
+                                </button>
+                              </div>
+                            </ng-template>
+
+                            <li
+                              class="list-inline-item"
+                              (click)="open(deleteComment)"
+                              *ngIf="
+                                !comment.comment.isDeleted &&
+                                (userOpportunityPermissions?.softDeleteComments ===
+                                  2 ||
+                                  (userOpportunityPermissions?.softDeleteComments ===
+                                    1 &&
+                                    isCommentOwner(comment)))
+                              "
+                            >
+                              <p
+                                class="small bold uppercase mb-0 inverseLinkDanger interactive-element"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'times-circle']"
+                                ></fa-icon>
+                                {{ 'Comments.Archive' | translationPipe }}
+                              </p>
+                            </li>
+                            <li
+                              class="list-inline-item float-right adjustFloatUp"
+                            >
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                  <p
+                                    class="small text-muted mb-0 font-italic"
+                                    ngbTooltip=""
+                                  >
+                                    {{
+                                      commentUpvotes[comment.comment.id] > 0
+                                        ? commentUpvotes[comment.comment.id] +
+                                          ' Upvote(s)'
+                                        : ''
+                                    }}
+                                  </p>
+                                </li>
+                                <li class="list-inline-item">
+                                  <p class="small text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'eye']"
+                                      class="text-primary"
+                                    ></fa-icon>
+                                    Public
+                                  </p>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <app-reply
+              [mentionGroups]="mentionGroups"
+              [mentionsData]="mentionsData"
+              [mentionTags]="mentionTags"
+              [mentionUsers]="mentionUsers"
+              [parentId]="comment.id"
+              [thread]="comment.commentThreadPerticipants"
+              [entityConfig]="entityConfig"
+              [commentUpvotes]="commentUpvotes"
+              [tagsData]="tagsData"
+              [permissions]="permissions"
+              (updateThread)="updateThread($event)"
+              [simpleReply]="true"
+              #replyBox
+            ></app-reply>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!isLoading && simpleComments">
+  <div class="col-12 pl-md-2 pr-md-0">
+    <div class="setCommentsHeight pr-1">
+      <div class="row" id="allComments">
+        <div class="col-12">
+          <div class="alert alert-info small d-none">
+            Comments posted here by default will send in app notifications to
+            idea submitters, followers, and team members. Edit
+          </div>
+          <ul class="list-inline montserrat mb-1 mt-1">
+            <li class="list-inline-item">
+              <p class="uppercase bold small text-muted mb-1">
+                {{ commentCounts }} {{ 'Comments.Comments' | translationPipe }}
+              </p>
+            </li>
+          </ul>
+          <app-comment-post
+            [permissions]="permissions"
+            *ngIf="mentionUsers && mentionTags && mentionGroups"
+            [bottomPostForm]="true"
+            [entityConfig]="entityConfig"
+            [mentionGroups]="mentionGroups"
+            [mentionTags]="mentionTags"
+            [mentionUsers]="mentionUsers"
+          ></app-comment-post>
+        </div>
+      </div>
+      <div class="row" *ngIf="allComments?.length === 0">
+        <div class="col-12 removePaddingOnMobile">
+          <ul class="list-inline mb-0 text-center">
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'comment']"
+                class="iconExtraLarge text-muted"
+              ></fa-icon>
+              <p class="text-medium text-muted">
+                No comments have been posted on this idea yet.
+                {{ 'Comments.Archive' | translationPipe }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" *ngFor="let comment of allComments; let i = index">
+        <div
+          class="col-12 removePaddingOnMobile"
+          [id]="'comment' + comment.comment.id"
+          *ngIf="!comment.comment.isDeleted"
+        >
+          <div class="row">
+            <div class="col-12">
+              <div class="media mt-1">
+                <fa-icon
+                  [icon]="['fas', 'ghost']"
+                  *ngIf="comment.comment.anonymous || comment.comment.isDeleted"
+                  class="anonymousUserSmall shadow-sm rounded-circle"
+                ></fa-icon>
+                <img
+                  class="rounded-circle userImageSmall shadow-sm"
+                  height="50"
+                  width="50"
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="comment.user.profileImage.url"
+                  *ngIf="
+                    !comment.comment.anonymous && !comment.comment.isDeleted
+                  "
+                />
+                <div class="media-body ml-2">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="comments-wrapper-white-background mb-2">
+                        <p class="mb-0 text-comment" #commentMessage>
+                          <span
+                            class="text-muted bold"
+                            *ngIf="
+                              comment.comment.anonymous &&
+                              !comment.comment.isDeleted
+                            "
+                            >{{ 'Comments.Anonymous' | translationPipe }}</span
+                          >
+                          <span
+                            class="text-muted bold"
+                            *ngIf="comment.comment.isDeleted"
+                            >[Deleted]</span
+                          >
+                          <a
+                            (click)="this.modalRef.close()"
+                            [routerLink]="['/profile/view', comment.user.id]"
+                            class="bold inverseLinkDark pointer"
+                            *ngIf="
+                              !comment.comment.anonymous &&
+                              !comment.comment.isDeleted
+                            "
+                            >{{
+                              comment.user.firstName +
+                                ' ' +
+                                comment.user.lastName
+                            }}</a
+                          >
+                        </p>
+                        <p
+                          class="small text-muted mb-0"
+                          style="font-size: 65%;"
+                        >
+                          {{ comment.comment.createdAt | timeAgo }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="small mb-0 pl-1">
+                <span
+                  [innerHTML]="comment.messageHtml | dynamicTranslation"
+                ></span>
+              </p>
+              <div
+                calss="row"
+                *ngIf="comment.comment.commentAttachments.length !== 0"
+              >
+                <div class="col-12">
+                  <div class="d-inline-block">
+                    <span class="comment-file">
+                      <a
+                        *ngFor="
+                          let attachment of comment.comment.commentAttachments
+                        "
+                        [href]="
+                          attachment.userAttachment?.url || attachment.url
+                        "
+                        target="_blank"
+                      >
+                        <img
+                          class="mb-2 thumbnailImage shadow-sm border cardAnimation active"
+                          src="../../../../../assets/file"
+                          *ngIf="
+                            attachment.attachmentType === 'application' ||
+                            attachment.attachmentType === 'text'
+                          "
+                        />
+
+                        <img
+                          class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                          [defaultImage]="defaultImage"
+                          [lazyLoad]="'https://i.stack.imgur.com/PtbGQ.png'"
+                          *ngIf="attachment.attachmentType === 'video'"
+                        />
+
+                        <img
+                          class="mb-2 thumbnailImage shadow-sm border cardAnimation"
+                          [defaultImage]="defaultImage"
+                          [lazyLoad]="
+                            attachment.userAttachment?.url || attachment.url
+                          "
+                          *ngIf="
+                            attachment.attachmentType !== 'application' &&
+                            attachment.attachmentType !== 'text' &&
+                            attachment.attachmentType !== 'video'
+                          "
+                        />
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row pt-2">
+                <div class="col-sm-12">
+                  <ul class="list-inline mb-0 pl-1 small">
+                    <li
+                      class="list-inline-item"
+                      *ngIf="
+                        !comment.comment.isDeleted &&
+                        (userOpportunityPermissions?.editComments === 2 ||
+                          (userOpportunityPermissions?.editComments === 1 &&
+                            isCommentOwner(comment)))
+                      "
+                    >
+                      <p
+                        class="small inverseLink bold mb-0 uppercase interactive-element"
+                        (click)="open(editComment)"
+                      >
+                        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                        {{ 'Comments.Edit' | translationPipe }}
+                      </p>
+
+                      <ng-template #editComment let-close="close">
+                        <app-edit-comment
+                          [comment]="comment"
+                          [mentionGroups]="mentionGroups"
+                          [mentionTags]="mentionTags"
+                          [mentionUsers]="mentionUsers"
+                          [entityConfig]="entityConfig"
+                          [permissions]="permissions"
+                          [close]="close"
+                          (update)="updateComment($event, i)"
+                        >
+                        </app-edit-comment>
+                      </ng-template>
+                    </li>
+                    <li class="list-inline-item">
+                      <app-upvote-text
+                        [entity]="comment.comment"
+                        [upvotes]="commentUpvotes"
+                        [isUpvote]="comment.isUpvoted"
+                        [upvoteData]="comment.myVoteData"
+                      ></app-upvote-text>
+                    </li>
+                    <li
+                      class="list-inline-item"
+                      (click)="showReplyBox(replyBox)"
+                    >
+                      <p
+                        class="small bold uppercase mb-0 inverseLink interactive-element"
+                      >
+                        <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                        {{ 'Comments.Reply' | translationPipe }}
+                      </p>
+                    </li>
+                    <ng-template #deleteComment let-modal>
+                      <div class="modal-header card-header bg-info">
+                        <p class="uppercase bold text-white mb-0 small">
+                          Archive Comment
+                          {{ 'Comments.ArchiveHeader' | translationPipe }}
+                        </p>
+                        <button
+                          type="button"
+                          class="close text-white"
+                          aria-label="Close"
+                          (click)="modalRef.dismiss('Cross click')"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="mb-0">
+                          {{ 'Comments.ArchiveDescription' | translationPipe }}
+                        </p>
+                      </div>
+                      <div class="modal-footer border-top-0 mr-auto">
+                        <button
+                          class="btn btn-light border"
+                          (click)="modalRef.close()"
+                        >
+                          {{ 'Comments.Cancel' | translationPipe }}
+                        </button>
+                        <button
+                          class="btn btn-info"
+                          (click)="archiveComment(comment.comment.id)"
+                        >
+                          {{ 'Comments.ConfirmArchive' | translationPipe }}
+                        </button>
+                      </div>
+                    </ng-template>
+
+                    <li
+                      class="list-inline-item"
+                      (click)="open(deleteComment)"
+                      *ngIf="
+                        !comment.comment.isDeleted &&
+                        (userOpportunityPermissions?.softDeleteComments === 2 ||
+                          (userOpportunityPermissions?.softDeleteComments ===
+                            1 &&
+                            isCommentOwner(comment)))
+                      "
+                    >
+                      <p
+                        class="small bold uppercase mb-0 inverseLinkDanger interactive-element"
+                      >
+                        <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                        {{ 'Comments.Archive' | translationPipe }}
+                      </p>
+                    </li>
+                    <li class="list-inline-item float-right adjustFloatUp">
+                      <ul class="list-inline mb-0"></ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <app-reply
+                [mentionGroups]="mentionGroups"
+                [mentionsData]="mentionsData"
+                [mentionTags]="mentionTags"
+                [mentionUsers]="mentionUsers"
+                [parentId]="comment.id"
+                [thread]="comment.commentThreadPerticipants"
+                [entityConfig]="entityConfig"
+                [commentUpvotes]="commentUpvotes"
+                [tagsData]="tagsData"
+                [permissions]="permissions"
+                (updateThread)="updateThread($event)"
+                #replyBox
+              ></app-reply>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

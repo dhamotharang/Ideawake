@@ -1,0 +1,219 @@
+<div class="card shadow-sm mb-3">
+  <div class="card-header bg-white px-3 border-bottom-0">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="uppercase bold montserrat text-medium mb-0">
+          {{ data?.title || 'Bar Chart' }}
+        </p>
+        <!-- <p class="text-muted small mt-1">
+          Date Range: Last 30 Days | Frequency: Daily
+        </p> -->
+      </li>
+      <li class="list-inline-item float-right pointer">
+        <app-widget-manage
+          [edit]="editPie"
+          (editToggle)="editPie = $event"
+        ></app-widget-manage>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body pb-0">
+    <div class="row" *ngIf="!editPie">
+      <div class="col-12">
+        <div class="text-center" *ngIf="chartLabels.length; else noData">
+          <canvas
+            baseChart
+            [data]="chartData"
+            [labels]="chartLabels"
+            [chartType]="chartType"
+            [options]="chartOptions"
+            [legend]="true"
+          >
+          </canvas>
+        </div>
+        <ng-template #noData>
+          <div class="text-center">
+            <fa-icon
+              [icon]="['fas', 'chart-bar']"
+              class="text-muted iconExtraLarge"
+            ></fa-icon>
+            <h4 class="montserrat bold mb-2">No Data Has Been Added to This Chart</h4>
+            <p class="text-muted">Please configure your chart by selecting the "edit gadget" option on the top right of your screen.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="row" *ngIf="editPie">
+      <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label>Gadget Title</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter a title for your gadget..."
+              [(ngModel)]="data.title"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+          <div class="form-group mb-0">
+            <!-- <label class="mb-2">What Type of Data Do You Want to Graph?</label>
+                      <div class="row">
+                        <div class="col-4 mb-3">
+                          <div class="card cardAnimation shadow-sm pointer selectStakeholder">
+                            <div class="card-body px-3 py-3">
+                              <div class="custom-control custom-checkbox pointer">
+                                <input type="checkbox" class="custom-control-input">
+                                <label class="custom-control-label font-weight-normal pointer">Idea (Post Type)</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4 mb-3">
+                          <div class="card cardAnimation shadow-sm pointer selectStakeholder">
+                            <div class="card-body px-3 py-3">
+                              <div class="custom-control custom-checkbox pointer">
+                                <input type="checkbox" class="custom-control-input">
+                                <label class="custom-control-label font-weight-normal pointer">Users</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4 mb-3">
+                          <div class="card cardAnimation shadow-sm pointer selectStakeholder">
+                            <div class="card-body px-3 py-3">
+                              <div class="custom-control custom-checkbox pointer">
+                                <input type="checkbox" class="custom-control-input">
+                                <label class="custom-control-label font-weight-normal pointer">Groups</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+          </div>
+          <div class="form-group">
+            <div ngbDropdown>
+              <label class="mb-2">Select Data Point to Graph</label>
+              <div ngbDropdown>
+                <div
+                  class="removeCaret py-2 pl-2 pr-3 border bg-white rounded addHover"
+                  ngbDropdownToggle
+                >
+                  {{
+                    pieChartDefaultPoints[
+                      this.data.configData.graphDataPoint
+                    ] || 'Click here to see available options'
+                  }}
+                  <span class="float-right">
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted"
+                    ></fa-icon>
+                  </span>
+                </div>
+                <div ngbDropdownMenu class="shadow p-0 w-100">
+                  <input
+                    type="text"
+                    class="form-control border-0"
+                    placeholder="Search Fields..."
+                  />
+                  <hr class="my-0" />
+                  <button
+                    class="px-3"
+                    ngbDropdownItem
+                    *ngFor="
+                      let point of pieChartDefaultPoints
+                        | keyvalue: preserveOrder
+                    "
+                    (click)="data.configData.graphDataPoint = point.key"
+                  >
+                    {{ point.value }}
+                  </button>
+
+                  <button class="px-3" ngbDropdownItem>
+                    Show Custom Field Options
+                  </button>
+                  <button class="px-3" ngbDropdownItem>
+                    Option Two
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="form-row">
+            <div class="form-group col-12 mb-0">
+              <div ngbDropdown>
+                <label class="mb-2"
+                  >Filter the Results Displayed in this Graph</label
+                >
+                <div ngbDropdown>
+                  <div
+                    class="removeCaret py-2 pl-2 pr-3 border bg-white rounded addHover"
+                    ngbDropdownToggle
+                  >
+                    Select Filters
+                    <span class="float-right">
+                      <fa-icon
+                        [icon]="['fas', 'sort']"
+                        class="text-muted"
+                      ></fa-icon>
+                    </span>
+                  </div>
+                  <div ngbDropdownMenu class="shadow p-2">
+                    <div class="filtersMobile">
+                      <div class="mr-2">
+                        <div class="alert alert-info py-1 px-2 mb-2">
+                          <p class="small mb-0" style="line-height: 1.25rem;">
+                            Filters will activate on the page as you select
+                            them. To hide filtering options, simply click
+                            anywhere outside of this dropdown.
+                          </p>
+                        </div>
+                        <app-idea-filters
+                          *ngIf="entity"
+                          [entity]="entity"
+                          [pageType]="'table'"
+                          [appFilters]="appliedFilters"
+                          (filterApplied)="applyFilters($event)"
+                        >
+                        </app-idea-filters>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group col-5 mb-0">
+
+                      </div> -->
+          </div>
+          <div class="form-group">
+            <div class="card bg-light mt-3">
+              <div class="card-body p-3">
+                <p class="small uppercase bold mb-1">
+                  Selected Filters
+                </p>
+                ng-repeat selected filters here just like we have on the ideas
+                list pages
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-0 mt-3">
+            <div class="float-right">
+              <button
+                class="btn btn-light border mr-2"
+                (click)="cancelChanges()"
+              >
+                Cancel
+              </button>
+              <button class="btn btn-primary" (click)="editWidget()">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

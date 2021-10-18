@@ -1,0 +1,137 @@
+<ul class="list-inline mb-0">
+  <li class="list-inline-item mr-0">
+    <span ngbDropdown>
+      <span class="removeCaret" ngbDropdownToggle>
+        <h4 class="montserrat mb-1 mt-1 d-none d-md-inline">
+          {{ selectedView?.title || 'Saved Views' }}
+          <fa-icon
+            [icon]="['fas', 'angle-down']"
+            style="position: relative; top: 2px;"
+          ></fa-icon>
+          <!-- {{ 'Shared.Submissions' | translationPipe }}
+          {{ 'Shared.Returned' | translationPipe }} -->
+        </h4>
+        <h5 class="d-inline d-md-none montserrat">
+          {{ selectedView?.title || 'Saved Views' }}
+          <!-- {{ 'Shared.Returned' | translationPipe }} -->
+          <fa-icon
+            [icon]="['fas', 'angle-down']"
+            style="position: relative; top: 2px;"
+          ></fa-icon>
+        </h5>
+      </span>
+      <!-- <button class="btn btn-white btn-sm removeCaret border" ngbDropdownToggle>
+        <fa-icon
+          [icon]="['fas', getIcon(selectedView?.viewType)]"
+          class="text-muted"
+        ></fa-icon>
+        {{ selectedView?.title || 'Saved Views' }}
+        <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+      </button> -->
+      <div ngbDropdownMenu class="pt-0">
+        <div class="p-2" style="min-width: 20rem;">
+          <app-search-inline
+            (search)="getViewsList($event)"
+          ></app-search-inline>
+        </div>
+        <hr class="my-0" />
+        <div
+          class="dropdownScrollMaxHeight"
+          style="min-width: 15rem;"
+          ngbDropdown
+        >
+          <!-- <button
+            ngbDropdownItem
+            class="btn pl-2"
+            (click)="navigateTo('/idea/table')"
+          >
+            <fa-icon [icon]="['fas', 'bars']" class="mr-1 text-muted"></fa-icon>
+            Table View
+          </button>
+          <button
+            ngbDropdownItem
+            class="btn pl-2"
+            (click)="navigateTo('/idea/cards')"
+          >
+            <fa-icon [icon]="['fas', 'th']" class="mr-1 text-muted"></fa-icon>
+            Cards View
+          </button>
+          <button
+            ngbDropdownItem
+            class="btn pl-2"
+            (click)="navigateTo('/idea/pipeline')"
+          >
+            <span class="d-inline-block rotateBars">
+              <fa-icon [icon]="['fas', 'bars']" class="text-muted"></fa-icon>
+            </span>
+            Swimlane View
+          </button> -->
+          <button
+            *ngFor="let view of viewsList"
+            ngbDropdownItem
+            class="btn pl-3 pr-2"
+          >
+            <!-- [ngbTooltip]="view?.title"  -->
+            <ul (click)="navigateTo(view?.bookmarkedUrl)" class="list-inline">
+              <li class="list-inline-item">
+                <div class="media">
+                  <fa-icon
+                    [icon]="['fas', getIcon(view?.viewType)]"
+                    class="mr-2 text-muted"
+                  ></fa-icon>
+                  <div class="media-body ml-1">
+                    {{ getTitle(view, 'title') }}
+                  </div>
+                </div>
+              </li>
+              <li
+                *ngIf="hasPermission(view.id)"
+                class="list-inline-item float-right"
+              >
+                <fa-icon
+                  [icon]="['fas', 'edit']"
+                  class="mr-1 inverseLink text-medium"
+                  (click)="edit($event, view?.id)"
+                  ngbTooltip="Edit Saved View"
+                >
+                </fa-icon>
+                <fa-icon
+                  [icon]="['fas', 'trash']"
+                  class="mr-1 inverseLinkDanger ml-1 text-medium"
+                  (click)="open($event, view?.id, deleteFilter)"
+                  ngbTooltip="Delete Saved View"
+                >
+                </fa-icon>
+              </li>
+            </ul>
+          </button>
+        </div>
+      </div>
+    </span>
+  </li>
+</ul>
+
+<ng-template #deleteFilter let-modal>
+  <div class="modal-header card-header bg-light">
+    <p class="uppercase bold small mb-0">Delete This Filter</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you would like to delete this filter?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary" (click)="deleteView()">
+      Delete Filter
+    </button>
+  </div>
+</ng-template>

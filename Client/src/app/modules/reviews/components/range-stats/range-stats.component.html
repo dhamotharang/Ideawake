@@ -1,0 +1,57 @@
+<!-- start of one -->
+<div class="row">
+  <div class="col-12">
+    <p class="mb-2 bold text-medium">{{ criteria?.criteria.title }}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <ul class="list-inline mb-1">
+      <li class="list-inline-item">
+        <p class="text-medium text-muted mb-0">
+          Averaged Response
+        </p>
+      </li>
+      <li class="list-inline-item float-right adjustFloat">
+        <p class="text-medium mb-0 bold">
+          {{ unit }}{{ avgScore | number }}
+        </p>
+      </li>
+    </ul>
+    <ul class="list-inline mb-1">
+      <li class="list-inline-item">
+        <p class="text-medium text-muted mb-0">
+          Possible Responses
+        </p>
+      </li>
+      <li class="list-inline-item float-right adjustFloat">
+        <p class="text-medium mb-0">
+          {{ unit }}{{ minScore | number }} - {{ unit
+          }}{{ maxScore | number }}
+        </p>
+      </li>
+    </ul>
+    <!-- <ul class="list-inline mb-0 mt-2">
+      <li class="list-inline-item removeMargins">
+        <p class="link text-medium">
+          <fa-icon [icon]="['fas', 'comment']"></fa-icon>
+          View Responses (10)
+        </p>
+      </li>
+    </ul> -->
+  </div>
+  <!-- <div class="col-4">
+    <ul class="list-unstyled text-center mb-0">
+      <li>
+        <h5 class="mb-1 bold montserrat">{{ unit }}{{ avgScore | number }}</h5>
+      </li>
+    </ul>
+    <p
+      class="small mb-0 mt-2 text-muted montserrat text-center uppercase bold"
+      style="font-size: 75%;"
+    >
+      Avg Response
+    </p>
+  </div> -->
+</div>
+<!-- end of one -->

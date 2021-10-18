@@ -1,0 +1,826 @@
+<!-- <div> -->
+<div class="row">
+  <div class="col-12 col-md-2 pr-0 d-none d-md-block">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-9">
+    <!-- community basic settings -->
+    <div class="row pageTopPadding mb-4">
+      <div class="col-12">
+        <div class="row workflowContainerPadding">
+          <div class="col-sm-12 removePaddingOnMobile">
+            <div class="card shadow-sm mb-3">
+              <div class="card-header">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a
+                      class="mb-0 uppercase bold pt-1"
+                      routerLink="/settings/all"
+                      >Settings</a
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon
+                      [icon]="['fas', 'angle-right']"
+                      class="mr-1 ml-1 text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="uppercase mb-0 bold">Basic Settings</p>
+                  </li>
+                  <!-- <li class="list-inline-item float-right align-self-center">
+                                          <button class="btn btn-primary btn-sm">
+                                            <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                                            Edit Settings
+                                          </button>
+                                        </li> -->
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- <p class="small border-bottom pb-1 mb-4">
+                      Here's the 101 information on your community.
+                    </p> -->
+                    <form [formGroup]="form">
+                      <div class="form-row">
+                        <div class="form-group mb-0 col-12 col-md-3">
+                          <label>Community Name</label>
+                        </div>
+                        <div class="form-group col-12 col-md-9">
+                          <input
+                            formControlName="name"
+                            name="name"
+                            type="text"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group mb-0 col-12 col-md-3">
+                          <label>Community Description</label>
+                        </div>
+                        <div class="form-group col-12 col-md-9">
+                          <textarea
+                            formControlName="description"
+                            name="description"
+                            class="form-control"
+                            rows="3"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group mb-0 col-12 col-md-3">
+                          <label>Community URL</label>
+                        </div>
+                        <div class="form-group col-12 col-md-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="url"
+                            readonly
+                            formControlName="url"
+                            placeholder="community-name"
+                          />
+                          <p class="text-muted small mt-2 mb-0">
+                            If you'd like to setup a custom community URL,
+                            please contact the Ideawake support team for more
+                            information.
+                          </p>
+                        </div>
+                      </div>
+                      <!-- <h5 class="bold">
+                        Basic Community Settings & Experience
+                      </h5>
+                      <p class="small border-bottom pb-1 mb-2">
+                        Configure the core experience of your platform here.
+                      </p> -->
+                      <!-- <div class="form-row border-bottom pt-3">
+                        <div class="form-group col-8 mb-0">
+                          <label
+                            >Display Post Idea (Omni Form) Form on Home Page and
+                            Profile Page</label
+                          >
+                          <p class="small text-muted">
+                            If enabled, ideas will be able to be submitted
+                            <b>outside</b> of challenges. If you'd like a
+                            suggestion box experience, enable this setting.
+                          </p>
+                        </div>
+                        <div class="form-group col-4 mb-0">
+                          <div
+                            class="custom-control custom-switch mr-auto float-right"
+                          >
+                            <input
+                              type="checkbox"
+                              class="custom-control-input pointer"
+                              id="openIdeaSubmission"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="openIdeaSubmission"
+                              >Enabled</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row border-bottom pt-3">
+                        <div class="form-group col-8 mb-0">
+                          <label>Insights</label>
+                          <p class="small text-muted">
+                            If enabled, insights will be able to be posted and
+                            linked to opportunities.
+                          </p>
+                        </div>
+                        <div class="form-group col-4 mb-0">
+                          <div
+                            class="custom-control custom-switch mr-auto float-right"
+                          >
+                            <input
+                              type="checkbox"
+                              class="custom-control-input pointer"
+                              id="openIdeaSubmission"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="openIdeaSubmission"
+                              >Enabled</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row border-bottom pt-3">
+                        <div class="form-group col-8 mb-0">
+                          <label>Gamification</label>
+                          <p class="small text-muted">
+                            If enabled, you will have access to configure
+                            gamification settings including leaderboard, prizes,
+                            and points per action.
+                          </p>
+                        </div>
+                        <div class="form-group col-4 mb-0">
+                          <div
+                            class="custom-control custom-switch mr-auto float-right"
+                          >
+                            <input
+                              type="checkbox"
+                              class="custom-control-input pointer"
+                              id="openIdeaSubmission"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="openIdeaSubmission"
+                              >Enabled</label
+                            >
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- start of insert -->
+                      <!-- <div class="form-row">
+                          <div class="form-group mb-0 col-md-3 col-12">
+                            <label class="pt-2">Experience Settings</label>
+                          </div>
+                          <div class="form-group col-md-9 col-12 mb-0">
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal" placement="right"
+                                  ngbTooltip="If enabled, ideas will be able to be submitted outside of challenges. If you'd like a suggestion box experience, enable this setting.">Open
+                                  Idea Submission</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="openSubmission" />
+                                  <label class="custom-control-label" for="openSubmission">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow Voting</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="voting" />
+                                  <label class="custom-control-label" for="voting">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow Commenting</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="commenting" />
+                                  <label class="custom-control-label" for="commenting">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-row dottedBottomBorder pt-2 pb-2">
+                              <div class="form-group col-9 mb-0">
+                                <label class="mb-0 font-weight-normal">Allow Sharing</label>
+                              </div>
+                              <div class="form-group col-3 mb-0">
+                                <div class="custom-control custom-switch mr-auto float-right">
+                                  <input type="checkbox" class="custom-control-input pointer" id="sharing" />
+                                  <label class="custom-control-label" for="sharing">Enabled</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                      <!-- <div class="form-row">
+                        <div class="form-group mb-0 col-md-3 col-12">
+                          <label class="pt-2">Gamification Settings</label>
+                        </div>
+                        <div class="form-group col-md-9 col-12 mb-0">
+                          <div class="form-row dottedBottomBorder pt-2 pb-2">
+                            <div class="form-group col-9 mb-0">
+                              <label
+                                class="mb-0 font-weight-normal"
+                                placement="right"
+                                ngbTooltip="If enabled, ideas will be able to be submitted outside of challenges. If you'd like a suggestion box experience, enable this setting."
+                                >Community Leaderboard</label
+                              >
+                            </div>
+                            <div
+                              class="form-group col-3 mb-0"
+                              *ngIf="editSettings"
+                            >
+                              <div
+                                class="custom-control custom-switch mr-auto float-right"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="custom-control-input pointer"
+                                  id="openSubmission"
+                                />
+                                <label
+                                  class="custom-control-label"
+                                  for="openSubmission"
+                                  >Enabled</label
+                                >
+                              </div>
+                            </div>
+                            <div
+                              class="form-group col-3 mb-0"
+                              *ngIf="!editSettings"
+                            >
+                              <p class="bold mb-0 text-primary float-right">
+                                <fa-icon
+                                  [icon]="['fas', 'check-circle']"
+                                ></fa-icon>
+                                Enabled
+                              </p>
+                            </div>
+                          </div>
+                          <div class="form-row dottedBottomBorder pt-2 pb-2">
+                            <div class="form-group col-9 mb-0">
+                              <label
+                                class="mb-0 font-weight-normal"
+                                placement="right"
+                                ngbTooltip="If enabled, ideas will be able to be submitted outside of challenges. If you'd like a suggestion box experience, enable this setting."
+                                >Default Leaderboard Page Filter
+                              </label>
+                            </div>
+                            <div
+                              class="form-group col-3 mb-0"
+                              *ngIf="editSettings"
+                            >
+                              <select class="form-control">
+                                <option>All Time</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                              </select>
+                            </div>
+                            <div
+                              class="form-group col-3 mb-0"
+                              *ngIf="!editSettings"
+                            >
+                              <p class="bold mb-0 text-default float-right">
+                                Monthly
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- start language settings -->
+                      <div class="form-row">
+                        <div class="form-group pb-2 mb-2 col-md-3 col-12">
+                          <label class="pt-2">Language Settings</label>
+                        </div>
+                        <div class="form-group col-md-9 col-12 pb-2 mb-2 pt-2">
+                          <div class="form-row dottedBottomBorder pb-3 mb-0">
+                            <div class="form-group col-8 mb-0">
+                              <label class="mb-0 font-weight-normal"
+                                >Default Community Language</label
+                              >
+                            </div>
+                            <div class="form-group col-4 mb-0">
+                              <span class="float-right">
+                                <div
+                                  ngbDropdown
+                                  class="w-100 adjustFloatUp"
+                                  style="min-width: 12rem;"
+                                >
+                                  <div
+                                    class="removeCaret py-2 pl-3 px-0 border bg-white rounded addHover pl-2 dropdown-toggle text-medium"
+                                    ngbDropdownToggle
+                                  >
+                                    {{
+                                      languageTitle(form.value.defaultLanguage)
+                                    }}
+                                    <span class="float-right mr-2">
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-down']"
+                                      ></fa-icon>
+                                    </span>
+                                  </div>
+                                  <div
+                                    ngbDropdownMenu
+                                    class="dropdown-menu w-100 py-0"
+                                  >
+                                    <span *ngFor="let language of languages">
+                                      <button
+                                        class="px-3 py-2 active"
+                                        ngbDropdownItem
+                                        (click)="
+                                          form.value.defaultLanguage =
+                                            language.key
+                                        "
+                                      >
+                                        {{ language.title }}
+                                        <span class="float-right">
+                                          <fa-icon
+                                            *ngIf="
+                                              form.value.defaultLanguage ===
+                                              language.key
+                                            "
+                                            [icon]="['fas', 'check-circle']"
+                                            class="text-success"
+                                          ></fa-icon>
+                                        </span>
+                                      </button>
+                                      <hr class="my-0" />
+                                    </span>
+                                    <!-- <button class="pl-3 py-2" ngbDropdownItem>
+                                      Spanish
+                                    </button>
+                                    <hr class="my-0" />
+                                    <button class="pl-3 py-2" ngbDropdownItem>
+                                      Italian
+                                    </button>
+                                    <hr class="my-0" />
+                                    <button class="pl-3 py-2" ngbDropdownItem>
+                                      German
+                                    </button>
+                                    <hr class="my-0" /> -->
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                          <!-- multilanguage -->
+                          <div class="form-row">
+                            <div class="form-group col-md-9 col-12 mb-0 pt-1">
+                              <div class="form-row dottedBottomBorder pb-3">
+                                <div class="form-group col-9 mb-0">
+                                  <label class="mb-0 font-weight-normal"
+                                    >Enable Multi-Language Translation</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group col-3 mb-0">
+                              <div
+                                class="custom-control custom-switch mr-auto float-right"
+                              >
+                                <input
+                                  type="checkbox"
+                                  formControlName="isTranslation"
+                                  class="custom-control-input pointer"
+                                  id="isTranslation"
+                                />
+                                <label
+                                  class="custom-control-label font-weight-normal"
+                                  for="isTranslation"
+                                >
+                                  <span
+                                    *ngIf="form.value.isTranslation"
+                                    class="pl-1"
+                                  >
+                                    {{
+                                      'ChallengePost.Labels.Enabled'
+                                        | translationPipe
+                                    }}
+                                  </span>
+                                  <span *ngIf="!form.value.isTranslation">
+                                    Disabled
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- end multilanguage -->
+                        </div>
+                      </div>
+                      <!-- end language settings -->
+                      <div class="form-row">
+                        <div class="form-group pb-2 mb-2 col-md-3 col-12">
+                          <label class="pt-1">Login and Signup Settings</label>
+                        </div>
+                        <div class="form-group col-md-9 col-12 pb-2 mb-2 pt-1">
+                          <div class="form-row dottedBottomBorder pb-3">
+                            <div class="form-group col-8 mb-0">
+                              <label class="mb-0 font-weight-normal"
+                                >Sign Up Settings</label
+                              >
+                            </div>
+                            <div class="form-group col-4 mb-0">
+                              <span class="float-right">
+                                <div
+                                  ngbDropdown
+                                  class="w-100 adjustFloatUp"
+                                  style="min-width: 12rem;"
+                                >
+                                  <!-- ngbDropdownToggle -->
+                                  <div
+                                    ngbTooltip="We currently only have 'Invite Only' communities available. More options coming soon!"
+                                    placement="left"
+                                    class="removeCaret py-2 pl-3 px-0 border bg-light rounded addHover pl-2 dropdown-toggle text-medium"
+                                  >
+                                    Invite Only
+                                    <span class="float-right mr-2">
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-down']"
+                                      ></fa-icon>
+                                    </span>
+                                  </div>
+                                  <div ngbDropdownMenu style="width: 20rem;">
+                                    <button
+                                      class="pl-2"
+                                      ngbDropdownItem
+                                      style="white-space: pre-wrap;"
+                                    >
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <p class="bold mb-0">Invite Only</p>
+                                          <p class="small text-muted mb-1">
+                                            Only users who are invited to your
+                                            community from the send invites page
+                                            can register for your community.
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </button>
+                                    <hr class="my-0" />
+                                    <button
+                                      class="pl-2"
+                                      ngbDropdownItem
+                                      style="white-space: pre-wrap;"
+                                    >
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <p class="bold mb-0">
+                                            Open Registration
+                                          </p>
+                                          <p class="small text-muted mb-1">
+                                            Anyone has the ability to sign up
+                                            for your community, but no content
+                                            is visible in your commmunity
+                                            without an active account.
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </button>
+                                    <hr class="my-0" />
+                                    <button
+                                      class="pl-2"
+                                      disabled
+                                      ngbDropdownItem
+                                      style="white-space: pre-wrap;"
+                                    >
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <p class="bold mb-0">
+                                            Public
+                                            <span class="badge badge-info"
+                                              >Coming Soon</span
+                                            >
+                                          </p>
+                                          <p class="small text-muted mb-1">
+                                            Anyone has the ability to sign up
+                                            for your community, content will be
+                                            visible without a login, but users
+                                            will need an active account to
+                                            participate.
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </button>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group mb-3 col-md-3 col-12">
+                          <label class="pt-1">Single Sign On Settings</label>
+                        </div>
+                        <div class="form-group col-md-9 col-12 mb-3 pt-1">
+                          <div class="form-row dottedBottomBorder pb-3">
+                            <div class="form-group col-9 mb-0">
+                              <label class="mb-0 font-weight-normal"
+                                >Enable Single Sign On</label
+                              >
+                            </div>
+                            <div class="form-group col-3 mb-0">
+                              <div
+                                class="custom-control custom-switch mr-auto float-right"
+                              >
+                                <input
+                                  type="checkbox"
+                                  (change)="isSSOAllowed()"
+                                  [(ngModel)]="allowSSO"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  class="custom-control-input pointer"
+                                  id="sso"
+                                />
+                                <label
+                                  class="custom-control-label font-weight-normal"
+                                  for="sso"
+                                >
+                                  <span *ngIf="allowSSO" class="pl-1">
+                                    {{
+                                      'ChallengePost.Labels.Enabled'
+                                        | translationPipe
+                                    }}
+                                  </span>
+                                  <span *ngIf="!allowSSO">
+                                    Disabled
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="allowSSO" class="form-row pb-2">
+                            <div class="form-group px-0 col-12 mb-0">
+                              <div
+                                class="card bg-light border-top-0 rounded-top-0"
+                              >
+                                <div class="card-body">
+                                  <div class="alert alert-info text-medium p-2">
+                                    Need help setting up single sign on for your
+                                    community? Visit our knowledgebase for step
+                                    by step instructions -
+                                    <a
+                                      target="_blank"
+                                      href="https://academy.ideawake.com/knowledge"
+                                      >Visit Knowledgebase</a
+                                    >
+                                  </div>
+                                  <p
+                                    class="bold montserrat mb-3 pb-2 border-bottom"
+                                  >
+                                    Step One - Select Login Experience
+                                  </p>
+                                  <div class="form-check mb-2 text-medium">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="loginWithSSO"
+                                      formControlName="loginWithSSO"
+                                      [id]="communitySsoLoginEnum.BOTH"
+                                      [value]="communitySsoLoginEnum.BOTH"
+                                    />
+                                    <label
+                                      class="form-check-label font-weight-normal"
+                                      [for]="communitySsoLoginEnum.BOTH"
+                                    >
+                                      <b>SSO and Non SSO Login</b> - I want some
+                                      users to sign in with single sign on
+                                      <b>but also</b> want to invite users who
+                                      don't have access to our single sign on.
+                                    </label>
+                                  </div>
+                                  <div class="form-check text-medium pb-2">
+                                    <input
+                                      class="form-check-input"
+                                      type="radio"
+                                      name="loginWithSSO"
+                                      [id]="communitySsoLoginEnum.ONLY_SSO"
+                                      [value]="communitySsoLoginEnum.ONLY_SSO"
+                                      formControlName="loginWithSSO"
+                                    />
+                                    <label
+                                      class="form-check-label font-weight-normal"
+                                      [for]="communitySsoLoginEnum.ONLY_SSO"
+                                    >
+                                      <b>SSO Only</b> - I want all users to sign
+                                      into this community using single sign on.
+                                    </label>
+                                  </div>
+                                  <p
+                                    class="bold montserrat mt-4 mb-3 pb-2 border-bottom"
+                                  >
+                                    Step Two - Configure Single Sign On
+                                  </p>
+                                  <label class="font-weight-normal"
+                                    >SAML URL</label
+                                  >
+                                  <div class="input-group pointer">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="loginUrl"
+                                      placeholder="Paste Your SSO URL Here..."
+                                      formControlName="loginUrl"
+                                    />
+                                  </div>
+                                  <label class="mt-4 font-weight-normal"
+                                    >SAML Issuer / Application (Client)
+                                    Id</label
+                                  >
+                                  <div class="input-group pointer">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      name="clientId"
+                                      placeholder="Paste Your Application ID Here..."
+                                      formControlName="clientId"
+                                    />
+                                    <span
+                                      (click)="copy(form.value.clientId)"
+                                      class="input-group-append"
+                                    >
+                                      <span
+                                        class="input-group-text"
+                                        id="basic-addon2"
+                                      >
+                                        <fa-icon
+                                          [icon]="['fas', 'copy']"
+                                          class="mr-1 ml-1 text-muted"
+                                        ></fa-icon>
+                                        Copy Link
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <label class="mt-4 font-weight-normal"
+                                    >Redirect URL</label
+                                  >
+                                  <div class="input-group pointer">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      readonly="readonly"
+                                      [value]="samlUrl"
+                                    />
+                                    <span
+                                      (click)="copy(samlUrl)"
+                                      class="input-group-append"
+                                    >
+                                      <span
+                                        class="input-group-text"
+                                        id="basic-addon2"
+                                      >
+                                        <fa-icon
+                                          [icon]="['fas', 'copy']"
+                                          class="mr-1 ml-1 text-muted"
+                                        ></fa-icon>
+                                        Copy Link
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                      <div class="form-row pt-4 d-none">
+                        <div class="form-group mb-0 col-md-3 col-12">
+                          <label class="mb-3">Community Visibility</label>
+                        </div>
+                        <div
+                          class="form-group col-md-9 col-12 mb-0"
+                          *ngIf="editSettings"
+                        >
+                          <div class="form-row">
+                            <div class="form-group mb-0 col-12">
+                              <div
+                                class="form-check mb-2 pb-2 dottedBottomBorder text-medium"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="communityVisibility"
+                                  id="exampleRadios1"
+                                  value="option1"
+                                  checked
+                                />
+                                <label
+                                  class="form-check-label font-weight-normal"
+                                  for="exampleRadios1"
+                                >
+                                  <b>Private (Invite Only)</b> - Only users you
+                                  invite can sign up for your community, content
+                                  will not be searchable via the internet, users
+                                  can only see content or participate if they
+                                  have an active account.
+                                </label>
+                              </div>
+                              <div
+                                class="form-check mb-2 pb-2 dottedBottomBorder text-medium"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="communityVisibility"
+                                  id="exampleRadios2"
+                                  value="option2"
+                                />
+                                <label
+                                  class="form-check-label normal"
+                                  for="exampleRadios2"
+                                >
+                                  <b>Public (Open Sign Up)</b> - Anyone can sign
+                                  up for your community, content will be
+                                  searchable via the internet, all content will
+                                  be visible to the public but users need an
+                                  active account to participate.
+                                </label>
+                              </div>
+                              <div
+                                class="form-check mb-2 pb-2 dottedBottomBorder text-medium"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="communityVisibility"
+                                  id="exampleRadios3"
+                                  value="option3"
+                                />
+                                <label
+                                  class="form-check-label normal"
+                                  for="exampleRadios3"
+                                >
+                                  <b>Open (Open Participation)</b> - Anyone can
+                                  sign up for your community, content will be
+                                  searchable via the internet, all content will
+                                  be visible to the public, users don't need an
+                                  active account to participate.
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="form-group col-md-9 col-12 mb-0"
+                          *ngIf="!editSettings"
+                        >
+                          <div class="form-row">
+                            <div class="form-group mb-0 col-12">
+                              <b>Private (Invite Only)</b> - Only users you
+                              invite can sign up for your community, content
+                              will not be searchable via the internet, users can
+                              only see content or participate if they have an
+                              active account.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                      <div class="form-group float-right mb-0 mt-3"></div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="float-right">
+                  <button
+                    class="btn btn-light border"
+                    routerLink="/settings/all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-primary ml-1"
+                    [disabled]="!form.valid"
+                    (click)="onSubmit()"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end community basic settings -->
+  </div>
+</div>
+<!-- </div> -->

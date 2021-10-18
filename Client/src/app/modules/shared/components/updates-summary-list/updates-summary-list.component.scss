@@ -1,0 +1,26 @@
+.updatesWidgetPadding {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.circleIcon {
+  font-size: 0.35rem;
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.templateImage {
+  z-index: 9;
+  object-fit: cover;
+  height: 6rem;
+}
+
+.updateHeader{
+  font-size: 90%;
+}
+
+.textAreaHeight {
+  min-height: 120px;
+  max-height: 120px;
+  overflow-y: hidden;
+}

@@ -1,0 +1,633 @@
+<!-- <div class="row bg-white border-bottom shadow-sm workflowContainerPadding">
+  <div class="col-12">
+    <app-challenge-top-summary
+      [challenge]="challenge"
+      [userChallengePermissions]="challengePermissions"
+    ></app-challenge-top-summary>
+  </div>
+</div> -->
+
+<app-challenge-top-loader *ngIf="isLoading"></app-challenge-top-loader>
+<div class="row" *ngIf="!isLoading">
+  <div class="col-12 px-0">
+    <div class="card rounded-0 border-0 shadow-sm mb-0 mb-md-3 bg-transparent">
+      <img
+        class="banner addDarkenLayer"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="challenge?.bannerImage || defaultBanner"
+      />
+      <div class="card-body addDarkenLayer">
+        <div class="row position-relative">
+          <div class="col-12 col-md-10 offset-md-1">
+            <div class="row">
+              <div class="col-12 col-md-10">
+                <app-challenge-top
+                  [challenge]="challenge"
+                  [userChallengePermissions]="challengePermissions"
+                  (update)="getChallenge()"
+                ></app-challenge-top>
+              </div>
+              <div class="d-none d-md-block col-md-2 mt-3">
+                <app-follow-button
+                  [data]="challenge"
+                  [entityObject]="{
+                    id: challenge?.id,
+                    typeId: challengeEntity?.id,
+                    entity: challengeEntity?.name
+                  }"
+                  [followersCount]="challenge?.followersCount"
+                  (followed)="challenge = $event"
+                >
+                </app-follow-button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-9">
+                <div class="row">
+                  <div class="col-12">
+                    <h3 class="text-white challengeTitle montserrat">
+                      {{ challenge?.title }}
+                    </h3>
+                    <p class="text-white challengeDescription mb-3">
+                      <span *ngIf="!challenge?.readMore"
+                        >{{ challenge?.description | slice: 0:250 }}
+                        <span
+                          *ngIf="challenge?.description?.length > 250"
+                          class="text-primary pointer"
+                          (click)="challenge.readMore = true"
+                          >{{
+                            'ChallengeList.Labels.readMore' | translationPipe
+                          }}...</span
+                        >
+                      </span>
+                      <span *ngIf="challenge?.readMore"
+                        >{{ challenge?.description }}
+                        <span
+                          class="text-primary pointer"
+                          (click)="challenge.readMore = false"
+                          >{{
+                            'ChallengeList.Labels.readLess' | translationPipe
+                          }}...</span
+                        >
+                      </span>
+                    </p>
+                    <ul class="list-inline mb-2">
+                      <li class="list-inline-item">
+                        <span
+                          class="text-medium montserrat bold"
+                          [ngClass]="
+                            challengeStatuses[challenge?.status]?.font_bg
+                          "
+                        >
+                          {{ 'ChallengeView.Status' | translationPipe }}
+                          -
+                          {{ challengeStatuses[challenge?.status]?.status }}
+                        </span>
+                      </li>
+                      <li class="list-inline-item d-none">
+                        <span
+                          class="badge badgePadding bg-transparent text-medium"
+                        >
+                          <span class="font-weight-normal text-light">
+                            <fa-icon
+                              [icon]="['fas', 'circle']"
+                              class="text-primary small"
+                              style="position: relative; bottom: 2px;"
+                            ></fa-icon>
+                            Submissions - Open
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                    <ul
+                      class="list-inline mb-2 pb-2 pt-1 text-white small d-none"
+                    >
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'globe']"
+                          class="text-primary"
+                        ></fa-icon>
+                        1,250 Targeted
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'trophy']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge.prizesCount }} Prizes
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'user']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge?.challengeParticipant?.length || 0 }}
+                        {{
+                          'ChallengeTop.Labels.Participants' | translationPipe
+                        }}
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'eye']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge?.viewCount || 0 }}
+                        {{ 'ChallengeTop.Labels.Views' | translationPipe }}
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge?.opportunityCount || 0 }}
+                        {{ 'ChallengeTop.Labels.Ideas' | translationPipe }}
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'comment']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge?.opportunityCommentCounts || 0 }}
+                        {{ 'ChallengeTop.Labels.Comments' | translationPipe }}
+                      </li>
+                      <li class="list-inline-item pr-2">
+                        <fa-icon
+                          [icon]="['fas', 'thumbs-up']"
+                          class="text-primary"
+                        ></fa-icon>
+                        {{ challenge?.opportunityVoteCounts || 0 }}
+                        {{ 'ChallengeTop.Labels.Votes' | translationPipe }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-9">
+                    <!-- <div class="row">
+                                                  <div class="col-6 pr-0">
+                                                    <button
+                                                      class="btn btn-primary btn-block mb-3"
+                                                      (click)="openPostIdea(challenge?.id)"
+                                                    >
+                                                      <fa-icon
+                                                        [icon]="['fas', 'lightbulb-on']"
+                                                        class="pr-1"
+                                                      ></fa-icon>
+                                                      {{
+                                                        'ChallengeTop.Labels.PostIdea' | translationPipe
+                                                      }}
+                                                    </button>
+                                                  </div>
+                                                  <div class="col-6">
+                                                    <button
+                                                      class="btn btn-outline-primary btn-block mb-2"
+                                                      routerLink="/challenges/ideas/{{ challenge?.id }}"
+                                                    >
+                                                      <fa-icon
+                                                        [icon]="['fas', 'eye']"
+                                                        class="pr-1"
+                                                      ></fa-icon>
+                                                      {{
+                                                        'ChallengeTop.Labels.BrowseIdeas'
+                                                          | translationPipe
+                                                      }}
+                                                    </button>
+                                                  </div>
+                                                </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row mt-2">
+                  <!-- start of custom terms and conditions -->
+                  <!-- <div class="col-6 col-md-12 pl-0 pl-md-3 d-none">
+                    <button
+                      class="btn btn-primary btn-lg btn-block bold mb-3 montserrat"
+                      (click)="open(registerModal)"
+                    >
+                      Register for Challenge
+                    </button>
+                    <ng-template #registerModal let-modal>
+                      <div
+                        class="modal-header card-header bg-white pb-0 pt-3 border-bottom-0"
+                      >
+                        <p class="small uppercase bold mb-0">
+                          {{ challenge?.title }} Terms & Conditions
+                        </p>
+                        <button
+                          type="button"
+                          class="close"
+                          aria-label="Close"
+                          (click)="modal.dismiss('Cross click')"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body modalScrollMaxHeight">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="alert alert-info text-medium p-2">
+                              In order to participate in this challenge, please
+                              accept the terms and conditions below.
+                            </div>
+                            <p>
+                              Put in custom terms and conditions from the
+                              challenge settings page here!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          class="btn btn-light btn-lg border"
+                          (click)="modal.dismiss('Cross click')"
+                        >
+                          Decline
+                        </button>
+                        <button
+                          class="btn btn-primary btn-lg ml-2"
+                          (click)="modal.dismiss('Cross click')"
+                        >
+                          Accept Terms and Conditions
+                        </button>
+                      </div>
+                    </ng-template>
+                  </div> -->
+                  <!-- end of custom terms and conditions -->
+                  <div
+                    class="col-6 col-md-12"
+                    *ngIf="challengePermissions?.postOpportunity"
+                  >
+                    <button
+                      class="btn btn-primary btn-lg btn-block mb-3 montserrat"
+                      (click)="openPostIdea()"
+                    >
+                      <fa-icon
+                        [icon]="['fas', challenge?.opportunityType?.icon]"
+                        class="pr-1"
+                      ></fa-icon>
+                      {{ 'ChallengeView.Post' | translationPipe }}
+                      <span class="d-none d-md-inline">{{
+                        challenge?.opportunityType?.name
+                      }}</span>
+                    </button>
+                  </div>
+                  <div
+                    class="col-6 col-md-12"
+                    *ngIf="!challengePermissions?.postOpportunity"
+                  >
+                    <button
+                      class="btn btn-light text-muted btn-lg bold btn-block mb-3 disabled montserrat"
+                      style="cursor: no-drop;"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'lock']"
+                        style="font-size: 0.9rem;"
+                      ></fa-icon>
+                      {{ 'ChallengeView.PostingClosed' | translationPipe }}
+                    </button>
+                  </div>
+                  <div class="col-6 col-md-12 pl-0 pl-md-3">
+                    <button
+                      class="btn text-white btn-outline-primary btn-lg montserrat btn-block mb-2"
+                      [routerLink]="['/challenges/ideas/', challenge?.id]"
+                    >
+                      <span class="text-white">
+                        <fa-icon [icon]="['fas', 'eye']" class="pr-1"></fa-icon>
+                        {{ 'ChallengeView.Browse' | translationPipe }}
+                        <span class="d-none d-md-inline">{{
+                          challenge?.opportunityType?.name | pluralize
+                        }}</span>
+                        ({{ challenge?.opportunityCount || 0 }})
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="row flex-row"
+                  *ngIf="challenge?.haveExpiry"
+                  style="height: 100px;"
+                >
+                  <div class="col-12 d-flex align-items-end">
+                    <div class="row mt-2 mt-auto">
+                      <div class="col-12">
+                        <p
+                          class="small montserrat bold uppercase mb-2 text-white mt-1 float-right"
+                        >
+                          {{
+                            'ChallengeView.ChallengeTimeline' | translationPipe
+                          }}
+                        </p>
+                        <ul
+                          class="list-inline text-white float-right mb-0 pt-1"
+                        >
+                          <li class="list-inline-item text-center pr-3">
+                            <h4 class="mb-0 bold">
+                              {{ expiryCounter?.days || 0 }}
+                            </h4>
+                            <p class="text-light uppercase mb-0 small">
+                              {{ 'ChallengeView.Days' | translationPipe }}
+                            </p>
+                          </li>
+                          <li class="list-inline-item text-center pr-3">
+                            <h4 class="mb-0 bold">
+                              {{ expiryCounter?.hours || 0 }}
+                            </h4>
+                            <p class="text-light uppercase mb-0 small">
+                              {{ 'ChallengeView.Hours' | translationPipe }}
+                            </p>
+                          </li>
+                          <li class="list-inline-item text-center pr-3">
+                            <h4 class="mb-0 bold">
+                              {{ expiryCounter?.minutes || 0 }}
+                            </h4>
+                            <p class="text-light uppercase mb-0 small">
+                              {{ 'ChallengeView.Minutes' | translationPipe }}
+                            </p>
+                          </li>
+                          <li class="list-inline-item text-center">
+                            <h4 class="mb-0 bold">
+                              {{ expiryCounter?.seconds || 0 }}
+                            </h4>
+                            <p class="text-light uppercase mb-0 small">
+                              {{ 'ChallengeView.Seconds' | translationPipe }}
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid setMaxWidth">
+  <div
+    class="row pt-md-4"
+    infiniteScroll
+    [infiniteScrollDistance]="scrollDownDistance"
+    (scrolled)="changePage()"
+    [scrollWindow]="true"
+    [infiniteScrollDisabled]="disableScroll"
+  >
+    <div class="col-12">
+      <div class="row">
+        <div class="d-none d-md-inline-block col-md-2">
+          <ul
+            class="list-group text-medium"
+            style="margin-top: 2.35rem;"
+            *ngIf="challengePermissions?.manageAnnouncement"
+          >
+            <li
+              class="list-group-item addHoverTwo pointer"
+              [ngClass]="choice == 'feed' ? 'active' : ''"
+              (click)="loadAnnouncements('feed')"
+            >
+              Sent
+            </li>
+            <!-- <li
+              class="list-group-item addHoverTwo pointer"
+              [ngClass]="choice == 'allUpdates' ? 'active' : ''"
+              (click)="loadAnnouncements('allUpdates')"
+            >
+              All Updates
+            </li>
+            <li
+              class="list-group-item addHoverTwo pointer"
+              [ngClass]="choice == 'sent' ? 'active' : ''"
+              (click)="loadAnnouncements('sent')"
+            >
+              Sent
+            </li> -->
+            <li
+              class="list-group-item addHoverTwo pointer"
+              [ngClass]="choice == 'scheduled' ? 'active' : ''"
+              (click)="loadAnnouncements('scheduled')"
+            >
+              Scheduled
+            </li>
+            <li
+              class="list-group-item addHoverTwo pointer"
+              [ngClass]="choice == 'draft' ? 'active' : ''"
+              (click)="loadAnnouncements('draft')"
+            >
+              Drafts
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-8">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <p class="uppercase text-muted bold montserrat mb-1">
+                Challenge Updates ({{ totalCount }})
+              </p>
+            </li>
+            <li class="list-inline-item float-right adjustFloatUp" *ngIf="challengePermissions?.manageAnnouncement">
+              <app-update-create
+                [level]="'challenge'"
+                [entityObjectId]="challenge.id"
+                [inView]="true"
+              ></app-update-create>
+            </li>
+          </ul>
+          <div class="card mb-md-3" *ngIf="announcements.length === 0">
+            <div class="card-body py-5">
+              <div class="row">
+                <div class="col-12 col-md-8 offset-md-2">
+                  <div class="text-center">
+                    <fa-icon
+                      [icon]="['fas', 'bullhorn']"
+                      class="iconExtraLarge text-muted mb-3"
+                    ></fa-icon>
+                  </div>
+                  <h4 class="text-center bold montserrat mb-3">No Updates Have Been Posted Yet</h4>
+                  <p class="text-center">As soon as there is news, updates, or other announcements posted by the challenge moderator or administrator, you'll see them here!</p>
+                  <div class="text-center" *ngIf="challengePermissions?.manageAnnouncement">
+                    <app-update-create
+                      [level]="'challenge'"
+                      [entityObjectId]="challenge.id"
+                      [inView]="true"
+                    ></app-update-create>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card mb-3 shadow-sm"
+            *ngFor="let announcement of announcements"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <ul class="list-inline mb-2">
+                    <li class="list-inline-item">
+                      <span
+                        class="badge badge-light border badgePadding"
+                        *ngIf="announcement?.status == 'draft'"
+                        >Draft</span
+                      >
+                      <span
+                        class="badge badge-info badgePadding"
+                        *ngIf="announcement?.status == 'scheduled'"
+                        >Scheduled</span
+                      >
+                      <span
+                        class="badge badge-success badgePadding"
+                        *ngIf="announcement?.status == 'sent'"
+                        >Sent</span
+                      >
+                    </li>
+                    <li
+                      class="list-inline-item float-right adjustFloatUp"
+                      ngbDropdown
+                      *ngIf="challengePermissions?.manageAnnouncement"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'ellipsis-v']"
+                        class="text-muted iconLarge removeCaret pointer"
+                        ngbDropdownToggle
+                      ></fa-icon>
+                      <div ngbDropdownMenu>
+                        <button
+                          *ngIf="announcement.status != 'sent'"
+                          routerLink="/challenges/post-update/{{
+                            challengeId
+                          }}/edit/{{ announcement.id }}"
+                          ngbDropdownItem
+                        >
+                          Edit Update
+                        </button>
+                        <button
+                          ngbDropdownItem
+                          (click)="open(deleteUpdate, announcement.id)"
+                        >
+                          Archive Update
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                  <h4 class="bold mb-2">
+                    {{ announcement?.title }}
+                  </h4>
+                  <ul class="list-inline mb-3">
+                    <!-- <li class="list-inline-item mb-0">
+                      <p class="text-medium mb-0 text-muted">
+                        <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+                        Shared with All Participants
+                      </p>
+                    </li> -->
+                    <li class="list-inline-item mb-0">
+                      <p class="text-medium mb-0 text-muted">
+                        <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                        {{ announcement?.viewCount }} view(s)
+                      </p>
+                    </li>
+                    <li class="list-inline-item mb-0">
+                      <p
+                        class="text-medium mb-0 text-muted"
+                        *ngIf="announcement?.targeting.challengeParticipants"
+                      >
+                        <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+                        Shared with All Participants
+                      </p>
+                      <p
+                        class="text-medium mb-0 text-muted"
+                        *ngIf="!announcement?.targeting.challengeParticipants"
+                      >
+                        <fa-icon [icon]="['fas', 'globe']"></fa-icon>
+                        Shared with Some Participants
+                      </p>
+                    </li>
+                    <li class="list-inline-item mb-0">
+                      <p class="text-medium mb-0 text-muted">
+                        <fa-icon [icon]="['fas', 'clock']"></fa-icon>
+                        Posted by {{ announcement?.poster.firstName }}
+                        {{ announcement?.poster.lastName }} on
+                        {{ announcement?.scheduledAt | date: 'short' }}
+                      </p>
+                    </li>
+                  </ul>
+                  <p [innerHTML]="announcement?.message">
+                    <!-- Good day! We have had a great turnout so far for the
+                    Challenge! 131 of you have already signed up on the launch
+                    pad. There are 49 ideas posted, 72 comments and over 218
+                    votes on ideas you support. Everyone signed up by Friday
+                    will have a chance to win a Starbucks gift card!
+                    <span class="link">read more...</span> -->
+                  </p>
+                  <!-- files -->
+                  <app-media-feature
+                    [openModal]="true"
+                    [files]="announcement?.attachments"
+                  ></app-media-feature>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="card-footer pb-1 pt-2">
+              <ul class="list-inline mb-2">
+                <li class="list-inline-item mb-0">
+                  <p class="uppercase text-medium mb-0 bold inverseLink">
+                    <fa-icon [icon]="['fas', 'thumbs-up']"></fa-icon>
+                    Like 10
+                  </p>
+                </li>
+                <li class="list-inline-item mb-0">
+                  <p class="uppercase text-medium mb-0 bold inverseLink">
+                    <fa-icon [icon]="['fas', 'comment']"></fa-icon>
+                    Comment 15
+                  </p>
+                </li>
+                <li class="list-inline-item mb-0">
+                  <p class="uppercase text-medium mb-0 bold inverseLink">
+                    <fa-icon [icon]="['fas', 'share']"></fa-icon>
+                    Share
+                  </p>
+                </li>
+              </ul>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteUpdate let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">
+      Archive This Update
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="">
+      Are you sure you would like to archive this update?
+    </p>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Archive')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-info"
+      (click)="archiveUpdate(); modal.dismiss('Archive')"
+    >
+      Yes, Archive This Update
+    </button>
+  </div>
+</ng-template>

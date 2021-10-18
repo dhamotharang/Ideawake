@@ -1,0 +1,398 @@
+<div class="container-fluid">
+  <div class="row pageTopPadding">
+    <div class="col-12 col-md-10 offset-md-1">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-inline pb-2 border-bottom">
+            <li class="list-inline-item">
+              <a
+                class="mb-0 uppercase bold pt-1"
+                routerLink="/idea-page-container"
+                >Ideas</a
+              >
+            </li>
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'angle-right']"
+                class="mr-1 ml-1 text-muted"
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <a
+                class="mb-0 uppercase bold pt-1"
+                routerLink="/idea-page-container"
+                >IdeaName</a
+              >
+            </li>
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'angle-right']"
+                class="mr-1 ml-1 text-muted"
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <p class="mb-0 uppercase bold pt-1">Settings</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="card mb-3">
+            <div class="card-header">
+              <p class="small uppercase text-muted bold mb-0">
+                Manage Settings
+              </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'edit']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Edit Idea
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+                  Basic Settings
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'users']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Team & Ownership Settings
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'dice-d20']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Permissions
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Fields & Sections
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'home']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Layout & Fields
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'bell']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Notification Settings
+                </p>
+              </li>
+              <li class="list-group-item addHover bottom-border inverseLink">
+                <p class="mb-0 text-medium">
+                  <fa-icon
+                    [icon]="['fas', 'database']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Integrations
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-7">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <p class="small uppercase text-muted bold mb-0">
+                    Basic Settings
+                  </p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <form>
+                        <p class="uppercase bold mb-1 text-medium">
+                          Visibility Settings
+                        </p>
+                        <hr class="mb-0 mt-1" />
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Feed Visibility</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <select class="form-control form-control-sm">
+                              <option>Open Ideas</option>
+                              <option>When Filtered by in Feed</option>
+                              <option>Private / Hidden from Feed</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Page Visibility</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <select class="form-control form-control-sm">
+                              <option>All Users</option>
+                              <option>Specific Groups</option>
+                              <option>Team, Owners, and Submitter Only</option>
+                              <option>Private</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Visible in Omnisearch</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <p class="uppercase bold mb-1 text-medium pt-4">
+                          Tabs Settings (Allow RBAC for Each)
+                        </p>
+                        <hr class="mb-0 mt-1" />
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Tasks Tab</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <p class="uppercase bold mb-1 text-medium pt-4">
+                          Collaboration Settings
+                        </p>
+                        <hr class="mb-0 mt-1" />
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Allow Voting</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Allow Commenting</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <!-- if commenting enabled -->
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal text-medium"
+                              >Comments Visibility (Multiselect?)</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <select class="form-control form-control-sm">
+                              <option>All Users who Can Access Page</option>
+                              <option>Specific Groups</option>
+                              <option>Owner and Team</option>
+                              <option>By Role</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal text-medium"
+                              >Default Comments Filter</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <select class="form-control form-control-sm">
+                              <option>All Activity</option>
+                              <option>Comments Only</option>
+                              <option>History</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal text-medium"
+                              >Default Comments Sorting Option</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <select class="form-control form-control-sm">
+                              <option>Newest First</option>
+                              <option>Oldest First</option>
+                              <option>Popular First</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!-- end if commenting enabled -->
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Allow Notes</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Allow Sharing (Select Which Medium?)</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-row dottedBottomBorder pt-2 pb-2">
+                          <div class="form-group col-9 mb-0">
+                            <label class="mb-0 font-weight-normal"
+                              >Allow File Uploads</label
+                            >
+                          </div>
+                          <div class="form-group col-3 mb-0">
+                            <div
+                              class="custom-control custom-switch mr-auto float-right"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input pointer"
+                                id="participantsTab"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="participantsTab"
+                                >Enabled</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group mb-0 mt-4 float-right">
+                          <button class="btn btn-light border">Cancel</button>
+                          <button class="btn btn-primary border ml-2">
+                            Save Changes
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+  </div>
+</div>

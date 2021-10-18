@@ -1,0 +1,96 @@
+<!-- start of following -->
+<div class="row pt-1 pt-md-4 mb-4">
+  <div class="container">
+    <div class="col-12 removePaddingOnMobile">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <h5 class="montserrat mb-2 mb-md-0 pt-md-1">
+            {{ 'Profile.ContentImFollowing' | translationPipe }}
+            ({{
+              showCount(
+                filters[selectedFilter].id,
+                filters[selectedFilter].key
+              ) || 0
+            }})
+          </h5>
+        </div>
+        <div class="col-12 col-md-8">
+          <ul class="nav mb-0 alignLeftMobileRight">
+            <li *ngFor="let key of objectKeys(filters)" class="nav-item mr-2">
+              <a
+                href="javascript:void(0);"
+                [ngClass]="
+                  selectedFilter == filters[key].key
+                    ? 'nav-link active small filterItemActive flex-fill active'
+                    : 'nav-link small filterItem'
+                "
+                (click)="filterData(filters[key].id, filters[key].key)"
+              >
+                {{ filters[key].title }} ({{
+                  showCount(filters[key].id, filters[key].key) || 0
+                }})
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="mt-2" />
+      <div
+        class="row"
+        *ngIf="
+          (!followingOpportunities?.data ||
+            !followingOpportunities?.data.length) &&
+          (!followingUsers || !followingUsers?.users.length)
+        "
+      >
+        <div class="col-12">
+          <div class="card shadow-sm w-100 rounded-top-0">
+            <div class="card-body text-center py-5">
+              <fa-icon
+                [icon]="['fas', 'rss']"
+                class="iconExtraLarge text-muted mb-3"
+              >
+              </fa-icon>
+              <h4 class="montserrat bold">
+                {{ 'Profile.NotFollowingHeader' | translationPipe }}
+              </h4>
+              <p class="text-muted">
+                {{ 'Profile.NotFollowingDescription' | translationPipe }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- start of card deck -->
+      <div class="card-deck">
+        <div
+          class="col-12 col-md-3 p-0"
+          *ngFor="let content of followingOpportunities?.data"
+        >
+          <app-content-card
+            [tagsData]="followingOpportunities.tagsData"
+            [dataSet]="content"
+            [type]="cardType.OPPORTUNITY"
+            (unFollowed)="unFollowedContent()"
+          >
+          </app-content-card>
+        </div>
+        <div
+          class="col-12 col-md-3 p-0"
+          *ngFor="let content of followingUsers?.users"
+        >
+          <app-content-card
+            [entities]="entities"
+            [tagsData]="followingUsers?.tags"
+            [dataSet]="content"
+            [type]="cardType.USER"
+            (unFollowed)="unFollowedContent()"
+          >
+          </app-content-card>
+        </div>
+      </div>
+      <!-- end of card deck -->
+    </div>
+  </div>
+</div>
+<!-- start of following -->

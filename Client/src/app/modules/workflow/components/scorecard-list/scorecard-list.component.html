@@ -1,0 +1,221 @@
+<div class="row mt-3">
+  <div class="col-5">
+    <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+      Selected Criteria
+    </h6>
+  </div>
+  <div class="col-2 pl-0">
+    <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+      Type
+    </h6>
+  </div>
+  <div class="col-2">
+    <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+      Info
+    </h6>
+  </div>
+  <div class="col-2">
+    <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+      Score Weight
+    </h6>
+  </div>
+</div>
+<hr class="mb-0 mt-1" />
+<!-- start of one -->
+<div class="row" *ngIf="selectedQuestions?.length === 0">
+  <div class="col-12">
+    <div class="py-5 text-center bg-light">
+      <fa-icon
+        [icon]="['fas', 'times-circle']"
+        class="text-muted"
+        style="font-size: 3rem;"
+      ></fa-icon>
+      <h5 class="text-center montserrat bold mt-2">
+        You Haven't Added Any Review Criteria to This Stage
+      </h5>
+      <p class="text-center mb-0 text-muted">
+        Add criteria by searching for them above or add a new criteria to
+        evaluate ideas by.
+      </p>
+    </div>
+  </div>
+</div>
+<div cdkDropList class="row" (cdkDropListDropped)="drop($event)">
+  <div class="col-12">
+    <!-- start of general question -->
+    <div
+      cdkDrag
+      *ngFor="let datum of selectedQuestions; let i = index"
+      class="row pb-0 pt-2 flex-row align-items-center"
+    >
+      <div class="col-12">
+        <div class="row">
+          <div class="col-5">
+            <div class="media">
+              <fa-icon
+                cdkDragHandle
+                [icon]="['fas', 'grip-vertical']"
+                class="text-muted mr-2 moveOnHover"
+                placement="bottom"
+                ngbTooltip="Drag and drop to change order"
+              ></fa-icon>
+              <div class="media-body">
+                <p class="mb-0">
+                  {{ datum?.title }}
+                  <fa-icon
+                    *ngIf="datum?.description"
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    [ngbTooltip]="datum?.description"
+                  ></fa-icon>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 adjustFloatUp px-0">
+            <span
+              class="badge py-2 text-wrap text-white w-100"
+              style="font-size: 63%;"
+              [ngStyle]="{ background: datum?.evaluationType?.color }"
+            >
+              <!-- <fa-icon [icon]="['fas', datum?.evaluationType?.icon]" class="text-white"></fa-icon> -->
+              {{ datum?.evaluationType?.title }}
+            </span>
+          </div>
+          <div class="col-2">
+            <p
+              *ngIf="datum?.evaluationType?.abbreviation == types.QUESTION"
+              class="mb-0 text-medium"
+            >
+              <ng-template #questionInfo>
+                <span [innerHtml]="getTooltip(datum)"></span>
+              </ng-template>
+              <span
+                triggers="mouseenter:mouseleave"
+                [popoverTitle]="questionTitle"
+                [ngbPopover]="questionInfo"
+                [autoClose]="true"
+                container="body"
+              >
+                {{ datum?.criteriaObject?.data?.length || 0 }} Responses
+              </span>
+            </p>
+            <p
+              *ngIf="
+                datum?.evaluationType?.abbreviation == types.NUMERICAL_RANGE
+              "
+              class="mb-0 text-medium"
+            >
+              <span ngbTooltip="Minimum Possible Response">
+                {{ datum?.criteriaObject?.unit
+                }}{{ datum?.criteriaObject?.minValue || 0 | number }}
+              </span>
+              -
+              <span ngbTooltip="Maximum Possible Response">
+                {{ datum?.criteriaObject?.unit
+                }}{{ datum?.criteriaObject?.maxValue || 0 | number }}
+              </span>
+            </p>
+          </div>
+          <div class="col-2">
+            <p class="mb-0 text-medium">
+              {{ datum?.criteriaWeight }}
+              <span class="font-italic text-muted">
+                ({{ getWeight(datum?.criteriaWeight) }}%)
+              </span>
+            </p>
+          </div>
+          <div class="col-1 px-0">
+            <fa-icon
+              (click)="edit(datum, i)"
+              [icon]="['fas', 'edit']"
+              ngbTooltip="Edit this Criteria"
+              container="body"
+              class="mr-2 inverseLink"
+            ></fa-icon>
+            <span ngbDropdown>
+              <fa-icon
+                [icon]="['fas', 'trash']"
+                class="inverseLinkDanger"
+                ngbTooltip="Remove this Criteria"
+                container="body"
+                ngbDropdownToggle
+              ></fa-icon>
+              <div ngbDropdownMenu class="pt-0 setMinWidth">
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Remove This Criteria</label
+                  >
+                </div>
+                <div class="px-3" style="max-width: 15rem;">
+                  <p class="text-medium text-center">
+                    Are you sure you would like to remove this criteria from
+                    this stage?
+                  </p>
+                  <button
+                    (click)="remove(datum)"
+                    class="btn btn-sm mb-3 btn-outline-primary btn-block removeCaret"
+                  >
+                    <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                    Remove Criteria
+                  </button>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+        <hr class="mb-0 mt-2" />
+      </div>
+    </div>
+    <!-- end of general question -->
+    <!-- <hr class="my-0" /> -->
+  </div>
+</div>
+<!-- end of one -->
+<div class="row pt-2" *ngIf="selectedQuestions?.length !== 0">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-9">
+        <h5 class="bold montserrat mb-0">
+          Total Stage Score
+        </h5>
+      </div>
+      <div class="col-3">
+        <h5 class="bold montserrat mb-0">
+          {{ selectionWeight || 0 }}
+          <span class="font-italic text-muted">(100%)</span>
+        </h5>
+      </div>
+      <!-- <div class="col-3">
+        <span class="text-primary font-italic underline">Whats This?</span>
+      </div> -->
+    </div>
+    <!-- <ul class="list-inline">
+      <li class="list-inline-item">
+      </li>
+      <li class="list-inline-item">
+        <p class="bold montserrat mb-0">{{ selectionWeight || 0 }} <span class="font-italic text-muted">(100%)</span></p>
+      </li>
+      <li class="list-inline-item">
+
+      </li>
+    </ul> -->
+  </div>
+</div>
+
+<!-- start of popover -->
+<ng-template #questionTitle>
+  <div class="enlargePopover">
+    <div class="row">
+      <div class="col-7">
+        <label class="mb-0 text-medium">Response</label>
+      </div>
+      <div class="col-5">
+        <label class="mb-0 text-medium">Points</label>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- end of popover -->

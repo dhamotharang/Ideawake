@@ -1,0 +1,36 @@
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.active-row {
+  background-color: #FFFFFF;
+  color: $primary;
+  font-weight: bold;
+  border-color: none;
+}
+
+.addHover:hover{
+  background-color: #FFFFFF;
+  color: $primary;
+  // font-weight: bold;
+  border-color: none;
+}
+
+.table th, .table td{
+  border-top: 1px dotted #dee2e6;
+}
+
+.btn-white.active{
+  font-weight: bold;
+  color: $primary;
+  background-color: white;
+}
+
+.leftWidth{
+  width: 22.25%;
+  max-width: 320px;
+}
+
+.rightWidth{
+  width: 77.75%;
+}
+

@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-11 offset-sm-1">
+    <div class="form-row">
+      <div class="col-12 form-group">
+        <div class="media">
+          <img
+            class="rounded-circle mr-2"
+            src="https://via.placeholder.com/50x50"
+          />
+          <div class="media-body">
+            <textarea
+              class="form-control"
+              #text
+              placeholder="{{ 'Comments.PlaceholderLarge' | translationPipe }}"
+              rows="3"
+            ></textarea>
+            <div class="row">
+              <div class="col-9">
+                <app-upload-content-options></app-upload-content-options>
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary btn-block mt-2">
+                  Reply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

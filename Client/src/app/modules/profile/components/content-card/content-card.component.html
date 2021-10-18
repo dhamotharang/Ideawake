@@ -1,0 +1,79 @@
+<div
+  class="card cardAnimation pointer mb-4 card-height shadow-sm"
+  [routerLink]="redirectUrl"
+  [queryParams]="queryParams"
+>
+  <div class="card-header p-0 text-center">
+    <img
+      [defaultImage]="defaultImage"
+      [lazyLoad]="image"
+      [ngClass]="{
+        'rounded-circle featuredProfileImage': type === cardType.USER,
+        'w-100 rounded-top opportunityImage': type === cardType.OPPORTUNITY
+      }"
+    />
+  </div>
+  <div class="card-body pl-3 pr-3">
+    <h6 class="montserrat mb-0">
+      {{ dataSet.title || dataSet.firstName }}
+      {{ dataSet.lastName || '' }}
+    </h6>
+    <ul class="list-inline">
+      <li class="list-inline-item mr-0">
+        <p class="mb-0 bold uppercase text-muted small">
+          <span *ngIf="type == cardType.OPPORTUNITY">{{
+            dataSet?.opportunityType.name | titlecase
+          }}</span>
+          <span *ngIf="type == cardType.USER">{{ type | titlecase }}</span>
+        </p>
+      </li>
+      <li class="list-inline-item ml-2 mr-2" *ngIf="type == cardType.USER">
+        <fa-icon
+          [icon]="['fas', 'circle']"
+          class="small separatorIcon text-muted"
+        ></fa-icon>
+      </li>
+      <li class="list-inline-item mr-0">
+        <!-- <p *ngIf="type == cardType.OPPORTUNITY" class="mb-0 bold uppercase text-muted small">
+          Emerging Technology
+        </p> -->
+        <p
+          *ngIf="type == cardType.USER"
+          class="mb-0 bold uppercase text-muted small"
+        >
+          {{ userRole | titlecase }}
+        </p>
+      </li>
+    </ul>
+    <span *ngIf="tagsData">
+      <span
+        *ngFor="let tag of addedTags | slice: 0:4"
+        class="tagLink small mr-2"
+        routerLink="/search"
+      >
+        #{{ tagsData[tag] }}
+      </span>
+      <span *ngIf="addedTags && addedTags.length > 4" class="tagLink small mr-2"
+        >+4</span
+      >
+    </span>
+  </div>
+  <div class="card-footer bg-white border-top-0 pl-2 pr-2">
+    <div class="row">
+      <div class="col-12">
+        <button
+          (click)="toggle($event)"
+          class="btn btn-outline-primary btn-sm btn-block"
+        >
+          <fa-icon
+            *ngIf="dataSet.following"
+            [icon]="['fas', 'check']"
+            class="ml-1"
+          ></fa-icon>
+          <span *ngIf="dataSet.following"> Following </span>
+          <span *ngIf="!dataSet.following"> Follow </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

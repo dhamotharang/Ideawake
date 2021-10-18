@@ -1,0 +1,87 @@
+<ul class="list-inline mb-0 py-1">
+  <li
+    *ngIf="
+      (from === 'comment' && permissions?.allowAnonymousComment) ||
+      (from === 'idea' && permissions?.allowAnonymousIdea) ||
+      !permissions
+    "
+    class="list-inline-item mr-0"
+  >
+    <button
+      class="btn btn-sm btn-white bold px-2 pt-0 adjustButtonSize"
+      style="position: relative; bottom: 0.125rem;"
+      *ngIf="!simpleUploadOptions"
+    >
+      <div
+        class="custom-control custom-switch"
+        style="min-height: 1rem;"
+        ngbTooltip="If enabled, your name will show up as 'anonymous' instead of displaying your name."
+      >
+        <input
+          type="checkbox"
+          (click)="onAnonymitySelection()"
+          class="custom-control-input pointer ml-auto"
+          id="{{ randomId }}"
+          [checked]="anonymousStatus"
+        />
+        <label class="custom-control-label pointer" for="{{ randomId }}">
+          <span style="position: relative; top: 0.2rem;">
+            <fa-icon
+              [icon]="['fas', 'ghost']"
+              class="text-muted d-none d-md-inline"
+            ></fa-icon>
+            <span class="d-none d-md-inline">
+              {{ 'Comments.Post' | translationPipe }} </span
+            >{{ 'Comments.Anonymous' | translationPipe
+            }}<span class="d-none d-md-inline">ly</span>
+          </span>
+        </label>
+      </div>
+    </button>
+  </li>
+  <li class="list-inline-item mr-0">
+    <span
+      class="btn btn-sm btn-white pointer bold px-2 adjustButtonSize"
+      placement="top"
+      ngbTooltip="Add Files, Images, or Videos"
+      (click)="open()"
+    >
+      <fa-icon
+        [icon]="['fas', 'paperclip']"
+        class="moveButtonIcon text-muted"
+      ></fa-icon>
+      {{ 'Comments.Attach' | translationPipe }}
+    </span>
+  </li>
+  <li class="list-inline-item mr-0">
+    <button
+      class="btn btn-sm btn-white bold px-2 adjustButtonSize"
+      container="body"
+      (click)="addNgMentionTrigger('#')"
+      ngbTooltip="Add Tags"
+    >
+      <fa-icon
+        [icon]="['fas', 'hashtag']"
+        class="moveButtonIcon text-muted"
+      ></fa-icon>
+      <span class="d-none d-md-inline">{{
+        'Comments.Tag' | translationPipe
+      }}</span>
+    </button>
+  </li>
+  <li class="list-inline-item mr-0">
+    <button
+      class="btn btn-sm btn-white bold px-2 adjustButtonSize"
+      ngbTooltip="Mention Users or Groups"
+      (click)="addNgMentionTrigger('@')"
+    >
+      <fa-icon
+        [icon]="['fas', 'user-tag']"
+        class="moveButtonIcon text-muted"
+      ></fa-icon>
+      <span class="d-none d-md-inline">{{
+        'Comments.Mention' | translationPipe
+      }}</span>
+    </button>
+  </li>
+</ul>

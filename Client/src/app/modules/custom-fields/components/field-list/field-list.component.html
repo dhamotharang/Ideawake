@@ -1,0 +1,83 @@
+<div class="card shadow-sm mt-3">
+  <div class="card-header px-3">
+    <div class="row">
+      <div class="col-5">
+        <p class="small mb-0 text-muted bold uppercase">Selected Fields</p>
+      </div>
+      <div class="col-4 px-0">
+        <p class="small mb-0 text-muted bold uppercase">Field Type</p>
+      </div>
+      <div class="col-3">
+        <p class="small mb-0 text-muted bold uppercase">Actions</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-0 px-3">
+    <div class="row py-3 dottedBottomBorder">
+      <div class="col-5 flex-column align-self-center">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'grip-vertical']"
+            class="text-muted pr-2 moveOnHover align-self-top"
+            placement="left"
+            ngbTooltip="Drag and drop to change order"
+          ></fa-icon>
+          <div class="media-body">
+            <p class="mb-0 align-self-top">
+              Selected Field Title / Label
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted"
+                ngbTooltip="Description if it exists"
+              ></fa-icon>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 flex-column align-self-top px-0">
+        <div class="align-self-top">
+          <p class="mb-0">
+            Field Type
+            <span
+              container="body"
+              ngbTooltip="Put in field type explanation here"
+              placement="top"
+            >
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted"
+              ></fa-icon>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-2 flex-column align-self-top"
+        container="body"
+        ngbPopover="Show a preview of this field here"
+        triggers="mouseenter:mouseleave"
+        placement="top"
+        popoverTitle="Title"
+      >
+        <p class="mb-0">
+          Preview
+          <fa-icon [icon]="['fas', 'eye']" class="text-muted"></fa-icon>
+        </p>
+      </div>
+      <div class="col-3 flex-column align-self-top">
+        <button class="btn btn-xs btn-light border mr-1">
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          Edit
+        </button>
+        <button class="btn btn-xs btn-light border">
+          <fa-icon
+            [icon]="['fas', 'times-circle']"
+            class="text-muted"
+          ></fa-icon>
+          Remove
+        </button>
+      </div>
+    </div>
+    <!-- end of one -->
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<section
+  class="row h-100 d-flex flex-row"
+  style="height: 100vh !important; overflow-y: auto;"
+>
+  <div class="col-12 d-flex">
+    <div
+      class="align-items-center text-center h-100 w-100"
+      style="padding-top: 7.5rem;"
+    >
+      <fa-icon
+        [icon]="['fas', 'eye-slash']"
+        class="text-muted iconExtraLarge mb-3"
+      ></fa-icon>
+      <h3 class="montserrat bold">
+        {{ 'SharedText.AccessDeniedHeader' | translationPipe }}
+      </h3>
+      <p class="lead">
+        {{ 'SharedText.AccessDeniedDescription' | translationPipe }}
+      </p>
+      <button (click)="goBack()" class="btn btn-primary btn-lg montserrat mt-2">
+        <fa-icon [icon]="['fas', 'chevron-circle-left']"></fa-icon>
+        {{ 'SharedText.AccessDeniedButton' | translationPipe }}
+      </button>
+    </div>
+  </div>
+</section>

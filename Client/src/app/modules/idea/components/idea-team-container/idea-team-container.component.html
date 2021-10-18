@@ -1,0 +1,769 @@
+<!-- Submitter Tab -->
+<div class="">
+  <div class="row mb-3 mt-1">
+    <div class="col-12">
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item">
+          <p class="mb-1 small bold text-muted">
+            {{ 'IdeaUsers.Labels.Submitters' | translationPipe }} ({{
+              submitters?.length
+            }})
+          </p>
+        </li>
+        <li class="list-inline-item float-right">
+          <!-- <span
+            class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+            container="body"
+            placement="top"
+            ngbTooltip="Manage Submitters"
+            (click)="open(manage)"
+          >
+            <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          </span> -->
+          <span
+            class="btn btn-light btn-sm border rounded-circle pointer"
+            container="body"
+            placement="top"
+            ngbTooltip="Add Co-Submitters"
+            (click)="
+              userOpportunityPermissions?.addOpportunitySubmitter
+                ? openAddNewBox(ideaUserType.submitter)
+                : ''
+            "
+            *ngIf="
+              opportunityTypeSettings?.allowOpportunityCosubmitters &&
+              userOpportunityPermissions?.addOpportunityContributor
+            "
+          >
+            <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+            <!-- <app-lock-component
+              *ngIf="!userOpportunityPermissions?.addOpportunityContributor"
+            ></app-lock-component> -->
+          </span>
+        </li>
+      </ul>
+      <app-idea-team-images [users]="submitters"></app-idea-team-images>
+    </div>
+  </div>
+  <!-- Owner Tab -->
+  <div
+    class="row mb-3"
+    *ngIf="opportunityTypeSettings?.allowOpportunityOwnership"
+  >
+    <div class="col-12">
+      <ul class="list-inline mb-0">
+        <li
+          class="list-inline-item"
+          *ngIf="opportunityTypeSettings?.allowOpportunityOwnership"
+        >
+          <p class="mb-1 small text-muted bold">
+            {{ 'IdeaUsers.Labels.Owners' | translationPipe }} ({{
+              owners?.length
+            }})
+          </p>
+        </li>
+        <li
+          class="float-right"
+          *ngIf="
+            opportunityTypeSettings?.allowOpportunityOwnership &&
+            userOpportunityPermissions?.addOpportunityOwner
+          "
+        >
+          <!-- <span
+            class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+            container="body"
+            placement="top"
+            ngbTooltip="Manage Owners"
+            (click)="open(manage)"
+          >
+            <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          </span> -->
+          <span
+            class="btn btn-light btn-sm border rounded-circle pointer"
+            container="body"
+            placement="top"
+            ngbTooltip="Add Owners"
+            (click)="
+              userOpportunityPermissions?.addOpportunityOwner
+                ? openAddNewBox(ideaUserType.owner)
+                : ''
+            "
+          >
+            <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+            <!-- <app-lock-component
+              *ngIf="!userOpportunityPermissions?.addOpportunityOwner"
+            ></app-lock-component> -->
+          </span>
+        </li>
+      </ul>
+      <!-- should be idea owner images component -->
+      <p class="small text-muted mb-2" *ngIf="owners.length == 0">
+        {{ 'ManageTeam.NoOwners' | translationPipe }}
+        <span
+          class="link"
+          *ngIf="userOpportunityPermissions?.addOpportunityOwner"
+          (click)="
+            userOpportunityPermissions?.addOpportunityOwner
+              ? openAddNewBox(ideaUserType.owner)
+              : ''
+          "
+        >
+          {{ 'ManageTeam.AddOwners' | translationPipe }}
+        </span>
+      </p>
+      <app-idea-team-images [users]="owners"></app-idea-team-images>
+      <!-- should be idea owner images component -->
+    </div>
+  </div>
+  <!-- Contributors Tab -->
+  <div
+    class="row mb-3 mt-2"
+    *ngIf="opportunityTypeSettings?.allowOpportunityTeams"
+  >
+    <div class="col-12">
+      <ul class="list-inline mb-0">
+        <li
+          class="list-inline-item"
+          *ngIf="opportunityTypeSettings?.allowOpportunityTeams"
+        >
+          <!-- <p class="mb-1 text-medium bold"> -->
+          <p class="mb-1 small text-muted bold">
+            {{ 'IdeaUsers.Labels.Contributors' | translationPipe }}
+            ({{ contributors?.length }})
+          </p>
+        </li>
+        <li
+          class="list-inline-item float-right"
+          *ngIf="
+            opportunityTypeSettings?.allowOpportunityTeams &&
+            userOpportunityPermissions?.addOpportunityContributor
+          "
+        >
+          <!-- <span
+            class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+            container="body"
+            p
+            lacement="top"
+            ngbTooltip="Manage Team"
+            (click)="open(manage)"
+          >
+            <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          </span> -->
+          <span
+            class="btn btn-light btn-sm border rounded-circle pointer"
+            container="body"
+            placement="top"
+            [ngbTooltip]="'Add Team Members'"
+            (click)="
+              userOpportunityPermissions?.addOpportunityContributor
+                ? openAddNewBox(ideaUserType.contributors)
+                : ''
+            "
+          >
+            <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+            <!-- <app-lock-component
+              *ngIf="!userOpportunityPermissions?.addOpportunityContributor"
+            ></app-lock-component> -->
+          </span>
+        </li>
+      </ul>
+      <p class="small text-muted mb-0" *ngIf="contributors.length == 0">
+        {{ 'ManageTeam.NoTeam' | translationPipe }}
+        <span
+          class="link"
+          *ngIf="userOpportunityPermissions?.addOpportunityContributor"
+          (click)="
+            userOpportunityPermissions?.addOpportunityContributor
+              ? openAddNewBox(ideaUserType.contributors)
+              : ''
+          "
+        >
+          {{ 'ManageTeam.AddTeam' | translationPipe }}
+        </span>
+      </p>
+      <app-idea-team-images [users]="contributors"></app-idea-team-images>
+    </div>
+  </div>
+  <div
+    class="row mt-2"
+    *ngIf="
+      userOpportunityPermissions?.addOpportunityContributor ||
+      userOpportunityPermissions?.addOpportunityOwner
+    "
+  >
+    <div class="col-12">
+      <button
+        class="btn btn-white btn-sm montserrat btn-block"
+        (click)="open(manage)"
+      >
+        <fa-icon [icon]="['fas', 'user-friends']" class="text-muted"></fa-icon>
+        <!-- Manage Owners, Team, and Submitters -->
+        {{ 'ManageTeam.ManageContributors' | translationPipe }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- inline team container -->
+<div class="row d-none">
+  <div class="col-12">
+    <div class="w-100">
+      <div class="w-20 d-inline-block">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="mb-1" style="font-size: 11px;">
+              {{ 'IdeaUsers.Labels.Submitters' | translationPipe }} ({{
+                submitters?.length
+              }})
+            </p>
+          </li>
+          <li class="list-inline-item float-right d-none">
+            <!-- <span
+              class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+              container="body"
+              placement="top"
+              ngbTooltip="Manage Submitters"
+              (click)="open(manage)"
+            >
+              <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+            </span> -->
+            <!-- <span
+              class="btn btn-light btn-sm border rounded-circle pointer"
+              container="body"
+              placement="top"
+              ngbTooltip="Add Co-Submitters"
+              (click)="
+                userOpportunityPermissions?.addOpportunitySubmitter
+                  ? openAddNewBox(ideaUserType.submitter)
+                  : ''
+              "
+              *ngIf="
+                opportunityTypeSettings?.allowOpportunityCosubmitters &&
+                userOpportunityPermissions?.addOpportunityContributor
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+            </span> -->
+          </li>
+        </ul>
+        <app-idea-team-images [users]="submitters"></app-idea-team-images>
+      </div>
+      <!-- end submitter -->
+      <div
+        class="w-20 d-inline-block"
+        *ngIf="opportunityTypeSettings?.allowOpportunityOwnership"
+      >
+        <ul class="list-inline mb-0">
+          <li
+            class="list-inline-item"
+            *ngIf="opportunityTypeSettings?.allowOpportunityOwnership"
+          >
+            <p class="mb-1 small text-muted bold">
+              {{ 'IdeaUsers.Labels.Owners' | translationPipe }} ({{
+                owners?.length
+              }})
+            </p>
+          </li>
+          <li
+            class="float-right"
+            *ngIf="
+              opportunityTypeSettings?.allowOpportunityOwnership &&
+              userOpportunityPermissions?.addOpportunityOwner
+            "
+          >
+            <!-- <span
+              class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+              container="body"
+              placement="top"
+              ngbTooltip="Manage Owners"
+              (click)="open(manage)"
+            >
+              <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+            </span> -->
+            <span
+              class="btn btn-light btn-sm border rounded-circle pointer"
+              container="body"
+              placement="top"
+              ngbTooltip="Add Owners"
+              (click)="
+                userOpportunityPermissions?.addOpportunityOwner
+                  ? openAddNewBox(ideaUserType.owner)
+                  : ''
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+              <!-- <app-lock-component
+                *ngIf="!userOpportunityPermissions?.addOpportunityOwner"
+              ></app-lock-component> -->
+            </span>
+          </li>
+        </ul>
+        <!-- should be idea owner images component -->
+        <p class="small text-muted mb-0" *ngIf="owners.length == 0">
+          {{ 'ManageTeam.NoOwners' | translationPipe }}
+          <span
+            class="link"
+            *ngIf="userOpportunityPermissions?.addOpportunityOwner"
+            (click)="
+              userOpportunityPermissions?.addOpportunityOwner
+                ? openAddNewBox(ideaUserType.owner)
+                : ''
+            "
+          >
+            {{ 'ManageTeam.AddOwners' | translationPipe }}
+          </span>
+        </p>
+        <app-idea-team-images [users]="owners"></app-idea-team-images>
+      </div>
+      <!-- end owners -->
+      <div
+        class="w-60 d-inline-block"
+        *ngIf="opportunityTypeSettings?.allowOpportunityTeams"
+      >
+        <ul class="list-inline mb-0">
+          <li
+            class="list-inline-item"
+            *ngIf="opportunityTypeSettings?.allowOpportunityTeams"
+          >
+            <p class="mb-1 text-medium" style="font-size: 11px;">
+              <!-- {{ 'IdeaUsers.Labels.Contributors' | translationPipe }} -->
+              {{ 'ManageTeam.TeamMembers' | translationPipe }}
+              ({{ contributors?.length }})
+            </p>
+          </li>
+          <li
+            class="list-inline-item float-right"
+            *ngIf="
+              opportunityTypeSettings?.allowOpportunityTeams &&
+              userOpportunityPermissions?.addOpportunityContributor
+            "
+          >
+            <!-- <span
+              class="btn btn-light btn-sm border rounded-circle pointer mr-1"
+              container="body"
+              p
+              lacement="top"
+              ngbTooltip="Manage Team"
+              (click)="open(manage)"
+            >
+              <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+            </span> -->
+            <span
+              class="btn btn-light btn-sm border rounded-circle pointer"
+              container="body"
+              placement="top"
+              [ngbTooltip]="'Add Team Members'"
+              (click)="
+                userOpportunityPermissions?.addOpportunityContributor
+                  ? openAddNewBox(ideaUserType.contributors)
+                  : ''
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon>
+              <!-- <app-lock-component
+                *ngIf="!userOpportunityPermissions?.addOpportunityContributor"
+              ></app-lock-component> -->
+            </span>
+          </li>
+        </ul>
+        <p class="small text-muted mb-0" *ngIf="contributors.length == 0">
+          {{ 'ManageTeam.NoTeam' | translationPipe }}
+          <span
+            class="link"
+            *ngIf="userOpportunityPermissions?.addOpportunityContributor"
+            (click)="
+              userOpportunityPermissions?.addOpportunityContributor
+                ? openAddNewBox(ideaUserType.contributors)
+                : ''
+            "
+          >
+            {{ 'ManageTeam.AddTeam' | translationPipe }}
+          </span>
+        </p>
+        <app-idea-team-images [users]="contributors"></app-idea-team-images>
+      </div>
+      <!-- end team -->
+    </div>
+  </div>
+</div>
+<!-- <div
+  class="row"
+  *ngIf="
+    userOpportunityPermissions?.addOpportunityContributor ||
+    userOpportunityPermissions?.addOpportunityOwner
+  "
+>
+  <div class="col-12">
+    <button
+      class="btn btn-light montserrat border bold btn-block"
+      (click)="open(manage)"
+    >
+      <fa-icon [icon]="['fas', 'user-friends']" class="text-muted"></fa-icon>
+      Manage People
+    </button>
+  </div>
+</div> -->
+
+<!-- end inline team container -->
+
+<!-- manage people modal -->
+<ng-template #manage let-modal>
+  <div class="modal-header border-bottom-0 px-3 pt-3 card-header bg-light">
+    <p class="small montserrat uppercase bold mb-0">
+      {{ 'IdeaUsers.Labels.ManageHeading' | translationPipe }}
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight bg-light pb-5">
+    <div class="row" *ngIf="opportunityTypeSettings?.allowOpportunityOwnership">
+      <div class="col-12">
+        <ul class="list-inline mb-0 border-bottom">
+          <li class="list-inline-item">
+            <p class="bold pb-2 mb-0 uppercase text-muted small">
+              {{ 'IdeaUsers.Labels.Owners' | translationPipe }} ({{
+                owners?.length
+              }})
+            </p>
+          </li>
+          <li class="list-inline-item float-right">
+            <a
+              class="btn btn-primary btn-xs pointer text-white"
+              (click)="
+                userOpportunityPermissions?.addOpportunityOwner
+                  ? openAddNewBox(ideaUserType.owner)
+                  : ''
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+              {{ 'IdeaUsers.Labels.AddOwners' | translationPipe }}
+              <app-lock-component
+                *ngIf="!userOpportunityPermissions?.addOpportunityOwner"
+              ></app-lock-component>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="opportunityTypeSettings?.allowOpportunityOwnership">
+      <!-- Owners -->
+      <div class="p-3 text-center" *ngIf="!owners?.length">
+        {{ 'ManageTeam.NoOwners' | translationPipe }}
+      </div>
+      <div class="col-12">
+        <!-- start of one -->
+        <div class="row pt-2 pb-2" *ngFor="let user of owners; let i = index">
+          <div class="col-9 pr-0">
+            <div class="media">
+              <img
+                [defaultImage]="defaultImage"
+                [lazyLoad]="getUserImage(user)"
+                width="40px"
+                height="40px"
+                class="mr-2 mt-1 rounded-circle"
+              />
+              <div class="media-body">
+                <p class="mt-0 mb-0">
+                  {{ getUserName(user) }}
+                  <!-- <span class="badge badge-info ml-1 adjustFloatUp"
+                    >Pending</span
+                  > -->
+                </p>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      @{{ user?.user?.userName }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      {{ user?.user?.role?.title || 'User' }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="small mb-0 text-muted">{{ user?.user?.email }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <button
+              class="btn btn-light btn-sm ml-1 mt-2"
+              (click)="
+                userOpportunityPermissions?.removeOpportunityOwner
+                  ? removeUser(user, ideaUserType.owner)
+                  : ''
+              "
+            >
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="text-muted"
+              ></fa-icon>
+              {{ 'IdeaUsers.Labels.Remove' | translationPipe }}
+              <app-lock-component
+                *ngIf="!userOpportunityPermissions?.removeOpportunityOwner"
+              ></app-lock-component>
+            </button>
+          </div>
+          <hr *ngIf="owners.length != i + 1" class="my-0 dotted" />
+        </div>
+        <!-- end of one -->
+      </div>
+      <!-- Owners -->
+    </div>
+    <div
+      class="row pt-4"
+      *ngIf="opportunityTypeSettings?.allowOpportunityTeams"
+    >
+      <div class="col-12">
+        <ul class="list-inline mb-0 border-bottom">
+          <li class="list-inline-item">
+            <p class="bold pb-2 mb-0 uppercase text-muted small">
+              {{ 'IdeaUsers.Labels.TeamMembers' | translationPipe }} ({{
+                contributors?.length
+              }})
+            </p>
+          </li>
+          <li class="list-inline-item float-right">
+            <a
+              class="btn btn-primary btn-xs pointer text-white"
+              (click)="
+                userOpportunityPermissions?.addOpportunityContributor
+                  ? openAddNewBox(ideaUserType.contributors)
+                  : ''
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+              {{ 'ManageTeam.AddTeam' | translationPipe }}
+              <app-lock-component
+                *ngIf="!userOpportunityPermissions?.addOpportunityContributor"
+              ></app-lock-component>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="opportunityTypeSettings?.allowOpportunityTeams">
+      <!-- contributors -->
+      <div class="col-12">
+        <div class="p-3" *ngIf="!contributors?.length">
+          {{ 'ManageTeam.NoTeam' | translationPipe }}
+        </div>
+        <!-- start of one -->
+        <div
+          class="row pt-2 pb-2"
+          *ngFor="let user of contributors; let i = index"
+        >
+          <div class="col-9 pr-0">
+            <div class="media">
+              <img
+                [defaultImage]="defaultImage"
+                [lazyLoad]="getUserImage(user)"
+                width="40px"
+                height="40px"
+                class="mr-2 mt-1 rounded-circle"
+              />
+              <div class="media-body">
+                <p class="mt-0 mb-0">
+                  {{ getUserName(user) }}
+                  <!-- <span class="badge badge-info ml-1 adjustFloatUp"
+                          >Pending</span
+                        > -->
+                </p>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      @{{ user?.user?.userName }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      {{ user?.user?.role?.title || 'User' }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="small mb-0 text-muted">{{ user?.user?.email }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <button
+              class="btn btn-light btn-sm ml-1 mt-2"
+              (click)="
+                userOpportunityPermissions?.removeOpportunityContributor
+                  ? removeUser(user, ideaUserType.contributors)
+                  : ''
+              "
+            >
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="text-muted"
+              ></fa-icon>
+              {{ 'IdeaUsers.Labels.Remove' | translationPipe }}
+              <app-lock-component
+                *ngIf="
+                  !userOpportunityPermissions?.removeOpportunityContributor
+                "
+              ></app-lock-component>
+            </button>
+          </div>
+          <hr *ngIf="contributors.length != i + 1" class="my-0 dotted" />
+        </div>
+        <!-- end of one -->
+      </div>
+      <!-- contributors -->
+    </div>
+    <div class="row pt-4">
+      <div class="col-12">
+        <ul class="list-inline mb-0 border-bottom">
+          <li class="list-inline-item">
+            <p class="bold pb-2 mb-0 uppercase text-muted small">
+              {{ 'IdeaUsers.Labels.Submitters' | translationPipe }} ({{
+                submitters?.length
+              }})
+            </p>
+          </li>
+          <li class="list-inline-item float-right">
+            <a
+              class="btn btn-primary btn-xs pointer text-white"
+              (click)="
+                userOpportunityPermissions?.addOpportunitySubmitter &&
+                opportunityTypeSettings?.allowOpportunityCosubmitters
+                  ? openAddNewBox(ideaUserType.submitter)
+                  : ''
+              "
+            >
+              <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+              {{ 'IdeaUsers.Labels.AddSubmitters' | translationPipe }}
+              <app-lock-component
+                *ngIf="
+                  !userOpportunityPermissions?.addOpportunitySubmitter ||
+                  !opportunityTypeSettings?.allowOpportunityCosubmitters
+                "
+              ></app-lock-component>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Co-Submitters -->
+      <div *ngFor="let user of submitters; let i = index" class="col-12">
+        <!-- start of one -->
+        <div class="row pt-2 pb-2">
+          <div class="col-9 pr-0">
+            <div class="media">
+              <img
+                [defaultImage]="defaultImage"
+                [lazyLoad]="getUserImage(user)"
+                width="40px"
+                height="40px"
+                class="mr-2 mt-1 rounded-circle"
+              />
+              <div class="media-body">
+                <p class="mt-0 mb-0">
+                  {{ getUserName(user) }}
+                  <!-- <span class="badge badge-info ml-1 adjustFloatUp"
+                                      >Pending</span
+                                    > -->
+                </p>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      @{{ user?.user?.userName }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item mr-0">
+                    <p class="small mb-0 text-muted">
+                      {{ user?.user?.role?.title || 'User' }}
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-1 mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="small mb-0 text-muted">{{ user?.user?.email }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <button
+              class="btn btn-light btn-sm ml-1 mt-2"
+              (click)="
+                userOpportunityPermissions?.removeOpportunityContributor ===
+                  2 && opportunityTypeSettings?.allowOpportunityCosubmitters
+                  ? removeUser(user, ideaUserType.submitter)
+                  : ''
+              "
+            >
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="text-muted"
+              ></fa-icon>
+              {{ 'IdeaUsers.Labels.Remove' | translationPipe }}
+              <app-lock-component
+                *ngIf="
+                  userOpportunityPermissions?.removeOpportunitySubmitter ===
+                    0 || !opportunityTypeSettings?.allowOpportunityCosubmitters
+                "
+              ></app-lock-component>
+            </button>
+          </div>
+        </div>
+        <!-- end of one -->
+        <hr *ngIf="submitters.length != i + 1" class="my-0 dotted" />
+      </div>
+      <!-- Co-Submitters -->
+    </div>
+  </div>
+  <!-- <div class="modal-footer border-top-0 bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      {{ 'IdeaUsers.Labels.Close' | translationPipe }}
+    </button>
+  </div> -->
+</ng-template>
+<!-- end manage people modal -->

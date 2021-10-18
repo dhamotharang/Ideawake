@@ -1,0 +1,210 @@
+<button class="btn btn-sm bg-transparent" (click)="open(exportModal)">
+  <fa-icon [icon]="['fas', 'file-spreadsheet']" class="text-muted"></fa-icon>
+  Export
+  <!-- <fa-icon [icon]="['fas', 'arrow-down']" class="text-muted"></fa-icon> -->
+</button>
+
+<!-- <div ngbDropdown>
+  <button
+    class="btn btn-light btn-sm removeCaret"
+    id="sortDropdown"
+    ngbDropdownToggle
+  >
+    <fa-icon [icon]="['fas', 'file-spreadsheet']" class="text-muted"></fa-icon>
+    Export
+    <fa-icon [icon]="['fas', 'caret-down']" class="text-muted"></fa-icon>
+  </button>
+  <div ngbDropdownMenu aria-labelledby="sortDropdown">
+    <button ngbDropdownItem class="btn-sm">Export All Results</button>
+    <button ngbDropdownItem class="btn-sm">Export Filtered Results</button>
+    <button ngbDropdownItem class="btn-sm">Customize Export Fields</button>
+  </div>
+</div> -->
+
+<!-- edit idea settings modal -->
+<ng-template #exportModal let-modal>
+  <div class="modal-header card-header bg-light border-bottom-0 px-3 pt-3">
+    <p class="uppercase bold mb-0 montserrat text-muted">
+      Export Submissions
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light">
+    <!-- <p>
+      You are about to export XX results. Once you click "export" below, you
+      will be able to download this file directly and will also receive a copy
+      of it via email.
+    </p> -->
+    <form>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label>Export Format</label>
+          <div ngbDropdown>
+            <div
+              class="rounded border addHoverTwo bg-white py-2 px-3 removeCaret"
+              ngbDropdownToggle
+            >
+              CSV
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                class="mr-2 float-right"
+              ></fa-icon>
+            </div>
+            <div class="shadow w-100" ngbDropdownMenu>
+              <button
+                class="pl-3"
+                ngbDropdownItem
+                (click)="exportConfig.exportFormat = 'csv'"
+              >
+                CSV
+              </button>
+              <!-- <button class="pl-3" ngbDropdownItem>XLSX</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>Export Settings</label>
+      <hr class="mt-1 mb-3" />
+      <div class="form-row">
+        <div class="form-group col-6 mb-0">
+          <div
+            class="card selectStakeholder pointer"
+            [ngClass]="!applyFilter ? 'active' : ''"
+            (click)="applyFilter = false"
+          >
+            <div class="card-body">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'globe']"
+                  class="mr-3 iconLarge"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="bold mb-1">All Submissions ({{ totalCount }})</p>
+                  <p class="small mb-0">
+                    Export all submissions in your
+                    {{ challengeId ? 'challenge' : 'community' }} .
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6 mb-0">
+          <div
+            class="card selectStakeholder pointer"
+            [ngClass]="applyFilter ? 'active' : ''"
+            (click)="applyFilter = true"
+          >
+            <div class="card-body">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'filter']"
+                  class="mr-3 iconLarge"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="bold mb-1">Current Filters ({{ filterCount }})</p>
+                  <p class="small mb-0">
+                    Only export submissions currently filtered.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label class="mt-4">Anonymous Settings</label>
+      <hr class="mt-1 mb-3" />
+      <div class="form-row">
+        <div class="form-group col-6 mb-0">
+          <div
+            [ngClass]="exportConfig.anonymizedExport ? 'active' : ''"
+            class="card selectStakeholder cardAnimation pointer"
+            (click)="exportConfig.anonymizedExport = true"
+          >
+            <div class="card-body">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'ghost']"
+                  class="mr-3 iconLarge"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="bold mb-1">Anonymized</p>
+                  <p class="small mb-0">
+                    Submissions made anonymously will remain anonymous in the
+                    export.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6 mb-0">
+          <div
+            class="card selectStakeholder cardAnimation pointer"
+            [ngClass]="!exportConfig.anonymizedExport ? 'active' : ''"
+            (click)="exportConfig.anonymizedExport = false"
+          >
+            <div class="card-body">
+              <div class="media">
+                <fa-icon
+                  [icon]="['fas', 'eye']"
+                  class="mr-3 iconLarge"
+                ></fa-icon>
+                <div class="media-body">
+                  <p class="bold mb-1">De-Anonymized</p>
+                  <p class="small mb-0">
+                    Submissions made anonymously will be de-anonymized in the
+                    export.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-top-0 bg-light pt-4">
+    <div class="row">
+      <div class="col-7 pl-0">
+        <p class="small text-muted mb-0">
+          You are about to export {{ applyFilter ? filterCount : totalCount }}
+          results. Once you click "export," this file will be downloaded.
+        </p>
+      </div>
+      <div class="col-5 pr-0">
+        <div class="float-right">
+          <button
+            class="btn btn-white border"
+            (click)="modal.dismiss('Cross click')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary ml-2"
+            (click)="exportData()"
+            [disabled]="isLoading || !(applyFilter ? filterCount : totalCount)"
+          >
+            <span>
+              <fa-icon
+                *ngIf="isLoading"
+                [icon]="['fas', 'spinner']"
+                size="15px"
+                [spin]="true"
+              ></fa-icon>
+              Complete Export</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- edit idea settings modal -->

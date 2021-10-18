@@ -1,0 +1,70 @@
+<p class="text-center pt-3">No rules have been added to this stage yet.</p>
+<div class="form-row">
+  <div class="form-group mb-0 col-12">
+    <div
+      class="card text-center cardAnimation shadow-sm pointer bg-light"
+      (click)="open(rulesModal)"
+    >
+      <div class="card-body p-2">
+        <fa-icon [icon]="['fas', 'plus-circle']" class="text-muted"></fa-icon>
+        Add New Rule
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #rulesModal let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold mb-0 small">Add New Rule</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <!-- trigger -->
+        <div class="card mb-3 bg-light">
+          <div class="card-body">
+            <div class="form-row flex-row align-items-center">
+              <div class="form-group col-2 mb-0">
+                <label>When</label>
+              </div>
+              <div class="form-group col-3 mb-0">
+                <select class="form-control form-control-sm">
+                  <option>Stage Completion</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- trigger -->
+        <!-- rules -->
+        <div class="card mb-3 bg-light">
+          <div class="card-body">
+            <div class="form-row flex-row align-items-center">
+              <div class="form-group col-2">
+                <label>If</label>
+              </div>
+              <div class="form-group col-2">
+                <label>If</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- rules -->
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary">Save Rule</button>
+  </div>
+</ng-template>

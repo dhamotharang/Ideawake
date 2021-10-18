@@ -1,0 +1,445 @@
+<div
+  class="topCallout shadow-sm animated slideInDown border-top-0 hide-navigation"
+  *ngIf="idea"
+  id="navbar"
+>
+  <div class="container pt-2">
+    <div class="row">
+      <div class="col-5">
+        <ul class="nav nav-tabs-top border-bottom-0 montserrat">
+          <ng-container *ngFor="let key of objectKeys(tabs)">
+            <li
+              class="nav-item mr-1"
+              *ngIf="key !== tabs.moreInfo.key && key !== tabs.questions.key"
+            >
+              <a
+                href="javascript:void(0);"
+                class="nav-link-top"
+                [ngClass]="{ active: tab === tabs[key].key }"
+                (click)="navigateTo({ tab: tabs[key].key })"
+              >
+                <!-- <fa-icon
+                            [icon]="['fas', tabs[key].icon]"
+                            class="text-muted"
+                          ></fa-icon> -->
+                {{ tabs[key].title }}
+              </a>
+            </li>
+            <li class="nav-item mr-1" *ngIf="viewStageSpecificTab(key)">
+              <a
+                href="javascript:void(0);"
+                class="nav-link-top"
+                [ngClass]="{ active: tab === tabs[key].key }"
+                (click)="navigateTo({ tab: tabs[key].key })"
+              >
+                <fa-icon
+                  [icon]="['fas', tabs[key].icon]"
+                  class="text-muted"
+                ></fa-icon>
+                {{ tabs[key].title }}
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-7">
+        <ul
+          class="list-inline mb-0 alignCenterMobileRight mb-2 mb-sm-0 mr-0 mr-sm-2"
+          style="position: relative; bottom: 0.195rem;"
+        >
+          <li class="list-inline-item" *ngIf="permissions?.allowVoting">
+            <app-upvote
+              [entity]="idea"
+              [upvoteData]="ideaUpvoters"
+              [upvotes]="voteCount"
+              style="padding: 0;"
+              (upvoteActionEmitter)="removeUpvoter($event)"
+            >
+            </app-upvote>
+          </li>
+          <li
+            class="list-inline-item text-center mr-0"
+            *ngIf="userOpportunityPermissions?.followOpportunity"
+          >
+            <app-follow
+              [data]="idea"
+              [showText]="true"
+              [entityObject]="{
+                id: idea?.id,
+                typeId: entityType?.id,
+                entity: 'idea'
+              }"
+              [entity]="entity"
+            ></app-follow>
+          </li>
+          <li
+            *ngIf="permissions?.allowSharing"
+            class="list-inline-item mr-0 px-0 inverseLink text-center"
+            ngbDropdown
+          >
+            <app-share [ideaId]="idea?.id"></app-share>
+          </li>
+          <li
+            class="list-inline-item m-0 inverseLink text-center"
+            [ngClass]="{ inverseLinkSelected: idea.bookmark }"
+            *ngIf="userOpportunityPermissions?.bookmarkOpportunity"
+            (click)="bookmarkIdea()"
+          >
+            <app-bookmark
+              [data]="idea"
+              [entityType]="entityType"
+              (bookmarked)="idea = $event"
+            ></app-bookmark>
+          </li>
+          <li class="list-inline-item">
+            <app-idea-moderate-widget
+              [idea]="idea"
+              [followerData]="followerData"
+              [userOpportunityPermissions]="userOpportunityPermissions"
+              (updateRow)="update($event)"
+              (archive)="archiveIdea()"
+            ></app-idea-moderate-widget>
+          </li>
+          <li
+            *ngIf="isModel"
+            class="list-inline-item"
+            style="
+              position: absolute;
+              right: -5.55rem;
+              bottom: -1.5rem;
+              font-size: 1.5rem;
+            "
+          >
+            <button
+              class="ideaModalClose btn btn-lg btn-light text-muted rounded-circle shadow-sm"
+              style="border: 2px solid #dddddd !important;"
+              (click)="close()"
+              placement="bottom"
+              container="body"
+              ngbTooltip="{{
+                'SharedText.ViewOnSeparatePage' | translationPipe
+              }}"
+            >
+              <fa-icon [icon]="['fas', 'expand-alt']"></fa-icon>
+            </button>
+          </li>
+          <li
+            *ngIf="isModel"
+            class="list-inline-item d-inline d-md-none"
+            style="
+              position: absolute;
+              right: 0.25rem;
+              top: -0.75rem;
+              font-size: 1.5rem;
+            "
+          >
+            <span (click)="closeModal()" class="pointer">
+              <fa-icon [icon]="['fas', 'times']" class="text-muted"></fa-icon>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="alert alert-warning mb-0 rounded-0 negativeAlertMargins text-center">
+  This idea is currently unassigned. Please assign someone
+</div> -->
+<!-- <div class="alert alert-info mb-0 rounded-0 negativeAlertMargins text-center">
+  This idea has been archived.
+</div> -->
+<!-- style="background-color: #fafbfc;" -->
+<div class="row pt-4 border-bottom shadow-sm bg-white" *ngIf="idea">
+  <!-- px-md-0 -->
+  <div class="container" (scroll)="onWindowScroll($event)">
+    <div class="col-12">
+      <div class="row pb-4">
+        <div class="col-md-6 col-12 order-2 order-sm-1">
+          <!-- [routerLink]="['/idea/view', idea.id]"
+          (click)="close()" -->
+          <h4 class="mb-2 montserrat ideaTitle">
+            {{ idea.title | dynamicTranslation
+            }}<span class="text-muted"
+              ><i>({{ idea.id }})</i></span
+            >
+          </h4>
+          <!-- <app-idea-team-container
+            [idea]="idea"
+            [userOpportunityPermissions]="userOpportunityPermissions"
+            (updated)="teamUpdated($event)"
+          ></app-idea-team-container> -->
+          <ul class="list-inline mb-0 text-medium alignCenterMobileLeft">
+            <li class="list-inline-item mr-0 ml-0">
+              <button
+                class="btn btn-sm text-muted pr-2 pl-0"
+                ngbTooltip="{{ 'IdeaPage.PostType' | translationPipe }}"
+              >
+                <fa-icon
+                  [icon]="['fas', 'lightbulb-on']"
+                  class="text-muted"
+                ></fa-icon>
+                {{ idea?.opportunityType?.name }}
+              </button>
+            </li>
+            <!-- <li class="list-inline-item">
+              <span
+                class="small bold uppercase text-muted montserrat"
+                style="font-size: 70%;"
+                ngbTooltip="Public - Visible to all users in your community."
+                container="body"
+                *ngIf="idea?.visibility?.public"
+              >
+                <fa-icon [icon]="['fas', 'globe']" class="text-success"></fa-icon>
+
+              </span>
+              <span
+                class="small bold uppercase text-muted montserrat"
+                style="font-size: 70%;"
+                ngbTooltip="Limited Visibility - Only visible to specific groups or individuals in your community."
+                container="body"
+                *ngIf="idea?.visibility?.groups?.length"
+              >
+                <fa-icon [icon]="['fas', 'eye']" class="text-warning"></fa-icon>
+
+              </span>
+              <span
+                class="small bold uppercase text-muted montserrat"
+                style="font-size: 70%;"
+                ngbTooltip="Private - Only submitters, team members, and owners can see this."
+                container="body"
+                *ngIf="idea?.visibility?.roles?.length"
+              >
+                <fa-icon
+                  [icon]="['fas', 'eye-slash']"
+                  class="text-danger"
+                ></fa-icon>
+
+              </span>
+            </li> -->
+            <li class="list-inline-item ml-0 mr-0">
+              <button
+                class="btn btn-sm text-muted pr-1 pl-0"
+                ngbTooltip="{{ 'IdeaPage.DateSubmitted' | translationPipe }}"
+              >
+                <!-- This idea was submitted by {{idea.user.firstName + ' ' + idea.user.lastName}} on {{idea.createdAt | date: 'MMM, dd'}}
+                under
+                challenge. -->
+                <fa-icon [icon]="['fas', 'clock']" class="text-muted"></fa-icon>
+                {{ idea.createdAt | date: "MM'/'dd'/'yy" }}
+              </button>
+            </li>
+            <!-- <li class="list-inline-item mr-0">
+              <button
+                class="btn btn-sm text-muted pr-1"
+                *ngIf="idea?.workflow?.title"
+              >
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="text-primary small"
+                ></fa-icon>
+                {{ currentStage?.status.title }}
+              </button>
+            </li> -->
+            <!-- <li class="list-inline-item mr-0">
+              <button
+                class="btn btn-sm text-muted pr-1"
+                ngbTooltip="Visibility Desc"
+              >
+                <fa-icon
+                  [icon]="['fas', 'globe']"
+                  class="text-primary"
+                ></fa-icon>
+                Public
+              </button>
+            </li> -->
+            <!-- <li class="list-inline-item mr-0">
+              <button class="btn btn-sm text-muted pr-1" ngbTooltip="Score">
+                <fa-icon [icon]="['fas', 'certificate']"></fa-icon>
+                {{ topScore[idea.id] || 0 }}
+              </button>
+            </li> -->
+            <li class="list-inline-item mr-0">
+              <button
+                class="btn btn-sm text-muted pr-1"
+                ngbTooltip="{{ 'IdeaPage.Votes' | translationPipe }}"
+              >
+                <fa-icon
+                  [icon]="['fas', 'thumbs-up']"
+                  class="text-muted"
+                ></fa-icon>
+                {{ voteCount[idea.id] || 0 }}
+              </button>
+            </li>
+            <li class="list-inline-item mr-0">
+              <button
+                class="btn btn-sm text-muted pr-1"
+                ngbTooltip="{{ 'IdeaPage.Comments' | translationPipe }}"
+              >
+                <fa-icon
+                  [icon]="['fas', 'comment']"
+                  class="text-muted"
+                ></fa-icon>
+                {{ commentCount[idea.id] || 0 }}
+              </button>
+            </li>
+            <li class="list-inline-item mr-0">
+              <button
+                class="btn btn-sm text-muted pl-1 pr-1"
+                ngbTooltip="{{ 'IdeaPage.Views' | translationPipe }}"
+              >
+                <fa-icon [icon]="['fas', 'eye']" class="text-muted"></fa-icon>
+                {{ idea?.viewCount }}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="col-md-6 col-12 order-1 order-sm-2 pr-md-0"
+          style="position: relative; bottom: 0.5rem;"
+        >
+          <ul
+            class="list-inline mb-0 alignCenterMobileRight mb-2 mb-sm-0 mr-0 mr-sm-2"
+          >
+            <li
+              class="list-inline-item text-center mr-0"
+              *ngIf="userOpportunityPermissions?.followOpportunity"
+            >
+              <app-follow
+                [data]="idea"
+                [showText]="true"
+                [entityObject]="{
+                  id: idea?.id,
+                  typeId: entityType?.id,
+                  entity: 'idea'
+                }"
+                [entity]="entity"
+              ></app-follow>
+            </li>
+            <!-- <li class="list-inline-item" *ngIf="permissions?.allowVoting">
+              <app-upvote
+                [entity]="idea"
+                [upvoteData]="ideaUpvoters"
+                [upvotes]="voteCount"
+                (upvoteActionEmitter)="removeUpvoter($event)"
+              >
+              </app-upvote>
+            </li> -->
+            <li
+              *ngIf="permissions?.allowSharing"
+              class="list-inline-item mr-0 px-0 inverseLink text-center"
+              ngbDropdown
+            >
+              <app-share [ideaId]="idea?.id"></app-share>
+            </li>
+            <li
+              class="list-inline-item m-0 inverseLink text-center"
+              [ngClass]="{ inverseLinkSelected: idea.bookmark }"
+              *ngIf="userOpportunityPermissions?.bookmarkOpportunity"
+              (click)="bookmarkIdea()"
+            >
+              <app-bookmark
+                [data]="idea"
+                [entityType]="entityType"
+                (bookmarked)="idea = $event"
+              ></app-bookmark>
+            </li>
+            <li class="list-inline-item">
+              <app-idea-moderate-widget
+                [idea]="idea"
+                [followerData]="followerData"
+                [userOpportunityPermissions]="userOpportunityPermissions"
+                (updateRow)="update($event)"
+                (archive)="archiveIdea()"
+              ></app-idea-moderate-widget>
+            </li>
+            <li
+              *ngIf="isModel"
+              class="list-inline-item"
+              style="
+                position: absolute;
+                right: -5.55rem;
+                bottom: -1.5rem;
+                font-size: 1.5rem;
+              "
+            >
+              <button
+                class="ideaModalClose btn btn-lg btn-light text-muted rounded-circle shadow-sm"
+                style="border: 2px solid #dddddd !important;"
+                (click)="close()"
+                placement="bottom"
+                container="body"
+                ngbTooltip="{{
+                  'SharedText.ViewOnSeparatePage' | translationPipe
+                }}"
+              >
+                <fa-icon [icon]="['fas', 'expand-alt']"></fa-icon>
+              </button>
+            </li>
+            <li
+              *ngIf="isModel"
+              class="list-inline-item d-inline d-md-none"
+              style="
+                position: relative;
+                left: 1rem;
+                bottom: 1rem;
+                font-size: 1.5rem;
+              "
+            >
+              <span (click)="closeModal()" class="pointer">
+                <fa-icon [icon]="['fas', 'times']" class="text-muted"></fa-icon>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="col-md-5 col-12">
+          <div class="row">
+            <div class="col-12">
+              <app-idea-moderate-widget [idea]="idea" (updateRow)="update($event)"></app-idea-moderate-widget>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-12 removePaddingOnMobile">
+          <ul
+            class="nav nav-tabs border-bottom-0 montserrat alignCenterMobileLeft"
+          >
+            <ng-container *ngFor="let key of objectKeys(tabs)">
+              <li
+                class="nav-item"
+                *ngIf="key !== tabs.moreInfo.key && key !== tabs.questions.key"
+              >
+                <a
+                  href="javascript:void(0);"
+                  class="nav-link"
+                  [ngClass]="{ active: tab === tabs[key].key }"
+                  (click)="navigateTo({ tab: tabs[key].key })"
+                >
+                  <!-- <fa-icon
+                    [icon]="['fas', tabs[key].icon]"
+                    class="text-muted"
+                  ></fa-icon> -->
+                  {{ tabs[key].title }}
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="viewStageSpecificTab(key)">
+                <a
+                  href="javascript:void(0);"
+                  class="nav-link"
+                  [ngClass]="{ active: tab === tabs[key].key }"
+                  (click)="navigateTo({ tab: tabs[key].key })"
+                >
+                  <fa-icon
+                    [icon]="['fas', tabs[key].icon]"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ tabs[key].title }}
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

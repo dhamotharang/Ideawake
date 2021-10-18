@@ -1,0 +1,160 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow-sm rounded-0 border-left-0 border-right-0">
+      <div class="card-body px-2 py-3 bg-light">
+        <form>
+          <div class="form-row">
+            <div class="form-group mb-2 col-12">
+              <ul class="list-inline mb-0">
+                <li
+                  class="list-inline-item"
+                  *ngFor="
+                    let item of opportunityLinkageRelationships;
+                    let i = index
+                  "
+                  (click)="setRelationship(item, i)"
+                >
+                  <span
+                    class="badge tagBadge"
+                    [ngClass]="i === activeListItem ? 'active' : ''"
+                  >
+                    {{ item.title }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-9 mb-0">
+              <ng-select
+                [items]="opportunities"
+                [multiple]="true"
+                [clearSearchOnAdd]="true"
+                bindLabel="title"
+                bindValue="id"
+                placeholder="Start typing to search ideas..."
+                class="custom"
+                [(ngModel)]="selected"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                  <span class="ng-value-label"> {{ item.title }}</span>
+                  <span
+                    class="ng-value-icon right"
+                    (click)="clear(item)"
+                    aria-hidden="true"
+                    >×</span
+                  >
+                </ng-template>
+
+                <ng-template ng-option-tmp let-item="item">
+                  <div class="globalUserSearchResult addHover">
+                    <div class="row mr-0">
+                      <div class="col-6">
+                        <label
+                          class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                          ngbTooltip="{{ item?.title }}"
+                          placement="bottom"
+                          ><span class="text-muted"> {{ '#' + item?.id }}</span>
+                          {{
+                            item?.title.length >= 25
+                              ? item?.title.substring(0, 25) + '..'
+                              : item?.title
+                          }}</label
+                        >
+                      </div>
+                      <div class="col-2 d-flex align-items-center text-medium">
+                        <p class="text-medium mb-0" style="margin-left: -20px;">
+                          {{
+                            item?.opportunityType?.abbreviation.length >= 10
+                              ? item?.opportunityType?.abbreviation.substring(
+                                  0,
+                                  10
+                                ) + '...'
+                              : item?.opportunityType?.abbreviation
+                          }}
+                        </p>
+                      </div>
+                      <div class="col-3 d-flex align-items-center">
+                        <span
+                          class="badge badge-info py-1"
+                          *ngIf="item?.stage?.description"
+                          ngbTooltip="{{ item?.stage?.description }}"
+                          placement="bottom"
+                        >
+                          {{ item?.stage?.status?.title }}</span
+                        >
+                      </div>
+                      <div
+                        class="col-1 d-flex align-items-center text-medium pl-2"
+                      >
+                        <p
+                          class="text-medium mb-0"
+                          ngbTooltip="Date Submitted"
+                          placement=""
+                          style="margin-left: -25px;"
+                        >
+                          {{
+                            item?.createdAt?.month +
+                              '/' +
+                              item?.createdAt?.day +
+                              '/' +
+                              item?.createdAt?.year
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template ng-no-option-tmp>
+                  <div
+                    class="globalUserSearchResult pt-3 pb-3"
+                    *ngIf="!items.length"
+                  >
+                    <div class="text-center">
+                      <fa-icon
+                        [icon]="['fas', 'eye-slash']"
+                        class="iconLarge text-muted"
+                      ></fa-icon>
+                    </div>
+                    <h6 class="text-center mb-0">Oops! No Ideas Returned</h6>
+                    <p class="mb-0 pt-1 pb-1 text-muted text-center small">
+                      Sorry, we couldn't find any ideas that matched your
+                      search.
+                    </p>
+                  </div>
+                </ng-template>
+              </ng-select>
+              <!-- instructions for offclick -->
+              <!-- <div class="globalUserSearchResult bg-light py-1">
+                <p class="mb-0 pt-1 pb-1 text-muted text-center small">
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                  ></fa-icon>
+                  Close this dropdown by clicking outside of it.
+                </p>
+              </div> -->
+
+              <!-- end of insert -->
+            </div>
+            <div class="form-group mb-0 col-2">
+              <button
+                class="btn btn-primary btn-block btn-sm"
+                (click)="linkOpportunity()"
+              >
+                Link
+              </button>
+            </div>
+            <div class="form-group mb-0 col-1 d-flex align-items-center">
+              <!-- <button class="btn btn-light btn-sm">
+                                      Cancel
+                                    </button> -->
+              <span class="small inverseLink" (click)="close()">Cancel</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

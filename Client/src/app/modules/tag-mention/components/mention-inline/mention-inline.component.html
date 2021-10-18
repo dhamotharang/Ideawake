@@ -1,0 +1,78 @@
+<ng-template #popContent class="shadow">
+  <div class="popoverUserMinWidth py-2">
+    <div class="row">
+      <div class="col-12">
+        <div class="media">
+          <img
+            class="activityFeedProfileImage rounded-circle mr-2"
+            src="https://media.licdn.com/dms/image/C4D03AQGT4h8usocyiw/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=QcSE0CAvN-wayyq_udaMPemlkXGTyXIsChQr9PM-NBY"
+          />
+          <div class="media-body">
+            <h6 class="mb-2">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >Coby Skonord</a
+              >
+            </h6>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <p class="small bold text-muted mb-2">
+                  <fa-icon
+                    [icon]="['fas', 'trophy']"
+                    class="text-center text-muted"
+                  ></fa-icon>
+                  1st
+                </p>
+              </li>
+              <li class="list-inline-item">
+                <p class="small bold inverseLink mb-0">
+                  <fa-icon
+                    [icon]="['fas', 'lightbulb']"
+                    class="text-center"
+                  ></fa-icon>
+                  10
+                </p>
+              </li>
+              <li class="list-inline-item">
+                <p class="small bold inverseLink mb-0">
+                  <fa-icon
+                    [icon]="['fas', 'comment']"
+                    class="text-center"
+                  ></fa-icon>
+                  25
+                </p>
+              </li>
+              <li class="list-inline-item">
+                <p class="small bold inverseLink mb-0">
+                  <fa-icon
+                    [icon]="['fas', 'thumbs-up']"
+                    class="text-center"
+                  ></fa-icon>
+                  215
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-xs btn-primary btn-block">
+          <fa-icon [icon]="['fas', 'rss']"></fa-icon>
+          Follow <small>+355</small>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<span
+  class="text-primary underline mark pointer"
+  [ngbPopover]="popContent"
+  [openDelay]="1000"
+  [closeDelay]="2000"
+  triggers="mouseenter:mouseleave"
+  placement="top"
+>
+  @mentions
+</span>

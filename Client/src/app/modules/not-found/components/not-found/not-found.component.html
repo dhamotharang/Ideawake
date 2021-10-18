@@ -1,0 +1,17 @@
+<div class="row notFoundContainer">
+  <div class="col-12 flex-column d-flex">
+    <div class="text-center my-auto">
+      <h1><span>404</span></h1>
+      <h4 class="montserrat">
+        {{ 'SharedText.NoFoundHeader' | translationPipe }}
+      </h4>
+      <p class="lead">
+        {{ 'SharedText.NoFoundDescription' | translationPipe }}
+      </p>
+      <!-- <button class="btn btn-primary">Back to Previous Page</button> -->
+      <button class="btn btn-primary" routerLink="/">
+        {{ 'SharedText.GoToHomePage' | translationPipe }}
+      </button>
+    </div>
+  </div>
+</div>

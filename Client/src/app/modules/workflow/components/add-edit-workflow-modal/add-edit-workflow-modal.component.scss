@@ -1,0 +1,24 @@
+.specialBadgePadding {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: #1ab394;
+  color: white;
+}
+.custom-day.faded {
+  background-color: #1ab3948c;
+}

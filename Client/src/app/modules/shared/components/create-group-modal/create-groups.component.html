@@ -1,0 +1,110 @@
+<div class="modal-header card-header px-3 border-bottom-0 pb-0">
+  <p class="uppercase bold text-muted mb-0 small montserrat">Create New Group</p>
+  <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light pb-0">
+  <div class="alert alert-light border bg-white">
+    <div class="row">
+      <div class="col-12">
+        <div class="media">
+          <fa-icon
+            [icon]="['fas', 'users']"
+            class="text-muted"
+            style="font-size: 1.5rem;"
+          ></fa-icon>
+          <div class="media-body pl-3">
+             <p class="text-muted small mb-0"
+              >Use groups to target and control access to ideas, insights,
+              workflows, and challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form
+        [formGroup]="createGroupsForm"
+        (ngSubmit)="submitt(createGroupsForm)"
+      >
+        <div class="form-group mb-0">
+          <ng-container *ngIf="submitted && !dupeError">
+            <div class="alert alert-danger py-2 px-3 mb-3">
+              <p class="text-medium mb-0">
+                <b>Error</b> - Please enter at least one group under the "Group
+                Name" field below.
+              </p>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="dupeError">
+            <div class="alert alert-danger py-2 px-3 mb-3">
+              <p class="text-medium mb-0">
+                <b>Error</b> - Duplicate group names aren't allowed.
+              </p>
+            </div>
+          </ng-container>
+        </div>
+        <!-- <div class="form-group mb-3" *ngIf="parents.length !== 0">
+          <label>Parent Group</label>
+          <select formControlName="parentGroup" class="form-control">
+            <option *ngFor="let parent of parents" value="{{ parent.id }}">{{
+              parent.name
+            }}</option>
+          </select>
+        </div> -->
+        <div class="form-group mb-3" *ngIf="parents.length === 0">
+          <label>Parent Group</label>
+          <select class="form-control" disabled>
+            <option>No Groups available</option>
+          </select>
+        </div>
+        <div
+          class="form-group mb-1"
+          *ngFor="let group of groups.controls; let i = index"
+        >
+          <label class="montserrat" *ngIf="!i">Group Name</label>
+          <input
+            type="text"
+            [formControl]="groups.controls[i]"
+            class="form-control"
+            placeholder="Enter a name for your group..."
+            #groupsView
+          />
+        </div>
+        <div class="form-group mb-3 pt-2">
+          <span class="text-medium link pointer" (click)="addGroup()">
+            <fa-icon [icon]="['fas', 'plus-circle']" class="mt-2"></fa-icon>
+            Add Another Group
+            <!-- {{submitted}} -->
+          </span>
+        </div>
+
+        <div
+          class="form-row pl-0 pr-0 pt-3 mb-0 mt-4 pt-2 pb-3 bg-light negativeSideMargins"
+        >
+          <div class="form-group col-8 mb-0 pl-3">
+            <!-- <div class="custom-control custom-checkbox pt-1">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                [id]="pinToShortcuts"
+                formControlName="pinToShortcuts"
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                [for]="pinToShortcuts"
+                >Pin to Shortcuts</label
+              >
+            </div> -->
+          </div>
+          <div class="form-group col-4 mb-0 pr-3">
+            <button class="btn btn-primary btn-block">Create Group</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

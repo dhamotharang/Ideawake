@@ -1,0 +1,48 @@
+<p class="uppercase text-muted mb-1 bold small">OPEN ACTION ITEMS (2)</p>
+<div class="card mb-3 shadow-sm">
+  <!-- only show if in feed -->
+  <div class="card-header py-2">
+    <p class="small mb-0">
+      You've been assigned as the owner of
+      <span class="inverseLink">#255 OpportunityTitle</span>
+    </p>
+  </div>
+  <!-- end only show if in feed -->
+  <div class="card-body">
+    <!-- show if user is a pending owner of the idea -->
+    <div class="row">
+      <div class="col-12">
+        <label>Accept Ownership of This Idea</label>
+        <p>
+          You've been assigned as the owner of this idea. Accept ownership of
+          this idea to help manage its progress to testing and implementation.
+        </p>
+        <button class="btn btn-primary btn-sm mr-2">Accept Ownership</button>
+        <button class="btn btn-light border btn-sm">
+          Assign Different Owner
+        </button>
+      </div>
+    </div>
+    <!-- end of if user is a pending owner of the idea -->
+    <!-- show if the owner doesn't accept ownership of the idea -->
+    <div class="row pt-3" *ngIf="rejectOwnership">
+      <div class="col-12">
+        <label>Assign a Different Owner to This Idea</label>
+        <p>
+          Suggest another person or group you feel would be better suited to
+          progress this idea forward.
+        </p>
+        <div class="form-group">
+          <label class="font-weight-normal">Search for Owners</label>
+          <app-search-users></app-search-users>
+        </div>
+        <div class="form-group mb-2">
+          <label class="font-weight-normal">Customize Message</label>
+          <textarea class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary btn-sm mt-2">Send Request</button>
+      </div>
+    </div>
+    <!-- end if the owner doesn't accept ownership of the idea -->
+  </div>
+</div>

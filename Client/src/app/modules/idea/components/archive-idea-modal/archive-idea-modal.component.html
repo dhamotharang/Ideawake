@@ -1,0 +1,43 @@
+<div class="modal-header card-header bg-info">
+  <p class="uppercase bold text-white mb-0 small">
+    Archive This {{ idea?.opportunityType?.name }}
+  </p>
+  <button
+    type="button"
+    class="close text-white"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="">
+    Are you sure you would like to archive this
+    {{ idea?.opportunityType?.name }}? Please review the effects of archiving
+    before proceeding.
+  </p>
+  <label>Effects of Archiving</label>
+  <ul class="pl-4">
+    <li>
+      This {{ idea?.opportunityType?.name }} will no longer be visible on list
+      pages
+    </li>
+    <li>
+      This {{ idea?.opportunityType?.name }} will no longer be listed in search
+      results
+    </li>
+    <li>
+      This {{ idea?.opportunityType?.name }} will be removed from analytics
+      results
+    </li>
+  </ul>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="modal.dismiss('Archive')">
+    Cancel
+  </button>
+  <button class="btn btn-info" (click)="archive.emit()">
+    Yes, Archive This {{ idea?.opportunityType?.name }}
+  </button>
+</div>

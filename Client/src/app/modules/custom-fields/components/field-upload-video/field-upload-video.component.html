@@ -1,0 +1,155 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+
+    <!-- if completed -->
+    <!--     <p class="showEditOnHover mb-0" (click)="toggleEdit()" *ngIf="!showEdit">
+      <fa-icon [icon]="['fas', 'file-pdf']" class="text-danger"></fa-icon>
+      FileName
+    </p> -->
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      *ngIf="!file && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add an entry for this field...
+    </p>
+    <div class="row" *ngIf="file && view && !editMode">
+      <div class="col-12">
+        <div class="card" style="max-width: 100%;">
+          <div
+            class="card-header bg-transparent border-bottom-0 pb-3 pt-0 px-0"
+          >
+            <div class="row">
+              <div class="col-9">
+                <span
+                  class="mb-0 badge badge-light text-medium font-weight-normal"
+                >
+                  <!-- <fa-icon [icon]="['fas', 'file-pdf']" class="text-danger"></fa-icon> -->
+                  {{ file.split('/')[file.split('/').length - 1] }}
+                </span>
+              </div>
+              <div class="col-3">
+                <div
+                  class="float-right"
+                  *ngIf="customField.permissions.editCustomFieldData"
+                >
+                  <button
+                    class="btn btn-light btn-sm border border-top-0 border-right-0 rounded-bottom-0 rounded-left-0 float-right"
+                    (click)="
+                      customField.permissions.editCustomFieldData
+                        ? (editMode = true)
+                        : null
+                    "
+                    [ngbTooltip]="
+                      !customField.permissions.editCustomFieldData
+                        ? 'You don\'t have access to edit this field'
+                        : 'Click to edit'
+                    "
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Edit Video
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <video width="100%" *ngIf="file" height="auto" controls>
+              <source [src]="file" type="video/mp4" />
+              <source [src]="file" type="video/ogg" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p
+      class="showEditOnHover mb-0"
+      *ngIf="file && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      <!-- <fa-icon [icon]="['fas', 'file-pdf']" class="text-danger"></fa-icon>
+      {{ file.split('/')[file.split('/').length - 1] }} -->
+    </p>
+    <!-- if completed -->
+    <ng-container *ngIf="editMode || !view">
+      <div class="row" *ngIf="file">
+        <div class="col-9">
+          <a class="text-medium" [href]="file" *ngIf="file" target="_blank">
+            {{ file.split('/')[file.split('/').length - 1] }}
+            <fa-icon
+              [icon]="['fas', 'external-link-alt']"
+              class="text-muted"
+            ></fa-icon>
+          </a>
+        </div>
+        <div class="col-3">
+          <button
+            class="btn btn-outline-primary btn-xs btn-block"
+            (click)="editFile(fileUpload)"
+          >
+            <fa-icon [icon]="['fas', 'edit']"></fa-icon> Change Video
+          </button>
+          <button
+            class="btn btn-outline-danger btn-xs btn-block"
+            (click)="removeFile()"
+          >
+            <fa-icon [icon]="['fas', 'trash']"></fa-icon> Remove Video
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <app-upload-single-file
+            #fileUpload
+            [folder]="s3Folder.OPPORTUNITY"
+            [ngClass]="{ 'd-none': file }"
+            (file)="setFile($event)"
+            [accept]="'video/*'"
+          >
+          </app-upload-single-file>
+          <video width="100%" *ngIf="file" height="200" controls>
+            <source [src]="file" type="video/mp4" />
+            <source [src]="file" type="video/ogg" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="col-8" *ngIf="file"></div>
+    </ng-container>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="cancelChanges()"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.FILE"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>

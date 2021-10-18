@@ -1,0 +1,50 @@
+<span *ngIf="opportunityTypes?.length > 0">
+  <div class="modal-header px-4 pb-0 border-bottom-0">
+    <button
+      type="button"
+      class="close standardModalCloseButton"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <fa-icon [icon]="['fas', 'times']" class="standardModalClose"></fa-icon>
+    </button>
+  </div>
+  <div class="modal-body py-0 px-4">
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1">
+        <p class="text-muted text-center small uppercase mb-2 mt-2 bold">
+          Step 1 of 5
+        </p>
+        <h5 class="text-center bold montserrat mb-2">
+          What Would You Like to Collect?
+        </h5>
+        <p class="text-center mb-4" style="line-height: 1.85rem;">
+          Use challenges to collect targeted opportunities, insights, or
+          opinions from a few members of your team to your entire community.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let type of opportunityTypes" class="col-4 mb-4">
+        <div
+          class="card selectStakeholder shadow-sm cardAnimation"
+          (click)="selectType(type)"
+        >
+          <div class="card-body pl-0 pr-0 pointer">
+            <h4 class="text-center mb-2">
+              <fa-icon
+                [icon]="['fas', type.icon]"
+                [ngStyle]="{ color: type.color }"
+                class="text-center icon"
+                style="font-size: 2.25rem;"
+              ></fa-icon>
+            </h4>
+            <p class="uppercase bold mb-0 small text-center montserrat">
+              Collect {{ type.name | pluralize }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</span>

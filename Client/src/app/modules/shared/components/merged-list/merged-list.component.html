@@ -1,0 +1,339 @@
+<!-- start of one -->
+<div class="row">
+  <div class="col-12">
+    <div class="row py-2">
+      <div class="col-12">
+        <div class="row mr-0">
+          <div class="col-4">
+            <div class="media d-flex align-items-center">
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                (click)="toggleDetails()"
+                *ngIf="!viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <fa-icon
+                [icon]="['fas', 'angle-up']"
+                (click)="toggleDetails()"
+                *ngIf="viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <div class="media-body">
+                <label
+                  class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                  ><span class="text-muted">#25</span> Opportunity Title</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium">
+            <p class="text-medium mb-0">Opp Type</p>
+          </div>
+          <div class="col-2 d-flex align-items-center pl-0">
+            <span
+              class="badge badge-info py-1"
+              ngbTooltip="Status description if exists..."
+              >Global Status</span
+            >
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium pl-0">
+            <p class="text-medium mb-0" ngbTooltip="Date Submitted">10/22/15</p>
+          </div>
+          <div class="col-2 align-items-center pl-0">
+            <!-- <button class="btn btn-xs btn-outline-primary py-2 repositionParent">Set Parent</button> -->
+            <div class="float-right" ngbDropdown>
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="inverseLink"
+                ngbDropdownToggle
+                ngbTooltip="Remove Merge"
+              >
+              </fa-icon>
+              <div ngbDropdownMenu class="pt-0 setMinWidth">
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Unmerge This Opportunity</label
+                  >
+                </div>
+                <div class="px-3" style="max-width: 15rem;">
+                  <p class="text-medium text-center">
+                    Are you sure you would like to unmerge this opportunity?
+                  </p>
+                  <button class="btn-sm btn-outline-primary btn-block">
+                    <fa-icon [icon]="['fas', 'object-ungroup']"></fa-icon>
+                    Unmerge Opportunity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+    <div class="card-footer bg-white" *ngIf="viewDetails">
+      <div class="row">
+        <div class="col-12">
+          <p class="small text-muted mb-2">
+            Diseases like Autism and Asperger’s syndrome are incurable uptill
+            date. As of current situation, autism therapy includes in-person
+            sessions with the doctor. But with an effective use of these
+            sessions can be lessened to a good extent. Mobile VR actually helps
+            investigate social interactions with autistic kids by including
+            virtual characters.
+            <span class="link font-underline"><u>read more...</u></span>
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted by Coby Skonord
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted on 12/22/20
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+  </div>
+</div>
+<!-- end of one -->
+<hr class="my-0" />
+<!-- start of one -->
+<div class="row">
+  <div class="col-12">
+    <div class="row py-2">
+      <div class="col-12">
+        <div class="row mr-0">
+          <div class="col-4">
+            <div class="media d-flex align-items-center">
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                (click)="toggleDetails()"
+                *ngIf="!viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <fa-icon
+                [icon]="['fas', 'angle-up']"
+                (click)="toggleDetails()"
+                *ngIf="viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <div class="media-body">
+                <label
+                  class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                  ><span class="text-muted">#25</span> Opportunity Title</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium">
+            <p class="text-medium mb-0">Opp Type</p>
+          </div>
+          <div class="col-2 d-flex align-items-center pl-0">
+            <span
+              class="badge badge-info py-1"
+              ngbTooltip="Status description if exists..."
+              >Global Status</span
+            >
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium pl-0">
+            <p class="text-medium mb-0" ngbTooltip="Date Submitted">10/22/15</p>
+          </div>
+          <div class="col-2 align-items-center pl-0">
+            <!-- <button class="btn btn-xs btn-outline-primary py-2 repositionParent">Set Parent</button> -->
+            <div class="float-right" ngbDropdown>
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="inverseLink"
+                ngbDropdownToggle
+                ngbTooltip="Remove Merge"
+              >
+              </fa-icon>
+              <div ngbDropdownMenu class="pt-0 setMinWidth">
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Unmerge This Opportunity</label
+                  >
+                </div>
+                <div class="px-3" style="max-width: 15rem;">
+                  <p class="text-medium text-center">
+                    Are you sure you would like to unmerge this opportunity?
+                  </p>
+                  <button class="btn-sm btn-outline-primary btn-block">
+                    <fa-icon [icon]="['fas', 'object-ungroup']"></fa-icon>
+                    Unmerge Opportunity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+    <div class="card-footer bg-white" *ngIf="viewDetails">
+      <div class="row">
+        <div class="col-12">
+          <p class="small text-muted mb-2">
+            Diseases like Autism and Asperger’s syndrome are incurable uptill
+            date. As of current situation, autism therapy includes in-person
+            sessions with the doctor. But with an effective use of these
+            sessions can be lessened to a good extent. Mobile VR actually helps
+            investigate social interactions with autistic kids by including
+            virtual characters.
+            <span class="link font-underline"><u>read more...</u></span>
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted by Coby Skonord
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted on 12/22/20
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+  </div>
+</div>
+<!-- end of one -->
+<hr class="my-0" />
+<!-- start of one -->
+<div class="row">
+  <div class="col-12">
+    <div class="row py-2">
+      <div class="col-12">
+        <div class="row mr-0">
+          <div class="col-4">
+            <div class="media d-flex align-items-center">
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                (click)="toggleDetails()"
+                *ngIf="!viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <fa-icon
+                [icon]="['fas', 'angle-up']"
+                (click)="toggleDetails()"
+                *ngIf="viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <div class="media-body">
+                <label
+                  class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                  ><span class="text-muted">#25</span> Opportunity Title</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium">
+            <p class="text-medium mb-0">Opp Type</p>
+          </div>
+          <div class="col-2 d-flex align-items-center pl-0">
+            <span
+              class="badge badge-info py-1"
+              ngbTooltip="Status description if exists..."
+              >Global Status</span
+            >
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium pl-0">
+            <p class="text-medium mb-0" ngbTooltip="Date Submitted">10/22/15</p>
+          </div>
+          <div class="col-2 align-items-center pl-0">
+            <!-- <button class="btn btn-xs btn-outline-primary py-2 repositionParent">Set Parent</button> -->
+            <div class="float-right" ngbDropdown>
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="inverseLink"
+                ngbDropdownToggle
+                ngbTooltip="Remove Merge"
+              >
+              </fa-icon>
+              <div ngbDropdownMenu class="pt-0 setMinWidth">
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Unmerge This Opportunity</label
+                  >
+                </div>
+                <div class="px-3" style="max-width: 15rem;">
+                  <p class="text-medium text-center">
+                    Are you sure you would like to unmerge this opportunity?
+                  </p>
+                  <button class="btn-sm btn-outline-primary btn-block">
+                    <fa-icon [icon]="['fas', 'object-ungroup']"></fa-icon>
+                    Unmerge Opportunity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+    <div class="card-footer bg-white" *ngIf="viewDetails">
+      <div class="row">
+        <div class="col-12">
+          <p class="small text-muted mb-2">
+            Diseases like Autism and Asperger’s syndrome are incurable uptill
+            date. As of current situation, autism therapy includes in-person
+            sessions with the doctor. But with an effective use of these
+            sessions can be lessened to a good extent. Mobile VR actually helps
+            investigate social interactions with autistic kids by including
+            virtual characters.
+            <span class="link font-underline"><u>read more...</u></span>
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted by Coby Skonord
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small text-muted mb-0">
+                Posted on 12/22/20
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+  </div>
+</div>
+<!-- end of one -->
+<hr class="my-0" />

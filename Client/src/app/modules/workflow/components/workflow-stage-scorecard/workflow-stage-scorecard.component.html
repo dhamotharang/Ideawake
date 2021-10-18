@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12 col-md-8">
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <p class="uppercase bold text-muted mb-0">
+              Stage Specific Settings - Scorecard
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 flex-column">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+                  Search Evaluation Criteria
+                </h6>
+              </li>
+              <li class="list-inline-item float-right adjustFloatUp">
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="addNewCriteria()"
+                >
+                  <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                  Add New Evaluation Criteria
+                </button>
+              </li>
+            </ul>
+            <app-search-scorecards
+              [reload]="reload"
+              [selectedCriteria]="selections"
+              (selected)="selectedQuestions($event)"
+            >
+            </app-search-scorecards>
+            <app-scorecard-list
+              [selectedCriteria]="selections"
+              (reload)="reloadSearch($event)"
+              (selected)="selectedQuestions($event)"
+            ></app-scorecard-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 pl-0 d-none d-sm-block">
+    <!-- <div class="alert alert-info shadow-sm">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-0 bold">Stage Info</p>
+          <hr class="mt-2 mb-3" />
+          Show high level / summary information about the stage here...
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

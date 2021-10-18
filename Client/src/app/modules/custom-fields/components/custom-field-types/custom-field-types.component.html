@@ -1,0 +1,56 @@
+<div *ngIf="addNew" class="modal-header card-header border-bottom-0 bg-light">
+  <p class="small uppercase bold mb-0 montserrat">Add New Custom Field</p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-0 modalScrollMaxHeight">
+  <div class="shadow-lg pt-0 pb-0 w-100" style="min-width: 29rem;">
+    <div class="pt-0 pb-3 mx-3 bg-light">
+      <app-search-inline (search)="searchList($event)"></app-search-inline>
+    </div>
+    <!-- Categories -->
+    <ng-container *ngFor="let category of categories">
+      <div
+        *ngIf="types[category.key]"
+        class="py-1 border-top border-bottom bg-light"
+      >
+        <label class="text-muted uppercase small ml-3 mb-0 bold">{{
+          category.title
+        }}</label>
+      </div>
+      <button
+        *ngFor="let type of categoryTypes(category)"
+        class="pl-3 py-2"
+        ngbDropdownItem
+        (click)="selectType(type)"
+      >
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="text-medium mb-0">
+              <fa-icon
+                [icon]="['fas', type?.icon]"
+                class="text-muted mr-1"
+              ></fa-icon>
+              {{ type?.title }}
+            </p>
+          </li>
+          <!-- <li
+            class="list-inline-item mr-4"
+            [ngbPopover]="type?.description"
+            triggers="mouseenter:mouseleave"
+            [popoverTitle]="type?.title"
+            placement="right"
+          >
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              class="text-muted"
+            ></fa-icon>
+          </li> -->
+        </ul>
+      </button>
+    </ng-container>
+    <!-- End -->
+  </div>
+</div>
+<div class="modal-footer border-top-0 pt-0 pb-1"></div>

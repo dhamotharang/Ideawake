@@ -1,0 +1,32 @@
+<div class="modal-header card-header bg-light border-bottom-0">
+  <p class="uppercase bold montserrat mb-0 small">Followers</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light">
+  <ng-container *ngFor="let item of users;let i=index">
+    <hr _ngcontent-wun-c3="" class="mt-2 mb-2" *ngIf="i>0" />
+    <div class="media">
+      <div class="col-2">
+        <img
+          class="rounded-circle mr-3 activityFeedProfileImage"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="item.imgUrl"
+        />
+      </div>
+      <div class="media-body">
+        <span> {{item.fullname}}</span> <br />
+        <span> {{item.email}}</span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div class="modal-footer bg-light border-top-0">
+  <button class="btn btn-light border" (click)="closeModal()">Close</button>
+</div>

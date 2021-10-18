@@ -1,0 +1,35 @@
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.teamImagesMinWidth {
+  min-width: 16rem;
+}
+
+.teamImage {
+  border: 2px solid white;
+  width: 2.8rem;
+  height: 2.8rem;
+  // width: 2rem;
+  // height: 2rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.removeMargins {
+  margin-right: -0.6rem;
+}
+
+.anonymousUserTeam {
+  padding: 0.7rem .9rem;
+  background: $gray-300;
+  color: $primary;
+  position: relative;
+  top: 0.75rem;
+  border: 2px solid $white;
+  width: 2.8rem;
+  height: 2.8rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

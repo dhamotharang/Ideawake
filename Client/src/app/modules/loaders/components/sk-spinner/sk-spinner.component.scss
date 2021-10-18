@@ -1,0 +1,8 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.sk-chase-dot:before {
+  background-color: $white;
+}

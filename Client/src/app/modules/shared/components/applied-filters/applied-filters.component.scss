@@ -1,0 +1,26 @@
+// .appliedFiltersBackground {
+//   background: rgb(249, 249, 249);
+//   background: linear-gradient(
+//     180deg,
+//     rgba(249, 249, 249, 1) 0%,
+//     rgba(255, 255, 255, 1) 50%,
+//     rgba(249, 249, 249, 1) 100%
+//   );
+// }
+
+.appliedFiltersBackground {
+  // background-color: #fcfcfd;
+  // background-color: #f4f6f9;
+}
+
+.tableStyle{
+  border-top: 1px solid #DDDDDD;
+}
+
+.nonTableStyle{
+  // border: 1px solid white;
+  border-radius: 3px;
+  background-color: white;
+  margin-bottom: 10px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

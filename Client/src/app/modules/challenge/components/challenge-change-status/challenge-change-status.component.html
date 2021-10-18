@@ -1,0 +1,434 @@
+<div class="modal-header bg-light px-3 border-bottom-0 card-header">
+  <p class="small montserrat text-muted uppercase bold mb-0">
+    Change Challenge Status
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modalScrollMaxHeight pt-2 bg-light">
+  <!-- <div class="alert alert-warning text-medium">
+      <div class="media">
+        <fa-icon
+          [icon]="['fas', 'exclamation-triangle']"
+          class="mr-2"
+        ></fa-icon>
+        <div class="media-body">
+          Updating these settings will impact 10 ideas.
+        </div>
+      </div>
+    </div> -->
+  <div class="row">
+    <div class="col-12">
+      <div class="form-row">
+        <div class="form-group mb-2 col-12">
+          <label class="montserrat">Select Status</label>
+          <div ngbDropdown class="w-100">
+            <div
+              class="removeCaret py-2 px-2 border rounded addHover bg-white pl-2"
+              ngbDropdownToggle
+            >
+              <div class="media align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="mr-1"
+                  [ngClass]="challengeStatuses[selectedStatus]?.font_bg"
+                ></fa-icon>
+                <div class="media-body align-items-center ml-1">
+                  <div class="row">
+                    <div class="col-10">
+                      {{ challengeStatuses[selectedStatus]?.status }}
+                      <!-- <span class="float-right">
+                        <span class="badge border border-success text-success">
+                          Active Status
+                        </span>
+                      </span> -->
+                    </div>
+                    <div class="col-2">
+                      <span class="float-right mr-2">
+                        <fa-icon [icon]="['fas', 'sort']"></fa-icon>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ngbDropdownMenu class="w-100">
+              <button
+                class="pl-2"
+                ngbDropdownItem
+                *ngFor="let item of challengeStatuses | keyvalue"
+                (click)="
+                  selectedStatus = item.key;
+                  entityExperienceSetting = changeDefaults();
+                  changeStatus(item.key)
+                "
+              >
+                <fa-icon
+                  [icon]="['fas', 'circle']"
+                  class="mr-1"
+                  [ngClass]="item.value.font_bg"
+                ></fa-icon>
+                {{ item.value.status }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bold mb-0 mt-3 montserrat">Challenge Experience Settings</p>
+      <hr class="mt-1 mb-0" />
+      <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+        <div class="form-group col-9 mb-0">
+          <label
+            class="mb-0 font-weight-normal"
+            placement="right"
+            ngbTooltip="If enabled, users will be able to post new {{
+              challenge?.opportunityType?.name | pluralize
+            }} to this challenge. If disabled, the post new button will be disabled."
+          >
+            Allow Submissions of New
+            {{ challenge?.opportunityType?.name | pluralize }} to Challenge
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              class="text-muted ml-1"
+            ></fa-icon>
+          </label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="newSubmissions"
+              [(ngModel)]="entityExperienceSetting.allowSubmissions"
+            />
+            <label
+              class="custom-control-label font-weight-normal"
+              for="newSubmissions"
+            >
+              <span
+                *ngIf="entityExperienceSetting.allowSubmissions"
+                class="pl-1"
+                >{{ 'ChallengePost.Labels.Enabled' | translationPipe }}</span
+              >
+              <span *ngIf="!entityExperienceSetting.allowSubmissions">
+                Disabled
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-row dottedBottomBorder pt-2 pb-2 mx-0 align-items-center d-none"
+      >
+        <div class="form-group col-9 mb-0">
+          <label
+            class="mb-0 font-weight-normal"
+            style="position: relative; bottom: 1px;"
+            >Default Sort Option on
+            {{ challenge?.opportunityType?.name | pluralize }} List Page</label
+          >
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div ngbDropdown class="w-100">
+            <div
+              class="removeCaret py-1 px-0 border bg-white rounded addHover pl-2 dropdown-toggle small"
+              ngbDropdownToggle
+            >
+              {{ defaultSortFilter[entityExperienceSetting?.defaultSort] }}
+              <span class="float-right mr-1">
+                <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+              </span>
+            </div>
+            <div ngbDropdownMenu class="w-100">
+              <button
+                class="pl-2"
+                ngbDropdownItem
+                *ngFor="let filter of defaultSortFilter | keyvalue"
+                (click)="entityExperienceSetting.defaultSort = filter.key"
+              >
+                {{ filter.value }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12 col-12 mb-0">
+          <!-- <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+              <div class="form-group col-9 mb-0">
+                <label class="mb-0 font-weight-normal">Enable Start and End Date</label>
+              </div>
+              <div class="form-group col-3 mb-0">
+                <div class="custom-control custom-switch mr-auto float-right">
+                  <input type="checkbox" class="custom-control-input pointer" id="dates" (click)="toggleDate = !toggleDate" />
+                  <label class="custom-control-label font-weight-normal" for="dates">Enabled</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row bg-light border-bottom mx-0 p-2" *ngIf="toggleDate">
+              <div class="form-group col-12 mb-0">
+                <div class="row">
+                  <div class="col-6">
+                    <label class="text-medium bold">Start Date</label>
+                    <div ngbDropdown container="body" #startDrop="ngbDropdown">
+                      <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon2">
+                            <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="expiryStartDate" class="form-control" placeholder="Start Date"
+                          ngbDropdownToggle />
+                        <div ngbDropdownMenu class="shadow py-0" isOpen="dropdownIsOpen">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input type="text" formControlName="expiryStartDate" class="form-control form-control-sm"
+                                  placeholder="10/22/20" />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="text-medium">End Date</label>
+                    <div ngbDropdown container="body" #endDrop="ngbDropdown">
+                      <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">
+                            <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="expiryEndDate" class="form-control" placeholder="End Date"
+                          ngbDropdownToggle />
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input type="text" formControlName="expiryEndDate" class="form-control form-control-sm"
+                                  placeholder="10/22/20" />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+            <div class="form-group col-9 mb-0">
+              <label
+                class="mb-0 font-weight-normal"
+                placement="right"
+                ngbTooltip="If enabled, a custom message will be displayed at the top of your challenge home page."
+              >
+                Display Alert Message on Top of Page
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted ml-1"
+                ></fa-icon>
+              </label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input pointer"
+                  id="alert"
+                  [(ngModel)]="entityExperienceSetting.displayAlert"
+                />
+                <label
+                  class="custom-control-label font-weight-normal"
+                  for="alert"
+                >
+                  <span
+                    *ngIf="entityExperienceSetting.displayAlert"
+                    class="pl-1"
+                    >{{
+                      'ChallengePost.Labels.Enabled' | translationPipe
+                    }}</span
+                  >
+                  <span *ngIf="!entityExperienceSetting.displayAlert">
+                    Disabled
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-row bg-white border-left border-right border-bottom mx-0 p-2"
+            *ngIf="entityExperienceSetting.displayAlert"
+          >
+            <div class="form-group col-12 mb-1">
+              <label class="text-medium">Alert Message</label>
+              <textarea
+                class="form-control form-control-sm"
+                rows="3"
+                placeholder="Please enter your notification message here..."
+                [(ngModel)]="alertMessage"
+              ></textarea>
+            </div>
+          </div>
+          <p class="bold mb-0 mt-3 montserrat">
+            Collaboration Settings on
+            {{ challenge?.opportunityType?.name | pluralize }}
+          </p>
+          <hr class="mt-1 mb-0" />
+          <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+            <div class="form-group col-9 mb-0">
+              <label
+                class="mb-0 font-weight-normal"
+                placement="right"
+                ngbTooltip="If enabled, participants will be able to vote on submissions made to this challenge."
+                >Allow Voting on
+                {{ challenge?.opportunityType?.name | pluralize }}
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted ml-1"
+                ></fa-icon>
+              </label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input pointer"
+                  id="voting"
+                  [(ngModel)]="entityExperienceSetting.allowVoting"
+                />
+                <label
+                  class="custom-control-label font-weight-normal"
+                  for="voting"
+                >
+                  <span
+                    *ngIf="entityExperienceSetting.allowVoting"
+                    class="pl-1"
+                    >{{
+                      'ChallengePost.Labels.Enabled' | translationPipe
+                    }}</span
+                  >
+                  <span *ngIf="!entityExperienceSetting.allowVoting">
+                    Disabled
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+            <div class="form-group col-9 mb-0">
+              <label
+                class="mb-0 font-weight-normal"
+                placement="right"
+                ngbTooltip="If enabled, participants will be able to comment on submissions made to this challenge."
+                >Allow Commenting on
+                {{ challenge?.opportunityType?.name | pluralize }}
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted ml-1"
+                ></fa-icon>
+              </label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input pointer"
+                  id="commenting"
+                  [(ngModel)]="entityExperienceSetting.allowCommenting"
+                />
+                <label
+                  class="custom-control-label font-weight-normal"
+                  for="commenting"
+                >
+                  <span
+                    *ngIf="entityExperienceSetting.allowCommenting"
+                    class="pl-1"
+                    >{{
+                      'ChallengePost.Labels.Enabled' | translationPipe
+                    }}</span
+                  >
+                  <span *ngIf="!entityExperienceSetting.allowCommenting">
+                    Disabled
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+            <div class="form-group col-9 mb-0">
+              <label
+                class="mb-0 font-weight-normal"
+                placement="right"
+                ngbTooltip="If enabled, participants will be able to share submissions made to this challenge."
+                >Allow Sharing of
+                {{ challenge?.opportunityType?.name | pluralize }}
+                <fa-icon
+                  [icon]="['fas', 'info-circle']"
+                  class="text-muted ml-1"
+                ></fa-icon>
+              </label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input pointer"
+                  id="sharing"
+                  [(ngModel)]="entityExperienceSetting.allowSharing"
+                />
+                <label
+                  class="custom-control-label font-weight-normal"
+                  for="sharing"
+                >
+                  <span
+                    *ngIf="entityExperienceSetting.allowSharing"
+                    class="pl-1"
+                    >{{
+                      'ChallengePost.Labels.Enabled' | translationPipe
+                    }}</span
+                  >
+                  <span *ngIf="!entityExperienceSetting.allowSharing">
+                    Disabled
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- start of insert -->
+      <p class="bold mb-0 mt-4 montserrat">
+        Who Can See Submissions on This Challenge?
+      </p>
+      <hr class="my-1" />
+      <div class="form-row">
+        <div class="form-group col-md-12 col-12">
+          <app-visibility-submission-form
+            [submissionVisibilitySetting]="submissionVisibilitySetting"
+            (visibilitySettings)="submissionsObj = $event"
+          ></app-visibility-submission-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="modal.close()">Cancel</button>
+  <button
+    class="btn btn-primary ml-1"
+    [disabled]="disabledSaveButton"
+    (click)="saveSettings()"
+  >
+    Save Changes
+  </button>
+</div>

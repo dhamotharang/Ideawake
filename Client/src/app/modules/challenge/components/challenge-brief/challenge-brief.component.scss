@@ -1,0 +1,52 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.footerFixed {
+  position: fixed;
+  bottom: 0;
+  width: 63.1%;
+  background: $light;
+  z-index: 3000;
+}
+
+.removeImage {
+  position: absolute;
+  right: 0;
+  padding-right: 0.5rem;
+  padding-top: 0.35rem;
+}
+
+.removeImage:hover {
+  position: absolute;
+  right: 0;
+  padding-right: 0.5rem;
+  padding-top: 0.35rem;
+  cursor: pointer;
+}
+
+.repositionUploadContentOptions {
+  position: absolute;
+  bottom: 38px;
+  left: 9px;
+}
+
+.addFiles {
+  padding: 0.5rem 0;
+  background-color: $light;
+  border: 1px dotted $defaultBorder;
+  border-top: none;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
+}
+
+.addFiles:hover {
+  padding: 0.5rem 0;
+  background-color: $light;
+  border: 1px solid $defaultBorder;
+  border-top: none;
+  cursor: pointer;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
+}

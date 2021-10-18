@@ -1,0 +1,31 @@
+.manageWidget {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: auto;
+}
+
+.manageButton {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: auto;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.managingWidgetDropdown {
+  width: 150px;
+  background-color: white;
+}
+
+.managing-widget-pipeline .dropdown-menu {
+  width: 15rem;
+}
+
+.wrap-btn-text {
+  overflow: hidden;
+  white-space: pre-wrap;
+  display: block;
+  text-overflow: ellipsis;
+}

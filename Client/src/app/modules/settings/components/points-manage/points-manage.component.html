@@ -1,0 +1,141 @@
+<div class="row">
+  <div class="col-12 col-md-2 d-none d-md-block">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10 removePaddingOnMobile">
+    <div class="container" style="overflow-x: hidden;">
+      <div class="row">
+        <div class="col-12 removePaddingOnMobile">
+          <div class="card shadow-sm" style="min-height: 80vh;">
+            <div class="card-header" style="padding-left: 0.75rem;">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <a class="mb-0 uppercase bold pt-1" routerLink="/settings/all"
+                    >Settings</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <fa-icon
+                    [icon]="['fas', 'angle-right']"
+                    class="mr-1 ml-1 text-muted"
+                  ></fa-icon>
+                </li>
+                <li class="list-inline-item">
+                  <p class="mb-0 bold pt-1 uppercase">
+                    Customize Points<span class="d-none d-md-inline">
+                      per Action</span
+                    >
+                  </p>
+                </li>
+                <li class="list-inline-item float-right" *ngIf="!isEditable">
+                  <button
+                    class="btn btn-sm btn-primary"
+                    (click)="isEditable = !isEditable"
+                  >
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    Edit Settings
+                  </button>
+                </li>
+                <li
+                  class="list-inline-item float-right align-self-center"
+                  *ngIf="isEditable"
+                >
+                  <button
+                    class="btn btn-light border btn-sm mr-2"
+                    (click)="cancelEditing()"
+                  >
+                    Cancel
+                  </button>
+                  <button class="btn btn-primary btn-sm" (click)="savePoints()">
+                    <!-- <fa-icon [icon]="['fas', 'check-circle']"></fa-icon> -->
+                    Save Changes
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="w-50">Community Action</th>
+                        <th scope="col" class="w-50">Experience Points</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <tr *ngFor="let action of actionTypes">
+                            <th scope="row">
+                              <span class="font-weight-normal"
+                                >{{ action.name }}
+                                {{
+                                  action.name === 'Upvote' ||
+                                  action.name === 'Comment'
+                                    ? 'on '
+                                    : ' '
+                                }}
+                                {{
+                                  entity.entityTable === 'opportunity' ? 'an' : 'a'
+                                }}
+                                {{ entity.entityTable }}</span
+                              >
+                            </th>
+                            <td>
+                              <div class="input-group">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="10"
+                                />
+                                <div class="input-group-append">
+                                  <span class="input-group-text">XP</span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr> -->
+                      <tr *ngFor="let entityAction of entityActions">
+                        <th scope="row">
+                          <span class="font-weight-normal"
+                            >{{ entityAction.actionType.name }}
+                            {{
+                              ActionCompositions[entityAction.actionType.name]
+                            }}
+                            {{
+                              EntityVowels[entityAction.entityType.entityTable]
+                            }}
+                            {{ entityAction.entityType.entityTable }}</span
+                          >
+                        </th>
+                        <td>
+                          <div class="input-group">
+                            <input
+                              type="number"
+                              [ngClass]="{
+                                'strip-styling': !isEditable,
+                                'form-control': isEditable
+                              }"
+                              placeholder="10"
+                              [(ngModel)]="entityAction.experiencePoint"
+                              [disabled]="!isEditable"
+                              min="0"
+                            />
+                            <b *ngIf="!isEditable" style="margin-top: 1px;"
+                              >XP</b
+                            >
+                            <div class="input-group-append" *ngIf="isEditable">
+                              <span class="input-group-text">XP</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

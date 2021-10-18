@@ -1,0 +1,505 @@
+<!-- start of cards container -->
+<div (window:resize)="onResize()" class="container-fluid setMaxWidth">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row h-100">
+                    <div class="col-12">
+                      <div class="row pt-md-4">
+                        <div class="col-12 removePaddingOnMobile">
+                          <ul class="list-inline inverseLinkDark mb-2">
+                            <li class="list-inline-item mr-1">
+                              <h4
+                                class="montserrat mb-1 mt-1 d-none d-md-inline"
+                              >
+                                {{ count || 0 }}
+                              </h4>
+                              <h5
+                                class="mb-0 d-inline montserrat d-inline d-md-none"
+                              >
+                                {{ count || 0 }}
+                              </h5>
+                            </li>
+                            <li class="list-inline-item mr-2">
+                              <app-ideas-list-view-options
+                                (outputRes)="setSelectedView($event)"
+                              ></app-ideas-list-view-options>
+                            </li>
+                            <!-- <li class="list-inline-item">
+                              <h4
+                                class="montserrat mb-1 mt-1 d-none d-md-inline"
+                              >
+                                {{ count || 0 }}
+                                {{ 'Shared.Submissions' | translationPipe }}
+                                {{ 'Shared.Returned' | translationPipe }}
+                              </h4>
+                              <h5 class="d-inline d-md-none montserrat">
+                                {{ count || 0 }}
+                                {{ 'Shared.Returned' | translationPipe }}
+                              </h5>
+                            </li> -->
+                            <!-- <li class="list-inline-item float-right">
+                              <button
+                                class="btn btn-primary px-4 bold d-none d-md-inline-block mb-2"
+                                (click)="openPostIdea()"
+                              >
+                                {{ 'IdeasList.CreateNew' | translationPipe }}
+                              </button>
+                              <button
+                                class="btn btn-primary btn-sm px-4 bold d-inline-block d-md-none"
+                                style="position: relative; bottom: 3px;"
+                                (click)="openPostIdea()"
+                              >
+                                {{ 'IdeasList.CreateNew' | translationPipe }}
+                              </button>
+                            </li> -->
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="row pb-2">
+                        <div class="col-5 col-md-7 removePaddingOnMobile">
+                          <ul class="list-inline mb-0">
+                            <span class="d-none d-md-inline">
+                              <app-idea-filters
+                                [showChallengeSearch]="true"
+                                [horizontalFilter]="true"
+                                [pageType]="'table'"
+                                [entity]="ideaEntity"
+                                [appFilters]="appliedFilters"
+                                (isSavedView)="setSavedView($event)"
+                                (filterApplied)="filterOpportunities($event)"
+                                [selectedFilterView]="selectedView"
+                                [updateFilters]="updateFilters"
+                              >
+                              </app-idea-filters>
+                            </span>
+                            <li
+                              class="list-inline-item d-inline-block d-md-none"
+                            >
+                              <div ngbDropdown>
+                                <button
+                                  class="btn btn-light shadow-sm btn-sm border removeCaret"
+                                  ngbDropdownToggle
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'filter']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                  {{ 'Shared.Filter' | translationPipe }}
+                                  <fa-icon
+                                    [icon]="['fas', 'angle-down']"
+                                    class="text-muted"
+                                  ></fa-icon>
+                                </button>
+                                <div ngbDropdownMenu class="shadow p-2">
+                                  <div class="filtersMobile">
+                                    <div
+                                      class="mr-2"
+                                      *ngIf="filterOptions.mobileRender"
+                                    >
+                                      <div
+                                        class="alert alert-info py-1 px-2 mb-2"
+                                      >
+                                        <p
+                                          class="small mb-0"
+                                          style="line-height: 1.25rem;"
+                                        >
+                                          {{
+                                            'Ideafilters.Labels.FiltersMobileMessage'
+                                              | translationPipe
+                                          }}
+                                        </p>
+                                      </div>
+                                      <app-idea-filters
+                                        [showChallengeSearch]="true"
+                                        [entity]="ideaEntity"
+                                        [pageType]="'card'"
+                                        [appFilters]="appliedFilters"
+                                        (isSavedView)="setSavedView($event)"
+                                        (filterApplied)="
+                                          filterOpportunities($event)
+                                        "
+                                        [selectedFilterView]="selectedView"
+                                        [updateFilters]="updateFilters"
+                                      >
+                                      </app-idea-filters>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <!-- <li class="list-inline-item ml-1">
+                              <p
+                                class="montserrat text-medium mb-0 mt-1 bold"
+                              >
+                                {{ currentCount }} of {{ count || 0 }}
+                                Returned
+                              </p>
+                            </li> -->
+                            <li
+                              class="list-inline-item d-none d-md-inline-block"
+                            >
+                              <app-idea-filter-time
+                                [fromDate]="dateFrom"
+                                [toDate]="dateTo"
+                                (selectedDate)="dateFilter($event)"
+                              >
+                              </app-idea-filter-time>
+                            </li>
+                            <li
+                              class="list-inline-item d-none d-md-inline-block mr-0 ml-2"
+                            >
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item mr-0">
+                                  <span
+                                    class="link bold text-medium"
+                                    (click)="toggleFilter()"
+                                  >
+                                    <span class="text-medium">
+                                      <span *ngIf="!filterOptions.display">
+                                        <fa-icon
+                                          [icon]="['fas', 'sliders-v']"
+                                          class="text-muted"
+                                        ></fa-icon>
+                                        {{ 'Nav.More' | translationPipe }}
+                                      </span>
+                                      <span *ngIf="filterOptions.display">
+                                        <fa-icon
+                                          [icon]="['fas', 'sliders-v']"
+                                          class="text-muted"
+                                        ></fa-icon>
+                                        {{ 'Shared.Hide' | translationPipe }}
+                                      </span>
+                                      {{ 'Shared.Filters' | translationPipe }}
+                                    </span>
+                                  </span>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class="list-inline-item ml-2">
+                              <app-list-management-options
+                                [pageType]="'card'"
+                                (filtersUpdated)="fetchUpdatedFilters($event)"
+                              ></app-list-management-options>
+                            </li>
+                          </ul>
+                        </div>
+                        <div
+                          class="col-7 col-md-5 pt-md-1 removePaddingOnMobile"
+                        >
+                          <div class="float-right adjustFloat">
+                            <ul class="list-inline mb-0">
+                              <li
+                                class="list-inline-item d-none d-md-inline-block"
+                                *ngIf="exportFlag"
+                              >
+                                <app-idea-export
+                                  [appliedFilters]="paramAppliedFilters"
+                                  [filterCount]="count"
+                                ></app-idea-export>
+                              </li>
+                              <li class="list-inline-item">
+                                <app-idea-sort-options
+                                  (filter)="sortFilter($event)"
+                                ></app-idea-sort-options>
+                              </li>
+                              <li class="list-inline-item">
+                                <div class="btn-group btn-group-sm rounded">
+                                  <a
+                                    class="btn btn-white px-md-3"
+                                    routerLink="/idea/cards"
+                                    routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{
+                                      boolean: true
+                                    }"
+                                  >
+                                    <fa-icon [icon]="['fas', 'th']"></fa-icon>
+                                  </a>
+                                  <a
+                                    class="btn btn-white px-md-3"
+                                    routerLink="/idea/table"
+                                    routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{
+                                      boolean: true
+                                    }"
+                                  >
+                                    <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+                                  </a>
+                                  <a
+                                    class="btn btn-white px-md-3"
+                                    routerLink="/idea/pipeline"
+                                    routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{
+                                      boolean: true
+                                    }"
+                                  >
+                                    <div class="rotateBars">
+                                      <fa-icon
+                                        [icon]="['fas', 'bars']"
+                                      ></fa-icon>
+                                    </div>
+                                  </a>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 removePaddingOnMobile">
+                          <hr class="mt-0 mb-1" />
+                          <div class="row" *ngIf="!notPosted">
+                            <div
+                              class="col-md-2 pt-3 mb-5"
+                              *ngIf="filterOptions.webRender"
+                              [ngStyle]="{
+                                display: filterOptions.display
+                                  ? 'block'
+                                  : 'none'
+                              }"
+                            >
+                              <div class="d-none d-md-block">
+                                <app-idea-filters
+                                  [showChallengeSearch]="true"
+                                  [entity]="ideaEntity"
+                                  [pageType]="'card'"
+                                  [appFilters]="appliedFilters"
+                                  (isSavedView)="setSavedView($event)"
+                                  (filterApplied)="filterOpportunities($event)"
+                                  [selectedFilterView]="selectedView"
+                                  [updateFilters]="updateFilters"
+                                >
+                                </app-idea-filters>
+                              </div>
+                            </div>
+                            <div
+                              [ngClass]="
+                                !filterOptions.display
+                                  ? 'col-12'
+                                  : 'col-12 col-md-10'
+                              "
+                            >
+                              <div class="row pt-2">
+                                <div class="col-6 px-2">
+                                  <app-applied-filters
+                                    [selectedView]="selectedView"
+                                    [filters]="appliedFilters"
+                                    [pageType]="'card'"
+                                    (filterOutput)="filterOpportunities($event)"
+                                  ></app-applied-filters>
+                                </div>
+                                <div
+                                  class="col-6 px-2"
+                                  [ngClass]="isSavedView ? '' : 'nonTableStyle'"
+                                >
+                                  <div
+                                    class="px-3 pb-1 animated flipInX"
+                                    style="
+                                      left: 16.75rem;
+                                      bottom: 0.7rem;
+                                      padding-top: 0.75rem;
+                                    "
+                                    *ngIf="
+                                      timeFilter ||
+                                      !isSavedView ||
+                                      sortOpportunityFilter
+                                    "
+                                  >
+                                    <app-save-shortcut-search
+                                      [pageType]="'card'"
+                                    ></app-save-shortcut-search>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- manage action items -->
+                              <!-- <div
+                                class="alert bg-primary mb-0 mt-3 shadow-sm cardAnimation pointer d-none"
+                                style="margin-left: -6px; margin-right: -6px;"
+                              >
+                                <div class="row">
+                                  <div class="col-6">
+                                    <h6
+                                      class="text-white montserrat bold mb-1 mt-1"
+                                    >
+                                      Manage Action Items to Keep Innovation
+                                      Running Smoothly
+                                    </h6>
+                                    <p class="small mb-0 text-white">
+                                      This is a long description this is a long
+                                      description this is a long description.
+                                    </p>
+                                  </div>
+                                  <div class="col-4">
+                                    <ul class="list-inline mb-0 text-center">
+                                      <li class="list-inline-item w-30">
+                                        <h5
+                                          class="text-white montserrat bold mb-0 mt-1"
+                                        >
+                                          5
+                                        </h5>
+                                        <p class="small mb-0 text-white">
+                                          Open Items
+                                        </p>
+                                      </li>
+                                      <li class="list-inline-item w-30">
+                                        <h5
+                                          class="text-white montserrat bold mb-0 mt-1"
+                                        >
+                                          5
+                                        </h5>
+                                        <p class="small mb-0 text-white">
+                                          Completed
+                                        </p>
+                                      </li>
+                                      <li class="list-inline-item w-30">
+                                        <h5
+                                          class="text-white montserrat bold mb-0 mt-1"
+                                        >
+                                          5
+                                        </h5>
+                                        <p class="small mb-0 text-white">
+                                          Past Due
+                                        </p>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-2">
+                                    <button
+                                      class="btn btn-sm btn-white text-primary"
+                                    >
+                                      Manage Action Items
+                                    </button>
+                                  </div>
+                                </div>
+                              </div> -->
+                              <!-- manage action items -->
+                              <div
+                                infiniteScroll
+                                [infiniteScrollDistance]="scrollDownDistance"
+                                (scrolled)="changePage()"
+                                [scrollWindow]="true"
+                                class="row pt-2"
+                              >
+                                <!-- <div class="col-12" *ngIf="isLoading">
+                                <app-content-card-loader [count]="8">
+                                </app-content-card-loader>
+                              </div> -->
+                                <!-- start of one idea card-->
+                                <!-- [ngClass]="
+                                  toggleFilterVisibility
+                                    ? 'col-12 col-md-3'
+                                    : 'col-12 col-md-4'
+                                " -->
+                                <div
+                                  class="col-12 col-md-3 mb-3 px-2"
+                                  *ngFor="let idea of ideas; let i = index"
+                                >
+                                  <div (click)="updateSummaryParams(idea)">
+                                    <app-idea-widget-feed
+                                      [idea]="idea"
+                                      [upvotes]="upvoteCount"
+                                      [tagsData]="tagsData"
+                                      [commentCounts]="commentCounts"
+                                      [upvotesData]="
+                                        upvoteDetail
+                                          ? upvoteDetail[idea.id]
+                                          : null
+                                      "
+                                      [permissions]="idea?.experienceSettings"
+                                      (action)="cardActions($event, idea)"
+                                    ></app-idea-widget-feed>
+                                  </div>
+                                </div>
+                                <!-- end of one -->
+                                <div class="col-12" *ngIf="isLoading">
+                                  <app-content-card-loader
+                                    [count]="8"
+                                  ></app-content-card-loader>
+                                </div>
+
+                                <div
+                                  *ngIf="!isLoading && currentCount === 0"
+                                  class="m-2 card shadow-sm w-100 rounded-top-0"
+                                >
+                                  <div class="card-body text-center py-5">
+                                    <fa-icon
+                                      [icon]="['fas', 'eye-slash']"
+                                      class="iconExtraLarge text-muted mb-3"
+                                    >
+                                    </fa-icon>
+                                    <h4 class="montserrat">
+                                      {{
+                                        'IdeasList.NoMatchHeader'
+                                          | translationPipe
+                                      }}
+                                    </h4>
+                                    <p>
+                                      {{
+                                        'IdeasList.NoMatchDescription'
+                                          | translationPipe
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="col-3 pt-3">
+                              <p class="small text-muted uppercase bold mb-0">Recent Activity</p>
+                              <img class="w-100" src="https://i.imgur.com/e5mGRDk.png">
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- if no ideas have been posted -->
+                      <div class="row pt-3" *ngIf="notPosted">
+                        <div class="col-12 px-0">
+                          <div class="card shadow-sm w-100 rounded-top-0">
+                            <div class="card-body text-center py-5">
+                              <fa-icon
+                                [icon]="['fas', 'lightbulb-on']"
+                                class="iconExtraLarge text-muted mb-3"
+                              >
+                              </fa-icon>
+                              <h4 class="montserrat">
+                                {{
+                                  'IdeasList.NoIdeasPostedHeader'
+                                    | translationPipe
+                                }}
+                              </h4>
+                              <p class="text-muted">
+                                {{
+                                  'IdeasList.NoIdeasPostedDescription'
+                                    | translationPipe
+                                }}
+                              </p>
+                              <!-- <button
+                                class="btn btn-primary"
+                                (click)="openPostIdea()"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                  class="montserrat"
+                                ></fa-icon>
+                                Post an Idea
+                              </button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end no ideas have been posted -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<ng-template #tagInformation>
+  <div class="row pt-1 pb-1">
+    <div class="col-4 pr-0">
+      <ul class="list-unstyled text-center mb-0">
+        <li>
+          <label class="mb-0">422</label>
+          <p class="small mb-0 uppercase" style="font-size: 0.5rem;">
+            Followers
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4">
+      <ul class="list-unstyled text-center mb-0">
+        <!-- <li>
+          <fa-icon [icon]="['fas', 'lightbulb']" class="text-muted"></fa-icon>
+        </li> -->
+        <li>
+          <label class="mb-0">25</label>
+          <p class="small mb-0 uppercase" style="font-size: 0.5rem;">Ideas</p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4 pl-0">
+      <ul class="list-unstyled text-center mb-0">
+        <li>
+          <label class="mb-0">10</label>
+          <p class="small mb-0 uppercase" style="font-size: 0.5rem;">
+            Comments
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- <hr class="my-2">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-xs btn-primary btn-block">
+        <fa-icon [icon]="['fas', 'rss']"></fa-icon>
+        Follow
+      </button>
+    </div>
+  </div> -->
+</ng-template>
+<li class="list-inline-item">
+  <ul class="list-inline mb-0">
+    <li class="list-inline-item mb-2">
+      <span
+        class="badge badge-light tag border pointer"
+        routerLink="/search"
+        [ngbPopover]="tagInformation"
+        [openDelay]="600"
+        triggers="mouseenter"
+        [autoClose]="true"
+        popoverClass="popoverStyle"
+        container="body"
+      >
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon
+        >aginginplace
+        <fa-icon
+          [icon]="['fas', 'times']"
+          class="text-muted align-middle removeTag"
+          placement="right"
+          ngbTooltip="Remove Tag"
+        ></fa-icon>
+      </span>
+    </li>
+    <li class="list-inline-item mb-2">
+      <span class="badge badge-light tag border pointer" routerLink="/search">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon
+        >newproduct
+        <fa-icon
+          [icon]="['fas', 'times']"
+          class="text-muted align-middle removeTag"
+          placement="right"
+          ngbTooltip="Remove Tag"
+        >
+        </fa-icon>
+      </span>
+    </li>
+    <!-- <li class="list-inline-item mb-2">
+      <span class="badge badge-light tag border pointer" routerLink="/search">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>tagthree
+        <fa-icon [icon]="['fas', 'times']" class="text-muted align-middle removeTag" placement="right" ngbTooltip="Remove Tag">
+        </fa-icon>
+      </span>
+    </li>
+    <li class="list-inline-item mb-2">
+      <span class="badge badge-light tag border pointer" routerLink="/search">
+        <fa-icon [icon]="['fas', 'hashtag']" class="text-muted"></fa-icon>tagfour
+        <fa-icon [icon]="['fas', 'times']" class="text-muted align-middle removeTag" placement="right" ngbTooltip="Remove Tag">
+        </fa-icon>
+      </span>
+    </li> -->
+    <li class="list-inline-item mb-2">
+      <app-tag-add></app-tag-add>
+    </li>
+    <!-- <li class="list-inline-item mb-2">
+      <span class="badge badge-light tag border">
+        +4
+      </span>
+    </li> -->
+  </ul>
+</li>

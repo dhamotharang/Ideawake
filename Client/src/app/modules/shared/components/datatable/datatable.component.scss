@@ -1,0 +1,291 @@
+// STYLING FOR NGX-DATATABLE
+
+.dataTable thead th {
+  padding: 8px 10px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: #6c757d;
+  border-bottom: 1px solid #dee2e6;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dataTable td {
+  color: #6c757d;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  line-height: 17px;
+  padding: 20px 10px 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.ngx-datatable {
+  overflow: visible !important;
+}
+
+.ngx-datatable.material .media,
+.dataTable .media {
+  display: flex;
+  align-items: center;
+  margin: -11px 0 -3px;
+  text-align: left;
+}
+
+.ngx-datatable.material .media a {
+  color: #1ab394;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.ngx-datatable.material .img-box,
+.dataTable .img-box {
+  width: 39px;
+  height: 39px;
+  background: #d8d8d8;
+}
+
+.ngx-datatable.material .img-box span,
+.dataTable .img-box span {
+  color: #2f4050;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ngx-datatable.material .img-box.light-pink,
+.dataTable .img-box.light-pink {
+  background: #fddfdf;
+}
+
+.ngx-datatable.material .img-box.light-yellow,
+.dataTable .img-box.light-yellow {
+  background: #fcf7de;
+}
+
+.ngx-datatable.material .img-box.light-green,
+.dataTable .img-box.light-green {
+  background: #defde0;
+}
+
+.ngx-datatable.material .img-box.light-purple,
+.dataTable .img-box.light-purple {
+  background: #f0defd;
+}
+
+.ngx-datatable.material .img-box.light-blue,
+.dataTable .img-box.light-blue {
+  background: #def3fd;
+}
+
+.ngx-datatable.material a,
+.dataTable a {
+  font-weight: 400;
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.ngx-datatable.material a:hover,
+.dataTable a:hover {
+  color: #1ab394;
+}
+
+.ngx-datatable.material .text-dots,
+.dataTable .text-dots {
+  position: relative;
+  padding: 0 0 0 15px;
+}
+
+.ngx-datatable.material .text-dots::before,
+.dataTable .text-dots::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  content: '';
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background-color: #1ab394;
+}
+
+.ngx-datatable.material .text-dots.yellow::before,
+.dataTable .text-dots.yellow::before {
+  background-color: #ffc230;
+}
+
+.ngx-datatable.material .text-dots.pink::before,
+.dataTable .text-dots.pink::before {
+  background-color: #fe9090;
+}
+
+.ngx-datatable.material .dropdown-toggle::after,
+.dataTable .dropdown-toggle::after {
+  display: none;
+}
+
+.ngx-datatable.material .dropdown-menu.show,
+.dataTable .dropdown-menu.show {
+  right: 0;
+  left: auto !important;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ngx-datatable.material .custom-control-label::before,
+.dataTable .custom-control-label::before {
+  top: 0.45rem;
+  left: -0.5rem;
+}
+
+.ngx-datatable.material .custom-control-label::after,
+.dataTable .custom-control-label::after {
+  top: 0.45rem;
+  left: -0.5rem;
+}
+
+// .ngx-datatable.material .badge,
+// .dataTable .badge {
+//   font-size: 12px;
+//   color: #6c757d;
+//   font-weight: 400;
+//   line-height: 15px;
+//   border-radius: 4px;
+//   padding: 3px 8px 2px;
+//   background-color: #eaf2f1;
+//   font-family: 'Open Sans', sans-serif;
+//   margin: 0 3px;
+//   border: 1px solid #aab3b2;
+//   float: left;
+// }
+
+.ngx-datatable.material .badge,
+.dataTable .badge {
+  float: left;
+  padding: 0.15rem 0.25rem;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}
+
+.ngx-datatable.material {
+  box-shadow: none;
+}
+
+.ngx-datatable.material .datatable-header {
+  border: none;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+  padding: 16px 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: #6c757d;
+  text-align: left;
+  border-top: 1px solid #dee2e6;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.ngx-datatable.material
+  .datatable-body
+  .datatable-body-row
+  .datatable-body-cell {
+  color: #6c757d;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 20px 10px 10px;
+  vertical-align: middle;
+  text-align: left;
+  overflow: visible !important;
+}
+
+.ngx-datatable .datatable-body .datatable-row-wrapper {
+  border-top: 1px solid #dee2e6;
+}
+
+.datatable-checkbox {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 1rem 0 0;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  border: #adb5bd solid 1px;
+}
+
+.datatable-checkbox input[type='checkbox'] {
+  margin: 0;
+}
+
+.datatable-checkbox input[type='checkbox']:before {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid transparent;
+}
+
+.datatable-checkbox input[type='checkbox']:after {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.datatable-checkbox input[type='checkbox']:checked:before {
+  width: 1rem;
+  height: 0.5rem;
+  top: -1.7px;
+  left: 1px;
+}
+
+.ngx-datatable .datatable-body .datatable-scroll {
+  vertical-align: top;
+}
+
+.ngx-datatable.fixed-row .datatable-scroll,
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row,
+.ngx-datatable .datatable-row-center,
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {
+  width: 100% !important;
+}
+
+.editLink .fa-times-circle,
+.editLink .fa-sync,
+.editLink .fa-edit,
+.editLink .fa-user-plus {
+  opacity: 0;
+}
+
+.ngx-datatable
+  .datatable-body
+  .datatable-row-wrapper:hover
+  .editLink
+  .fa-times-circle,
+.ngx-datatable .datatable-body .datatable-row-wrapper:hover .editLink .fa-sync,
+.ngx-datatable .datatable-body .datatable-row-wrapper:hover .editLink .fa-edit,
+.ngx-datatable
+  .datatable-body
+  .datatable-row-wrapper:hover
+  .editLink
+  .fa-user-plus {
+  opacity: 1;
+}
+
+.ngx-datatable.material .datatable-footer .datatable-pager li.active a {
+  color: #fff;
+  background-color: #1ab394;
+}
+
+.dropdownOnTop {
+  position: fixed !important;
+}
+
+ngb-tooltip-window {
+  top: 40px !important;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+}

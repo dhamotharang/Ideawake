@@ -1,0 +1,455 @@
+<div
+  *ngIf="idea?.id"
+  class="card shadow-sm"
+  (mouseenter)="showManageOptions = true"
+  (mouseleave)="showManageOptions = false"
+>
+  <div class="card-header p-0 border-0">
+    <!-- <img
+      class="w-100 cardTopImage"
+      *ngIf="
+        idea?.opportunityAttachments?.length === 0 ||
+        (idea?.opportunityAttachments)[0].attachmentType === 'application'
+      "
+      [src]="defaultOpportunityImage"
+    />
+    <img
+      class="w-100 cardTopImage rounded-top"
+      *ngIf="
+        idea?.opportunityAttachments?.length !== 0 &&
+        (idea?.opportunityAttachments)[0].attachmentType !== 'application'
+      "
+      [src]="(idea?.opportunityAttachments)[0].url"
+    /> -->
+    <!-- <span class="badge badge-info badgePadding ideaStatus">
+      Submission - IdeaStageInStatus
+      <fa-icon
+        [icon]="['fas', 'info-circle']"
+        ngbTooltip="Challenge phase description here"
+      >
+      </fa-icon>
+    </span> -->
+  </div>
+  <div class="card-body px-0 px-md-3 pt-2 pb-3">
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p
+              class="uppercase mb-0 small bold text-muted"
+              style="font-size: 70%;"
+            >
+              <!-- IdeaStageInStatus -->
+              #{{ idea.id }}
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="text-muted"
+              style="position: relative; bottom: 2px; font-size: 5px;"
+            >
+            </fa-icon>
+          </li>
+          <li class="list-inline-item">
+            <div class="media">
+              <!-- <img
+                class="float-left rounded-circle mr-1 ideaCardSubmitterImage"
+                [src]="idea.user.profileImage.url"
+              /> -->
+              <div class="media-body">
+                <p
+                  class="uppercase mb-0 small bold text-muted"
+                  style="font-size: 70%;"
+                >
+                  {{
+                    idea.user
+                      ? idea.user.firstName + ' ' + idea.user.lastName
+                      : ''
+                  }}
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="text-muted"
+              style="position: relative; bottom: 2px; font-size: 5px;"
+            >
+            </fa-icon>
+          </li>
+          <li class="list-inline-item">
+            <!-- <p class="uppercase mb-0 small bold text-muted nunito" style="font-size: 70%;">
+              <fa-icon [icon]="['fas', 'eye']" class="text-success"
+                ngbTooltip="Public - This idea is visible to all users in your community."></fa-icon>
+              Public
+            </p> -->
+            <h5
+              class="uppercase mb-0 small bold text-muted"
+              style="font-size: 70%;"
+            >
+              {{ idea?.opportunityType?.name }}
+            </h5>
+            <!-- <fa-icon
+                  [icon]="['fas', 'eye']"
+                  class="text-warning text-medium"
+                  ngbTooltip="Limited Visibility (20) - This idea is only visible to specific groups or individuals in your community."
+                ></fa-icon> -->
+            <!-- <span class="small text-muted">
+                  <fa-icon [icon]="['fas', 'eye-slash']" class="text-danger text-medium"
+                    ngbTooltip="Private (10) - Only submitters, team members, and owners can see this opportunity."></fa-icon>
+                </span> -->
+            <!-- <span ngbTooltip="Bookmark Idea">
+                  <app-bookmark [data]="idea" (bookmarked)="updateList($event)"></app-bookmark>
+                </span> -->
+          </li>
+          <li class="list-inline-item d-none">
+            <span class="small bold text-muted" style="font-size: 70%;">
+              <fa-icon
+                [icon]="['fas', 'eye']"
+                class="text-success"
+                ngbTooltip="Public - This idea is visible to all users in your community."
+              ></fa-icon>
+              {{ 'ChallengePost.Labels.Public' | translationPipe }}
+            </span>
+            <span class="small bold text-muted" style="font-size: 70%;">
+              <fa-icon
+                [icon]="['fas', 'eye']"
+                class="text-warning"
+                ngbTooltip="Limited Visibility (20) - This idea is only visible to specific groups or individuals in your community."
+              >
+              </fa-icon>
+              {{ 'ChallengePost.Labels.Limited' | translationPipe }}
+            </span>
+            <span class="small bold text-muted" style="font-size: 70%;">
+              <fa-icon
+                [icon]="['fas', 'eye-slash']"
+                class="text-danger"
+                ngbTooltip="Private (10) - Only submitters, team members, and owners can see this opportunity."
+              >
+              </fa-icon>
+              {{ 'ChallengePost.Labels.Private' | translationPipe }}
+            </span>
+            <!-- <span ngbTooltip="Bookmark Idea">
+              <app-bookmark [data]="idea" (bookmarked)="updateList($event)"></app-bookmark>
+            </span> -->
+          </li>
+          <li class="list-inline-item float-right adjustFloatUp">
+            <span
+              [ngStyle]="{ 'background-color': idea?.stage?.status?.colorCode }"
+              class="badge text-white"
+            >
+              <!-- <fa-icon
+                [icon]="['fas', 'info-circle']"
+                [ngbTooltip]="
+                  idea?.stage?.status?.description || 'No description available'
+                "
+              >
+              </fa-icon> -->
+              <ng-container *ngIf="idea?.stage">
+                <span>
+                  {{ idea?.stage?.status?.title }}
+                  <!-- - {{ idea?.stage?.title }} -
+                  {{ idea?.workflow?.title }} -->
+                </span>
+              </ng-container>
+              <!-- <ng-template #noWorkflow>
+                No Workflow
+              </ng-template> -->
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="" *ngIf="showManageOptions">
+        <div class="animated fadeIn manageWidget" (click)="stopProp($event)">
+          <div
+            class="card bg-light rounded-left-0 rounded-bottom-0"
+            style="border-bottom-left-radius: 0.15rem;"
+          >
+            <div class="card-body p-1">
+              <ul class="list-inline mb-0" ngbDropdown placement="top-right">
+                <li
+                  class="list-inline-item pl-1"
+                  (click)="selectAction($event, manageActions.edit)"
+                >
+                  <button class="btn btn-sm text-muted btn-light">
+                    <fa-icon [icon]="['fas', 'edit']"> </fa-icon>
+                  </button>
+                </li>
+                <!-- <li class="list-inline-item">
+                  <button class="btn btn-sm text-muted btn-light">
+                    <fa-icon [icon]="['fas', 'conveyor-belt-alt']"> </fa-icon>
+                  </button>
+                </li> -->
+                <!-- <li class="list-inline-item" *ngIf="!idea?.stage && idea?.permissions?.changeOpportunityWorkflow">
+                  <button class="btn btn-sm text-muted btn-white px-2 w-100 text-left"
+                    (click)="selectAction($event, manageActions.workflow)">
+                    <fa-icon [icon]="['fas', 'plus-circle']"> </fa-icon> Add Workflow
+                  </button>
+                </li> -->
+                <li
+                  class="list-inline-item"
+                  *ngIf="
+                    idea?.stage && idea?.permissions?.changeOpportunityStage
+                  "
+                >
+                  <button
+                    (click)="loadStages($event)"
+                    ngbDropdownToggle
+                    class="btn bold btn-white btn-sm montserrat removeCaret inverseLink w-100 text-left"
+                    [ngbTooltip]="
+                      idea?.stage.title
+                        ? 'Current Stage - ' + idea?.stage.title
+                        : ''
+                    "
+                  >
+                    <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+                    <span *ngIf="!inlineText">
+                      {{ 'SharedText.Change' | translationPipe }}
+                      {{ 'SharedText.Stage' | translationPipe }}
+                      <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+                    </span>
+                    <span *ngIf="inlineText">
+                      <fa-icon
+                        [icon]="['fas', 'angle-down']"
+                        class="pl-1"
+                      ></fa-icon>
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu class="shadow-lg pb-1 pt-0">
+                    <div
+                      class="pt-2 pb-2 px-2 bg-light border-bottom rounded-top"
+                    >
+                      <p class="small text-muted text-center bold mb-0">
+                        {{ 'SharedText.SelectStage' | translationPipe }}
+                      </p>
+                    </div>
+                    <div
+                      class="dropdownScrollMaxHeight"
+                      style="min-width: 21rem;"
+                    >
+                      <button
+                        *ngFor="let stage of stages"
+                        class="btn-sm pl-2 pr-3"
+                        style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
+                        ngbDropdownItem
+                        (click)="
+                          idea?.permissions?.changeOpportunityStage
+                            ? selectAction($event, manageActions.stage, stage)
+                            : null
+                        "
+                      >
+                        <!-- ? emitAction(stage) -->
+                        <fa-icon
+                          [icon]="[
+                            'fas',
+                            actionItems[stage.actionItem.abbreviation].icon
+                          ]"
+                          class="text-medium"
+                          [ngStyle]="{ color: stage.status.colorCode }"
+                        ></fa-icon>
+                        <span style="padding-left: 0.15rem;">
+                          {{ stage.title.substring(0, 22) }}
+                          <span *ngIf="stage.title.length > 22">...</span>
+                        </span>
+                        <span
+                          class="float-right text-success border border-success px-1 rounded small"
+                          style="position: relative; top: 1px;"
+                          *ngIf="idea?.stage?.id === stage.id"
+                        >
+                          {{ 'IdeaPage.Current' | translationPipe }}
+                          <fa-icon
+                            [icon]="['fas', 'check-circle']"
+                            class="text-success small"
+                          ></fa-icon>
+                        </span>
+                      </button>
+                    </div>
+                    <hr class="mb-0 mt-1" />
+                    <div class="pb-2">
+                      <button
+                        class="btn-sm py-2 mb-0"
+                        style="padding-left: 0.75rem;"
+                        ngbDropdownItem
+                        (click)="
+                          idea?.permissions?.changeOpportunityWorkflow
+                            ? selectAction($event, manageActions.workflow)
+                            : null
+                        "
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted text-medium mr-1"
+                        ></fa-icon>
+                        {{ 'IdeaPage.ChangeWorkflow' | translationPipe }}
+                      </button>
+                      <p
+                        class="small text-muted mb-0"
+                        style="padding-left: 0.75rem; padding-right: 0.75rem;"
+                      >
+                        {{ 'IdeaPage.CurrentlyIn' | translationPipe }}
+                        <b>{{ idea?.workflow?.title }}</b>
+                        {{ 'IdeaPage.Workflow' | translationPipe }}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="list-inline-item pl-1"
+                  *ngIf="idea?.permissions?.softDeleteOpportunity"
+                  (click)="
+                    idea?.permissions?.softDeleteOpportunity
+                      ? selectAction($event, manageActions.archive)
+                      : null
+                  "
+                >
+                  <button class="btn btn-sm text-muted btn-light">
+                    <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                  </button>
+                </li>
+                <li
+                  *ngIf="idea?.permissions?.editOpportunitySettings"
+                  class="list-inline-item"
+                >
+                  <button
+                    class="btn btn-sm text-muted btn-light px-2"
+                    (click)="selectAction($event, manageActions.settings)"
+                  >
+                    <fa-icon [icon]="['fas', 'cog']"> </fa-icon>
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button class="btn btn-sm text-muted btn-light px-2">
+                    <fa-icon [icon]="['fas', 'ellipsis-h']"> </fa-icon>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <!-- <p class="mb-1 ideaTitle align-top nunito-bold" [routerLink]="['idea/view', idea?.id]"> -->
+        <h4 class="mb-2 mt-2 ideaTitle align-top montserrat bold link">
+          <!-- <p
+          class="mb-1 ideaTitle align-top nunito-bold"
+          [routerLink]="['idea/view', idea?.id]"
+        > -->
+          <span class="mb-1 pointer">
+            {{ idea?.title | dynamicTranslation }}
+          </span>
+        </h4>
+        <p
+          class="text-medium ideaDescription text-muted mb-1"
+          id="{{ idea?.id }}"
+        >
+          {{ idea?.description.substring(0, 300) | dynamicTranslation }}
+          <a *ngIf="idea.description.length > 205"
+            >{{ 'ChallengeList.Labels.readMore' | translationPipe }}...</a
+          >
+        </p>
+        <ng-container *ngIf="tagsData">
+          <span
+            *ngFor="let tag of idea?.tags | slice: 0:4"
+            class="tagLink small mr-2"
+          >
+            #{{ tagsData[tag] }}
+          </span>
+          <!-- <span *ngIf="idea?.tags.length > 4" class="tagLink small mr-2">+4</span> -->
+        </ng-container>
+      </div>
+    </div>
+    <!-- <div class="row top-border">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mr-0 text-medium pt-1 pl-2">
+            <span class="nunito-bold">
+              <fa-icon [icon]="['fas', 'eye']" class="text-muted"></fa-icon>
+              ({{ idea?.viewCount }})
+            </span>
+          </li>
+          <li class="list-inline-item">
+
+          </li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+  <div class="card-footer pt-0 pb-2 px-0 px-md-3">
+    <div class="row pt-2">
+      <div class="col-12 pl-0 d-flex align-self-center w-100">
+        <ul class="list-inline mb-0 w-100">
+          <li class="list-inline-item ml-3">
+            <div *ngIf="permissions?.allowVoting">
+              <app-upvote
+                [entity]="idea"
+                [upvotes]="upvotes"
+                [upvoteData]="upvoteData"
+                [smallIcon]="true"
+                (upvoteActionEmitter)="removeUpvoter($event)"
+              ></app-upvote>
+            </div>
+            <div *ngIf="!permissions?.allowVoting">
+              <span
+                ngbTooltip="Voting is currently disabled on this submission"
+              >
+                <button
+                  class="btn btn-sm btn-default border disabled montserrat"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'thumbs-up']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ 'ChallengePost.Labels.Disabled' | translationPipe }}
+                </button>
+              </span>
+            </div>
+          </li>
+          <li class="list-inline-item text-medium pt-1 pl-2">
+            <span class="montserrat bold text-muted">
+              <fa-icon [icon]="['fas', 'comment']" class="text-muted"></fa-icon>
+              {{ idea?.comment }}
+            </span>
+          </li>
+          <li class="list-inline-item text-medium pt-1 pl-2">
+            <span class="montserrat bold text-muted">
+              <fa-icon [icon]="['fas', 'eye']" class="text-muted"></fa-icon>
+              {{ idea?.viewCount }}
+            </span>
+          </li>
+          <!-- <li class="list-inline-item text-medium pt-1 pl-2">
+            <span class="nunito-bold text-muted">
+              <fa-icon [icon]="['fas', 'share']"></fa-icon>
+              Share
+            </span>
+          </li> -->
+          <!-- <li
+            class="list-inline-item mr-0 text-medium"
+            *ngIf="permissions && permissions.allowSharing"
+          >
+            <span class="nunito-bold inverseLink" ngbTooltip="Share This Idea">
+              <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+              Share (5)
+            </span>
+            <app-share [entity]="idea"></app-share>
+          </li> -->
+          <li class="list-inline-item mr-0 float-right adjustFloat">
+            <span class="nunito-bold inverseLink">
+              <app-bookmark
+                [data]="idea"
+                [entityType]="ideaEntity"
+                [inlineIcon]="false"
+                (bookmarked)="updateList($event)"
+              ></app-bookmark>
+              <!-- Save -->
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of idea posting card -->

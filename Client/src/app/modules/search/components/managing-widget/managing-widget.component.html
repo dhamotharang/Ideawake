@@ -1,0 +1,165 @@
+<div
+  (click)="stopProp($event)"
+  class="manageWidget dropend"
+  style="z-index: 500;"
+  (mouseleave)="showDropdownOptions = false"
+>
+  <button
+    *ngIf="
+      idea?.permissions?.editOpportunity ||
+      idea?.permissions?.changeOpportunityStage ||
+      idea?.permissions?.changeOpportunityWorkflow ||
+      idea?.permissions?.editOpportunitySettings ||
+      idea?.permissions?.softDeleteOpportunity
+    "
+    class="btn btn-white btn-xs py-2 animated fadeIn manageButton removeCaret"
+    (click)="showDropdownOptions = true"
+  >
+    <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+    <!-- Manage -->
+  </button>
+  <div *ngIf="showDropdownOptions">
+    <div
+      ngbDropdown
+      placement="bottom-right"
+      class="managingWidgetDropdown shadow-sm rounded"
+      [ngClass]="{ 'managing-widget-pipeline': isPipelineView }"
+    >
+      <button
+        *ngIf="idea?.permissions?.editOpportunity"
+        class="btn btn-sm text-muted btn-white w-100 text-left"
+        (click)="emitAction($event, manageActions.edit)"
+      >
+        <fa-icon [icon]="['fas', 'edit']"></fa-icon> Edit
+      </button>
+      <button
+        *ngIf="!idea?.stage && idea?.permissions?.changeOpportunityWorkflow"
+        class="btn btn-sm text-muted btn-white px-2 w-100 text-left"
+        (click)="emitAction($event, manageActions.workflow)"
+      >
+        <fa-icon [icon]="['fas', 'plus-circle']"> </fa-icon> Add Workflow
+      </button>
+      <button
+        *ngIf="idea?.stage && idea?.permissions?.changeOpportunityStage"
+        (click)="loadStages($event)"
+        ngbDropdownToggle
+        class="btn bold btn-white btn-sm montserrat removeCaret inverseLink w-100 text-left"
+        [ngbTooltip]="
+          idea?.stage.title ? 'Current Stage - ' + idea?.stage.title : ''
+        "
+        container="body"
+      >
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        <span *ngIf="!inlineText">
+          {{ 'SharedText.Change' | translationPipe }}
+          {{ 'SharedText.Stage' | translationPipe }}
+          <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+        </span>
+        <span *ngIf="inlineText">
+          <fa-icon [icon]="['fas', 'angle-down']" class="pl-1"></fa-icon>
+        </span>
+      </button>
+      <div ngbDropdownMenu class="shadow-lg pb-1 pt-0">
+        <div class="pt-2 pb-2 px-2 bg-light border-bottom rounded-top">
+          <p class="small text-muted text-center bold mb-0">
+            {{ 'SharedText.SelectStage' | translationPipe }}
+          </p>
+        </div>
+        <div
+          class="dropdownScrollMaxHeight"
+          [ngStyle]="{ 'min-width': isPipelineView ? '13rem' : '21rem' }"
+        >
+          <button
+            *ngFor="let stage of stages"
+            class="btn-sm pl-2 pr-3"
+            style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
+            ngbDropdownItem
+            (click)="
+              idea?.permissions?.changeOpportunityStage
+                ? emitAction($event, manageActions.stage, stage)
+                : null
+            "
+          >
+            <!-- ? emitAction(stage) -->
+            <fa-icon
+              [icon]="['fas', actionItems[stage.actionItem.abbreviation].icon]"
+              class="text-medium"
+              [ngStyle]="{ color: stage.status.colorCode }"
+            ></fa-icon>
+            <span style="padding-left: 0.15rem;">
+              {{ stage.title.substring(0, 22) }}
+              <span *ngIf="stage.title.length > 22">...</span>
+            </span>
+            <span
+              class="float-right text-success border border-success px-1 rounded small"
+              style="position: relative; top: 1px;"
+              *ngIf="idea?.stage?.id === stage.id"
+            >
+              {{ 'IdeaPage.Current' | translationPipe }}
+              <fa-icon
+                [icon]="['fas', 'check-circle']"
+                class="text-success small"
+              ></fa-icon>
+            </span>
+          </button>
+        </div>
+        <hr class="mb-0 mt-1" />
+        <div class="pb-2">
+          <button
+            class="btn-sm py-2 mb-0"
+            style="padding-left: 0.75rem;"
+            ngbDropdownItem
+            (click)="
+              idea?.permissions?.changeOpportunityWorkflow
+                ? emitAction($event, manageActions.workflow)
+                : null
+            "
+          >
+            <fa-icon
+              [icon]="['fas', 'conveyor-belt-alt']"
+              class="text-muted text-medium mr-1"
+            ></fa-icon>
+            {{ 'IdeaPage.ChangeWorkflow' | translationPipe }}
+          </button>
+          <p
+            class="small text-muted mb-0"
+            style="padding-left: 0.75rem; padding-right: 0.75rem;"
+          >
+            {{ 'IdeaPage.CurrentlyIn' | translationPipe }}
+            <b>{{ idea?.workflow?.title }}</b>
+            {{ 'IdeaPage.Workflow' | translationPipe }}
+          </p>
+        </div>
+      </div>
+      <button
+        *ngIf="idea?.permissions?.editOpportunitySettings"
+        class="btn btn-sm text-muted btn-white px-2 w-100 text-left"
+        (click)="emitAction($event, manageActions.settings)"
+      >
+        <span style="text-align: left;">
+          <fa-icon [icon]="['fas', 'cog']"> </fa-icon> Settings
+        </span>
+      </button>
+      <hr class="mt-1 mb-1" *ngIf="idea?.permissions?.softDeleteOpportunity" />
+      <button
+        class="btn btn-sm text-muted btn-white px-2 w-100 text-left"
+        *ngIf="idea?.permissions?.softDeleteOpportunity"
+        ngbDropdownItem
+        (click)="
+          idea?.permissions?.softDeleteOpportunity
+            ? emitAction($event, manageActions.archive)
+            : null
+        "
+      >
+        <span class="wrap-btn-text">
+          <fa-icon
+            [icon]="['fas', 'trash']"
+            class="text-muted text-medium mr-1"
+          ></fa-icon>
+          {{ 'SharedText.Archive' | translationPipe }}
+          {{ idea?.opportunityType?.name }}
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

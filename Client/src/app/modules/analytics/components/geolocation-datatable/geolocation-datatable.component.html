@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-12">
+    <div class="text-center d-flex noDataStyle" *ngIf="analytics?.length === 0">
+      <ul class="list-unstyled mb-0 text-center w-100 d-block align-self-center" style="position: relative; bottom: .95rem;">
+        <li class="mb-2">
+          <fa-icon [icon]="['fas', 'globe-americas']" class="text-muted iconExtraLarge"></fa-icon>
+        </li>
+        <li>
+          <p class="text-medium text-muted mb-0">No Location Data Available Yet</p>
+        </li>
+      </ul>
+    </div>
+    <table class="table small" *ngIf="analytics?.length !== 0">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Location</th>
+          <th scope="col">Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let analytic of analytics">
+          <th scope="row">{{ analytic.rank }}</th>
+          <td>{{ analytic.timezone.split('/')[1].replace('_', ' ') }}</td>
+          <td>{{ analytic.points }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

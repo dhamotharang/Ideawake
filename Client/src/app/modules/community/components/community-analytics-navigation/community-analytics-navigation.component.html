@@ -1,0 +1,119 @@
+<!-- non mobile -->
+<div class="card mb-3 mt-4 d-none d-sm-inline-block w-100">
+  <div class="card-header px-3">
+    <p class="small uppercase text-muted bold mb-0">
+      Analytics
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li
+      class="list-group-item px-3 bottom-border pointer"
+      routerLink="/community/analytics"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ boolean: true }"
+    >
+      <p class="mb-0 text-medium">
+        <fa-icon [icon]="['fas', 'chart-bar']" class="mr-1"></fa-icon>
+        Innovation Summary
+      </p>
+    </li>
+    <li
+      class="list-group-item px-3 bottom-border bg-light"
+      placement="right"
+      ngbTooltip="Coming soon!"
+    >
+      <p class="mb-0 text-medium text-muted">
+        <fa-icon [icon]="['fas', 'heart']" class="mr-1 text-muted"></fa-icon>
+        Engagement
+      </p>
+    </li>
+    <li
+      class="list-group-item px-3 bottom-border bg-light"
+      placement="right"
+      ngbTooltip="Coming soon!"
+    >
+      <p class="mb-0 text-medium text-muted">
+        <fa-icon [icon]="['fas', 'lightbulb-on']" class="mr-1"></fa-icon>
+        Opportunities
+      </p>
+    </li>
+    <!-- routerLink="/community/group-analytics" routerLinkActive="active" [routerLinkActiveOptions]="{ boolean: true }" -->
+    <li
+      class="list-group-item px-3 bottom-border bg-light"
+      placement="right"
+      ngbTooltip="Coming soon!"
+    >
+      <p class="mb-0 text-medium text-muted">
+        <fa-icon [icon]="['fas', 'users']" class="text-muted mr-1"></fa-icon>
+        Groups
+      </p>
+    </li>
+    <li
+      class="list-group-item px-3 bottom-border pointer"
+      routerLink="/community/location-analytics"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ boolean: true }"
+    >
+      <p class="mb-0 text-medium">
+        <fa-icon [icon]="['fas', 'globe']" class="mr-1"></fa-icon>
+        Locations
+      </p>
+    </li>
+    <!-- ngbTooltip="Coming soon!" -->
+    <li
+      class="list-group-item px-3 bg-light"
+      placement="right"
+      routerLink="/community/impact-analytics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <p class="mb-0 text-medium text-muted">
+        <fa-icon
+          [icon]="['fas', 'sack-dollar']"
+          class="text-muted mr-1"
+        ></fa-icon>
+        Impact
+      </p>
+    </li>
+  </ul>
+</div>
+<!-- end non mobile -->
+<!-- mobile -->
+<div class="mt-4 btn-group btn-group-sm d-inline-flex d-sm-none" role="group">
+  <button
+    type="button"
+    class="btn btn-light"
+    routerLink="/community/analytics"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ boolean: true }"
+  >
+    <fa-icon [icon]="['fas', 'chart-bar']" class="text-muted"></fa-icon>
+    Home
+  </button>
+  <button type="button" class="btn btn-light disabled">
+    <fa-icon [icon]="['fas', 'heart']" class="text-muted"></fa-icon>
+    Engage
+  </button>
+  <button type="button" class="btn btn-light disabled">
+    <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted"></fa-icon>
+    Opps
+  </button>
+  <button type="button" class="btn btn-light disabled">
+    <fa-icon [icon]="['fas', 'users']" class="text-muted"></fa-icon>
+    Groups
+  </button>
+  <button
+    type="button"
+    class="btn btn-light"
+    routerLink="/community/location-analytics"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ boolean: true }"
+  >
+    <fa-icon [icon]="['fas', 'globe']" class="text-muted"></fa-icon>
+    Locations
+  </button>
+  <button type="button" class="btn btn-light disabled">
+    <fa-icon [icon]="['fas', 'sack-dollar']" class="text-muted"></fa-icon>
+    Impact
+  </button>
+</div>
+
+<!-- end mobile -->

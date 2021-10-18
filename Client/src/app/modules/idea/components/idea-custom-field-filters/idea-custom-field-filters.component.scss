@@ -1,0 +1,60 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.singleFilter {
+  width: 105%;
+  // padding: 0.25rem .25rem 0.25rem 0.25rem;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: inherit;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  position: relative;
+  right: 0.4rem;
+}
+
+.singleFilter:hover {
+  width: 105%;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: $gray-100;
+  border-top: 1px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.singleFilter.active {
+  width: 105%;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: $gray-100;
+  border-top: 1px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.btn-text {
+  line-height: normal !important;
+}
+
+.custom-control-label::before{
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before{
+  border-radius: .1rem;
+}
+
+.custom-checkbox .custom-control-label:hover{
+  cursor: pointer;
+}
+

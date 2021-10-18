@@ -1,0 +1,82 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-white pb-0 px-3 border-bottom-0">
+    <div class="row">
+      <div class="col-12">
+        <p class="uppercase text-muted mb-0 text-medium montserrat bold">
+          {{ 'Leaderboard.Leaderboard' | translationPipe }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-2 px-3">
+    <div class="row my-3" *ngIf="!rankList?.length">
+      <div class="col-12">
+        <div class="text-center">
+          <fa-icon
+            [icon]="['fas', 'trophy']"
+            class="text-center text-muted mb-3"
+            style="font-size: 2.25rem;"
+          ></fa-icon>
+          <h6 class="text-center montserrat bold mt-2">
+            {{ 'Leaderboard.LeaderboardSummaryHeader' | translationPipe }}
+          </h6>
+          <p class="text-muted text-medium">
+            {{ 'Leaderboard.LeaderboardSummaryDescription' | translationPipe }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row d-flex flex-row align-items-center dottedBottomBorder py-2"
+      *ngFor="let item of rankList | slice: 0:10; let i = index"
+    >
+      <div class="col-9 flex-column">
+        <div class="media align-items-center">
+          <img
+            class="rounded-circle userImage mr-2 align-self-center"
+            [defaultImage]="defaultImage"
+            [lazyLoad]="item.profileImage.url"
+            style="height: 40px; width: 40px;"
+          />
+          <div class="media-body">
+            <p class="mb-0 text-medium align-self-center">
+              <a
+                class="inverseLinkDark"
+                [routerLink]="['/profile/view', item.id]"
+              >
+                {{ item.firstName + ' ' + item.lastName }}
+              </a>
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p
+                  class="mb-0 align-self-center montserrat text-primary text-medium"
+                >
+                  {{ item.experiencePoint }}
+                  <span class="text-muted small">XP</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <span class="badge leaderboardBadge">
+          {{ abbreviations(item.rank) }}
+        </span>
+      </div>
+    </div>
+    <!-- end of one -->
+  </div>
+  <div
+    class="card-footer bg-white pt-1 pb-2 px-2 border-top-0"
+    *ngIf="rankList?.length"
+  >
+    <button
+      class="btn btn-outline-primary btn-sm btn-block border bold montserrat"
+      routerLink="/community/leaderboard"
+    >
+      {{ 'Leaderboard.ViewMore' | translationPipe }}
+    </button>
+  </div>
+</div>

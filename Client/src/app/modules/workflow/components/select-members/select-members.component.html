@@ -1,0 +1,155 @@
+<div class="custom-control custom-checkbox pt-1 pb-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="byGroupOrIndividual"
+    (click)="toggleGroups()"
+    [checked]="assignGroups"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="byGroupOrIndividual"
+  >
+    Groups or Individuals
+    <ng-container *ngIf="!isBulkUpdate">({{ uniqueUsersCount }})</ng-container>
+  </label>
+</div>
+<!-- if groups or individuals -->
+<ng-container *ngIf="assignGroups">
+  <app-search-groups
+    [isUser]="true"
+    [selection]="selectedGroupsAndUsers"
+    (dataEmitter)="setGroupsAndIndividuals($event)"
+  ></app-search-groups>
+</ng-container>
+<!-- end if groups or individuals -->
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityAdmins"
+    [(ngModel)]="settings.communityAdmins"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="communityAdmins">
+    Community Administrators
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.communityAdmins || 0 }})</ng-container
+    >
+  </label>
+</div>
+<div class="custom-control custom-checkbox pointer pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityModerators"
+    [(ngModel)]="settings.communityModerators"
+    (change)="emitSettings()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="communityModerators"
+  >
+    Community Moderators
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.communityModerators || 0 }})</ng-container
+    >
+  </label>
+</div>
+<div class="custom-control custom-checkbox pointer pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="communityUsers"
+    [(ngModel)]="settings.communityUsers"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="communityUsers">
+    All Community Users
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.communityUsers || 0 }})</ng-container
+    >
+  </label>
+</div>
+<!-- <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeSponsors">
+                <label class="custom-control-label font-weight-normal" for="challengeSponsors">Challenge Sponsors</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeModerators">
+                <label class="custom-control-label font-weight-normal" for="challengeModerators">Challenge
+                  Moderators</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="challengeParticipants">
+                <label class="custom-control-label font-weight-normal" for="challengeParticipants">Challenge
+                  Participants</label>
+              </div> -->
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaOwners"
+    [(ngModel)]="settings.opportunityOwners"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaOwners">
+    Opportunity Owners
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.opportunityOwners || 0 }})</ng-container
+    >
+  </label>
+</div>
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaTeam"
+    [(ngModel)]="settings.opportunityTeams"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaTeam">
+    Opportunity Team
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.opportunityTeamMembers || 0 }})</ng-container
+    >
+  </label>
+</div>
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="ideaSubmitter"
+    [(ngModel)]="settings.opportunitySubmitters"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="ideaSubmitter">
+    Opportunity Submitter
+    <ng-container *ngIf="!isBulkUpdate"
+      >({{ potentialCounts?.opportunitySubmitters || 0 }})</ng-container
+    >
+  </label>
+</div>
+<div class="custom-control custom-checkbox py-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="assigneeByCustomField"
+    [checked]="assignByCustomFields"
+    (click)="toggleCustomFields()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="assigneeByCustomField"
+  >
+    Assign By Custom Field
+  </label>
+</div>
+<!-- if by custom field -->
+<div class="card bg-light shadow-sm" *ngIf="assignByCustomFields">
+  <app-stage-assign-by-custom-filed
+    [customFieldAssignee]="settings.customFieldAssignee"
+    (output)="customFieldAssignee($event)"
+  ></app-stage-assign-by-custom-filed>
+</div>
+<!-- end if by custom field -->

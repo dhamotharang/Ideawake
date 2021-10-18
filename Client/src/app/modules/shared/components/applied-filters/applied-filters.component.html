@@ -1,0 +1,162 @@
+<div
+  *ngIf="count > 0"
+  class="appliedFiltersBackground px-3 pb-1 animated flipInX"
+  [ngClass]="onTables ? '' : 'nonTableStyle'"
+  style="padding-top: 0.75rem;"
+>
+  <div class="row">
+    <div class="col-10">
+      <div class="media d-flex align-items-center h-100">
+        <label
+          *ngIf="!hideLabelButtons"
+          class="text-muted mb-0 small bold mr-2"
+          style="position: relative; bottom: 0.25rem;"
+        >
+          {{ 'Shared.AppliedFilters' | translationPipe }} ({{
+            count || 0
+          }})</label
+        >
+        <div class="media-body d-flex align-items-center">
+          <ul class="list-inline mb-0" style="font-size: 70%;">
+            <li
+              *ngFor="let key of objectKeys(this.filters)"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                *ngIf="opportunityFilters[key]"
+                class="tag border pt-1 pb-1 pl-2 pr-2 mr-1 rounded small bg-white"
+              >
+                {{ opportunityFilters[key] }} {{ filterDataDisplay(key) }}
+                <fa-icon
+                  (click)="removeOther(key)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <li
+              *ngFor="let tag of filters.tags"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                {{ 'Shared.Tag' | translationPipe }} - #{{ tag.name }}
+                <fa-icon
+                  (click)="removeTag(tag)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <li
+              *ngFor="let opportunityTypes of filters.opportunityTypes"
+              class="list-inline-item mb-2 mr-0"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Type - {{ opportunityTypes.name }}
+                <fa-icon
+                  (click)="removeOpportunityTypes(opportunityTypes)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <li
+              *ngFor="let status of filters.statuses"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Status - {{ status.name }}
+                <fa-icon
+                  (click)="removeStatus(status)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <li
+              *ngIf="filters?.workflow?.id"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Workflow - {{ filters?.workflow?.title }}
+                <fa-icon
+                  (click)="removeWorkflow()"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <li *ngIf="filters?.stage?.id" class="list-inline-item mr-0 mb-2">
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Stage - {{ filters?.stage?.title }}
+                <fa-icon
+                  (click)="removeStage()"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <!-- Challenges -->
+            <li
+              *ngFor="let challenge of filters.challenges"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Challenge - {{ challenge.title }}
+                <fa-icon
+                  (click)="removeChallenge(challenge)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+            <!-- Custom Fields -->
+            <li
+              *ngFor="let cf of filters.customFields"
+              class="list-inline-item mr-0 mb-2"
+            >
+              <span
+                class="tag border pt-1 pb-1 pl-2 pr-2 rounded small bg-white mr-1"
+              >
+                Field - {{ cf.title }}
+                <fa-icon
+                  (click)="removeCustomField(cf)"
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLink"
+                  placement="top"
+                  ngbTooltip="Remove Filter"
+                ></fa-icon>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

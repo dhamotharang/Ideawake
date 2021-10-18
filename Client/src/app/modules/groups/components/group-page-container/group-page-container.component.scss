@@ -1,0 +1,51 @@
+.nav {
+  justify-content: flex-end;
+}
+
+.nav-pills .nav-link {
+  color: #91999f;
+  font-size: 14px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 27px !important;
+  border: solid 1px #dee2e6;
+  background-color: #e9ecef;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.nav-pills .nav-link.active {
+  color: #2f4050;
+  border-color: #b9e8df;
+  background-color: #b9e8df;
+}
+
+.list-inline-item p {
+  color: #444;
+  font-family: 'Montserrat';
+}
+
+.badge {
+  background-color: #fefefe !important;
+}
+.media {
+  display: flex;
+  align-items: center;
+  margin: -11px 0 -3px;
+  text-align: left;
+}
+
+.media a {
+  color: #1ab394;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.image {
+  width: 40px;
+  height: 40px;
+}
+.badge {
+  float: left;
+  padding: 0.15rem 0.25rem;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}

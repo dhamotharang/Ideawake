@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-12">
+    <div class="form-group mb-0">
+      <div
+        class="featuredImageContainer rounded"
+        (click)="fileInput.click()"
+        appDragDrop
+        (fileDropped)="uploadFile($event)"
+        *ngIf="canUpload && !upload.uploading"
+      >
+        <input
+          hidden
+          type="file"
+          multiple
+          #fileInput
+          (change)="uploadFile($event.target.files)"
+          accept="{{ accept }}"
+        />
+
+        <ul class="list-unstyled mb-0 py-2">
+          <li>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <fa-icon
+                  [icon]="['fas', 'file-image']"
+                  class="iconLarge text-muted"
+                ></fa-icon>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p class="mt-1 mb-0">
+              Click Here to Upload...
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card singleContentContainerUploader" *ngIf="upload.uploading">
+        <div class="card-body px-2 py-1">
+          <ul class="list-unstyled mb-0 text-center">
+            <li>
+              <p class="mb-1 mt-4 font-italic text-muted bold small">
+                Uploading
+              </p>
+              <div class="progress" style="height: 10px;">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  role="progressbar"
+                  [ngStyle]="{ width: upload.progress + '%' }"
+                  aria-valuenow="100"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <p class="mb-0 mt-1 text-muted small">{{ upload.progress }}%</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card singleContentContainerUploader" *ngIf="!canUpload">
+        <div class="card-body px-2 py-1">
+          <ul class="list-unstyled pt-2 text-center">
+            <li>
+              <fa-icon
+                [icon]="['fas', 'eye-slash']"
+                class="iconLarge text-muted"
+              ></fa-icon>
+            </li>
+            <li>
+              <p class="text-muted small mt-1 mb-0">
+                This field doesn't have an entry. Click "Edit Settings" above to
+                add an entry.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

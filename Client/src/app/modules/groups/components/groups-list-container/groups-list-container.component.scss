@@ -1,0 +1,89 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.nav {
+  justify-content: flex-end;
+}
+
+.nav-pills .nav-link {
+  color: #91999f;
+  font-size: 14px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 27px !important;
+  border: solid 1px #dee2e6;
+  background-color: #e9ecef;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  font-size: 0.75rem;
+  box-shadow: none !important;
+}
+
+.nav-pills .nav-link:hover {
+  color: $primary;
+  border-color: #dddddd;
+  background-color: $light;
+  cursor: pointer;
+  font-size: 0.75rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.nav-pills .nav-link.active {
+  color: $primary;
+  border-color: #dddddd;
+  background-color: $light;
+  font-size: 0.75rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  // border-color: #b9e8df;
+  // background-color: #b9e8df;
+}
+
+.list-inline-item p {
+  color: #444;
+  font-family: 'Montserrat';
+}
+
+.upload-img {
+  display: flex;
+}
+
+.upload-img .upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0 0 0 10px;
+}
+
+.upload-img .btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #1ab394;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.upload-img .upload-btn-wrapper input[type='file'] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.upload-img .form-control {
+  border-radius: 0.15rem;
+  flex: 1;
+}
+
+.upload-img .editLink {
+  color: #1ab394;
+}
+
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover
+  .datatable-row-group {
+  background-color: #fff !important;
+}

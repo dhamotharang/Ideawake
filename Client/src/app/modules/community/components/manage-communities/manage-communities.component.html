@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row pt-4">
+              <div class="col-12">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a
+                      class="mb-0 uppercase bold pt-1"
+                      routerLink="/settings/all"
+                      >Settings</a
+                    >
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon
+                      [icon]="['fas', 'angle-right']"
+                      class="mr-1 ml-1 text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="mb-0 uppercase bold pt-1">
+                      Manage Communities
+                    </p>
+                  </li>
+                  <li class="float-right list-inline-item">
+                    <button
+                      class="btn btn-primary btn-sm"
+                      (click)="openAddNewCommunityModal()"
+                    >
+                      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                      Create New Community
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <hr />
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="row">
+                  <!-- start of one -->
+                  <div class="col-4 mb-3" *ngFor="let community of communities">
+                    <div
+                      class="card cardAnimation pointer shadow-sm"
+                      style="min-height: 7rem;"
+                    >
+                      <div class="card-body">
+                        <h4 class="montserrat">
+                          {{ community.name }}
+                          <fa-icon
+                            [icon]="['fas', 'info-circle']"
+                            class="text-muted small"
+                            ngbTooltip="{{ community.description }}"
+                          ></fa-icon>
+                        </h4>
+                        <!-- <img
+                          class="w-75 mb-3"
+                          src="https://ideawake.com/wp-content/uploads/2017/11/Idewake-Innovation-Management-Logo.png"
+                        /> -->
+                      </div>
+                      <div class="card-footer bg-white border-top-0">
+                        <ul class="list-inline mb-0 mt-2 text-medium">
+                          <li class="list-inline-item small">
+                            <fa-icon
+                              [icon]="['fas', 'bullseye']"
+                              class="text-muted"
+                            ></fa-icon>
+                            5
+                          </li>
+                          <li class="list-inline-item small">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb-on']"
+                              class="text-muted"
+                            ></fa-icon>
+                            125
+                          </li>
+                          <li class="list-inline-item small">
+                            <fa-icon
+                              [icon]="['fas', 'comment']"
+                              class="text-muted"
+                            ></fa-icon>
+                            250
+                          </li>
+                          <li class="list-inline-item small">
+                            <fa-icon
+                              [icon]="['fas', 'thumbs-up']"
+                              class="text-muted"
+                            ></fa-icon>
+                            10
+                          </li>
+                          <li class="list-inline-item small">
+                            <fa-icon
+                              [icon]="['fas', 'user']"
+                              class="text-muted"
+                            ></fa-icon>
+                            1,250
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of one -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

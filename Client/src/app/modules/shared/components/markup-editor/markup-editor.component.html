@@ -1,0 +1,29 @@
+<!-- <div class="card rounded-0">
+  <div class="card-body p-0">
+    <ul class="list-inline mb-0">
+      <li
+        class="list-inline-item border-right text-center pt-2 pb-2 pl-2 pr-2 mr-0 addHover"
+        id="textTypeDropdown"
+        ngbDropdown
+        ngbDropdownToggle
+      >
+        <small style="position: relative; bottom: 0.1rem;">Personalize</small>
+        <span ngbDropdownMenu aria-labelledby="textTypeDropdown" class="shadow">
+          <button
+            *ngFor="let bookMark of bookMarks"
+            (click)="selectBookMark(bookMark.key)"
+            ngbDropdownItem
+          >
+            {{ bookMark.value }}
+          </button>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div> -->
+<editor
+  apiKey="73sltfaluqj4o5n330wol1t1k1j1u8bre6or3dbr3mjz4gmn"
+  [(ngModel)]="text"
+  (ngModelChange)="textUpdate()"
+  [init]="tinyMceConfig"
+></editor>

@@ -1,0 +1,62 @@
+<div class="card-body px-0 px-md-3 py-0">
+  <div class="row">
+    <div class="col-12">
+      <div class="row mb-2">
+        <div class="col-5">
+          <p class="mb-0">Stage Score</p>
+        </div>
+        <div class="col-7">
+          <p class="mb-0 bold montserrat float-right mr-2">
+            {{ util.precisionTo(entityScore?.finalScore) || 0 }}
+            <small class="text-muted bold">
+              /
+              {{ util.precisionTo(entityScore?.totalNormalizedScore) || 0 }}
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <p class="mb-0">Total Score</p>
+        </div>
+        <div class="col-7">
+          <p class="mb-0 bold montserrat float-right mr-2">
+            {{ util.precisionTo(opportunityScore?.finalScore) || 0 }}
+            <small class="text-muted bold">
+              /
+              {{ util.precisionTo(opportunityScore?.totalScore) || 0 }}
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-4">
+                    <h4 class="mb-1 bold montserrat">
+                      {{ totalResponses || 0 }}
+                      <small class="text-muted bold">
+                        / {{ stageAssignees?.length || 0 }}
+                      </small>
+                    </h4>
+                    <p class="small text-muted uppercase mb-0">Completed</p>
+                  </div> -->
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-12">
+      <ng-container
+        *ngFor="let criteria of criteriaScores"
+        [ngSwitch]="criteria.criteria.evaluationType.abbreviation"
+      >
+        <app-question-stats
+          *ngSwitchCase="evaluationTypes.QUESTION"
+          [criteria]="criteria"
+        ></app-question-stats>
+        <app-range-stats
+          *ngSwitchCase="evaluationTypes.NUMERICAL_RANGE"
+          [criteria]="criteria"
+        ></app-range-stats>
+        <hr class="my-3" />
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+.removeMargins {
+  margin-right: -0.6rem;
+}
+
+.userImageStageAssignee {
+  border: 2px solid white;
+  width: 2rem;
+  height: 2rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.circleIcon {
+  font-size: 5px;
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.bottomProgress{
+  border-top-right-radius: .15rem;
+  border-top-left-radius: .15rem;
+  border-bottom-right-radius: .15rem;
+  border-bottom-left-radius: .15rem;
+  // margin-left: -1rem;
+  // margin-right: -1rem;
+}
+
+.alert-completed{
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-top: -.5rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: .15rem;
+  border-top-right-radius: .15rem;
+  border: none;
+  padding-left: .85rem;
+  padding-right: .85rem;
+}

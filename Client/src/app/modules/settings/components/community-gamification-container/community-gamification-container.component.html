@@ -1,0 +1,278 @@
+<div class="row">
+  <div class="col-12 col-md-2">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12">
+    <div class="container">
+      <!-- start of gamification settings -->
+      <div class="row pageTopPadding">
+        <div class="col-12 col-md-10 offset-md-1">
+          <div class="card">
+            <div class="card-header">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <a class="mb-0 uppercase bold pt-1" routerLink="/settings/all"
+                    >Settings</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <p class="mb-0 bold pt-1 uppercase text-muted">
+                    Gamification Settings
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body pt-0">
+              <div class="row">
+                <div class="col-12">
+                  <form>
+                    <!-- <h5 class="bold">Leaderboard Settings</h5>
+                        <p class="small border-bottom pb-1 mb-1">Customize your logo and the default images displayed on
+                          your platform.</p> -->
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Enable Leaderboard</label>
+                        <p class="small text-muted">
+                          If enabled, you will have access to configure
+                          gamification settings including leaderboard, prizes,
+                          and points per action.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="leaderboardEnabled"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="leaderboardEnabled"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Default Filter on Leaderboard Page</label>
+                        <p class="small text-muted">
+                          Select whether you would like to focus on your
+                          leaderboard page on all time, quarterly, or monthly.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <select class="form-control">
+                          <option>All Time</option>
+                          <option>Quarterly</option>
+                          <option>Monthly</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Number of Users to Display on Leaderboard</label>
+                        <p class="small text-muted">
+                          Select whether you would like to focus on your
+                          leaderboard page on all time, quarterly, or monthly.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Feature Top Users on Leaderboard</label>
+                        <p class="small text-muted">
+                          If enabled, the top 3 users for the week will be
+                          displayed on your leaderboard page.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="featureTopUsers"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="featureTopUsers"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Prizes</label>
+                        <p class="small text-muted">
+                          If enabled, users will be able to earn and be awarded
+                          prizes for participation in your community.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="prizesEnabled"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="prizesEnabled"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label class="font-weight-normal"
+                          >Redeemable Points (RP)</label
+                        >
+                        <p class="small text-muted">
+                          If enabled, users will be able to earn and be awarded
+                          prizes for participation in your community.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="redeemablePointsEnabled"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="redeemablePointsEnabled"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label class="font-weight-normal">Prize Room</label>
+                        <p class="small text-muted">
+                          If enabled, then users will be able to redeem prizes
+                          from a centralized "Prize Room."
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="navPrizes"
+                          />
+                          <label class="custom-control-label" for="navPrizes"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label class="font-weight-normal"
+                          >Display Prizes in Navigation</label
+                        >
+                        <p class="small text-muted">
+                          If enabled, users will be able to earn and be awarded
+                          prizes for participation in your community.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="navPrizes"
+                          />
+                          <label class="custom-control-label" for="navPrizes"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Levels</label>
+                        <p class="small text-muted">
+                          If enabled, users will be awarded new levels as they
+                          achieve specific experience point levels in your
+                          community.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="levelsEnabled"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="levelsEnabled"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row border-bottom pt-3">
+                      <div class="form-group col-9 mb-0">
+                        <label>Badges</label>
+                        <p class="small text-muted">
+                          If enabled, users will earn badges as they complete
+                          actions in your community. You can manage badges from
+                          the manage badges page.
+                        </p>
+                      </div>
+                      <div class="form-group col-3 mb-0">
+                        <div
+                          class="custom-control custom-switch mr-auto float-right"
+                        >
+                          <input
+                            type="checkbox"
+                            class="custom-control-input pointer"
+                            id="badgesEnabled"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="badgesEnabled"
+                            >Enabled</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group mt-3 mb-0 float-right">
+                      <button class="btn btn-light border mr-2">Cancel</button>
+                      <button class="btn btn-primary border">
+                        Save Changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

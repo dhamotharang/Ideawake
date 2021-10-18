@@ -1,0 +1,116 @@
+<!-- <app-loader></app-loader> -->
+<div class="row loginBackground h-100" *ngIf="showPage">
+  <div class="col-12 col-md-4 offset-md-4 flex-column d-flex">
+    <div class="my-auto align-middle">
+      <!-- <div class="card shadow-lg mb-3">
+        <div class="card-body text-center">
+          <h6 class="mb-0 bold montserrat">
+            Don't Have an Account Yet? <span class="link">Register for {{ communityName }}
+              <fa-icon [icon]="['fas', 'chevron-circle-right']"></fa-icon>
+            </span>
+          </h6>
+        </div>
+      </div> -->
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h4 class="montserrat text-center bold mb-5">
+            {{ 'Login.LoginTo' | translationPipe }}
+            {{ communityName }}
+          </h4>
+          <div
+            *ngIf="
+              validCommunityUrl &&
+              communitySSO !== communitySsoLoginEnum.DISABLED
+            "
+          >
+            <app-login-sso-button
+              [onlySSO]="
+                communitySSO === communitySsoLoginEnum.ONLY_SSO ? true : false
+              "
+              [community]="communityId"
+            ></app-login-sso-button>
+          </div>
+          <!-- <hr /> -->
+          <!-- <div class="alert alert-info mb-2 shadow-sm text-medium text-center">
+            <p class="mb-2">
+              Hey there! It looks like you've been invited to participate but
+              haven't accepted your invite yet.
+            </p>
+            <button class="btn btn-xs py-1 btn-info">
+              <fa-icon [icon]="['fas', 'envelope']"></fa-icon> Resend my
+              confirmation link
+            </button>
+          </div> -->
+          <form
+            *ngIf="communitySSO !== communitySsoLoginEnum.ONLY_SSO"
+            [formGroup]="loginForm"
+            (submit)="onSubmit()"
+          >
+            <div class="form-group">
+              <label class="font-weight-normal">{{
+                'Login.Email' | translationPipe
+              }}</label>
+              <input
+                type="email"
+                placeholder="{{ 'Login.EmailPlaceholder' | translationPipe }}"
+                formControlName="email"
+                class="form-control form-control-lg"
+              />
+              <div
+                class="form-text mb-0 small text-danger"
+                [hidden]="hideErrorMessage || email.value !== ''"
+              >
+                {{ 'Login.EmailRequired' | translationPipe }}
+              </div>
+              <div
+                class="form-text mb-0 small text-danger"
+                *ngIf="
+                  submitted &&
+                  loginFormControls.email.errors &&
+                  loginFormControls.email.errors.email
+                "
+              >
+                {{ 'Login.EmailInvalid' | translationPipe }}
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label class="font-weight-normal">
+                {{ 'Login.Password' | translationPipe }}
+              </label>
+              <input
+                type="password"
+                placeholder="************"
+                formControlName="password"
+                class="form-control form-control-lg"
+              />
+              <div
+                class="form-text mb-0 small text-danger"
+                [hidden]="hideErrorMessage || password.value !== ''"
+              >
+                {{ 'Login.PasswordRequired' | translationPipe }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-12">
+                <button
+                  class="btn btn-primary btn-block btn-lg montserrat shadow-sm"
+                >
+                  {{ 'Login.Login' | translationPipe }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          *ngIf="communitySSO !== communitySsoLoginEnum.ONLY_SSO"
+          class="card-footer text-center"
+        >
+          <a class="text-center" routerLink="/auth/forgot-password">
+            {{ 'Login.forgotPassword' | translationPipe }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-sm-7"></div> -->
+</div>

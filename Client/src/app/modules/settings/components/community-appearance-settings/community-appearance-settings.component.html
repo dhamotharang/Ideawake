@@ -1,0 +1,455 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2 pr-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="container">
+      <div class="row pt-4">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <a
+                        class="mb-0 uppercase bold pt-1"
+                        routerLink="/settings/all"
+                        >Settings</a
+                      >
+                    </li>
+                    <li class="list-inline-item">
+                      <fa-icon
+                        [icon]="['fas', 'angle-right']"
+                        class="mr-1 ml-1 text-muted"
+                      ></fa-icon>
+                    </li>
+                    <li class="list-inline-item pt-1 align-self-center">
+                      <p class="uppercase mb-0 bold">Appearance Settings</p>
+                    </li>
+                    <li
+                      class="list-inline-item float-right align-self-center"
+                      *ngIf="!appearanceSettingsEdit"
+                    >
+                      <button
+                        class="btn btn-primary btn-sm"
+                        (click)="toggleAppearanceEdit()"
+                      >
+                        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                        Edit Settings
+                      </button>
+                    </li>
+                    <li
+                      class="list-inline-item float-right align-self-center"
+                      *ngIf="appearanceSettingsEdit"
+                    >
+                      <button
+                        class="btn btn-light border btn-sm mr-2"
+                        (click)="toggleAppearanceEdit()"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="btn btn-primary btn-sm"
+                        (click)="saveSettings()"
+                      >
+                        Save Changes
+                      </button>
+                    </li>
+                  </ul>
+                  <!-- <ul class="list-inline mb-0">
+                        <li class="list-inline-item nav-underline">
+                          <a
+                            class="nav-underline uppercase bold"
+                            routerLink="/community/settings/basic"
+                          >
+                            Basic Settings
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="nav-underline active uppercase bold"
+                            routerLink="/community/settings/appearance"
+                          >
+                            Appearance Settings
+                          </a>
+                        </li>
+                        <li class="list-inline-item nav-underline">
+                          <a
+                            class="nav-underline uppercase bold"
+                            routerLink="/community/settings/appearance"
+                          >
+                            Security Settings
+                          </a>
+                        </li>
+                      </ul> -->
+                  <!-- <p class="uppercase mb-0 bold pt-2 pb-2">
+                        Community Appearance Settings
+                      </p> -->
+                </div>
+                <div class="card-body">
+                  <div class="row pt-3">
+                    <div class="col-12">
+                      <form>
+                        <div class="form-row">
+                          <!-- Logo -->
+                          <div class="form-group mb-0 col-8">
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item">
+                                <label>Community Logo</label>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="form-group mb-0 col-4">
+                            <ul class="list-inline mb-0">
+                              <li
+                                *ngIf="
+                                  appearanceSettingsEdit && settings.defaultLogo
+                                "
+                                class="list-inline-item float-right mr-1"
+                                (click)="openDefaultLogoUploadBox()"
+                              >
+                                <button
+                                  class="btn btn-sm btn-light border px-3"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'edit']"
+                                    class="mr-1"
+                                  ></fa-icon>
+                                  Change Your Logo
+                                </button>
+                              </li>
+                            </ul>
+                            <span
+                              [ngClass]="{
+                                'd-none':
+                                  settings?.defaultLogo && !uploadingLogo
+                              }"
+                            >
+                              <app-upload-single-file
+                                [canUpload]="appearanceSettingsEdit"
+                                [folder]="s3Folder.COMMUNITY"
+                                (file)="settings.defaultLogo = $event"
+                                (uploading)="uploadingLogo = $event"
+                                #defaultLogo
+                              >
+                              </app-upload-single-file>
+                              <p class="small text-muted pt-1">
+                                Optimal logo size is 210px x 50px.
+                              </p>
+                            </span>
+                            <img
+                              [defaultImage]="defaultImage"
+                              [lazyLoad]="settings?.defaultLogo"
+                              class="logo-size mt-0 float-right"
+                              *ngIf="settings.defaultLogo && !uploadingLogo"
+                            />
+                          </div>
+                          <!-- Mobile Logo -->
+                          <div class="form-group mb-0 col-4 d-none">
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item">
+                                <label>Mobile Logo</label>
+                              </li>
+                              <li
+                                *ngIf="
+                                  appearanceSettingsEdit && settings.mobileLogo
+                                "
+                                class="list-inline-item float-right mr-1"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'edit']"
+                                  class="inverseLink mr-1"
+                                  placement="top"
+                                  ngbTooltip="Edit Mobile Logo Image"
+                                  (click)="openMobileLogoUploadBox()"
+                                ></fa-icon>
+                              </li>
+                            </ul>
+                            <span
+                              [ngClass]="{
+                                'd-none':
+                                  settings?.mobileLogo && !uploadingMobileLogo
+                              }"
+                            >
+                              <app-upload-single-file
+                                [folder]="s3Folder.COMMUNITY"
+                                [canUpload]="appearanceSettingsEdit"
+                                (file)="settings.mobileLogo = $event"
+                                (uploading)="uploadingMobileLogo = $event"
+                                #mobileLogo
+                              >
+                              </app-upload-single-file>
+                              <p class="small text-muted pt-1">
+                                Optimal mobile logo size is 210px x 50px.
+                              </p>
+                            </span>
+                            <img
+                              [defaultImage]="defaultImage"
+                              [lazyLoad]="settings?.mobileLogo"
+                              class="logo-size"
+                              style="max-width: 100%;"
+                              *ngIf="
+                                settings.mobileLogo && !uploadingMobileLogo
+                              "
+                            />
+                          </div>
+                          <!-- Favicon -->
+                          <div class="form-group mb-0 col-4 d-none">
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item">
+                                <label>Favicon</label>
+                              </li>
+                              <li
+                                *ngIf="
+                                  appearanceSettingsEdit && settings.favicon
+                                "
+                                class="list-inline-item float-right mr-1"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'edit']"
+                                  class="inverseLink mr-1"
+                                  placement="top"
+                                  ngbTooltip="Edit Favicon"
+                                  (click)="openFaviconUploadBox()"
+                                ></fa-icon>
+                              </li>
+                            </ul>
+                            <span
+                              [ngClass]="{
+                                'd-none': settings?.favicon && !uploadingFavicon
+                              }"
+                            >
+                              <app-upload-single-file
+                                [folder]="s3Folder.COMMUNITY"
+                                [canUpload]="appearanceSettingsEdit"
+                                (file)="settings.favicon = $event"
+                                (uploading)="uploadingFavicon = $event"
+                                #favicon
+                              >
+                              </app-upload-single-file>
+                              <p class="small text-muted pt-1">
+                                Your favicon is the widget that appears in the
+                                top left of your browser.
+                              </p>
+                            </span>
+                            <img
+                              [defaultImage]="defaultImage"
+                              [lazyLoad]="settings?.favicon"
+                              class="logo-size"
+                              style="max-width: 100%;"
+                              *ngIf="settings.favicon && !uploadingFavicon"
+                            />
+                          </div>
+                        </div>
+                        <hr />
+                        <!-- Default Email Featured Image -->
+                        <div class="form-row mt-4">
+                          <!-- <div class="form-group col-3">
+                                <label>Default Featured Email Banner</label>
+                              </div> -->
+                          <div class="form-group col-3">
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item">
+                                <label>Community Feature Email Image</label>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="form-group col-9">
+                            <div
+                              *ngIf="
+                                appearanceSettingsEdit &&
+                                settings.emailFeaturedImage
+                              "
+                              class="list-inline-item float-right mr-1"
+                            >
+                              <button
+                                class="btn btn-sm btn-light px-3 border"
+                                style="position: absolute; right: 8px;"
+                                (click)="openEmailFeaturedUploadBox()"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'edit']"
+                                  class="text-muted"
+                                ></fa-icon>
+                                Change Your Email Featured Image
+                              </button>
+                              <!-- <fa-icon
+                                [icon]="['fas', 'edit']"
+                                class="inverseLink mr-1"
+                                placement="top"
+                                ngbTooltip="Edit Email Featured Image"
+                              ></fa-icon> -->
+                            </div>
+                            <span
+                              [ngClass]="{
+                                'd-none':
+                                  settings?.emailFeaturedImage &&
+                                  !uploadingFImage
+                              }"
+                            >
+                              <app-upload-single-file
+                                [folder]="s3Folder.COMMUNITY"
+                                [canUpload]="appearanceSettingsEdit"
+                                (file)="settings.emailFeaturedImage = $event"
+                                (uploading)="uploadingFImage = $event"
+                                #emailFeaturedImage
+                              >
+                              </app-upload-single-file>
+                              <p class="small text-muted pt-1">
+                                Optimal image size for email is 800px x 250px.
+                              </p>
+                            </span>
+                            <img
+                              [defaultImage]="defaultImage"
+                              [lazyLoad]="settings?.emailFeaturedImage"
+                              style="
+                                max-height: 10rem;
+                                width: auto;
+                                float: right;
+                              "
+                              *ngIf="
+                                settings.emailFeaturedImage && !uploadingFImage
+                              "
+                            />
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row pt-3">
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-3">
+                          <label>Community Color Scheme</label>
+                        </div>
+                        <div class="col-9">
+                          <div class="form-row">
+                            <div class="form-group col-12">
+                              <!-- <app-color-picker
+                                [heading]="'Primary'"
+                                [color]="settings?.navigationBackgroundColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="
+                                  settings.navigationBackgroundColor = $event
+                                "
+                              ></app-color-picker> -->
+                              <app-color-picker
+                                [heading]="'Primary'"
+                                [color]="settings?.primaryColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="settings.primaryColor = $event"
+                                [defaultColors]="primaryColors"
+                              >
+                              </app-color-picker>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-6">
+                              <app-color-picker
+                                [heading]="'Navigation Background'"
+                                [color]="settings?.navigationBackgroundColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="
+                                  settings.navigationBackgroundColor = $event
+                                "
+                              ></app-color-picker>
+                            </div>
+                            <div class="form-group col-6">
+                              <app-color-picker
+                                [heading]="'Navigation Text'"
+                                [color]="settings?.navigationTextColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="settings.navigationTextColor = $event"
+                              >
+                              </app-color-picker>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-6">
+                              <app-color-picker
+                                [heading]="'Footer Background'"
+                                [color]="settings?.footerBackgroundColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="
+                                  settings.footerBackgroundColor = $event
+                                "
+                              >
+                              </app-color-picker>
+                            </div>
+                            <div class="form-group col-6">
+                              <app-color-picker
+                                [heading]="'Footer Text'"
+                                [color]="settings?.footerTextColor"
+                                [canEdit]="appearanceSettingsEdit"
+                                (selected)="settings.footerTextColor = $event"
+                              >
+                              </app-color-picker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="row pt-3">
+                        <div class="col-12 col-md-10 offset-md-1">
+                          <h5 class="bold">Community Pages and Custom HTML</h5>
+                          <p class="small border-bottom pb-1 mb-4">
+                            Customize the look and feel of your home page, your .
+                          </p>
+                          <div class="card rounded-0">
+                            <div class="card-header">
+                              <p class="small text-muted uppercase bold mb-0">
+                                Pages
+                              </p>
+                            </div>
+                            <div class="card-body">
+                              Terms and conditions customization, home page html,
+                              could also be where we host widgets in the future but
+                              want to bring more of this functionality to the
+                              front-end so the user can interact with it directly vs
+                              having to go to settings.
+                            </div>
+                          </div>
+                          <div class="form-group float-right mb-0 mt-3">
+                            <button class="btn btn-dark">Cancel</button>
+                            <button class="btn btn-primary ml-1" (click)="saveSettings()">Save Changes</button>
+                          </div>
+                        </div>
+                      </div> -->
+                  <!-- <div class="form-group float-right mb-0 mt-3">
+                        <button class="btn btn-dark" (click)="reset()">Cancel</button>
+                        <button class="btn btn-primary ml-1" (click)="saveSettings()">
+                          Save Changes
+                        </button>
+                      </div> -->
+                </div>
+                <div class="card-footer" *ngIf="appearanceSettingsEdit">
+                  <div class="float-right">
+                    <button
+                      class="btn btn-light border"
+                      (click)="toggleAppearanceEdit()"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      class="btn btn-primary ml-1"
+                      (click)="saveSettings()"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

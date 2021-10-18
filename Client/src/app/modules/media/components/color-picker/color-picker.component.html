@@ -1,0 +1,46 @@
+<div
+  class="summary-info btn btn-light btn-block removeCaret bold text-align-left shadow-sm border py-3"
+  (click)="toggleColors()"
+>
+  <div class="row">
+    <div class="col-9">
+      <h6 class="mb-1 text-left">{{ heading }} Color</h6>
+      <p class="small mb-0 text-left">
+        <input
+          type="text"
+          class="form-control form-control-sm border-0 bg-inherit p-0"
+          style="font-size: 100%;"
+          [placeholder]="color"
+          [readonly]="true"
+        />
+      </p>
+    </div>
+    <div class="col-3 px-0">
+      <div
+        class="circle float-right mb-0"
+        [ngStyle]="{ background: color }"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="opened shadow" *ngIf="show">
+  <div class="colors">
+    <div
+      class="circle"
+      *ngFor="let paint of defaultColors"
+      (click)="changeColor(paint)"
+      [ngStyle]="{ background: paint }"
+    ></div>
+  </div>
+  <div class="hex-code">
+    <p>Hex Code</p>
+    <div class="g-input">
+      <input
+        type="text"
+        maxlength="7"
+        style="font-size: 12px;"
+        [value]="color"
+      />
+    </div>
+  </div>
+</div>

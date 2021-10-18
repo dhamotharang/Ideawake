@@ -1,0 +1,498 @@
+<div class="card mb-3" *ngIf="template.editTimeSeries">
+  <div class="card-header bg-white pb-0 pt-3 border-bottom-0">
+    <p class="text-muted mb-0 uppercase bold montserrat text-medium">
+      Edit Time Series Chart
+    </p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="editMaxHeight pr-3">
+            <div class="form-group">
+              <label>Gadget Title</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter a title for your gadget..."
+                [(ngModel)]="data.title"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="form-group">
+              <div ngbDropdown>
+                <label class="mb-1">
+                  Select Data Points to Display in Time Series
+                </label>
+                <div class="card bg-light mb-3">
+                  <div class="card-body p-2">
+                    <!-- <input
+                      type="text"
+                      class="form-control mb-2"
+                      placeholder="Search Fields..."
+                    /> -->
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="selectStatuses()"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.status"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        {{ 'StageList.Status' | translationPipe }}
+                      </label>
+                    </div>
+                    <div class="ml-4 py-1" *ngIf="template.status">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let status of opportunityStatuses"
+                        (click)="
+                          template[status.id + '|status'] = !template[
+                            status.id + '|status'
+                          ]
+                        "
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="template[status.id + '|status']"
+                        />
+                        <label class="custom-control-label font-weight-normal">
+                          {{ 'Statuses.' + status.title | translationPipe }}
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="selectOpportunityTypes()"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.opportunityTypes"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Post Types
+                      </label>
+                    </div>
+                    <div class="ml-4 py-1" *ngIf="template.opportunityTypes">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let type of opportunityTypes"
+                        (click)="
+                          template[type.id + '|opportunityTypes'] = !template[
+                            type.id + '|opportunityTypes'
+                          ]
+                        "
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="template[type.id + '|opportunityTypes']"
+                        />
+                        <label class="custom-control-label font-weight-normal">
+                          {{ type.name }}
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="allWorkflowsCheckUnCheck()"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.workflow"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Workflow
+                      </label>
+                    </div>
+                    <div class="ml-4 py-1" *ngIf="template.workflow">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let workflow of workflows"
+                        (click)="addSelectedWorkflowStages(workflow)"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="template[workflow.id + '|workflow']"
+                        />
+                        <label class="custom-control-label font-weight-normal">
+                          {{ workflow.title }}
+                        </label>
+                        <div
+                          class="ml-4 py-1"
+                          *ngIf="template[workflow.id + '|workflow']"
+                        >
+                          <div
+                            class="custom-control custom-checkbox"
+                            *ngFor="let stage of workflow.stages"
+                            (click)="selectStage($event, stage)"
+                          >
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                              [checked]="template[stage.id + '|stages']"
+                            />
+                            <label
+                              class="custom-control-label font-weight-normal"
+                            >
+                              {{ stage.title }}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.customFields = !template.customFields"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.customFields"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Custom Fields
+                      </label>
+                    </div> -->
+
+                    <div class="ml-4 py-1" *ngIf="template.customFields">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let field of customFields"
+                        (click)="
+                          template[field.id + '|customFields'] = !template[
+                            field.id + '|customFields'
+                          ]
+                        "
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="template[field.id + '|customFields']"
+                        />
+                        <label class="custom-control-label font-weight-normal">
+                          {{ field.title }}
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.stageChange = !template.stageChange"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.stageChange"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Stage Change
+                      </label>
+                    </div>
+                    <!-- <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.statusChange = !template.statusChange"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.statusChange"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Status Change
+                      </label>
+                    </div> -->
+                    <!-- <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.vote = !template.vote"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.vote"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Votes
+                      </label>
+                    </div> -->
+                    <!-- <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.reviews = !template.reviews"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.reviews"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Reviews
+                      </label>
+                    </div> -->
+                    <!-- <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.comments = !template.comments"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.comments"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Comments
+                      </label>
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.shares = !template.shares"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.shares"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Shares
+                      </label>
+                    </div>
+                    <div
+                      class="custom-control custom-checkbox"
+                      (click)="template.views = !template.views"
+                    >
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        [checked]="template.views"
+                      />
+                      <label class="custom-control-label font-weight-normal">
+                        Views
+                      </label>
+                    </div> -->
+                    <!--                   <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" />
+                      <label class="custom-control-label font-weight-normal">
+                        User Logins (number of active users - measure in way that
+                        maximizes) (out of scope?)
+                      </label>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label class="mb-1">Select Time Period</label>
+              <p>
+                insert app filter time just like on the idea list pages by default
+                display last 90 days
+              </p>
+            </div> -->
+            <div class="form-group">
+              <p class="mb-2 bold">Select X-Axis Display</p>
+              <div
+                class="btn-group btn-group-sm btn-block border rounded"
+                role="group"
+                aria-label="Basic example"
+              >
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  *ngFor="
+                    let frequency of dataFrequency | keyvalue: preserveOrder
+                  "
+                  [ngClass]="{
+                    active: selectedDataFrequency === frequency.value.type
+                  }"
+                  (click)="selectedDataFrequency = frequency.value.type"
+                >
+                  {{ frequency.value.title }}
+                </button>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label class="mb-2">Select Aggregation</label>
+              <div
+                class="btn-group btn-group-sm btn-block border rounded"
+                role="group"
+                aria-label="Basic example"
+              >
+                <button type="button" class="btn btn-light active">
+                  Count
+                </button>
+                <button type="button" class="btn btn-light">Sum</button>
+              </div>
+            </div> -->
+            <hr class="my-4" />
+            <div class="form-row">
+              <div class="form-group col-12 mb-0">
+                <div ngbDropdown>
+                  <label class="mb-2"
+                    >Filter the Results Displayed in this Graph</label
+                  >
+                  <div ngbDropdown>
+                    <div
+                      class="removeCaret py-2 pl-2 pr-3 border bg-white rounded addHover"
+                      ngbDropdownToggle
+                    >
+                      Select Filters
+                      <span class="float-right">
+                        <fa-icon
+                          [icon]="['fas', 'sort']"
+                          class="text-muted"
+                        ></fa-icon>
+                      </span>
+                    </div>
+                    <div
+                      ngbDropdownMenu
+                      class="shadow p-2 dropdownScrollMaxHeight"
+                    >
+                      <div class="">
+                        <div class="mr-2">
+                          <div class="alert alert-info py-1 px-2 mb-2">
+                            <p class="small mb-0" style="line-height: 1.25rem;">
+                              Filters will activate on the page as you select
+                              them. To hide filtering options, simply click
+                              anywhere outside of this dropdown.
+                            </p>
+                          </div>
+                          <app-idea-filters
+                            *ngIf="entity"
+                            [entity]="entity"
+                            [pageType]="'chart'"
+                            [showSearch]="false"
+                            [appFilters]="appliedFilters"
+                            (filterApplied)="applyFilters($event)"
+                          >
+                          </app-idea-filters>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="card bg-light mt-3">
+                <div class="card-body p-3">
+                  <label class="mb-2">Applied Filters</label>
+                  <app-applied-filters
+                    *ngIf="entity"
+                    [hideLabelButtons]="true"
+                    [filters]="appliedFilters"
+                    (filterOutput)="applyFilters($event)"
+                  >
+                  </app-applied-filters>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of max height -->
+          <div class="form-group mb-0 mt-3">
+            <div class="float-right">
+              <button
+                class="btn btn-light border mr-2"
+                (click)="cancelChanges()"
+              >
+                Cancel
+              </button>
+              <button class="btn btn-primary" (click)="editWidget()">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card shadow-sm mb-3" *ngIf="!template.editTimeSeries">
+  <div class="card-header bg-white px-3 pb-0 border-bottom-0">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="uppercase bold montserrat text-medium mb-0">
+          {{ data?.title || 'Time Series Chart' }}
+        </p>
+        <p class="text-muted small mt-1 text-capitalize">
+          <!-- Date Range: Last 90 Days | Frequency: {{ selectedDataFrequency }} -->
+          Frequency: {{ selectedDataFrequency }}
+        </p>
+      </li>
+      <li class="list-inline-item float-right">
+        <app-widget-manage
+          [id]="data.id"
+          [edit]="template.editTimeSeries"
+          (editToggle)="template.editTimeSeries = $event"
+          (removed)="deleted($event)"
+        ></app-widget-manage>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body setWidgetHeight pb-0">
+    <div class="row" *ngIf="!template.editTimeSeries">
+      <div class="col-12">
+        <canvas
+          *ngIf="lineChartData?.length && !loading"
+          baseChart
+          width="400"
+          height="300"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins"
+        ></canvas>
+
+        <div style="text-align: center;">
+          <fa-icon
+            [icon]="['fas', 'spinner']"
+            [styles]="{ 'font-size': '20px' }"
+            *ngIf="loading"
+            [spin]="true"
+          ></fa-icon>
+          <span *ngIf="!loading && !lineChartData?.length">
+            <fa-icon
+              [icon]="['fas', 'chart-line']"
+              class="text-muted iconExtraLarge"
+            ></fa-icon>
+            <h4 class="montserrat bold mb-2">
+              No Data Has Been Added to This Chart
+            </h4>
+            <p class="text-muted mb-4">
+              Please configure your chart by selecting which data you'd like to
+              display in it.
+            </p>
+            <button
+              class="btn btn-outline-primary mt-2"
+              (click)="template.editTimeSeries = true"
+            >
+              Add Data to Chart
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- edit mode -->
+    <div class="row">
+      <div class="col-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12"></div>
+        </div>
+        <div class="row">
+          <div class="col-12"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end edit mode -->
+    <!-- non edit mode -->
+    <img src="" />
+    <!-- end non edit mode -->
+  </div>
+</div>

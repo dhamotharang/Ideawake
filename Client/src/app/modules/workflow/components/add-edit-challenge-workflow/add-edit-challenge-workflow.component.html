@@ -1,0 +1,167 @@
+<div class="row">
+  <div
+    [ngClass]="modal ? 'col-12' : 'col-12 col-md-8'"
+    class="removePaddingOnMobile"
+  >
+    <div [ngClass]="!modal ? 'mb-4' : ''" class="card shadow-sm">
+      <div class="card-header py-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="uppercase bold montserrat text-muted mb-0 pt-1">
+              Select Challenge Workflow
+            </p>
+          </li>
+
+          <li class="list-inline-item float-right" *ngIf="modal">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="close()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+          <li class="list-inline-item float-right pt-1" *ngIf="!modal">
+            <p class="small bold uppercase text-muted mb-1">
+              Step 5 of 5
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="card-body"
+        [ngClass]="modal ? 'modalScrollMaxHeight hideOverflow' : ''"
+      >
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group mb-1">
+              <label>Select Challenge Workflow</label>
+              <app-workflow-select
+                [entity]="challenge"
+                (workflow)="
+                  workflowSelected = $event; workflow.emit(workflowSelected)
+                "
+              ></app-workflow-select>
+            </div>
+            <p class="form-text text-muted small">
+              Select the default workflow all submissions to this challenge will
+              be added to.
+            </p>
+          </div>
+        </div>
+        <div class="row pt-2" *ngIf="!workflowSelected">
+          <div class="col-12">
+            <div class="card bg-light w-100">
+              <div class="card-body text-center py-5">
+                <div class="row">
+                  <div class="col-12 col-md-10 offset-md-1">
+                    <fa-icon
+                      [icon]="['fas', 'conveyor-belt-alt']"
+                      class="iconLarge text-muted mb-5"
+                    >
+                    </fa-icon>
+                    <h4 class="montserrat bold mt-2">
+                      No Workflow is Currently Linked to this Challenge
+                    </h4>
+                    <p class="text-muted">
+                      Link a workflow to your challenge to control the steps
+                      submissions go through to be evaluated, prioritized,
+                      selected and implemented.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="workflowSelected">
+          <app-workflow-stage-list-simple
+            [workflow]="workflowSelected"
+          ></app-workflow-stage-list-simple>
+        </div>
+      </div>
+      <div class="card-footer px-3 pb-5 pb-md-3" *ngIf="!modal">
+        <div class="form-row">
+          <div class="col-5 form-group mb-0">
+            <button
+              class="btn btn-light border"
+              (click)="changeTab('settings')"
+            >
+              <fa-icon [icon]="['fas', 'angle-left']" class="mt-1"></fa-icon>
+              {{ 'ChallengePost.Labels.Previous' | translationPipe }}
+              <span class="d-none d-md-inline">- Challenge Settings</span>
+            </button>
+          </div>
+          <div class="col-7 form-group mb-0" *ngIf="!modal">
+            <div class="float-right">
+              <span ngbTooltip="Coming soon!">
+                <button
+                  class="btn btn-light mr-1 disabled"
+                  style="cursor: not-allowed;"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'save']"
+                    class="text-muted"
+                  ></fa-icon>
+                  <!-- {{ 'ChallengePost.Labels.SaveDraft' | translationPipe }} -->
+                  Save<span class="d-none d-md-inline"> Draft</span>
+                </button>
+              </span>
+              <button class="btn btn-primary" (click)="save.emit()">
+                <fa-icon [icon]="['fas', 'rocket']"></fa-icon>
+                Post Challenge
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light" *ngIf="modal">
+        <button class="btn btn-light border" (click)="close()">Cancel</button>
+        <button class="btn btn-primary ml-1" (click)="updateWorkflow()">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="d-none d-md-block col-md-4 pl-0 pr-4" *ngIf="!modal">
+    <div class="alert alert-info shadow-sm">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-0 bold">What Are Workflows?</p>
+          <hr class="mt-2 mb-2" />
+          <div class="row">
+            <div class="col-12">
+              <p class="text-medium">
+                Workflows allow you to define rules for how ideas are collected,
+                evaluated and implemented in your organization. You can edit
+                current workflows or create new workflows from the
+                <a
+                  routerLink="/workflow/list"
+                  class="underline text-info"
+                  target="_blank"
+                  >Manage Workflows</a
+                >
+                page.
+              </p>
+              <ol class="text-medium" style="padding-left: 1rem;">
+                <li class="mb-2">
+                  Each workflow has stages, which represent the steps an idea
+                  goes through to be refined, evaluated, and actioned.
+                </li>
+                <li class="mb-2">
+                  Each stage allows you to assign a specific user or group to
+                  complete a specific type of action in a designated timeframe.
+                </li>
+                <li class="mb-2">
+                  Improve transparency by notifying submitters, owners, or
+                  specific individuals when an idea enters into each stage.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

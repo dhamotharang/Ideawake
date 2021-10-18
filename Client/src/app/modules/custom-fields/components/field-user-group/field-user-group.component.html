@@ -1,0 +1,70 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      *ngIf="!dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add users or groups...
+    </p>
+    <p
+      class="showEditOnHover mb-0"
+      *ngIf="dataAvailable && view && !editMode"
+      (click)="
+        customField.permissions.editCustomFieldData ? (editMode = true) : null
+      "
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      <app-search-groups
+        [placeHolder]="'Add an entry for this field...'"
+        [selection]="selection"
+        [readonly]="true"
+        container="body"
+        [isUser]="true"
+        [focus]="true"
+        [darkColor]="true"
+        (clicked)="
+          customField.permissions.editCustomFieldData ? (editMode = true) : null
+        "
+      ></app-search-groups>
+    </p>
+    <app-search-groups
+      *ngIf="editMode || !view"
+      container="body"
+      [isUser]="true"
+      [selection]="selection"
+      (dataEmitter)="getParticipants($event)"
+      [usersToPrint]="users"
+      [groupsToPrint]="groups"
+      [preSelectedList]="isPreSelected"
+    >
+    </app-search-groups>
+
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="cancelChanges()"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      *ngIf="view && customField?.opportunityFieldData"
+      [customField]="customField"
+      [dataType]="fieldDataType.SELECTED"
+    ></app-field-history>
+  </div>
+</div>

@@ -1,0 +1,1199 @@
+<ul class="list-inline text-center mb-1">
+  <li
+    class="list-inline-item mr-0"
+    *ngIf="userOpportunityPermissions?.changeOpportunityWorkflow"
+  >
+    <!-- if not added to a workflow -->
+    <span *ngIf="false" ngbDropdown>
+      <button
+        ngbDropdownToggle
+        *ngIf="userOpportunityPermissions?.changeOpportunityWorkflow"
+        class="btn montserrat btn-outline-primary btn-sm bold montserrat shadow-sm"
+        placement="bottom"
+        ngbTooltip="{{ 'IdeaPage.AddThis' | translationPipe }} {{
+          idea?.opportunityType?.name
+        }} {{ 'IdeaPage.AddWorkflowDescription' | translationPipe }}"
+      >
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        <span class="d-none d-md-inline">
+          {{ 'SharedText.Add' | translationPipe }}
+        </span>
+        {{ 'SharedText.Workflow' | translationPipe }}
+        <!-- <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityWorkflow"
+        ></app-lock-component> -->
+      </button>
+      <div ngbDropdownMenu class="shadow pb-0 popoverUserMinWidth">
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityWorkflow
+              ? open(addOpportunityToWorkflow)
+              : null
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage
+              ? open(changeStageTwo)
+              : ''
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage
+              ? open(changeStageTwo)
+              : ''
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+
+        <hr class="my-0" />
+        <div class="p-2 bg-light">
+          <p class="small text-center text-muted mb-0">
+            Use workflows to control the steps an idea goes through to be
+            evaluated, tested, and implemented.
+          </p>
+        </div>
+      </div>
+    </span>
+    <!-- end if not added to a workflow -->
+    <!-- if added to a workflow -->
+    <span ngbDropdown (openChange)="setCSS($event); loadStages($event)">
+      <button
+        *ngIf="
+          !idea?.workflow &&
+          userOpportunityPermissions?.changeOpportunityWorkflow
+        "
+        (click)="editWorkFlow()"
+        class="btn bold btn-white btn-sm montserrat removeCaret inverseLink"
+        container="body"
+        placement="bottom"
+        ngbTooltip="Add this opportunity to a workflow to control the process it will go through to be evaluated, tested, and implemented."
+      >
+        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+        <span *ngIf="!inlineText">
+          <span class="d-none d-md-inline">
+            {{ 'SharedText.Add' | translationPipe }}
+          </span>
+          {{ 'SharedText.Workflow' | translationPipe }}
+        </span>
+        <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityWorkflow"
+        ></app-lock-component>
+      </button>
+      <button
+        *ngIf="
+          idea?.stage && userOpportunityPermissions?.changeOpportunityStage
+        "
+        ngbDropdownToggle
+        class="btn bold btn-white btn-sm montserrat removeCaret inverseLink"
+        placement="bottom"
+        container="body"
+        [ngbTooltip]="
+          idea?.stage.title ? 'Current Stage - ' + idea?.stage.title : ''
+        "
+      >
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        <!-- {{ selectedStage?.title || 'Add Workflow' }} -->
+        <span *ngIf="!inlineText">
+          <!-- <span class="d-none d-md-inline"> Change</span> Stage -->
+          {{ 'SharedText.Stage' | translationPipe }}
+          <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+        </span>
+        <span *ngIf="inlineText">
+          <fa-icon [icon]="['fas', 'angle-down']" class="pl-1"></fa-icon>
+        </span>
+        <!-- <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityStage"
+        ></app-lock-component> -->
+        <!-- <app-lock-component *ngIf="
+          !(
+            userOpportunityPermissions?.changeOpportunityStage === 2 ||
+            (userOpportunityPermissions?.changeOpportunityStage === 1 &&
+              ideaOwner)
+          )
+        "></app-lock-component> -->
+      </button>
+      <div ngbDropdownMenu class="shadow-lg pb-1 pt-0">
+        <div class="pt-2 pb-2 px-2 bg-light border-bottom rounded-top">
+          <p class="small text-muted text-center bold mb-0">
+            {{ 'SharedText.SelectStage' | translationPipe }}
+          </p>
+        </div>
+        <div class="dropdownScrollMaxHeight" style="min-width: 21rem;">
+          <button
+            *ngFor="let stage of stages"
+            class="btn-sm pl-2 pr-3"
+            style="padding-top: 0.4rem; padding-bottom: 0.4rem;"
+            ngbDropdownItem
+            (click)="
+              userOpportunityPermissions?.changeOpportunityStage
+                ? openChangeStage(stage)
+                : null
+            "
+          >
+            <!-- <span
+              class="rounded-circle"
+              style="padding: 0rem 0.225rem 0.1rem 0.225rem;"
+              [ngStyle]="{ 'background-color': stage.status.colorCode }"
+            >
+              <fa-icon
+                class="text-white"
+                style="font-size: 0.75rem;"
+                [icon]="[
+                  'fas',
+                  actionItems[stage.actionItem.abbreviation].icon
+                ]"
+              >
+              </fa-icon>
+            </span> -->
+            <fa-icon
+              [icon]="['fas', actionItems[stage.actionItem.abbreviation].icon]"
+              class="text-medium"
+              [ngStyle]="{ color: stage.status.colorCode }"
+            ></fa-icon>
+            <span style="padding-left: 0.15rem;">
+              {{ stage.title.substring(0, 22) }}
+              <span *ngIf="stage.title.length > 22">...</span>
+            </span>
+            <span
+              class="float-right text-success border border-success px-1 rounded small"
+              style="position: relative; top: 1px;"
+              *ngIf="idea?.stage?.id === stage.id"
+            >
+              {{ 'IdeaPage.Current' | translationPipe }}
+              <fa-icon
+                [icon]="['fas', 'check-circle']"
+                class="text-success small"
+              ></fa-icon>
+            </span>
+          </button>
+        </div>
+        <hr class="mb-0 mt-1" />
+        <div class="pb-2">
+          <button
+            class="btn-sm py-2 mb-0"
+            style="padding-left: 0.75rem;"
+            ngbDropdownItem
+            (click)="
+              userOpportunityPermissions?.changeOpportunityWorkflow
+                ? editWorkFlow()
+                : null
+            "
+          >
+            <fa-icon
+              [icon]="['fas', 'conveyor-belt-alt']"
+              class="text-muted text-medium mr-1"
+            ></fa-icon>
+            {{ 'IdeaPage.ChangeWorkflow' | translationPipe }}
+          </button>
+          <p
+            class="small text-muted mb-0"
+            style="padding-left: 0.75rem; padding-right: 0.75rem;"
+          >
+            {{ 'IdeaPage.CurrentlyIn' | translationPipe }}
+            <b>{{ idea?.workflow?.title }}</b>
+            {{ 'IdeaPage.Workflow' | translationPipe }}
+          </p>
+        </div>
+      </div>
+    </span>
+  </li>
+  <!-- <li class="list-inline-item">
+    <button class="btn btn-light btn-sm bold text-muted shadow-sm border">
+      <fa-icon [icon]="['fas', 'bullhorn']" class="text-muted"></fa-icon>
+    </button>
+  </li> -->
+  <!-- <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="open(mergeOpportunities)"
+    >
+      <fa-icon [icon]="['fas', 'code-merge']" class="text-muted"></fa-icon> 10
+    </button>
+  </li>
+  <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="open(linkOpportunities)"
+    >
+      <fa-icon [icon]="['fas', 'link']" class="text-muted"></fa-icon> 10
+    </button>
+  </li> -->
+  <!-- <li class="list-inline-item" *ngIf="userOpportunityPermissions?.editOpportunity === 2 ||
+        (userOpportunityPermissions?.editOpportunity === 1 && ideaOwner)">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="
+        userOpportunityPermissions?.editOpportunitySettings === 2
+          ? editIdeaModal('settings')
+          : ''
+      "
+    >
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+      Settings
+    </button>
+  </li> -->
+  <!-- <li class="list-inline-item">
+    <button class="btn btn-light btn-sm" routerLink="/idea-settings-page">
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+    </button>
+  </li> -->
+  <li
+    class="list-inline-item"
+    *ngIf="userOpportunityPermissions?.editOpportunity"
+  >
+    <div
+      ngbDropdown
+      (openChange)="setCSS($event)"
+      display="dynamic"
+      placement="bottom-right"
+    >
+      <button
+        class="btn btn-white btn-sm removeCaret bold montserrat inverseLink"
+        ngbDropdownToggle
+      >
+        <fa-icon [icon]="['fas', 'bolt']"></fa-icon>
+        <span *ngIf="!inlineText">
+          {{ 'SharedText.Actions' | translationPipe }}
+          <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+        </span>
+        <span *ngIf="inlineText">
+          <!-- Actions -->
+          <fa-icon [icon]="['fas', 'angle-down']" class="pl-1"></fa-icon>
+        </span>
+      </button>
+      <div ngbDropdownMenu class="shadow pt-0">
+        <div class="bg-light text-center border-bottom border-top">
+          <label class="small bold text-muted">
+            {{ 'SharedText.Manage' | translationPipe }}
+          </label>
+        </div>
+        <button
+          style="padding-left: 0.95rem;"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.editOpportunity
+              ? editIdeaModal('edit')
+              : null
+          "
+        >
+          <fa-icon [icon]="['fas', 'edit']" class="mr-1 text-muted"></fa-icon>
+          {{ 'SharedText.Edit' | translationPipe }}
+          {{ idea?.opportunityType?.name }}
+        </button>
+        <button style="padding-left: 0.95rem;" class="d-none" ngbDropdownItem>
+          <!-- (click)="(showChallengeOptions)" -->
+          <fa-icon
+            [icon]="['fas', 'arrow-right']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          Move
+          {{ idea?.opportunityType?.name }}
+        </button>
+        <!-- showChallengeOptions -->
+        <div class="moveWidget shadow rounded border d-none" ngbDropdown>
+          <label class="small uppercase bold text-muted"
+            >Change Challenge</label
+          >
+          <!-- <div class="smallDropdown rounded border px-2 py-1 w-100 removeCaret" ngbDropdownToggle>
+            ChallengeName
+            <span class="float-right">
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                class="text-muted"
+              ></fa-icon>
+            </span>
+          </div> -->
+          <!-- <div class="w-100" ngbDropdownMenu>
+            <app-search-inline></app-search-inline>
+            <button ngbDropdownItem>ChallengeName</button>
+            <button ngbDropdownItem>ChallengeName</button>
+            <button ngbDropdownItem>ChallengeName</button>
+            <button ngbDropdownItem>ChallengeName</button>
+          </div> -->
+          <!-- <app-search-inline></app-search-inline> -->
+          <div style="max-height: 15rem; overflow-y: auto;">
+            <button class="px-2" ngbDropdownItem>
+              <p class="mb-0">ChallengeNam ChallengeName ChallengeName</p>
+              <span class="badge badge-success">Open</span>
+            </button>
+            <button class="px-2" ngbDropdownItem>
+              ChallengeName
+              <fa-icon
+                [icon]="['fas', 'check-circle']"
+                class="mr-1 text-success float-right"
+              ></fa-icon>
+            </button>
+            <button class="px-2" ngbDropdownItem>ChallengeName</button>
+            <button class="px-2" ngbDropdownItem>ChallengeName</button>
+            <button class="px-2" ngbDropdownItem>ChallengeName</button>
+          </div>
+          <button class="btn btn-sm btn-block btn-primary mt-2">
+            Save Changes
+          </button>
+        </div>
+        <button
+          style="padding-left: 0.85rem;"
+          ngbDropdownItem
+          *ngIf="
+            userOpportunityPermissions?.linkOpportunities &&
+            idea?.opportunityType?.enableLinking
+          "
+          (click)="openLinkOpportunitiesModal()"
+        >
+          <fa-icon [icon]="['fas', 'link']" class="mr-1 text-muted"></fa-icon>
+          Link
+        </button>
+        <button
+          *ngIf="userOpportunityPermissions?.changeOpportunityWorkflow"
+          style="padding-left: 0.85rem;"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityWorkflow
+              ? editWorkFlow()
+              : null
+          "
+        >
+          <fa-icon
+            [icon]="['fas', 'conveyor-belt-alt']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          {{ 'SharedText.ChangeWorkflow' | translationPipe }}
+        </button>
+        <button
+          class="pl-3"
+          ngbDropdownItem
+          *ngIf="userOpportunityPermissions?.editOpportunitySettings"
+          (click)="
+            userOpportunityPermissions?.editOpportunitySettings
+              ? editIdeaModal('settings')
+              : null
+          "
+        >
+          <fa-icon [icon]="['fas', 'cog']" class="mr-1 text-muted"></fa-icon>
+          {{ 'SharedText.EditSettings' | translationPipe }}
+          <!-- <fa-icon
+            [icon]="['fas', 'lock']"
+            class="mr-1 float-right text-muted"
+            ngbTooltip="You do not have the correct permissions to edit this opportunities settings."
+            *ngIf="!userOpportunityPermissions?.editOpportunitySettings"
+          ></fa-icon> -->
+        </button>
+        <hr
+          class="mt-1 mb-1"
+          *ngIf="userOpportunityPermissions?.softDeleteOpportunity"
+        />
+        <button
+          class="pl-3"
+          *ngIf="userOpportunityPermissions?.softDeleteOpportunity"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.softDeleteOpportunity
+              ? open(deleteIdea)
+              : null
+          "
+        >
+          <fa-icon [icon]="['fas', 'trash']" class="mr-1 text-muted"></fa-icon>
+          {{ 'SharedText.Archive' | translationPipe }}
+          {{ idea?.opportunityType?.name }}
+          <!-- <app-lock-component
+            *ngIf="!userOpportunityPermissions?.softDeleteOpportunity"
+          ></app-lock-component> -->
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- change stage stage three -->
+<ng-template #emailSendsWarning let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="small uppercase text-white bold mb-0">
+      You're About to Send 10,000 Emails
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <p>
+          You're best friend here to make sure you want to send emails to
+          <b>1,500</b> people upon changing this stage. Confirm your settings
+          below or go back to edit them.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="text-medium mb-1 bold">Assignees for This Stage (35)</p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'question-circle']"
+              class="text-muted text-medium"
+              ngbTooltip="These are the groups and individuals assigned to complete this stage."
+            ></fa-icon>
+          </li>
+        </ul>
+        <div class="card bg-light shadow-sm">
+          <div class="card-body p-2">
+            <div class="row" *ngIf="!editAssignees">
+              <div class="col-12">
+                <p
+                  class="small text-muted mb-0 showEditOnHover"
+                  (click)="toggleAssignees()"
+                >
+                  Assigned to First Last, GroupName, FirstLast, GroupName, and
+                  Idea Owners <span class="text-primary">Edit</span>
+                </p>
+              </div>
+            </div>
+            <div class="row text-medium" *ngIf="editAssignees">
+              <div class="col-12">
+                <app-select-members></app-select-members>
+                <button
+                  class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                  (click)="toggleAssignees()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <div class="pb-1">
+              <span class="small bold text-muted"
+                >Send Email Notification to Assignees</span
+              >
+              <div class="custom-control custom-switch float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="submitters"
+                  checked
+                />
+                <label class="custom-control-label" for="submitters"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="mb-1 bold text-medium">Notification Settings (1,250)</p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'question-circle']"
+              class="text-muted"
+              ngbTooltip="Notification settings explanation"
+            >
+            </fa-icon>
+          </li>
+        </ul>
+        <div class="card bg-light shadow-sm">
+          <div class="card-body p-2">
+            <div class="row" *ngIf="!editNotifications">
+              <div class="col-12">
+                <p
+                  class="small text-muted mb-0 showEditOnHover"
+                  (click)="toggleNotifications()"
+                >
+                  Changing the stage of this opportunity will notify Followers,
+                  voters, and the idea submitter.
+                  <span class="text-primary">Edit</span>
+                </p>
+              </div>
+            </div>
+            <div class="row text-medium" *ngIf="editNotifications">
+              <div class="col-12">
+                <div class="form-row">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="submitters"
+                            >Send Notification to Submitter and Co-Submitters
+                            (5)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="owner"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="owner"
+                            >Send Notification to Opportunity Owner (2)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="team"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="team"
+                            >Send Notification to Team Members (3)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="followers"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="followers"
+                            >Send Notification to Followers (5)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="voters"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="voters"
+                            >Send Notification to Voters
+                            <span class="text-warning">(500)</span></label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="groups"
+                            (click)="toggleSpecificGroups()"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="groups"
+                            >Send Notification to Specific Individuals or Groups
+                            (0)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <!-- if specific groups is selected -->
+                    <div
+                      class="card bg-white mb-2 shadow-sm"
+                      *ngIf="notifySpecificGroups"
+                    >
+                      <div class="card-body pt-2">
+                        <label class="small bold">Select Groups</label>
+                        <app-search-groups></app-search-groups>
+                      </div>
+                    </div>
+                    <!-- end if specific groups is selected -->
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 mb-0">
+                    <label class="mt-1 font-weight-normal"
+                      >Customize Message</label
+                    >
+                    <textarea
+                      class="form-control form-control-sm"
+                      rows="3"
+                      placeholder="Please enter the message you'd like to include in your email notification..."
+                    ></textarea>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                  (click)="toggleNotifications()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <div class="pb-1">
+              <span class="bold small text-muted"
+                >Send Email Notification to Stakeholders</span
+              >
+              <div class="custom-control custom-switch float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="sendEmailNotificationToStakeholders"
+                  checked
+                />
+                <label
+                  class="custom-control-label"
+                  for="sendEmailNotificationToStakeholders"
+                ></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button
+      class="btn btn-light border"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(changeStageTwo)"
+    >
+      Go Back
+    </button>
+    <button class="btn btn-info ml-2" (click)="modal.dismiss('Cross click')">
+      Confirm and Send Notifications
+    </button>
+  </div>
+</ng-template>
+<!-- end confirm notification settings -->
+
+<!-- start of link modal -->
+<ng-template #linkOpportunities let-modal>
+  <div class="modal-header card-header bg-light">
+    <p class="small uppercase text-white bold mb-0">Link</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <app-linked-add></app-linked-add>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12"></div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button
+      class="btn btn-light border"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(changeStageTwo)"
+    >
+      Cancel
+    </button>
+    <button class="btn btn-info ml-2" (click)="modal.dismiss('Cross click')">
+      Link Submissions
+    </button>
+  </div>
+</ng-template>
+
+<!-- end of link modal -->
+
+<!-- start of idea settings modal -->
+<ng-template #ideaSettings let-modal>
+  <div class="modal-header pb-0 pl-0">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          Edit Idea
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'link']" class="text-muted"></fa-icon>
+          Link (10)
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'code-merge']" class="text-muted"></fa-icon>
+          Merge (2)
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon
+            [icon]="['fas', 'conveyor-belt-alt']"
+            class="text-muted"
+          ></fa-icon>
+          Workflow
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline active">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+          Settings
+        </p>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <p class="uppercase bold mb-1 text-medium">Settings</p>
+      <hr class="mb-2 mt-1" />
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="public"
+          name="customRadio"
+          class="custom-control-input"
+          checked
+        />
+        <label class="custom-control-label font-weight-normal" for="public"
+          ><b>Public</b> - All users who have access to the community can view
+          this idea under "open ideas."</label
+        >
+      </div>
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="specificGroups"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="specificGroups"
+          ><b>Specific Groups</b> - Only the groups you designate will be able
+          to view this idea.</label
+        >
+      </div>
+      <!-- if specific groups is selected -->
+      <div class="card bg-light mb-2 shadow-sm">
+        <div class="card-body pt-2">
+          <label class="small bold">Select Groups</label>
+          <app-search-groups></app-search-groups>
+        </div>
+      </div>
+      <!-- end if specific groups is selected -->
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="private"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label class="custom-control-label font-weight-normal" for="private"
+          ><b>Private</b> - Only Community Admins, Moderators, Owners, Team
+          Members, and the idea submitter will be able to see this idea.</label
+        >
+      </div>
+      <p class="uppercase bold mb-1 text-medium pt-3">
+        Filter Visibility Settings
+      </p>
+      <hr class="mb-2 mt-1" />
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="limitedVisibility"
+          name="customRadio"
+          class="custom-control-input"
+          checked
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="limitedVisibility"
+          ><b>Open Ideas</b> - This idea will be visible under the "open ideas"
+          filter without needing to be filtered by status or stage.</label
+        >
+      </div>
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="limitedVisibility"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="limitedVisibility"
+          ><b>Limited Visibility</b> - This idea will only be visible when
+          filtered by the specific stage or status that it is currently
+          in.</label
+        >
+      </div>
+      <p class="uppercase bold mb-1 text-medium pt-4">Collaboration Settings</p>
+      <hr class="mb-0 mt-1" />
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Voting</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowVoting"
+              checked
+            />
+            <label class="custom-control-label" for="allowVoting"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Commenting</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowCommenting"
+              checked
+            />
+            <label class="custom-control-label" for="allowCommenting"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Notes</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input type="checkbox" class="custom-control-input pointer" id="participantsTab">
+            <label class="custom-control-label" for="participantsTab">Enabled</label>
+          </div>
+        </div>
+      </div> -->
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Sharing</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowSharing"
+              checked
+            />
+            <label class="custom-control-label" for="allowSharing"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+<!-- end of idea settings modal -->
+
+<!-- start of add action item modal -->
+
+<ng-template #actionitem let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Add New Action Item</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-light border bg-light">
+      <div class="row">
+        <div class="col-1">
+          <fa-icon
+            [icon]="['fas', 'flag']"
+            class="text-muted mt-2"
+            style="font-size: 1.5rem;"
+          ></fa-icon>
+        </div>
+        <div class="col-11">
+          <span class="text-muted small"
+            >Use actions items to take full control of your innovation pipeline
+            by assigning stakeholders to complete actions on opportunities at
+            the right time. <a href="#">Learn more about action items</a>.
+          </span>
+        </div>
+      </div>
+    </div>
+    <form>
+      <div class="form-group">
+        <label>Action Item Title</label>
+        <input type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Action Item Description</label>
+        <textarea class="form-control" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Select Action</label>
+        <select class="form-control">
+          <optgroup label="Idea Management">
+            <option>Updating Categories</option>
+            <option>Assigning Ownership</option>
+            <option>Tagging Ideas</option>
+            <option>Commenting on Ideas</option>
+            <option>Recording Outcomes</option>
+            <option>Complete Custom Field / Custom Field Group</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Select Action</label>
+        <select class="form-control">
+          <optgroup label="Idea Management">
+            <option>Updating Categories</option>
+            <option>Assigning Ownership</option>
+            <option>Tagging Ideas</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Action Item Type</label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="actionItemType"
+            id="exampleRadios1"
+            value="option1"
+            checked
+          />
+          <label
+            class="form-check-label font-weight-normal"
+            for="exampleRadios1"
+          >
+            One Time Action Item
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="actionItemType"
+            id="exampleRadios2"
+            value="option2"
+          />
+          <label
+            class="form-check-label font-weight-normal"
+            for="exampleRadios2"
+          >
+            Recurring Action Item
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-dark">Cancel</button>
+    <button class="btn btn-primary">Next</button>
+  </div>
+</ng-template>
+
+<!-- end of action item modal -->
+
+<!-- start of merge idea modal -->
+<ng-template #deleteIdea let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">
+      Archive This {{ idea?.opportunityType?.name }}
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="">
+      Are you sure you would like to archive this
+      {{ idea?.opportunityType?.name }}? Please review the effects of archiving
+      before proceeding.
+    </p>
+    <label>Effects of Archiving</label>
+    <ul class="pl-4">
+      <li>
+        This {{ idea?.opportunityType?.name }} will no longer be visible on list
+        pages
+      </li>
+      <li>
+        This {{ idea?.opportunityType?.name }} will no longer be listed in
+        search results
+      </li>
+      <li>
+        This {{ idea?.opportunityType?.name }} will be removed from analytics
+        results
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Archive')">
+      Cancel
+    </button>
+    <button class="btn btn-info" (click)="archiveIdea(idea)">
+      Yes, Archive This {{ idea?.opportunityType?.name }}
+    </button>
+  </div>
+</ng-template>
+<!-- end of merge idea modal -->
+<ng-template #addOpportunityToWorkflow></ng-template>
+<ng-template #changeStageTwo></ng-template>

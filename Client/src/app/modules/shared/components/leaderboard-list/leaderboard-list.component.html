@@ -1,0 +1,270 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-header py-2 px-0 px-md-2 bg-white border-bottom-0">
+    <div class="row">
+      <div class="col-5">
+        <ul class="list-inline mb-0 pl-0 pl-md-2">
+          <li class="list-inline-item">
+            <p class="text-muted uppercase bold mb-0 text-medium">
+              <!-- <fa-icon [icon]="['fas', 'user']" class="text-center text-primary"></fa-icon> -->
+              <span class="d-none d-md-inline">{{
+                'Leaderboard.Community' | translationPipe
+              }}</span>
+              {{ 'Leaderboard.Leaderboard' | translationPipe }}
+            </p>
+          </li>
+          <!-- <li class="list-inline-item">
+            <p class="text-muted uppercase bold mb-0 small">
+              <fa-icon [icon]="['fas', 'users']" class="text-center text-primary"></fa-icon>
+              Group Leaderboard
+            </p>
+          </li> -->
+        </ul>
+      </div>
+      <div class="col-7">
+        <ul class="list-inline mb-0 float-right">
+          <li
+            class="list-inline-item nav-underline"
+            [ngClass]="{ active: selected === statsFrequency.WEEKLY }"
+            (click)="updateFrequency(statsFrequency.WEEKLY)"
+          >
+            <p class="text-muted uppercase bold mb-0 small">
+              {{ 'Leaderboard.Weekly' | translationPipe }}
+            </p>
+          </li>
+          <li
+            class="list-inline-item nav-underline"
+            [ngClass]="{ active: selected === statsFrequency.MONThLY }"
+            (click)="updateFrequency(statsFrequency.MONThLY)"
+          >
+            <p class="text-muted uppercase bold mb-0 small">
+              {{ 'Leaderboard.Monthly' | translationPipe }}
+            </p>
+          </li>
+          <li
+            class="list-inline-item nav-underline"
+            [ngClass]="{ active: selected === statsFrequency.ALL_TIME }"
+            (click)="updateFrequency(statsFrequency.ALL_TIME)"
+          >
+            <p class="text-muted uppercase bold mb-0 small">
+              {{ 'Leaderboard.AllTime' | translationPipe }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card-body py-2 px-0 px-md-3 mt-2">
+    <div class="row mt-5 mb-5" *ngIf="!rankList?.length">
+      <div class="col-12">
+        <div class="text-center">
+          <fa-icon
+            [icon]="['fas', 'trophy']"
+            class="text-center text-muted mb-3"
+            style="font-size: 2.25rem;"
+          ></fa-icon>
+          <h4 class="text-center montserrat bold mt-2">
+            {{ 'Leaderboard.EarnYourSpot' | translationPipe }}
+          </h4>
+          <p class="text-muted mb-5">
+            {{ 'Leaderboard.EarnYourSpotDescription' | translationPipe }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div
+            class="col-4"
+            *ngFor="let item of rankList | slice: 0:3; let i = index"
+          >
+            <div class="card mb-3 bg-light shadow-sm">
+              <div class="card-body px-2 py-1">
+                <div class="row">
+                  <div class="col-12">
+                    <div
+                      class="float-right"
+                      style="position: relative; left: 0.2rem;"
+                    >
+                      <app-follow-button
+                        [data]="item"
+                        [entityObject]="{
+                          id: item.id,
+                          typeId: entity?.id,
+                          entity: 'user'
+                        }"
+                        [entity]="'user'"
+                        (followed)="follow($event, i)"
+                      ></app-follow-button>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center mb-2 mt-2">
+                  <img
+                    class="rounded-circle userImage"
+                    [defaultImage]="defaultImage"
+                    [lazyLoad]="item.profileImage.url"
+                    style="width: 70px; height: 70px;"
+                  />
+                </div>
+                <p class="mb-2 text-center">
+                  <a
+                    class="inverseLinkDark"
+                    [routerLink]="['/profile/view', item.id]"
+                    >{{ item.firstName + ' ' + item.lastName }}</a
+                  >
+                </p>
+                <div class="text-center mb-3">
+                  <span class="badge firstPlace py-1">
+                    {{ abbreviations(item.rank) }}
+                    {{ 'Leaderboard.Place' | translationPipe }}
+                  </span>
+                </div>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <h6 class="mb-0 align-self-center montserrat text-primary">
+                      {{ item.experiencePoint }}
+                      <span class="text-muted small">XP</span>
+                    </h6>
+                  </li>
+                  <!-- <li class="list-inline-item" style="margin-left: 9%;">
+                    <app-follow-button
+                      [data]="item"
+                      [entityObject]="{
+                        id: item.id,
+                        typeId: entity?.id,
+                        entity: 'user'
+                      }"
+                      [entity]="'user'"
+                      (followed)="follow($event, i)"
+                    ></app-follow-button>
+                  </li> -->
+                  <li class="list-inline-item float-right">
+                    <h6 class="text-muted mb-0">
+                      <fa-icon
+                        *ngIf="item.rankChanged && item.rankChanged !== 0"
+                        [icon]="[
+                          'fas',
+                          item.rankChanged > 0 ? 'caret-up' : 'caret-down'
+                        ]"
+                        class="text-center"
+                        [ngClass]="{
+                          changePositive: item.rankChanged > 0,
+                          changeNegative: item.v < 0
+                        }"
+                      ></fa-icon>
+                      {{
+                        item.rankChanged < 0
+                          ? item.rankChanged * -1
+                          : item.rankChanged || 0
+                      }}
+                    </h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="rankList?.length > 3" />
+    <div class="row d-none d-md-flex" *ngIf="rankList?.length > 3">
+      <div class="col-1">
+        <label class="text-medium">
+          {{ 'Leaderboard.Rank' | translationPipe }}
+        </label>
+      </div>
+      <div class="col-4">
+        <label class="text-medium">
+          {{ 'Leaderboard.Name' | translationPipe }}
+        </label>
+      </div>
+      <div class="col-2">
+        <label class="text-medium">
+          {{ 'Leaderboard.Points' | translationPipe }}
+        </label>
+      </div>
+      <div class="col-2">
+        <label class="text-medium">
+          {{ 'Leaderboard.Change' | translationPipe }}
+        </label>
+      </div>
+      <div class="col-3"></div>
+    </div>
+    <!-- start of one -->
+    <div
+      class="row d-flex flex-row align-items-center dottedBottomBorder py-2"
+      *ngFor="let item of rankList | slice: 3; let i = index"
+    >
+      <div
+        class="col-2 col-md-1 d-flex flex-column align-self-center badgeColumn"
+      >
+        <span class="badge leaderboardBadge">
+          {{ abbreviations(item.rank) }}
+        </span>
+      </div>
+      <div class="col-5 col-md-4 flex-column">
+        <div class="media align-items-center">
+          <img
+            class="rounded-circle mr-3 align-self-center"
+            [defaultImage]="defaultImage"
+            [lazyLoad]="item.profileImage.url"
+            style="height: 40px; width: 40px;"
+          />
+          <div class="media-body">
+            <p class="mb-0 align-self-center">
+              <a
+                class="inverseLinkDark"
+                [routerLink]="['/profile/view', item.id]"
+                >{{ item.firstName + ' ' + item.lastName }}</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <h5 class="mb-0 align-self-center montserrat text-primary">
+          {{ item.experiencePoint }} <span class="text-muted small">XP</span>
+        </h5>
+      </div>
+      <div class="d-none d-md-block col-2">
+        <h5 class="text-muted montserrat mb-0">
+          <!-- <fa-icon
+            [icon]="['fas', 'caret-up']"
+            class="text-center changePositive"
+          ></fa-icon>
+          {{ item.experiencePoint }} -->
+          <fa-icon
+            *ngIf="item.rankChanged && item.rankChanged !== 0"
+            [icon]="['fas', item.rankChanged > 0 ? 'caret-up' : 'caret-down']"
+            class="text-center"
+            [ngClass]="{
+              changePositive: item.rankChanged > 0,
+              changeNegative: item.rankChanged < 0
+            }"
+          ></fa-icon>
+          {{
+            item.rankChanged < 0 ? item.rankChanged * -1 : item.rankChanged || 0
+          }}
+        </h5>
+      </div>
+      <div class="col-3">
+        <!-- <button class="btn btn-primary btn-xs btn-block py-1">
+          <fa-icon [icon]="['fas', 'rss']" class="mr-1"></fa-icon>
+          Follow
+        </button> -->
+        <app-follow-button
+          [data]="item"
+          [entityObject]="{
+            id: item.id,
+            typeId: entity?.id,
+            entity: 'user'
+          }"
+          [entity]="'user'"
+          (followed)="follow($event, i + 3)"
+        ></app-follow-button>
+      </div>
+    </div>
+    <!-- end of one -->
+  </div>
+</div>

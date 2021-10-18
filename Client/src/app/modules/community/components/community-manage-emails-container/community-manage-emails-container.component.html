@@ -1,0 +1,560 @@
+<div class="row">
+  <div class="col-sm-12 col-md-2">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="card shadow-sm my-3">
+              <div class="card-header">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="uppercase mb-0 bold">
+                      {{
+                        'ManageTemplate.Headings.ManageEmails' | translationPipe
+                      }}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body p-0">
+                <!-- start of insert -->
+                <div class="row">
+                  <div class="col-4 pr-0">
+                    <div class="card rounded-0 border-top-0">
+                      <div class="card-header bg-white rounded-0 border-top-0">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item">
+                            <p class="uppercase mb-0 bold small">
+                              Select Email Template
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="card-body p-0 setMaxHeight border-left-0">
+                        <div
+                          *ngFor="let template of templates"
+                          (click)="editTemplate(template)"
+                          class="row border-bottom addHover mr-0 ml-0 pb-3 pt-3"
+                        >
+                          <div class="col-12">
+                            <h6 class="bold montserrat">{{ template.name }}</h6>
+                            <!-- <p
+                              *ngIf="template.isDeleted"
+                              class="small text-muted mb-0"
+                            >
+                              Sends <b>immediately</b> when
+                              <b>a new invite is sent</b> to your community.
+                            </p>
+                            <p
+                              *ngIf="!template.isDeleted"
+                              class="small text-muted mb-0"
+                            >
+                              Sends <b>FREQUENCY</b> when
+                              <b>ACTION / EVENT</b> to your community.
+                            </p> -->
+                            <p
+                              *ngIf="
+                                !template.isDeleted &&
+                                template.lastRun &&
+                                template.name !== templateTypes.INVITE_USER &&
+                                template.name !==
+                                  templateTypes.FORGOT_PASSWORD &&
+                                template.name !== templateTypes.UPDATES
+                              "
+                              class="small text-muted mt-2 font-italic mb-0"
+                              style="font-size: 70%;"
+                            >
+                              <fa-icon [icon]="['fas', 'history']"></fa-icon>
+                              <span class="bold">
+                                {{
+                                  'ManageTemplate.Labels.LastSent'
+                                    | translationPipe
+                                }}
+                              </span>
+                              {{
+                                utcToTimeZone(
+                                  template.lastRun,
+                                  template.timeZone
+                                )
+                              }}
+                              <!-- ({{ template.timeZone }}) -->
+                            </p>
+                            <p
+                              *ngIf="
+                                !template.isDeleted &&
+                                template.nextRun &&
+                                template.name !== templateTypes.INVITE_USER &&
+                                template.name !==
+                                  templateTypes.FORGOT_PASSWORD &&
+                                template.name !== templateTypes.UPDATES
+                              "
+                              class="small text-muted mt-2 font-italic mb-0"
+                              style="font-size: 70%;"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'calendar-day']"
+                              ></fa-icon>
+                              <span class="bold">
+                                {{
+                                  'ManageTemplate.Labels.NextSend'
+                                    | translationPipe
+                                }}
+                              </span>
+                              {{
+                                utcToTimeZone(
+                                  template.nextRun,
+                                  template.timeZone
+                                )
+                              }}
+                            </p>
+                            <ul class="list-inline mb-0 mt-2">
+                              <li class="list-inline-item">
+                                <p class="mb-0">
+                                  <span
+                                    *ngIf="!template.isDeleted"
+                                    class="badge badge-primary"
+                                    >{{
+                                      'ManageTemplate.Labels.Enabled'
+                                        | translationPipe
+                                    }}</span
+                                  >
+                                  <span
+                                    *ngIf="template.isDeleted"
+                                    class="badge badge-danger"
+                                    >{{
+                                      'ManageTemplate.Labels.Disabled'
+                                        | translationPipe
+                                    }}</span
+                                  >
+                                </p>
+                              </li>
+                              <li
+                                class="list-inline-item float-right adjustFloat"
+                              >
+                                <p
+                                  class="text-muted mb-0 small"
+                                  style="padding-top: 0.15rem;"
+                                >
+                                  Time Zone - {{ template.timeZone }}
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-8 pl-0" *ngIf="edit">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card rounded-top-0">
+                          <div
+                            class="card-header bg-white border-left-0 rounded-top-0 py-2"
+                          >
+                            <ul class="list-inline mb-1">
+                              <li class="list-inline-item pt-2">
+                                <p class="uppercase small mb-0 bold">
+                                  {{
+                                    'ManageTemplate.Headings.ManageTemplateName'
+                                      | translationPipe
+                                  }}
+                                  {{ selectedTemplate.name }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item float-right pt-1">
+                                <div
+                                  class="custom-control custom-switch mr-auto float-right"
+                                >
+                                  <input
+                                    [(ngModel)]="isEnabled"
+                                    type="checkbox"
+                                    class="custom-control-input pointer"
+                                    id="emailStatus"
+                                  />
+                                  <label
+                                    class="custom-control-label font-weight-normal"
+                                    for="emailStatus"
+                                    >{{
+                                      'ManageTemplate.Labels.Enabled'
+                                        | translationPipe
+                                    }}</label
+                                  >
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="card-body setMaxHeight">
+                            <div class="row">
+                              <div class="col-12">
+                                <!-- <ul class="list-inline mb-4">
+                                  <li
+                                    *ngFor="let key of objectKeys(tabs)"
+                                    (click)="tab = key"
+                                    [ngClass]="
+                                      tab == key
+                                        ? 'list-inline-item nav-underline active'
+                                        : 'cursor-pointer list-inline-item'
+                                    "
+                                  >
+                                    <p
+                                      class="uppercase mb-0 text-muted small bold"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', tabs[key].icon]"
+                                        class="text-muted"
+                                      ></fa-icon>
+                                      {{ tabs[key].title }}
+                                    </p>
+                                  </li>
+                                </ul>                              -->
+                                <form [formGroup]="templateForm">
+                                  <div class="form-row">
+                                    <div class="form-group col-6">
+                                      <label>{{
+                                        'ManageTemplate.Labels.SenderName'
+                                          | translationPipe
+                                      }}</label>
+                                      <input
+                                        name="senderName"
+                                        formControlName="senderName"
+                                        type="text"
+                                        class="form-control"
+                                      />
+                                      <div
+                                        [hidden]="checkIsValid('senderName')"
+                                        class="error-txt"
+                                      >
+                                        Sender Name is Required
+                                      </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                      <label>{{
+                                        'ManageTemplate.Labels.SenderEmail'
+                                          | translationPipe
+                                      }}</label>
+                                      <input
+                                        name="senderEmail"
+                                        formControlName="senderEmail"
+                                        type="email"
+                                        class="form-control"
+                                      />
+                                      <div
+                                        [hidden]="checkIsValid('senderEmail')"
+                                        class="error-txt"
+                                      >
+                                        Sender Email is Required
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="schedule" class="form-row">
+                                    <div class="form-group col-6">
+                                      <label>{{
+                                        'ManageTemplate.Labels.SendingFrequency'
+                                          | translationPipe
+                                      }}</label>
+                                      <input
+                                        name="frequency"
+                                        formControlName="frequency"
+                                        type="number"
+                                        min="0"
+                                        max="24"
+                                        class="form-control"
+                                      />
+                                      <div
+                                        [hidden]="checkIsValid('frequency')"
+                                        class="error-txt"
+                                      >
+                                        Frequency is Required
+                                      </div>
+                                    </div>
+                                    <div class="form-group col-6 mt-3">
+                                      <label class="timezone-label"
+                                        >&nbsp;</label
+                                      >
+                                      <ng-select
+                                        [items]="timeZonesList"
+                                        bindLabel="name"
+                                        bindValue="id"
+                                        [multiple]="false"
+                                        [placeholder]="'Search timezone...'"
+                                        formControlName="timeZone"
+                                        style="margin-top: -1.3em;"
+                                        dropdownPosition="bottom"
+                                        [hideSelected]="true"
+                                        [closeOnSelect]="true"
+                                        [virtualScroll]="true"
+                                      >
+                                      </ng-select>
+                                      <div
+                                        [hidden]="checkIsValid('timeZone')"
+                                        class="error-txt"
+                                      >
+                                        TimeZone is Required
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- <div *ngIf="schedule" class="form-row">
+                                    <div class="form-group col-6">
+                                      <label>{{
+                                        'ManageTemplate.Labels.StartTime'
+                                          | translationPipe
+                                      }}</label>
+                                      <ngb-timepicker
+                                        name="runAt"
+                                        formControlName="runAt"
+                                        [meridian]="true"
+                                      >
+                                      </ngb-timepicker>
+                                    </div>
+                                  </div> -->
+                                  <div class="form-row">
+                                    <div class="form-group col-12">
+                                      <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                          <label>{{
+                                            'ManageTemplate.Labels.DefaultEmailFeaturedImage'
+                                              | translationPipe
+                                          }}</label>
+                                        </li>
+                                        <li
+                                          class="list-inline-item float-right mr-1"
+                                        >
+                                          <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink mr-1" placement="top"
+                                                    ngbTooltip="Edit Favicon"></fa-icon> -->
+                                          <fa-icon
+                                            (click)="
+                                              templateForm.value.featureImage =
+                                                ''
+                                            "
+                                            [icon]="['fas', 'times-circle']"
+                                            class="inverseLinkDanger"
+                                            placement="top"
+                                            ngbTooltip="Remove Favicon"
+                                          >
+                                          </fa-icon>
+                                        </li>
+                                      </ul>
+                                      <app-upload-single-file
+                                        *ngIf="!templateForm.value.featureImage"
+                                        (file)="
+                                          templateForm.value.featureImage = $event
+                                        "
+                                        [folder]="s3Folder.COMMUNITY"
+                                      ></app-upload-single-file>
+                                      <p
+                                        *ngIf="!templateForm.value.featureImage"
+                                        class="small text-muted pt-1 mb-0"
+                                      >
+                                        {{
+                                          'ManageTemplate.Labels.OptimalImageSize'
+                                            | translationPipe
+                                        }}
+                                      </p>
+                                      <img
+                                        *ngIf="templateForm.value.featureImage"
+                                        class="w-100"
+                                        style="
+                                          max-height: 200px;
+                                          object-fit: cover;
+                                        "
+                                        [defaultImage]="defaultImage"
+                                        [lazyLoad]="
+                                          templateForm.value.featureImage
+                                        "
+                                      />
+                                      <div
+                                        [hidden]="checkIsValid('featureImage')"
+                                        class="error-txt"
+                                      >
+                                        Feature Image is Required
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>{{
+                                      'ManageTemplate.Labels.SubjectLine'
+                                        | translationPipe
+                                    }}</label>
+                                    <!-- Personalize Only -->
+                                    <div class="card rounded-0">
+                                      <div class="card-body p-0">
+                                        <ul class="list-inline mb-0">
+                                          <li
+                                            class="list-inline-item border-right text-center pt-2 pb-2 pl-2 pr-2 mr-0 addHover"
+                                            id="textTypeDropdown"
+                                            ngbDropdown
+                                            ngbDropdownToggle
+                                          >
+                                            <small
+                                              style="
+                                                position: relative;
+                                                bottom: 0.1rem;
+                                              "
+                                              >Personalize</small
+                                            >
+                                            <span
+                                              ngbDropdownMenu
+                                              aria-labelledby="textTypeDropdown"
+                                              class="shadow"
+                                            >
+                                              <button
+                                                *ngFor="
+                                                  let bookMark of subjectBookmarks()
+                                                "
+                                                (click)="
+                                                  addBookMark(
+                                                    bookMark.key,
+                                                    'subject'
+                                                  )
+                                                "
+                                                ngbDropdownItem
+                                              >
+                                                {{ bookMark.value }}
+                                              </button>
+                                            </span>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <!-- End -->
+                                    <input
+                                      type="text"
+                                      name="subject"
+                                      formControlName="subject"
+                                      class="form-control rounded-top-0"
+                                      #emailSubject
+                                    />
+                                    <div
+                                      [hidden]="checkIsValid('subject')"
+                                      class="error-txt"
+                                    >
+                                      Subject is Required
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>{{
+                                      'ManageTemplate.Labels.EmailBody'
+                                        | translationPipe
+                                    }}</label>
+                                    <app-markup-editor
+                                      [bookMarks]="bookMarks"
+                                      [text]="templateForm.value.body"
+                                      (outputText)="setEmailBody($event)"
+                                    >
+                                    </app-markup-editor>
+                                    <!-- <textarea
+                                      name="body"
+                                      formControlName="body"
+                                      class="form-control rounded-top-0"
+                                      rows="12"
+                                      #emailBodyText
+                                    ></textarea> -->
+                                    <div
+                                      [hidden]="checkIsValid('body')"
+                                      class="error-txt"
+                                    >
+                                      Email body is Required
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>{{
+                                      'ManageTemplate.Labels.EmailFooter'
+                                        | translationPipe
+                                    }}</label>
+                                    <app-markup-editor
+                                      [height]="250"
+                                      [bookMarks]="subjectBookmarks()"
+                                      [text]="templateForm.value.footerSection"
+                                      (outputText)="setEmailFooter($event)"
+                                    >
+                                    </app-markup-editor>
+                                    <!-- <textarea
+                                      name="footerSection"
+                                      formControlName="footerSection"
+                                      class="form-control"
+                                      rows="3"
+                                    ></textarea> -->
+                                    <div
+                                      [hidden]="checkIsValid('footerSection')"
+                                      class="error-txt"
+                                    >
+                                      Footer is Required
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="form-group col-7">
+                                      <ul class="list-inline mb-0">
+                                        <li
+                                          (click)="openPreviewModal()"
+                                          class="list-inline-item"
+                                        >
+                                          <span class="editLink">
+                                            <fa-icon
+                                              [icon]="['fas', 'eye']"
+                                            ></fa-icon>
+                                            {{
+                                              'ManageTemplate.Labels.PreviewInBrowser'
+                                                | translationPipe
+                                            }}
+                                          </span>
+                                        </li>
+                                        <li
+                                          (click)="testEmailContent()"
+                                          class="list-inline-item ml-2"
+                                        >
+                                          <span class="editLink">
+                                            <fa-icon
+                                              [icon]="['fas', 'envelope']"
+                                            ></fa-icon>
+                                            {{
+                                              'ManageTemplate.Labels.SendTestEmail'
+                                                | translationPipe
+                                            }}
+                                          </span>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div class="form-group col-5">
+                                      <button
+                                        class="btn btn-primary ml-2 float-right"
+                                        (click)="onSubmit()"
+                                        [disabled]="!templateForm.valid"
+                                      >
+                                        {{
+                                          'ManageTemplate.Buttons.SaveChanges'
+                                            | translationPipe
+                                        }}
+                                      </button>
+                                      <button
+                                        (click)="closeTemplate()"
+                                        class="btn btn-light border float-right"
+                                      >
+                                        {{
+                                          'ManageTemplate.Buttons.Cancel'
+                                            | translationPipe
+                                        }}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end of insert -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

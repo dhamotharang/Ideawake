@@ -1,0 +1,36 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.modal.fade .modal-dialog {
+  max-width: 635px;
+  margin: 8rem auto 1.75rem 26.7rem;
+}
+
+.selectStakeholder {
+  background-color: $white;
+  color: $gray-900;
+}
+
+.selectStakeholder:hover {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder.active {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder .icon {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .icon {
+  color: $white !important;
+}
+
+.selectStakeholder.active .icon {
+  color: $white;
+}

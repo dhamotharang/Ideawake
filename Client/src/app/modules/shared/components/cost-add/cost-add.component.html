@@ -1,0 +1,40 @@
+<!-- start of add benefit -->
+<div class="row bg-light mx-0 py-2" *ngIf="addCost">
+  <div class="col-12">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-4 mb-0">
+          <select class="form-control form-control-sm">
+            <option>Choose Cost Type...</option>
+            <option>Show financial outcomes types here</option>
+          </select>
+        </div>
+        <div class="form-group col-2 mb-0">
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group col-2 mb-0">
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group col-2 mb-0">
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group col-2 mb-0">
+          <input type="text" class="form-control form-control-sm" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- end of add benefit -->
+<!-- individual benefit entry -->
+<div class="row bg-light mx-0 py-2">
+  <div class="col-2">
+    <button
+      class="btn btn-xs py-1 btn-outline-primary btn-block"
+      (click)="toggleCost()"
+    >
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Add Cost
+    </button>
+  </div>
+</div>

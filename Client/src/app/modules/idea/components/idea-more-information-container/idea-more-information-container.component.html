@@ -1,0 +1,449 @@
+<!-- start of refine stage px-0 -->
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-md-8 pr-md-4 order-2 order-sm-1">
+          <!-- <div class="row" *ngIf="isLoading">
+            <div class="col-12">
+              <app-form-loader> </app-form-loader>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-12 removePaddingOnMobile">
+              <!-- start of insert -->
+              <!-- <div class="row d-none">
+                <div class="col-12">
+                  <ul class="list-inline mb-2">
+                    <li class="list-inline-item" ngbDropdown container="body">
+                      <span
+                        ngbDropdownToggle
+                        class="badge bg-white removeCaret shadow-sm badgePadding cardAnimation pointer addRadius border"
+                      >
+                        <fa-icon [icon]="['fas', 'question-circle']"></fa-icon>
+                        Ask Question
+                      </span>
+                      <div
+                        ngbDropdownMenu
+                        class="pt-0"
+                        style="width: 30rem; margin-top: 0.55rem;"
+                      >
+                        <div
+                          class="bg-light py-1 px-3 border-bottom rounded-top"
+                        >
+                          <label class="text-muted mb-0 small bold"
+                            >Ask Question</label
+                          >
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="px-3 py-1">
+                              <div class="row">
+                                <div class="col-8">
+                                  <form>
+                                    <div class="form-group">
+                                      <label class="text-medium"
+                                        >Start Typing Your Question Here</label
+                                      >
+                                      <textarea
+                                        class="form-control mb-2 form-control-sm"
+                                        rows="2"
+                                      ></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <label class="text-medium"
+                                        >Assign to (default stage completer) /
+                                        Optionally allow the user to add in
+                                        custom fields</label
+                                      >
+                                    </div>
+                                    <div class="form-group">
+                                      <button
+                                        class="btn btn-primary btn-sm shadow-sm"
+                                      >
+                                        Ask Question
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="col-4">
+                                  Show existing questions over here, filter down
+                                  by those questions as the user types their
+                                  question
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-inline-item" ngbDropdown container="body">
+                      <span
+                        class="badge bg-white border shadow-sm badgePadding cardAnimation pointer addRadius removeCaret"
+                        ngbDropdownToggle
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'clipboard-list-check']"
+                        ></fa-icon>
+                        Add Checklist
+                      </span>
+                      <div
+                        ngbDropdownMenu
+                        class="pt-0 shadow"
+                        style="width: 17rem; margin-top: 0.55rem;"
+                      >
+                        <div
+                          class="bg-light text-center py-1 px-3 border-bottom rounded-top"
+                        >
+                          <label class="text-muted mb-0 small bold"
+                            >Add Checklist</label
+                          >
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="px-3 py-2">
+                              <form>
+                                <div class="form-group mb-4">
+                                  <label class="text-medium">Title</label>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    value="Checklist"
+                                  />
+                                </div>
+                                <div class="form-group mb-0">
+                                  <button
+                                    class="btn btn-primary btn-sm px-3 shadow-sm"
+                                  >
+                                    Add Checklist
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-inline-item">
+                      <span
+                        class="badge bg-white shadow-sm badgePadding cardAnimation pointer addRadius"
+                        ngbTooltip="Nothing"
+                      >
+                        <fa-icon [icon]="['fas', 'font']"></fa-icon>
+                        Add Fields
+                      </span>
+                    </li>
+                    <li class="list-inline-item"></li>
+                    <li class="list-inline-item">
+                      <span
+                        class="badge bg-white border badgePadding shadow-sm cardAnimation pointer addRadius"
+                        ngbTooltip="Nothing"
+                      >
+                        <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
+                        Add Task
+                      </span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span
+                        class="badge bg-white border border shadow-sm badgePadding cardAnimation pointer addRadius"
+                        ngbTooltip="Nothing"
+                      >
+                        <fa-icon [icon]="['fas', 'dollar-sign']"></fa-icon>
+                        Record Impact
+                      </span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span
+                        class="badge badge-warning badgePadding cardAnimation pointer"
+                        (click)="open(addScorecard)"
+                        ngbTooltip="Add a scorecard for specific stakeholders to complete"
+                      >
+                        <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                        Add Scorecard
+                      </span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span
+                        class="badge badge-secondary badgePadding cardAnimation pointer"
+                        ngbTooltip="Add a question or poll to complete for specific stakeholders"
+                      >
+                        <fa-icon [icon]="['fas', 'poll-h']"></fa-icon>
+                        Add Poll
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+              <!-- end of insert -->
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body pt-2 px-3 setMinHeight">
+                  <div
+                    class="alert alert-info shadow-sm"
+                    *ngIf="seeInstructions"
+                  >
+                    <ul class="list-inline mb-1">
+                      <li class="list-inline-item">
+                        <p class="text-medium bold mb-0">
+                          {{
+                            'SharedText.RefineInstructionsHeader'
+                              | translationPipe
+                          }}
+                          {{ idea?.opportunityType?.name }}
+                        </p>
+                      </li>
+                      <li
+                        class="list-inline-item float-right"
+                        (click)="seeInstructions = !seeInstructions"
+                      >
+                        <p class="text-info mb-1 bold small pointer">
+                          <fa-icon [icon]="['fas', 'times']"></fa-icon>
+                          {{ 'SharedText.Hide' | translationPipe }}
+                        </p>
+                      </li>
+                    </ul>
+                    <p class="small mb-2">
+                      {{
+                        'SharedText.RefineInstructionsDescriptionOne'
+                          | translationPipe
+                      }}
+                      {{ idea?.opportunityType?.name }}
+                      {{
+                        'SharedText.RefineInstructionsDescriptionTwo'
+                          | translationPipe
+                      }}
+                    </p>
+                    <ol
+                      class="small mb-0"
+                      style="padding-inline-start: 1.5rem;"
+                    >
+                      <li>
+                        <p class="mb-1">
+                          {{
+                            'SharedText.RefineInstructionsPointOne'
+                              | translationPipe
+                          }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="mb-1">
+                          {{
+                            'SharedText.RefineInstructionsPointTwo'
+                              | translationPipe
+                          }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="mb-0">
+                          {{
+                            'SharedText.RefineInstructionsPointThree'
+                              | translationPipe
+                          }}
+                        </p>
+                      </li>
+                    </ol>
+                  </div>
+                  <ul class="list-inline mb-2">
+                    <li class="list-inline-item">
+                      <p
+                        class="uppercase text-muted mb-0 bold small montserrat"
+                      >
+                        {{ 'SharedText.AddInfoAbout' | translationPipe }}
+                        {{ idea?.opportunityType?.name }}
+                        {{ 'SharedText.Below' | translationPipe }}
+                      </p>
+                    </li>
+                    <!-- <li
+                      class="list-inline-item float-right pt-1"
+                      (click)="seeInstructions = !seeInstructions"
+                    >
+                      <p class="text-info mb-1 bold small pointer">
+                        <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                        {{ 'SharedText.Instructions' | translationPipe }}
+                      </p>
+                    </li> -->
+                  </ul>
+                  <!-- <hr class="mt-2 mb-1"> -->
+                  <app-idea-stage-progress-horizontal
+                    [idea]="idea"
+                    [ideaEntity]="entityType"
+                    [followerData]="followersData"
+                    [stageAssignees]="stageAssignees"
+                    [stageStats]="stageStats"
+                    (updatedIdea)="getStageAssignees()"
+                    [stageAssignmentSettings]="stageAssignmentSettings"
+                  ></app-idea-stage-progress-horizontal>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p
+                        class="uppercase text-muted mb-0 bold small montserrat"
+                      >
+                        {{ 'SharedText.RefineHeaderTwo' | translationPipe }}
+                      </p>
+                    </li>
+                    <!-- <li
+                      class="list-inline-item float-right pt-1"
+                      (click)="seeInstructions = !seeInstructions"
+                    >
+                      <p class="text-info mb-1 bold small pointer">
+                        <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+                        Instructions
+                      </p>
+                    </li> -->
+                  </ul>
+                  <!-- <hr class="mt-2 mb-1"> -->
+                  <hr class="mt-1 mb-1" />
+                  <div *ngIf="customFields && customFields.length" class="mt-3">
+                    <app-custom-fields
+                      [customFields]="customFields"
+                      [view]="true"
+                      (fieldsData)="updateSummaryCustomFieldData($event)"
+                    ></app-custom-fields>
+                    <!-- [ignorePermissions]="true" -->
+                  </div>
+                  <!-- <ul class="list-inline mb-2">
+                    <li class="list-inline-item">
+                      <p
+                        class="uppercase text-muted mb-0 bold small montserrat"
+                      >
+                        Open Tasks (or checklists)
+                      </p>
+                    </li>
+                    <li
+                      class="list-inline-item float-right pt-1"
+                      (click)="seeInstructions = !seeInstructions"
+                    >
+                      <p class="text-info mb-1 bold small pointer">
+                        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                        Add Task
+                      </p>
+                    </li>
+                  </ul>
+                  <hr class="mt-2 mb-3"> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 pl-md-0 order-sm-2 removePaddingOnMobile">
+          <!-- <div style="position: relative; bottom: 5px;">
+            <app-idea-stage-progress-horizontal
+              [idea]="idea"
+              [ideaEntity]="entityType"
+              [followerData]="followersData"
+              [stageAssignees]="stageAssignees"
+              [stageStats]="stageStats"
+              (updatedIdea)="updateIdea($event)"
+            ></app-idea-stage-progress-horizontal>
+          </div> -->
+          <!-- <p class="small bold uppercase text-muted mb-1 montserrat">
+            Comments
+          </p> -->
+          <!-- <hr class="mt-0"> -->
+          <app-comments-container
+            [permissions]="permissionsData"
+            [simpleComments]="true"
+            [entityConfig]="{
+              entityObjectId: idea?.id,
+              entityType: entityTypeIdea?.id
+            }"
+            [userOpportunityPermissions]="userOpportunityPermissions"
+          ></app-comments-container>
+          <!-- <div class="row">
+            <div class="col-12">
+              <ul class="list-inline mb-2">
+                <li class="list-inline-item">
+                  <p class="mb-0 bold text-muted uppercase small">
+                    Assigned to
+                  </p>
+                </li>
+                <li class="list-inline-item float-right">
+                  <button class="btn btn-light btn-xs py-2 border">
+                    Send Reminder
+                  </button>
+                </li>
+                <li class="list-inline-item float-right mr-1">
+                  <button class="btn btn-light btn-xs py-2 border">
+                    Edit Assignees
+                  </button>
+                </li>
+              </ul>
+              <div class="media showEditOnHover">
+                <img
+                  src="https://via.placeholder.com/30x30"
+                  class="mr-2 rounded-circle ideaCardSubmitterImage"
+                />
+                <div class="media-body">
+                  <p class="mb-0 text-medium">
+                    First Last Name
+                    <span class="float-right small text-muted adjustFloat mr-2">
+                      10/25 Complete
+                      <fa-icon
+                        [icon]="['fas', 'minus-circle']"
+                        class="text-warning"
+                      ></fa-icon>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="media showEditOnHover">
+                <img
+                  src="https://via.placeholder.com/30x30"
+                  class="mr-2 rounded-circle ideaCardSubmitterImage"
+                />
+                <div class="media-body">
+                  <p class="mb-0 text-medium">
+                    First Last Name
+                    <span class="float-right small text-muted adjustFloat mr-2">
+                      Completed
+                      <fa-icon
+                        [icon]="['fas', 'check-circle']"
+                        class="text-primary"
+                      ></fa-icon>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="media showEditOnHover">
+                <img
+                  src="https://via.placeholder.com/30x30"
+                  class="mr-2 rounded-circle ideaCardSubmitterImage"
+                />
+                <div class="media-body">
+                  <p class="mb-0 text-medium">
+                    First Last Name
+                    <span class="float-right small text-muted adjustFloat mr-2">
+                      Completed
+                      <fa-icon
+                        [icon]="['fas', 'check-circle']"
+                        class="text-primary"
+                      ></fa-icon>
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div class="media showEditOnHover">
+                <img
+                  src="https://via.placeholder.com/30x30"
+                  class="mr-2 rounded-circle ideaCardSubmitterImage"
+                />
+                <div class="media-body">
+                  <p class="mb-0 text-medium">
+                    First Last Name
+                    <span class="float-right small text-muted adjustFloat mr-2">
+                      Completed
+                      <fa-icon
+                        [icon]="['fas', 'check-circle']"
+                        class="text-primary"
+                      ></fa-icon>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of refine stage -->

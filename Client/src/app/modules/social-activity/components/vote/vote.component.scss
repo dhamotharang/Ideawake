@@ -1,0 +1,43 @@
+@import '~src/variables';
+@import '~src/variables-custom';
+
+
+.upvoted-idea-button-wo-hover {
+  background: #717cf5;
+  border-color: #717cf5;
+  color: #fff !important;
+  &:focus {
+    box-shadow: none;
+  }
+}
+.upvoted-idea-button {
+  background: #717cf5;
+  border-color: #717cf5;
+  color: #fff !important;
+  &:focus {
+    box-shadow: none;
+  }
+  &:hover:after {
+    content: attr(data-hover);
+  }
+  &:hover {
+    .upvote-button-content {
+      display: none;
+    }
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff !important;
+    font-weight: bold;
+    margin-left: 0.1rem;
+  }
+}
+
+.adjustTextUp{
+  position: relative;
+  bottom: 2px;
+}
+
+.adjustSize{
+  font-size: 95%;
+}
+

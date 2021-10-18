@@ -1,0 +1,239 @@
+<div class="row">
+  <!-- start of header -->
+  <div class="col-5">
+    <label class="small bold">
+      {{ 'StageList.StageName' | translationPipe }}
+    </label>
+  </div>
+  <div class="col-3">
+    <label class="small bold">
+      {{ 'StageList.Assignee' | translationPipe }}
+    </label>
+  </div>
+  <!-- <div class="col-2">
+    <label class="small bold">
+      {{ 'StageList.Status' | translationPipe }}
+    </label>
+  </div> -->
+  <div class="col-2">
+    <label class="small bold">
+      {{ 'StageList.StageDetails' | translationPipe }}
+    </label>
+  </div>
+  <div class="col-2">
+    <label class="small bold">
+      <!-- {{ 'StageList.DueDate' | translationPipe }} -->
+      Days
+    </label>
+  </div>
+  <!-- end of header -->
+</div>
+
+<div *ngFor="let stage of stages; let i = index" class="row">
+  <div class="col-12">
+    <div class="card shadow-sm d-flex">
+      <div class="card-body px-0 py-2">
+        <div class="row flex-row">
+          <div class="col-5 align-self-center">
+            <div class="media">
+              <!-- <fa-icon
+                [icon]="['fas', 'grip-vertical']"
+                class="text-muted mr-3 iconLarge moveOnHover stagePositioning"
+                placement="right"
+              ></fa-icon> -->
+              <fa-icon
+                [icon]="[
+                  'fas',
+                  actionItemsIcon[stage?.actionItem?.abbreviation].icon
+                ]"
+                class="stageIcon ml-2 mr-2 rounded-circle pointer text-white align-self-center text-center"
+                [ngClass]="
+                  actionItemsIcon[stage?.actionItem?.abbreviation].background
+                "
+              >
+              </fa-icon>
+              <div class="media-body align-self-center">
+                <p class="mb-0 pointer text-medium font-weight-normal">
+                  {{ stage.title.substring(0, 24) }}
+                  <span *ngIf="stage.title.length > 24">...</span>
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted ml-1"
+                    placement="top"
+                    [ngbTooltip]="stage.description"
+                  >
+                  </fa-icon>
+                </p>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="small mb-0 text-muted">
+                      Action - {{ stage?.actionItem?.title }}
+                    </p>
+                  </li>
+                  <!-- <li class="list-inline-item">
+                    <p class="small mb-0" [ngStyle]="{
+                        'color': stage?.status?.colorCode
+                      }">
+                      Status - {{ stage?.status?.title }}
+                    </p>
+                  </li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 align-self-center">
+            <p class="small mb-0">
+              {{ stagesAssignee[stage.id] }}
+              <span
+                *ngIf="stagesCustomFieldAssignee[stage.id]?.fieldId"
+                placement="auto top"
+                triggers="mouseenter:mouseleave"
+                [ngbPopover]="smartRoute"
+                [popoverTitle]="smartRouteTitle"
+                [openDelay]="200"
+                [closeDelay]="300"
+                popoverClass="popoverStageInfo"
+              >
+                <fa-icon [icon]="['fas', 'random']"> </fa-icon>
+                {{
+                  allCustomFields[stagesCustomFieldAssignee[stage.id]?.fieldId]
+                    ?.title
+                }}
+              </span>
+            </p>
+            <ng-template #smartRouteTitle>
+              <ul class="row list-inline mb-0">
+                <li class="col-5">
+                  <p class="mb-0 text-medium">Field Title</p>
+                </li>
+                <li class="col-7">
+                  <p class="mb-0 text-medium">Assignee</p>
+                </li>
+              </ul>
+            </ng-template>
+            <ng-template #smartRoute>
+              <ul
+                *ngFor="
+                  let option of stagesCustomFieldAssignee[stage.id]?.options
+                "
+                class="row list-inline mb-0"
+              >
+                <li class="col-5">
+                  <p class="mb-0 text-medium">
+                    {{ option?.label }}
+                  </p>
+                </li>
+                <li class="col-7">
+                  <p class="mb-0 text-medium">
+                    {{ option?.assignee }}
+                  </p>
+                </li>
+              </ul>
+            </ng-template>
+          </div>
+          <!-- <div class="col-2 align-self-center">
+            <span
+              class="badge badge-secondary"
+              [ngStyle]="{
+                'background-color': stage?.status?.colorCode
+              }"
+            >
+              {{ stage?.status?.title }}
+            </span>
+          </div> -->
+          <div class="col-2 align-self-center">
+            <span
+              *ngIf="
+                stage?.actionItem?.abbreviation ==
+                actionItemAbbreviations.NO_TOOL
+              "
+            >
+              <p class="small mb-0 text-muted font-italic">
+                No Action
+              </p>
+            </span>
+            <span
+              *ngIf="
+                stage?.actionItem?.abbreviation ==
+                actionItemAbbreviations.SCORECARD
+              "
+            >
+              <ng-template #criteriaDescription>
+                <span [innerHtml]="criteriaDescriptionHtml(stage)"></span>
+              </ng-template>
+              <p
+                class="small mb-0"
+                triggers="mouseenter:mouseleave"
+                [ngbPopover]="criteriaDescription"
+                [openDelay]="200"
+                [closeDelay]="300"
+                popoverClass="popoverStageInfo"
+                container="body"
+                [popoverTitle]="criteriaTitle"
+              >
+                {{ getCriteriaCount(stage) }} Criteria
+              </p>
+            </span>
+            <span
+              *ngIf="
+                stage?.actionItem?.abbreviation ==
+                actionItemAbbreviations.REFINEMENT
+              "
+            >
+              <ng-template #fieldDescription>
+                <span
+                  class="small"
+                  [innerHtml]="fieldDescriptionHtml(stage)"
+                ></span>
+              </ng-template>
+              <p
+                class="small mb-0"
+                triggers="mouseenter:mouseleave"
+                [openDelay]="200"
+                [closeDelay]="300"
+                popoverClass="popoverStageInfo"
+                container="body"
+                [ngbPopover]="fieldDescription"
+                [popoverTitle]="fieldTitle"
+              >
+                {{ getCustomFieldsCount(stage) }} Fields
+              </p>
+            </span>
+          </div>
+          <div class="col-2 align-self-center">
+            <p class="small mb-0">
+              {{ getStageLimit(stage) }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- start of show expanded -->
+      <div class="card-footer px-2 py-2 d-none">
+        view more section
+      </div>
+      <!-- end of show expanded -->
+    </div>
+  </div>
+  <div class="verticalSeparator" *ngIf="stages.length - 1 !== i"></div>
+</div>
+
+<ng-template #criteriaTitle>
+  <ul class="list-inline mb-0 popoverUserMinWidth row">
+    <li class="list-inline-item mr-0 col-7">
+      <p class="bold text-medium mb-0">Criteria</p>
+    </li>
+    <li class="list-inline-item mr-0 col-5">
+      <p class="bold text-medium text-center mb-0">Weight</p>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #fieldTitle>
+  <ul class="list-inline mb-0 popoverUserMinWidth row">
+    <li class="list-inline-item mr-0 col-6">
+      <p class="bold text-medium mb-0">Field Title</p>
+    </li>
+    <li class="list-inline-item mr-0 col-6">
+      <p class="bold text-medium text-center mb-0">Type</p>
+    </li>
+  </ul>
+</ng-template>

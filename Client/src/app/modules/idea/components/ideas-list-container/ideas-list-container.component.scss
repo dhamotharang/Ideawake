@@ -1,0 +1,404 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.setMaxWidth {
+  // max-width: 1335px;
+  max-width: 94vw;
+}
+
+.statusContainer {
+  background: rgb(249, 249, 249);
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(249, 249, 249, 1) 100%
+  );
+}
+
+.custom-control-label::before {
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0.1rem;
+}
+
+.custom-checkbox .custom-control-label:hover {
+  cursor: pointer;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.iconSize {
+  font-size: 0.675rem;
+}
+
+.adjustWidth {
+  // width: 60%;
+  width: 84%;
+}
+
+.noWidth {
+  width: 0;
+}
+
+.adjustForScrollbar {
+  margin-right: 1px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.filter-div-height {
+  max-height: 73vh;
+}
+
+.repositionProgressBadge {
+  position: relative;
+  bottom: 0.1rem;
+  left: 0.025rem;
+}
+
+.adjustForScrollbar:hover {
+  margin-right: 1px;
+  overflow-y: auto;
+  max-height: 73vh;
+  overflow-x: hidden;
+}
+
+.adjustForScrollbar:hover .adjustForScrollbarFilters {
+  margin-right: -10px;
+}
+
+.filterWidth {
+  width: 15%;
+}
+
+.filterWidth:hover {
+  // width: 38%;
+  // width: 100% !important;
+  // overflow-y: auto;
+  // max-height: 73vh;
+  // overflow-x: hidden;
+}
+
+.statusStep {
+  border-top: 2px solid transparent;
+  background: transparent;
+  color: #aeaeae;
+}
+
+.statusStep:hover {
+  background-color: white;
+  border-top: 2px solid $primary; // this should be the color associated with the status
+  cursor: pointer;
+}
+
+.statusStep .active {
+  background-color: white;
+  border-top: 2px solid $primary; // this should be the color associated with the status
+  color: $primary; // this should be the color associated with the status
+}
+
+.stageInfoPosition {
+  position: absolute;
+  right: 0;
+}
+
+.alertPlacement {
+  position: relative;
+  bottom: 0.06rem;
+}
+
+.selectedPointer {
+  padding: 0.5rem;
+  border: 1px solid $info;
+  background-color: $info;
+  color: white;
+}
+
+.footer-navigation-style {
+  height: 0;
+  background: transparent;
+  padding: 0 !important;
+}
+
+.pointerTriangle {
+  width: 0;
+  height: 0;
+  border: {
+    top: 8px solid transparent;
+    left: 13px solid $info;
+    bottom: 9px solid transparent;
+  }
+}
+
+.tableBackground {
+  // background: url('https://i.imgur.com/LKF3M5i.png');
+  // background-color: #fcfcfd;
+  // background-color: #f4f6f9;
+  // background: linear-gradient(135deg,#8f75da 0,#727cf5 60%);
+  background-repeat: repeat-y;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 90vh !important;
+  overflow-y: hidden !important;
+  z-index: 50000;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 11px;
+  background-color: #f5f5f5;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  border-radius: 15px;
+}
+
+.removeMargins {
+  margin-right: -0.8rem;
+}
+
+.reduceFontSize {
+  // font-size: .85rem;
+  font-size: 1rem;
+}
+
+.userImage {
+  border: 2px solid white;
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.circleIcon {
+  font-size: 5px;
+  position: relative;
+  bottom: 0.15rem;
+}
+
+.columnWidthLarge {
+  width: 25%;
+  min-width: 270px;
+}
+
+.columnWidthNormal {
+  width: 20%;
+  min-width: 225px;
+}
+
+.columnWidthCurrentStage {
+  // width: 20%;
+  min-width: 180px;
+}
+
+.columnWidthShort {
+  width: 15%;
+  min-width: 130px;
+}
+
+.columnWidthExtraShort {
+  width: 5%;
+  min-width: 50px;
+}
+
+.columnWidthTitle {
+  width: 30%;
+  min-width: 370px;
+  // box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.075) !important;
+  background-color: white;
+}
+
+.columnWidthProgress {
+  width: 15%;
+  min-width: 140px;
+}
+
+.columnWidthActions {
+  // box-shadow: -8px 0px 10px rgba(0, 0, 0, 0.075) !important;
+  width: 10%;
+  min-width: 130px;
+  // background-color: white;
+}
+
+.setRowHeight {
+  height: 50px;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem 0.75rem 0 0.75rem;
+}
+
+// .fixedLeftColumn{
+//   width: 30%;
+//   position: fixed;
+//   max-width: 220px;
+//   background-color: white;
+// }
+
+.tableFilters {
+  overflow-y: hidden;
+  max-height: 73vh;
+  overflow-x: hidden;
+  margin-right: 4px;
+}
+
+.tableFilters:hover {
+  overflow-y: scroll;
+  max-height: 73vh;
+  margin-right: -2px;
+  overflow-x: hidden;
+}
+
+.table-responsive {
+  overflow-x: hidden;
+  max-height: 67.5vh;
+  min-height: 67.5vh;
+}
+
+.table-responsive:hover {
+  overflow-x: auto;
+  max-height: 67.5vh;
+  min-height: 67.5vh;
+}
+
+.list-group-item:first-child {
+  border-top-right-radius: 0;
+}
+
+.list-group-item:last-child {
+  border-bottom-right-radius: 0;
+}
+
+@mixin ptb-1 {
+  padding: {
+    top: 0.25rem;
+    bottom: 0.25rem;
+  }
+  font-size: 0.9rem;
+}
+
+.scoreBadgeFirstQuartile {
+  color: white;
+  width: 5.5rem;
+  background-color: $success;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.scoreBadgeSecondQuartile {
+  color: white;
+  width: 5.5rem;
+  background: $info;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.scoreBadgeThirdQuartile {
+  color: white;
+  width: 5.5rem;
+  background-color: $warning;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.scoreBadgeFourthQuartile {
+  color: white;
+  width: 5.5rem;
+  background-color: $danger;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.scoreBadgeNoScore {
+  color: $dark;
+  width: 5.5rem;
+  background-color: $gray-200;
+  // background-color: $dark;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.scoreBadgeNotApplicable {
+  color: $dark;
+  width: 5.5rem;
+  background-color: white;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border-radius: 1rem;
+  @include ptb-1;
+}
+
+.stageProgressBar {
+  height: 0.35rem;
+  // background-color: #898989;
+  // position: relative;
+  // right: 1.05rem;
+  border-radius: 3px;
+  margin: {
+    top: 0.2rem;
+    bottom: 0;
+  }
+}
+
+.adjustPositionUp {
+  position: relative;
+  bottom: 0.25rem;
+}
+
+.adjustPositionUpSmall {
+  position: relative;
+  bottom: 0.1rem;
+}
+
+@mixin stick {
+  position: sticky;
+  background: white;
+  // box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  // z-index: 1;
+}
+
+.stick-first-column > tbody > tr > td:first-child,
+.stick-first-column > thead > tr > th:first-child {
+  @include stick;
+  left: 0;
+  z-index: 1;
+}
+
+.stick-last-column > tbody > tr > td:last-child,
+.stick-last-column > thead > tr > th:last-child {
+  @include stick;
+  right: 0;
+}
+
+.undoNotification {
+  position: absolute;
+  bottom: 6rem;
+  padding: 1.5rem;
+  z-index: 1100;
+}
+
+.tableDividerStyle {
+  border-top: 1px solid #dddddd !important;
+}

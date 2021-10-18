@@ -1,0 +1,642 @@
+<app-opportunity-page-loader *ngIf="isLoading"> </app-opportunity-page-loader>
+
+<div class="pt-4 container" *ngIf="idea && !isLoading">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <!-- <app-action-item-confirm-team-member></app-action-item-confirm-team-member>
+          <app-action-item-confirm-opportunity-ownership></app-action-item-confirm-opportunity-ownership> -->
+          <div class="row">
+            <div class="col-12 removePaddingOnMobile">
+              <div class="card mb-3 shadow-sm ml-md-3">
+                <div class="card-header border-bottom-0 bg-white pb-0">
+                  <p
+                    class="uppercase text-muted mb-1 mt-1 bold small montserrat"
+                  >
+                    {{ 'IdeaPage.MoreAbout' | translationPipe }}
+                    {{ idea?.opportunityType?.name }}
+                  </p>
+                </div>
+                <div class="card-body pt-1" [ngClass]="{ hiddenHeight: hide }">
+                  <div id="opportunity_description" class="row">
+                    <div class="col-12 removePaddingOnMobile">
+                      <p class="text-medium">
+                        <span [innerHTML]="idea?.descriptionHtml"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 removePaddingOnMobile">
+                      <div class="mb-0">
+                        <!-- <span
+                          class="badge badge-light tag border pointer"
+                          *ngIf="!idea.tags.length"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'plus']"
+                            class="text-muted"
+                          ></fa-icon>
+                          Add Tags
+                        </span> -->
+                        <ul class="list-inline mb-0">
+                          <li
+                            class="list-inline-item mb-2"
+                            *ngFor="let tag of idea.tags"
+                          >
+                            <!-- (click)="gotoSearch()" -->
+                            <span
+                              class="badge badge-light tag border tagPadding font-weight-normal montserrat"
+                              [ngbPopover]=""
+                              [openDelay]="100"
+                              triggers="mouseenter"
+                              [autoClose]="true"
+                              popoverClass="popoverStyle"
+                              container="body"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'hashtag']"
+                                class="text-muted tagIcon"
+                              ></fa-icon
+                              >{{ tagsData[tag] }}
+                              <!-- <fa-icon
+                                [icon]="['fas', 'times']"
+                                class="text-muted align-middle removeTag"
+                                placement="right"
+                                ngbTooltip="Remove Tag"
+                              ></fa-icon> -->
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="mb-4">
+                        <p class="text-medium bold mb-2 mt-3">
+                          {{ 'IdeaPage.Attachments' | translationPipe }}
+                        </p>
+                        <app-media-feature
+                          [files]="files"
+                          [from]="'idea'"
+                          [userOpportunityPermissions]="
+                            userOpportunityPermissions
+                          "
+                          (update)="editIdeaImages()"
+                        >
+                        </app-media-feature>
+                      </div>
+                      <div class="mt-2">
+                        <app-custom-fields
+                          [customFields]="customFields"
+                          [view]="true"
+                          (fieldsData)="updateSummaryCustomFieldData($event)"
+                        >
+                        </app-custom-fields>
+                      </div>
+                      <p
+                        class="small uppercase text-muted bold mb-1 mt-3 d-none"
+                      >
+                        Relationships
+                      </p>
+                      <div class="card mb-3 shadow-sm d-none">
+                        <div class="card-body p-0">
+                          <!-- start of linked opportunities -->
+                          <div class="card rounded-bottom-0 border-bottom-0">
+                            <div class="card-body p-0">
+                              <div class="row my-1">
+                                <div class="col-12">
+                                  <ul class="list-inline mb-0 py-1">
+                                    <li
+                                      class="list-inline-item"
+                                      (click)="toggleShowLinks()"
+                                      style="margin-left: 0.5rem;"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-down']"
+                                        class="adjustFloat"
+                                        *ngIf="!showLinkedList"
+                                        style="
+                                          font-size: 1.1rem;
+                                          line-height: 0.9rem;
+                                          position: relative;
+                                          top: 0.1rem;
+                                        "
+                                      ></fa-icon>
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-up']"
+                                        class="adjustFloat"
+                                        *ngIf="showLinkedList"
+                                        style="
+                                          font-size: 1.1rem;
+                                          line-height: 0.9rem;
+                                          position: relative;
+                                          top: 0.1rem;
+                                        "
+                                      ></fa-icon>
+                                    </li>
+                                    <li class="list-inline-item">
+                                      <p
+                                        class="small uppercase text-muted bold mb-0"
+                                      >
+                                        Linked Opportunities (10)
+                                      </p>
+                                    </li>
+                                    <li class="list-inline-item float-right">
+                                      <ul class="list-inline mb-0">
+                                        <li class="list-inline-item mr-3">
+                                          <span class="inverseLink small">
+                                            10 Suggested Links
+                                          </span>
+                                        </li>
+                                        <li class="list-inline-item mr-2">
+                                          <button
+                                            class="btn btn-light border shadow-sm btn-xs"
+                                            (click)="toggleAddLink()"
+                                          >
+                                            <fa-icon
+                                              [icon]="['fas', 'link']"
+                                            ></fa-icon>
+                                            Add New
+                                          </button>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <app-linked-add
+                                    *ngIf="addLinkedOpportunity"
+                                  ></app-linked-add>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <app-linked-list
+                                    *ngIf="
+                                      showLinkedList || addLinkedOpportunity
+                                    "
+                                  ></app-linked-list>
+                                </div>
+                              </div>
+                              <!-- END of linked opportunities -->
+                            </div>
+                          </div>
+                          <!-- start of merged opportunities -->
+                          <div class="card rounded-top-0">
+                            <div class="card-body p-0">
+                              <div class="row my-1">
+                                <div class="col-12">
+                                  <ul class="list-inline mb-0 py-1">
+                                    <li
+                                      class="list-inline-item"
+                                      (click)="toggleShowMerged()"
+                                      style="margin-left: 0.5rem;"
+                                    >
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-down']"
+                                        class="adjustFloat"
+                                        *ngIf="!showMergedList"
+                                        style="
+                                          font-size: 1.1rem;
+                                          line-height: 0.9rem;
+                                          position: relative;
+                                          top: 0.1rem;
+                                        "
+                                      ></fa-icon>
+                                      <fa-icon
+                                        [icon]="['fas', 'angle-up']"
+                                        class="adjustFloat"
+                                        *ngIf="showMergedList"
+                                        style="
+                                          font-size: 1.1rem;
+                                          line-height: 0.9rem;
+                                          position: relative;
+                                          top: 0.1rem;
+                                        "
+                                      ></fa-icon>
+                                    </li>
+                                    <li class="list-inline-item">
+                                      <p
+                                        class="small uppercase text-muted bold mb-1"
+                                      >
+                                        Merged Opportunities (2)
+                                      </p>
+                                    </li>
+                                    <li class="list-inline-item float-right">
+                                      <ul class="list-inline mb-0">
+                                        <li class="list-inline-item mr-3">
+                                          <span class="inverseLink small">
+                                            10 Suggested Merges
+                                          </span>
+                                        </li>
+                                        <li class="list-inline-item mr-2">
+                                          <app-merged-add></app-merged-add>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                  <div
+                                    class="card bg-light mb-2 shadow-sm rounded-top-0"
+                                    *ngIf="showMergedList"
+                                  >
+                                    <div class="card-body text-medium p-0">
+                                      <app-merged-list></app-merged-list>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- end of merged opportunities -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer addHover viewMore">
+                  <p
+                    class="text-center mb-0 uppercase small bold"
+                    (click)="hide = !hide"
+                  >
+                    <fa-icon
+                      [icon]="['fas', hide ? 'angle-down' : 'angle-up']"
+                    ></fa-icon>
+                    {{ hide ? 'View More' : 'View Less' }}
+                  </p>
+                </div>
+              </div>
+              <!-- end card -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 removePaddingOnMobile">
+              <!-- <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small uppercase text-muted bold mb-1">Activity -</p>
+                </li>
+                <li class="list-inline-item nav-underline active" ngbDropdown>
+                  <p
+                    class="small uppercase bold inverseLink removeCaret mb-0"
+                    ngbDropdownToggle
+                  >
+                    Comments ({{ commentsCount }})
+                  </p>
+                </li>
+                <li class="list-inline-item nav-underline">
+                  <p class="small uppercase text-muted bold mb-0">
+                    Updates (2)
+                  </p>
+                </li>
+                <li class="list-inline-item nav-underline">
+                  <p class="small uppercase text-muted bold mb-0">
+                    Activity (3)
+                  </p>
+                </li>
+              </ul> -->
+              <div class="card mb-3 shadow-sm ml-md-3">
+                <div class="card-header pb-0 bg-white border-bottom-0">
+                  <p
+                    class="uppercase text-muted mb-1 mt-1 bold small montserrat"
+                  >
+                    {{ 'IdeaPage.Comments' | translationPipe }} ({{
+                      commentsCount
+                    }})
+                  </p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 removePaddingOnMobile">
+                      <app-comments-container
+                        [permissions]="permissionsData"
+                        [entityConfig]="{
+                          entityObjectId: idea?.id,
+                          entityType: entityType?.id
+                        }"
+                        (commentsCount)="commentsLength($event)"
+                        [userOpportunityPermissions]="
+                          userOpportunityPermissions
+                        "
+                      ></app-comments-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div [ngClass]="ideaUpvoters?.length ? 'col-8' : 'col-12'">
+              <div *ngIf="permissionsData?.allowVoting">
+                <app-upvote
+                  [entity]="idea"
+                  [upvoteData]="ideaUpvoters"
+                  [upvotes]="upvotes"
+                  (upvoteActionEmitter)="removeUpvoter($event)"
+                >
+                </app-upvote>
+              </div>
+              <div *ngIf="!permissionsData?.allowVoting">
+                <button
+                  class="btn w-100 btn-block btn-disabled border text-muted montserrat disabled"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'thumbs-up']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ 'SharedText.VotingDisabled' | translationPipe }}
+                  ({{ ideaUpvoters?.length }})
+                </button>
+              </div>
+            </div>
+            <div class="col-4 pl-2 adjustFloatUp">
+              <div container="body" [ngbTooltip]="votersInformation">
+                <app-social-images
+                  [upvoters]="ideaUpvoters"
+                  [followers]="followersData"
+                  [entityType]="entityType"
+                >
+                </app-social-images>
+                <ng-template #votersInformation>
+                  <p class="text-white mb-0">
+                    {{ 'SharedText.UpvotedBy' | translationPipe }}
+                    {{
+                      ideaUpvoters
+                        ? (ideaUpvoters[0]
+                            ? ideaUpvoters[0].user.firstName +
+                              ' ' +
+                              ideaUpvoters[0].user.lastName
+                            : '') +
+                          (ideaUpvoters?.length === 2 ? ' and ' : '') +
+                          (ideaUpvoters[1]
+                            ? ', ' +
+                              ideaUpvoters[1].user.firstName +
+                              ' ' +
+                              ideaUpvoters[1].user.lastName
+                            : '') +
+                          (ideaUpvoters?.length === 3 ? ' and' : '') +
+                          (ideaUpvoters[2]
+                            ? ', ' +
+                              ideaUpvoters[2].user.firstName +
+                              ' ' +
+                              ideaUpvoters[2].user.lastName
+                            : '') +
+                          (ideaUpvoters?.length > 3
+                            ? ' and ' + (ideaUpvoters?.length - 3 + ' other')
+                            : '')
+                        : ''
+                    }}
+                  </p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-12 removePaddingOnMobile">
+              <app-idea-stage-progress
+                [idea]="idea"
+                [ideaEntity]="entityType"
+                [followerData]="followersData"
+                [stageAssignees]="stageAssignees"
+                [stageStats]="stageStats"
+                (updatedIdea)="updateIdea($event)"
+                [userOpportunityPermissions]="userOpportunityPermissions"
+              ></app-idea-stage-progress>
+            </div>
+          </div>
+          <app-idea-team-container
+            [idea]="idea"
+            [userOpportunityPermissions]="userOpportunityPermissions"
+          ></app-idea-team-container>
+          <!-- <p class="small mb-1 bold montserrat uppercase text-muted">
+            {{ idea?.workflow?.title || 'No Workflow Added' }}
+          </p>
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body px-3 pt-3 pb-2">
+              <div class="row">
+                <div class="col-12">
+                  <app-idea-stage-progress
+                    [idea]="idea"
+                    [ideaEntity]="entityType"
+                    [followerData]="followersData"
+                    [stageAssignees]="stageAssignees"
+                    [stageStats]="stageStats"
+                    (updatedIdea)="updateIdea($event)"
+                    [userOpportunityPermissions]="userOpportunityPermissions"
+                  ></app-idea-stage-progress>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer" *ngIf="ideaUpvoters?.length > 0">
+              <div class="row">
+                <div class="col-12">
+                  <div class="media">
+                    <app-social-images
+                      [upvoters]="ideaUpvoters"
+                      [followers]="followersData"
+                      [entityType]="entityType"
+                    >
+                    </app-social-images>
+                    <div class="media-body ml-1">
+                      <p class="small inverseLink mb-0">
+                        Upvoted by
+                        {{
+                          ideaUpvoters
+                            ? (ideaUpvoters[0]
+                                ? ideaUpvoters[0].user.firstName +
+                                  ' ' +
+                                  ideaUpvoters[0].user.lastName
+                                : '') +
+                              (ideaUpvoters?.length === 2 ? ' and ' : '') +
+                              (ideaUpvoters[1]
+                                ? ', ' +
+                                  ideaUpvoters[1].user.firstName +
+                                  ' ' +
+                                  ideaUpvoters[1].user.lastName
+                                : '') +
+                              (ideaUpvoters?.length === 3 ? ' and' : '') +
+                              (ideaUpvoters[2]
+                                ? ', ' +
+                                  ideaUpvoters[2].user.firstName +
+                                  ' ' +
+                                  ideaUpvoters[2].user.lastName
+                                : '') +
+                              (ideaUpvoters?.length > 3
+                                ? ' and ' +
+                                  (ideaUpvoters?.length - 3 + ' other')
+                                : '')
+                            : ''
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <p class="mb-1 bold uppercase text-muted small montserrat">
+            Ratings and Scores
+          </p>
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-2">
+                    <div class="col-8 pr-0">
+                      <p class="text-medium mb-0">
+                        This idea will have a positive impact on custom...
+                        <fa-icon [icon]="['fas', 'info-circle']" class="text-muted" ngbTooltip="Description if exists..."></fa-icon>
+                      </p>
+                    </div>
+                    <div class="col-4 pr-0">
+                      <ul class="list-unstyled text-center mb-0">
+                        <li>
+                          <h5 class="mb-0">4.52 <small>/ 5</small></h5>
+                          <p class="small mb-0 text-muted">Avg Score</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0 small text-muted">
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'star']" class="text-warning"></fa-icon>
+                            Scorecard
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="text-muted"></fa-icon>
+                            StageName
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'users']" class="text-muted"></fa-icon>
+                            10 / 18
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-2" />
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-2">
+                    <div class="col-8 pr-0">
+                      <p class="text-medium mb-0">
+                        Risk Score
+                        <fa-icon [icon]="['fas', 'info-circle']" class="text-muted" ngbTooltip="Description if exists..."></fa-icon>
+                      </p>
+                    </div>
+                    <div class="col-4 pr-0">
+                      <ul class="list-unstyled text-center mb-0">
+                        <li>
+                          <h5 class="mb-0">8.52 <small>/ 10</small></h5>
+                          <p class="small mb-0 text-muted">Avg Score</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0 small text-muted">
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'hashtag']" class="text-secondary"></fa-icon>
+                            Number
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="text-muted"></fa-icon>
+                            StageName
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'users']" class="text-muted"></fa-icon>
+                            10 / 18
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-2" />
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-2">
+                    <div class="col-8 pr-0">
+                      <p class="text-medium mb-0">
+                        Should we implement this idea?
+                        <fa-icon [icon]="['fas', 'info-circle']" class="text-muted" ngbTooltip="Description if exists..."></fa-icon>
+                      </p>
+                    </div>
+                    <div class="col-4 pr-0">
+                      <ul class="list-unstyled text-center mb-0">
+                        <li>
+                          <h5 class="mb-0">4.52 <small>/ 5</small></h5>
+                          <p class="small mb-0 text-muted">Avg Score</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0 small text-muted">
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'question-circle']" class="text-info"></fa-icon>
+                            Question
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="text-muted"></fa-icon>
+                            StageName
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <p class="mb-0">
+                            <fa-icon [icon]="['fas', 'users']" class="text-muted"></fa-icon>
+                            10 / 18
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <p class="mb-1 bold uppercase text-muted small">
+            Open Action Items (10)
+          </p>
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body p-3">
+              <app-action-items-list></app-action-items-list>
+              <app-add-action-item></app-add-action-item>
+            </div>
+          </div> -->
+          <!-- <p class="uppercase text-muted mb-1 bold small montserrat">People</p> -->
+          <!-- <div class="card shadow-sm mb-3">
+            <div class="card-body py-3">
+              <app-idea-team-container
+                [idea]="idea"
+                [userOpportunityPermissions]="userOpportunityPermissions"
+              ></app-idea-team-container>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

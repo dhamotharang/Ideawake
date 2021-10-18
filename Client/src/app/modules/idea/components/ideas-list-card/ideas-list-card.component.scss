@@ -1,0 +1,111 @@
+.ideaDescriptionHeight {
+  min-height: 105px;
+  max-height: 105px;
+  overflow-y: hidden;
+}
+
+.setHeight {
+  max-height: 45rem;
+  overflow-y: scroll;
+}
+
+.ideaTitle {
+  font-size: 90%;
+  font-weight: normal;
+  font-family: montserrat;
+}
+
+.ideaStatus {
+  position: absolute;
+  left: -1px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.card .quickActionsToggle {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.card .quickActionsToggle:hover {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.ideaCardListPadding {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #008cba;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.repositionCardList {
+  position: relative;
+  // right: 1.25rem;
+}
+
+.cardWidth {
+  position: relative;
+  right: 25%;
+  width: 125%;
+}
+
+.fixed {
+  position: fixed;
+  top: 1rem;
+  // top: 6rem;
+  // left: 6.5rem;
+  height: 85%;
+  margin-bottom: 40px;
+  overflow-y: scroll;
+  width: 16%;
+}
+
+.setMaxWidth {
+  // max-width: 1350px;
+  max-width: 94vw;
+}
+
+.nonTableStyle {
+  border-radius: 3px;
+  background-color: white;
+  margin-bottom: 10px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

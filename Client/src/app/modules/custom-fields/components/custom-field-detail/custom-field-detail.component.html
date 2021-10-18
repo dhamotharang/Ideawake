@@ -1,0 +1,437 @@
+<div class="modal-header card-header">
+  <p class="small uppercase bold mb-0">
+    {{ isEdit ? 'Edit' : 'Add New' }} Custom Field
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modalScrollMaxHeight">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label>Field Type</label>
+      <div ngbDropdown container="body" class="w-100" style="width: 41.5vw;">
+        <div
+          class="removeCaret rounded customDropdown w-100"
+          ngbDropdownToggle
+          container="body"
+        >
+          <div class="row">
+            <div class="col-11">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="mb-0">
+                    {{ type?.title || 'Select Field Type' }}
+                  </p>
+                </li>
+                <!-- <li
+                      class="list-inline-item mr-4"
+                      [ngbPopover]="type?.description"
+                      triggers="mouseenter:mouseleave"
+                      [popoverTitle]="type?.title"
+                      placement="right"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted mr-1"
+                      ></fa-icon>
+                    </li> -->
+              </ul>
+            </div>
+            <div class="col-1">
+              <fa-icon
+                [icon]="['fas', 'sort']"
+                class="text-muted float-right"
+              ></fa-icon>
+            </div>
+          </div>
+        </div>
+        <div
+          ngbDropdownMenu
+          class="shadow-lg pt-0 pb-0 w-100"
+          style="max-height: 22rem; overflow-y: scroll;"
+        >
+          <app-custom-field-types
+            (outPutResult)="selectType($event)"
+          ></app-custom-field-types>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-0" *ngIf="duplicate">
+      <div class="alert alert-danger py-2 px-3">
+        <p class="text-medium bold mb-1">Field Names Must Be Unique</p>
+        <p class="small mb-0">
+          There's another custom field with this same name, please change the
+          name of your custom field so that it is unique.
+        </p>
+      </div>
+    </div>
+    <div class="form-group mb-0">
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item">
+          <label>Field Name</label>
+        </li>
+        <!-- <li class="list-inline-item float-right" *ngIf="form.value.uniqueId">
+          <span class="text-muted text-medium"
+            >UniqueID - {{ form.value.uniqueId || 'label' }}</span
+          >
+        </li> -->
+      </ul>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        (keyup)="setUniqueId()"
+        (blur)="checkDuplicate()"
+        placeholder="Category, Difficulty to Implement, Etc..."
+      />
+    </div>
+    <div class="form-group mt-1">
+      <span
+        class="bold small inverseLink pointer"
+        (click)="toggleFieldDescription()"
+      >
+        <fa-icon [icon]="['fas', 'plus-circle']" class="mt-2"></fa-icon>
+        Add Description / Instructions
+      </span>
+      <span
+        class="bold small inverseLink pointer ml-2"
+        (click)="toggleFieldPlaceholder()"
+      >
+        <fa-icon [icon]="['fas', 'edit']" class="mt-2"></fa-icon>
+        Edit Placeholder
+      </span>
+    </div>
+    <!-- show if add description clicked -->
+    <div class="form-group mb-0 mt-2" *ngIf="fieldDescription">
+      <div class="card bg-light mb-2">
+        <div class="card-body px-3 pb-3 pt-2">
+          <label class="font-weight-normal text-medium mb-0"
+            >Add Field Description</label
+          >
+          <textarea
+            class="form-control"
+            rows="2"
+            formControlName="description"
+            placeholder="Add a field description..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- end if add description clicked -->
+    <!-- show if add placeholder clicked -->
+    <div class="form-group mb-0 mt-2" *ngIf="customPlaceholder">
+      <div class="card bg-light mb-2">
+        <div class="card-body px-3 pb-3 pt-2">
+          <label class="font-weight-normal text-medium mb-0"
+            >Customize Placeholder</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="placeholderText"
+            placeholder="Enter placeholder for this field..."
+          />
+        </div>
+      </div>
+    </div>
+    <!-- <hr /> -->
+    <div class="form-group">
+      <app-configure-user-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.COMMUNITY_USER_GROUP &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+        [type]="type?.abbreviation"
+        [inputData]="form.value.fieldDataObject"
+        (output)="setFieldDataObject($event)"
+      >
+      </app-configure-user-field>
+      <!-- <app-configure-group-field></app-configure-group-field> -->
+      <app-configure-select-field
+        *ngIf="
+          (type?.abbreviation == fieldTypes.SINGLE_SELECT ||
+            type?.abbreviation == fieldTypes.MULTI_SELECT) &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+        [type]="type?.abbreviation"
+        [inputData]="form.value.fieldDataObject"
+        (output)="setFieldDataObject($event)"
+      >
+      </app-configure-select-field>
+
+      <app-configure-number-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.NUMBER &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+        [outerForm]="form.value"
+        [type]="type?.abbreviation"
+        [inputData]="form.value.fieldDataObject"
+        (output)="setFieldDataObject($event)"
+      ></app-configure-number-field>
+
+      <app-configure-datepicker-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.DATEPICKER &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+        [type]="type?.abbreviation"
+      ></app-configure-datepicker-field>
+
+      <app-configure-benefit-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.ACTUAL_BENEFITS &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+      ></app-configure-benefit-field>
+
+      <app-configure-cost-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.ACTUAL_COSTS &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+      >
+      </app-configure-cost-field>
+
+      <app-configure-knowledge-field
+        *ngIf="
+          type?.abbreviation == 'knowledge' &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+      ></app-configure-knowledge-field>
+
+      <app-configure-calculated-field
+        *ngIf="
+          type?.abbreviation == fieldTypes.CALCULATED_FIELDS &&
+          userCommunityPermissions?.editCustomFieldOptions
+        "
+      ></app-configure-calculated-field>
+    </div>
+    <!-- start of bottom config options -->
+    <label>Custom Field Settings</label>
+    <div class="card bg-light mb-3">
+      <div class="card-body px-3 py-2">
+        <div class="form-row py-2">
+          <div class="form-group col-9 mb-0">
+            <label class="font-weight-normal">
+              Required Field
+              <fa-icon
+                [icon]="['fas', 'question-circle']"
+                class="text-muted"
+                ngbTooltip="If enabled, then whenever this field is completed on the submission
+                      of an idea or during a stage, it will be required in order to submit
+                      the form."
+              ></fa-icon>
+            </label>
+            <!-- <p class="small text-muted">
+                      If enabled, then whenever this field is completed on the submission
+                      of an idea or during a stage, it will be required in order to submit
+                      the form.
+                    </p> -->
+          </div>
+          <div class="form-group col-3 mb-0">
+            <div class="custom-control custom-switch mr-auto float-right">
+              <input
+                type="checkbox"
+                class="custom-control-input pointer"
+                id="requiredField"
+                [checked]="form.value.isRequired"
+                formControlName="isRequired"
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="requiredField"
+              >
+                <span *ngIf="form.value.isRequired" class="pl-1">{{
+                  'ChallengePost.Labels.Enabled' | translationPipe
+                }}</span>
+                <span *ngIf="!form.value.isRequired">Disabled</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- Filed Group Out of scope for now -->
+        <!-- <div class="form-row dottedBottomBorder py-2">
+          <div class="form-group col-5 mb-0">
+            <label>
+              Field Group
+              <fa-icon
+                [icon]="['fas', 'question-circle']"
+                class="text-muted"
+                ngbTooltip="Select which roles can view this field. By default, all users will
+                      be able to see entries."
+              ></fa-icon>
+            </label>
+          </div>
+          <div class="form-group col-7 mb-0">
+            <div ngbDropdown container="body">
+              <div class="removeCaret customDropdown rounded" ngbDropdownToggle>
+                <div class="row">
+                  <div class="col-10">
+                    Select Field Group
+                  </div>
+                  <div class="col-2">
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted float-right"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div
+                ngbDropdownMenu
+                class="shadow-lg w-100"
+                style="max-height: 22rem; overflow-y: scroll;"
+              >
+                <button class="pl-3 py-1" ngbDropdownItem>
+                  About This Submission
+                </button>
+                <button class="pl-3 py-1" ngbDropdownItem>
+                  Team and Stakeholders
+                </button>
+                <button class="pl-3 py-1" ngbDropdownItem>
+                  Additional Information
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row py-2">
+          <div class="form-group col-5 mb-0">
+            <label>
+              Who Can Edit This Field
+              <fa-icon
+                [icon]="['fas', 'question-circle']"
+                class="text-muted"
+                ngbTooltip="Select which roles can edit this field. By default, admins, moderators, owners, and team members will be able to edit this field."
+              >
+              </fa-icon>
+            </label>
+          </div>
+          <div class="form-group col-7 mb-0">
+            <div ngbDropdown container="body">
+              <div class="removeCaret customDropdown rounded" ngbDropdownToggle>
+                <div class="row">
+                  <div class="col-10">
+                    {{ editRole.title }}
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted"
+                      [ngbTooltip]="editRole.description"
+                    ></fa-icon>
+                  </div>
+                  <div class="col-2">
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted float-right"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div
+                ngbDropdownMenu
+                class="shadow-lg w-100"
+                style="max-height: 22rem; overflow-y: scroll;"
+              >
+                <button
+                  *ngFor="let role of rolesList"
+                  (click)="selectEditRole(role)"
+                  class="pl-3 py-1"
+                  ngbDropdownItem
+                  [disabled]="true"
+                >
+                  {{ role.title }}
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    [ngbTooltip]="role.description"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row py-2">
+          <div class="form-group col-5 mb-0">
+            <label>
+              Who Can View This Field?
+              <fa-icon
+                [icon]="['fas', 'question-circle']"
+                class="text-muted"
+                ngbTooltip="Select which roles can view this field. By default, all users who have access to an idea will
+                      be able to see entries."
+              ></fa-icon>
+            </label>
+          </div>
+          <div class="form-group col-7 mb-0">
+            <div ngbDropdown container="body">
+              <div class="removeCaret customDropdown rounded" ngbDropdownToggle>
+                <div class="row">
+                  <div class="col-10">
+                    {{ viewRole.title }}
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted"
+                      [ngbTooltip]="viewRole.description"
+                    ></fa-icon>
+                  </div>
+                  <div class="col-2">
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted float-right"
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <div
+                ngbDropdownMenu
+                class="shadow-lg w-100"
+                style="max-height: 22rem; overflow-y: scroll;"
+              >
+                <button
+                  *ngFor="let role of rolesList"
+                  (click)="selectViewRole(role)"
+                  class="pl-3 py-1"
+                  [disabled]="true"
+                  ngbDropdownItem
+                >
+                  {{ role.title }}
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="text-muted"
+                    [ngbTooltip]="role.description"
+                  ></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- end bottom config options -->
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="close()">
+    Cancel
+  </button>
+  <button
+    *ngIf="isEdit; else createButton"
+    class="btn btn-primary ml-2"
+    [disabled]="form.invalid || duplicate"
+    (click)="onSubmit(form.value)"
+  >
+    Save
+  </button>
+  <ng-template #createButton>
+    <button
+      class="btn btn-primary ml-2"
+      [disabled]="form.invalid || duplicate"
+      (click)="onSubmit(form.value)"
+    >
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+      Create Custom Field
+    </button>
+  </ng-template>
+</div>

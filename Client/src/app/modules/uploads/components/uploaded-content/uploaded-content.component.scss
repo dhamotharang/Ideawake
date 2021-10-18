@@ -1,0 +1,18 @@
+.card-deck .card {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.card-deck .card:first-child {
+  margin-left: 15px;
+}
+
+.card-deck .card:last-child {
+  margin-right: 15px;
+}
+
+.scrollable {
+  overflow-y: auto;
+  white-space: nowrap;
+  height: 30%;
+}

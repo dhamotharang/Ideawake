@@ -1,0 +1,26 @@
+.undoNotification {
+  position: absolute;
+  bottom: 6rem;
+  padding: 1rem;
+  z-index: 200;
+}
+
+.stage-select {
+  min-width: 20rem;
+}
+
+.custom-control-label::before {
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0.1rem;
+}
+
+.custom-checkbox .custom-control-label:hover {
+  cursor: pointer;
+}
+
+.stage-change-dropdown {
+  padding: 0px;
+}

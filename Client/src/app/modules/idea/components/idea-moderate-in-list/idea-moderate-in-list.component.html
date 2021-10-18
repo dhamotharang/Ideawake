@@ -1,0 +1,4192 @@
+<ul class="list-inline text-center mb-1">
+  <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="
+        userOpportunityPermissions?.editOpportunity ? editIdeaModal('edit') : ''
+      "
+    >
+      <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+      Edit
+      <app-lock-component
+        *ngIf="!userOpportunityPermissions?.editOpportunity"
+      ></app-lock-component>
+    </button>
+  </li>
+  <li class="list-inline-item">
+    <!-- if not added to a workflow -->
+    <span class="d-none" ngbDropdown>
+      <button
+        ngbDropdownToggle
+        class="btn btn-outline-primary btn-sm bold shadow-sm"
+        placement="bottom"
+        ngbTooltip="Add this opportunity to a workflow to control the process it will go through to be evaluated, tested, and implemented."
+      >
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        Add Workflow
+        <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityStage"
+        ></app-lock-component>
+      </button>
+      <div ngbDropdownMenu class="shadow pb-0 popoverUserMinWidth">
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage
+              ? open(addOpportunityToWorkflow)
+              : ''
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage
+              ? open(changeStageTwo)
+              : ''
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+        <!-- start of one -->
+        <button
+          class="pl-3 btn-sm py-2 dottedBottomBorder"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage
+              ? open(changeStageTwo)
+              : ''
+          "
+        >
+          <ul class="list-inline mb-1">
+            <li class="list-inline-item">
+              Workflow Title One
+              <fa-icon
+                [icon]="['fas', 'info-circle']"
+                class="text-muted mr-1"
+                ngbTooltip="Workflow description if it exists..."
+              ></fa-icon>
+            </li>
+          </ul>
+          <ul class="list-inline small">
+            <li class="list-inline-item text-medium mr-3">
+              <p class="small mb-0">
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                >
+                </fa-icon>
+                10 Stages
+              </p>
+            </li>
+            <li class="list-inline-item text-medium">
+              <p class="small mb-0">
+                <fa-icon [icon]="['fas', 'lightbulb-on']" class="text-muted">
+                </fa-icon>
+                100 Ideas
+              </p>
+            </li>
+          </ul>
+        </button>
+        <!-- end of one -->
+
+        <hr class="my-0" />
+        <div class="p-2 bg-light">
+          <p class="small text-center text-muted mb-0">
+            Use workflows to control the steps an idea goes through to be
+            evaluated, tested, and implemented.
+          </p>
+        </div>
+      </div>
+    </span>
+    <!-- end if not added to a workflow -->
+    <!-- if added to a workflow -->
+    <span ngbDropdown>
+      <!-- <button ngbDropdownToggle class="btn btn-light btn-sm bold text-muted shadow-sm border" (click)="
+      userOpportunityPermissions?.changeOpportunityStage === 2 ||
+      (userOpportunityPermissions?.changeOpportunityStage === 1 && ideaOwner)
+        ? open(changeStageOne)
+        : ''
+          ">
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        Change Stage
+        <app-lock-component *ngIf="
+        !(
+          userOpportunityPermissions?.changeOpportunityStage === 2 ||
+          (userOpportunityPermissions?.changeOpportunityStage === 1 &&
+            ideaOwner)
+        )
+      "></app-lock-component>
+      </button> -->
+      <button
+        *ngIf="!idea?.workflow"
+        (click)="addWorkFlow()"
+        class="btn btn-outline-primary btn-sm bold shadow-sm"
+        placement="bottom"
+        ngbTooltip="Add this opportunity to a workflow to control the process it will go through to be evaluated, tested, and implemented."
+      >
+        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+        Add Workflow
+        <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityStage"
+        ></app-lock-component>
+      </button>
+      <button
+        *ngIf="idea?.workflow"
+        ngbDropdownToggle
+        class="btn btn-light btn-sm bold text-muted shadow-sm border removeCaret"
+        placement="bottom"
+        ngbTooltip="Change Stage"
+      >
+        <fa-icon [icon]="['fas', 'conveyor-belt-alt']"></fa-icon>
+        <!-- {{ selectedStage?.title || 'Add Workflow' }} -->
+        Change Stage
+        <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+        <app-lock-component
+          *ngIf="!userOpportunityPermissions?.changeOpportunityStage"
+        ></app-lock-component>
+        <!-- <app-lock-component *ngIf="
+          !(
+            userOpportunityPermissions?.changeOpportunityStage === 2 ||
+            (userOpportunityPermissions?.changeOpportunityStage === 1 &&
+              ideaOwner)
+          )
+        "></app-lock-component> -->
+      </button>
+      <div ngbDropdownMenu class="shadow pb-1 pt-0">
+        <div class="py-2 px-2 bg-light border-bottom rounded-top">
+          <p class="small text-muted text-center bold mb-0">Select Stage</p>
+        </div>
+        <div class="dropdownScrollMaxHeight" style="min-width: 14rem;">
+          <button
+            *ngFor="let stage of stages"
+            class="btn-sm pl-3 pr-3"
+            ngbDropdownItem
+            (click)="
+              userOpportunityPermissions?.changeOpportunityStage
+                ? openChangeStage(stage)
+                : ''
+            "
+          >
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="mr-1 small"
+              [ngStyle]="{ color: stage.status.colorCode }"
+            >
+            </fa-icon>
+            {{ stage.title.substring(0, 18) }}
+            <span *ngIf="stage.title.length > 20">...</span>
+            <span class="float-right">
+              <fa-icon
+                [icon]="['fas', 'check-circle']"
+                class="text-success small"
+              ></fa-icon>
+            </span>
+          </button>
+        </div>
+        <hr class="mb-0 mt-1" />
+        <div class="pt-2 px-3">
+          <p class="small text-muted mb-0">
+            This opportunity is currently in the XX workflow.
+            <span class="link" (click)="editWorkFlow()">
+              <fa-icon
+                [icon]="['fas', 'edit']"
+                class="text-muted small"
+              ></fa-icon>
+              Change Workflow
+            </span>
+          </p>
+        </div>
+        <button class="btn-sm pl-3" ngbDropdownItem (click)="editWorkFlow()">
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted small"></fa-icon>
+          Change Workflow
+        </button>
+      </div>
+    </span>
+  </li>
+  <!-- <li class="list-inline-item">
+    <button class="btn btn-light btn-sm bold text-muted shadow-sm border">
+      <fa-icon [icon]="['fas', 'bullhorn']" class="text-muted"></fa-icon>
+    </button>
+  </li> -->
+  <!-- <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="open(mergeOpportunities)"
+    >
+      <fa-icon [icon]="['fas', 'code-merge']" class="text-muted"></fa-icon> 10
+    </button>
+  </li>
+  <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="open(linkOpportunities)"
+    >
+      <fa-icon [icon]="['fas', 'link']" class="text-muted"></fa-icon> 10
+    </button>
+  </li> -->
+  <li class="list-inline-item">
+    <button
+      class="btn btn-light btn-sm bold text-muted shadow-sm border"
+      (click)="
+        userOpportunityPermissions?.editOpportunitySettings
+          ? editIdeaModal('settings')
+          : ''
+      "
+    >
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+      Settings
+    </button>
+  </li>
+  <!-- <li class="list-inline-item">
+    <button class="btn btn-light btn-sm" routerLink="/idea-settings-page">
+      <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+    </button>
+  </li> -->
+  <li class="list-inline-item">
+    <div ngbDropdown display="dynamic" placement="bottom-right">
+      <button
+        class="btn btn-light btn-sm removeCaret bold text-muted shadow-sm border"
+        ngbDropdownToggle
+      >
+        <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon> More
+        <!-- <fa-icon [icon]="['fas', 'caret-down']"></fa-icon> -->
+      </button>
+      <div ngbDropdownMenu class="shadow pt-0">
+        <div class="bg-light text-center border-bottom border-top">
+          <label class="small bold text-muted">Manage</label>
+        </div>
+        <!-- <button
+          class="btn-sm"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityStage === 2 ||
+            (userOpportunityPermissions?.changeOpportunityStage === 1 &&
+              ideaOwner)
+              ? open(changeStageOne)
+              : ''
+          "
+        >
+          <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="mr-1"></fa-icon>
+          Change Stage
+          <app-lock-component
+            *ngIf="
+              !(
+                userOpportunityPermissions?.changeOpportunityStage === 2 ||
+                (userOpportunityPermissions?.changeOpportunityStage === 1 &&
+                  ideaOwner)
+              )
+            "
+          ></app-lock-component>
+        </button> -->
+        <!-- <button class="btn-sm" ngbDropdownItem (click)="open(actionitem)">
+          <fa-icon [icon]="['fas', 'tasks']" class="mr-1 text-muted"></fa-icon> Add Action
+          Item
+        </button> -->
+        <button class="btn-sm pl-3" ngbDropdownItem>
+          <fa-icon
+            [icon]="['fas', 'user-friends']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          Manage Owners & Team
+        </button>
+        <button class="btn-sm pl-3" ngbDropdownItem>
+          <fa-icon
+            [icon]="['fas', 'bullhorn']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          Send Update
+        </button>
+        <button class="btn-sm pl-3" ngbDropdownItem>
+          <fa-icon [icon]="['fas', 'link']" class="mr-1 text-muted"></fa-icon>
+          Link Idea (10)
+        </button>
+        <button class="btn-sm pl-3" ngbDropdownItem (click)="open(merge)">
+          <fa-icon
+            [icon]="['fas', 'code-merge']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          Merge Idea (5)
+        </button>
+        <!-- <div class="bg-light text-center border-bottom border-top">
+          <label class="small bold text-muted">Edit</label>
+        </div>
+        <button class="btn-sm" ngbDropdownItem>
+          <fa-icon [icon]="['fas', 'edit']" class="mr-1"></fa-icon> Edit Idea
+        </button> -->
+        <button
+          class="btn-sm pl-3"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.changeOpportunityWorkflow
+              ? editWorkFlow()
+              : ''
+          "
+        >
+          <fa-icon
+            [icon]="['fas', 'conveyor-belt-alt']"
+            class="mr-1 text-muted"
+          ></fa-icon>
+          Change Workflow
+          <app-lock-component
+            *ngIf="!userOpportunityPermissions?.changeOpportunityWorkflow"
+          ></app-lock-component>
+        </button>
+        <!-- <button
+          class="btn-sm"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.editOpportunitySettings === 2 ||
+            (userOpportunityPermissions?.editOpportunitySettings === 1 &&
+              ideaOwner)
+              ? editIdeaModal('settings')
+              : ''
+          "
+        >
+          <fa-icon [icon]="['fas', 'cog']" class="mr-1"></fa-icon> Edit Settings
+          <fa-icon
+            [icon]="['fas', 'lock']"
+            class="mr-1 float-right text-muted"
+            ngbTooltip="You do not have the correct permissions to edit this opportunities settings."
+            *ngIf="userOpportunityPermissions?.editOpportunitySettings === 0"
+          ></fa-icon>
+        </button> -->
+        <hr class="mt-1 mb-1" />
+        <button
+          class="btn-sm pl-3"
+          ngbDropdownItem
+          (click)="
+            userOpportunityPermissions?.softDeleteOpportunity !== 0
+              ? open(deleteIdea)
+              : ''
+          "
+        >
+          <fa-icon [icon]="['fas', 'trash']" class="mr-1 text-muted"></fa-icon>
+          Archive Idea
+          <app-lock-component
+            *ngIf="!userOpportunityPermissions?.softDeleteOpportunity"
+          ></app-lock-component>
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- start of add opportunity to workflow modal -->
+<ng-template #addOpportunityToWorkflow let-modal>
+  <div class="modal-header card-header">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="small uppercase bold mb-0">Add Idea to Workflow</p>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <form>
+      <div class="form-group">
+        <label class="montserrat">Selected Workflow</label>
+        <div class="form-group mb-1">
+          <div ngbDropdown>
+            <div
+              class="removeCaret py-2 px-3 border rounded shadow-sm addHover"
+              ngbDropdownToggle
+            >
+              <div class="row">
+                <div class="col-11">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      Workflow Title One
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted mr-1"
+                        ngbTooltip="Workflow description if it exists..."
+                      >
+                      </fa-icon>
+                    </li>
+                    <li class="list-inline-item float-right">
+                      <ul class="list-inline">
+                        <li class="list-inline-item text-medium mr-3">
+                          <fa-icon
+                            [icon]="['fas', 'conveyor-belt-alt']"
+                            class="text-muted"
+                          >
+                          </fa-icon>
+                          10 Stages
+                        </li>
+                        <li class="list-inline-item text-medium">
+                          <fa-icon
+                            [icon]="['fas', 'lightbulb-on']"
+                            class="text-muted"
+                          >
+                          </fa-icon>
+                          100 Ideas
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-1">
+                  <fa-icon
+                    [icon]="['fas', 'sort']"
+                    class="text-muted float-right"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+            <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+            </div>
+          </div>
+        </div>
+        <p class="form-text text-muted text-medium">
+          Which workflow would you like to update your idea to?
+        </p>
+      </div>
+      <div class="form-group mb-3">
+        <label class="montserrat">Select Stage</label>
+        <div ngbDropdown>
+          <div
+            class="removeCaret py-2 px-2 border rounded addHover shadow-sm"
+            ngbDropdownToggle
+          >
+            <div class="row">
+              <div class="col-4">
+                <div class="media d-flex">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="align-self-center text-center mr-2 pointer text-primary"
+                  >
+                  </fa-icon>
+                  <div class="media-body d-flex align-self-center">
+                    <p class="bold mb-0">
+                      Stage Name
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted"
+                        ngbTooltip="Stage description if it exists..."
+                      >
+                      </fa-icon>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 d-flex align-items-center">
+                <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+              </div>
+              <div class="col-5 d-flex align-items-center pr-0">
+                <div class="ml-auto">
+                  <span
+                    class="badge badge-info badgePadding ml-1 rounded-right-0"
+                  >
+                    <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                    Stage Tool
+                  </span>
+                  <span
+                    class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                  >
+                    Global Status
+                  </span>
+                  <span
+                    class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                  >
+                    <ul class="list-inline mb-0 ml-auto">
+                      <li class="list-inline-item iconSize">
+                        <span class="text-success" ngbTooltip="Voting Enabled">
+                          <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span
+                          class="text-success"
+                          ngbTooltip="Commenting Enabled"
+                        >
+                          <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span class="text-danger" ngbTooltip="Sharing Disabled">
+                          <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                        </span>
+                      </li>
+                    </ul>
+                  </span>
+                </div>
+              </div>
+              <div class="col-1 d-flex align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted float-right ml-auto"
+                ></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-primary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span class="badge badge-light border shadow-sm ml-1"
+                    >Current Stage</span
+                  >
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-secondary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-tertiary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+          </div>
+        </div>
+        <p class="form-text text-muted text-medium">
+          Which stage would you like to update this idea to in your new
+          workflow?
+        </p>
+      </div>
+      <!-- start of insert -->
+      <div class="form-row">
+        <div class="form-group col-7 mb-0">
+          <div class="row">
+            <div class="col-12">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small text-muted mb-1 uppercase bold montserrat">
+                    Stage Information
+                  </p>
+                </li>
+              </ul>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body bg-light p-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="text-medium mb-0 bold">
+                            Assignees for This Stage (35)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted text-medium"
+                            ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editAssignees">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleAssignees()"
+                          >
+                            Assigned to First Last, GroupName, FirstLast,
+                            GroupName, and Idea Owners
+                            <span class="text-primary">Edit</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editAssignees">
+                        <div class="col-12">
+                          <app-select-members></app-select-members>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleAssignees()"
+                          >
+                            Close
+                          </button>
+                          <!-- <button class="btn btn-sm btn-light border mt-2" (click)="toggleAssignees()">
+                                    Cancel
+                                  </button>
+                                  <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleAssignees()">
+                                    Save Changes
+                                  </button> -->
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="small bold text-muted"
+                          >Send Email Notification to Assignees</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                            checked
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="submitters"
+                          ></label>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Send Reminder Email</span> - Weekly
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Never
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Weekly
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Every Two Weeks
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Every Month
+                          </button>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown container="body">
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Due Date</span> - 10 Days
+                          (10/28/20)
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="10/22/20"
+                                />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+                              <div class="pt-2">
+                                <button
+                                  class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  class="btn btn-primary btn-sm shadow-sm"
+                                >
+                                  Save Changes
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Completion Rules</span> - Once All
+                          Assignees Complete
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Once All Assignees Complete
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Minimum Number of Assignees Complete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-2" />
+                  <div class="row">
+                    <div class="col-12">
+                      <!-- start of insert -->
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="mb-0 bold text-medium">
+                            Who Can View Stage Activity (100)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted text-medium"
+                            ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editViewers">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleViewers()"
+                          >
+                            First Last, GroupName, FirstLast, GroupName, and
+                            Idea Owners can see activity in this stage.<span
+                              class="text-primary"
+                              >Edit</span
+                            >
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editViewers">
+                        <div class="col-12">
+                          <app-select-members></app-select-members>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleViewers()"
+                          >
+                            Close
+                          </button>
+                          <!-- <button class="btn btn-sm btn-light border mt-2" (click)="toggleViewers()">
+                                    Cancel
+                                  </button>
+                                  <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleViewers()">
+                                    Save Changes
+                                  </button> -->
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                      <hr class="my-2" />
+                      <!-- start of insert -->
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="mb-0 bold text-medium">
+                            Notification Settings (1,250)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted"
+                            ngbTooltip="Notification settings explanation"
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editNotifications">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleNotifications()"
+                          >
+                            Changing the stage of this opportunity will notify
+                            Followers, voters, and the idea submitter.
+                            <span class="text-primary">Edit</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editNotifications">
+                        <div class="col-12">
+                          <div class="form-row">
+                            <div class="form-group col-12 mb-0">
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="submitters"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="submitters"
+                                      >Send Notification to Submitter and
+                                      Co-Submitters (5)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="owner"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="owner"
+                                      >Send Notification to Opportunity Owner
+                                      (2)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="team"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="team"
+                                      >Send Notification to Team Members
+                                      (3)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="followers"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="followers"
+                                      >Send Notification to Followers (5)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="voters"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="voters"
+                                      >Send Notification to Voters
+                                      <span class="text-warning"
+                                        >(500)</span
+                                      ></label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="groups"
+                                      (click)="toggleSpecificGroups()"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="groups"
+                                      >Send Notification to Specific Individuals
+                                      or Groups (0)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- if specific groups is selected -->
+                              <div
+                                class="card bg-white mb-2 shadow-sm"
+                                *ngIf="notifySpecificGroups"
+                              >
+                                <div class="card-body pt-2">
+                                  <label class="small bold"
+                                    >Select Groups</label
+                                  >
+                                  <app-search-groups></app-search-groups>
+                                </div>
+                              </div>
+                              <!-- end if specific groups is selected -->
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-12 mb-0">
+                              <label class="mt-1 font-weight-normal"
+                                >Customize Message</label
+                              >
+                              <textarea
+                                class="form-control form-control-sm"
+                                rows="3"
+                                placeholder="Please enter the message you'd like to include in your email notification..."
+                              ></textarea>
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleNotifications()"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="bold small text-muted"
+                          >Send Email Notification to Stakeholders</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="sendEmailNotificationToStakeholders"
+                            checked
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="sendEmailNotificationToStakeholders"
+                          ></label>
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                    </div>
+                  </div>
+                  <!-- <hr class="my-2"> -->
+                  <!-- <div class="pb-1">
+                          <span class="bold text-medium text-muted">Stage Specific Comments</span>
+                          <div class="custom-control custom-switch float-right">
+                            <input type="checkbox" class="custom-control-input" id="submitters" />
+                            <label class="custom-control-label" for="submitters"></label>
+                          </div>
+                        </div> -->
+                  <!-- <div class="pb-1">
+                            <span class="bold text-medium text-muted">Send Email Notification to Stakeholders</span>
+                            <div class="custom-control custom-switch float-right">
+                              <input type="checkbox" class="custom-control-input" id="submitters" />
+                              <label class="custom-control-label" for="submitters"></label>
+                            </div>
+                          </div>
+                          <div class="pb-1">
+                            <span class="bold text-medium text-muted">Send Email Notification to Assignees</span>
+                            <div class="custom-control custom-switch float-right">
+                              <input type="checkbox" class="custom-control-input" id="submitters" />
+                              <label class="custom-control-label" for="submitters"></label>
+                            </div>
+                          </div> -->
+                  <!-- <div class="showEditOnHover" ngbDropdown>
+                            <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                              <span class="bold">Send Reminder Email</span> - Weekly
+                              <fa-icon [icon]="['fas', 'caret-down']" class="text-muted float-right mr-2"></fa-icon>
+                            </p>
+                            <div ngbDropdownMenu class="shadow w-100">
+                              <button ngbDropdownItem class="pl-3 btn-sm">
+                                Never
+                              </button>
+                              <button ngbDropdownItem class="pl-3 btn-sm">
+                                Weekly
+                              </button>
+                              <button ngbDropdownItem class="pl-3 btn-sm">
+                                Every Two Weeks
+                              </button>
+                              <button ngbDropdownItem class="pl-3 btn-sm">
+                                Every Month
+                              </button>
+                            </div>
+                          </div> -->
+                  <!-- <div class="showEditOnHover" ngbDropdown container="body">
+                          <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                            <span class="bold">Due Date</span> - 10 Days (10/28/20)
+                            <fa-icon [icon]="['fas', 'caret-down']" class="text-muted float-right mr-2"></fa-icon>
+                          </p>
+                          <div ngbDropdownMenu class="shadow py-0">
+                            <div class="card border-0">
+                              <div class="card-body pt-2">
+                                <div class="pb-2">
+                                  <label class="text-medium">Select Date</label>
+                                  <input type="text" class="form-control form-control-sm" placeholder="10/22/20">
+                                </div>
+                                <ngb-datepicker #dateDisplay></ngb-datepicker>
+                                <div class="pt-2">
+                                  <button class="btn btn-light border btn-sm mr-1 shadow-sm">Cancel</button>
+                                  <button class="btn btn-primary btn-sm shadow-sm">Save Changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="showEditOnHover" ngbDropdown>
+                          <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                            <span class="bold">Completion Rules</span> - Manual
+                            <fa-icon [icon]="['fas', 'caret-down']" class="text-muted float-right mr-2"></fa-icon>
+                          </p>
+                          <div ngbDropdownMenu class="shadow w-100">
+                            <button ngbDropdownItem class="pl-3 btn-sm">
+                              Never
+                            </button>
+                            <button ngbDropdownItem class="pl-3 btn-sm">
+                              Weekly
+                            </button>
+                            <button ngbDropdownItem class="pl-3 btn-sm">
+                              Every Two Weeks
+                            </button>
+                            <button ngbDropdownItem class="pl-3 btn-sm">
+                              Every Month
+                            </button>
+                          </div>
+                        </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of assign -->
+          <div class="row">
+            <div class="col-12">
+              <!-- <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="small text-muted mb-1 uppercase bold">Who Can View Stage Activity (100)</p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon [icon]="['fas', 'question-circle']" class="text-muted text-medium"
+                            ngbTooltip="These are the groups and individuals assigned to complete this stage."></fa-icon>
+                        </li>
+                      </ul> -->
+              <!-- <div class="card shadow-sm mb-3">
+                        <div class="card-body bg-light p-2">
+                          <div class="row" *ngIf="!editViewers">
+                            <div class="col-12">
+                              <p class="text-medium mb-0 showEditOnHover" (click)="toggleViewers()">
+                                First Last, GroupName, FirstLast, GroupName, and Idea Owners can see activity in this stage.<span
+                                  class="text-primary">Edit</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="editViewers">
+                            <div class="col-12">
+                              <app-select-members></app-select-members>
+                              <button class="btn btn-sm btn-light border mt-2" (click)="toggleViewers()">
+                                Cancel
+                              </button>
+                              <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleViewers()">
+                                Save Changes
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+            </div>
+          </div>
+          <!-- end of who can view -->
+          <div class="row">
+            <div class="col-12">
+              <!-- <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="small text-muted mb-1 uppercase bold montserrat">
+                            Notification Settings (1,250)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon [icon]="['fas', 'question-circle']" class="text-muted" ngbTooltip="Notification settings explanation">
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="card shadow-sm mb-3">
+                        <div class="card-body bg-light p-2">
+                          <div class="row" *ngIf="!editNotifications">
+                            <div class="col-12">
+                              <p class="text-medium mb-0 showEditOnHover" (click)="toggleNotifications()">
+                                Changing the stage of this opportunity will notify Followers, voters, and the idea submitter.
+                                <span class="text-primary">Edit</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="row" *ngIf="editNotifications">
+                            <div class="col-12">
+                              <app-select-members></app-select-members>
+                              <button class="btn btn-sm btn-light border mt-2" (click)="toggleNotifications()">
+                                Cancel
+                              </button>
+                              <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleNotifications()">
+                                Save Changes
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+            </div>
+          </div>
+          <!-- end of notification settings -->
+        </div>
+        <div class="form-group col-5 mb-0">
+          <div class="row">
+            <div class="col-12">
+              <p class="small text-muted my-1 uppercase bold montserrat">
+                Scorecarding Criteria
+              </p>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body bg-light p-2">
+                  <div class="alert alert-info small p-2 mb-2">
+                    During this stage, assignees will complete a scorecard based
+                    on the criteria below.
+                  </div>
+                  <ul class="text-medium pl-4 mb-2">
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- <p class="small text-muted my-1 uppercase bold montserrat">
+                        Refinement Fields
+                      </p>
+                      <div class="card shadow-sm mb-3">
+                        <div class="card-body bg-light p-2">
+                          <div class="alert alert-info small p-2 mb-2">
+                            During this stage, assignees will complete a scorecard based on the criteria below.
+                          </div>
+                          <ul class="text-medium pl-4 mb-2">
+                            <li>Refine One</li>
+                            <li>Refine One</li>
+                            <li>Refine One</li>
+                            <li>Refine One</li>
+                            <li>Refine One</li>
+                          </ul>
+                        </div>
+                      </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row d-none">
+        <div class="col-12">
+          <p class="small text-muted mb-1 uppercase bold">Stage Information</p>
+          <div class="card bg-light mb-4">
+            <div class="card-body p-2">
+              <div class="row">
+                <div class="col-6">
+                  <p class="small text-muted mb-2 uppercase bold">
+                    Stage Settings
+                  </p>
+                  <!-- edit category -->
+                  <div class="showEditOnHover" ngbDropdown>
+                    <p
+                      class="mb-0 py-1 text-medium removeCaret"
+                      ngbDropdownToggle
+                    >
+                      <span class="bold">Assigned To</span> - GroupName,
+                      GroupName, GroupName, IndividualName, Idea Owners
+                      <fa-icon
+                        [icon]="['fas', 'caret-down']"
+                        class="text-muted float-right mr-2"
+                      ></fa-icon>
+                    </p>
+                    <div
+                      ngbDropdownMenu
+                      class="shadow p-2"
+                      style="width: 130% !important;"
+                    >
+                      <app-select-members></app-select-members>
+                    </div>
+                  </div>
+                  <!-- edit category -->
+                  <ul class="list-unstyled small text-muted">
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted mr-1"
+                      ></fa-icon>
+                      <span class="bold">Assigned To</span> - GroupName
+                    </li>
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'check-circle']"
+                        class="text-primary mr-1"
+                      ></fa-icon>
+                      <span class="bold">Assign Task</span> - Enabled
+                    </li>
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'times-circle']"
+                        class="text-danger mr-1"
+                      ></fa-icon>
+                      <span class="bold">Stage Automation</span> - Disabled
+                    </li>
+                    <li class="pb-2">
+                      <!-- <fa-icon
+                                [icon]="['fas', 'check-circle']"
+                                class="text-primary mr-1"
+                              ></fa-icon>
+                              <span class="bold">Time to Complete</span> - 10 Days
+                              (12/22/19) -->
+                      <div
+                        class="showEditOnHover mt-3"
+                        ngbDropdown
+                        container="body"
+                      >
+                        <p
+                          class="mb-0 py-0 text-medium text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Due Date</span> - 10 Days
+                          (10/28/20)
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="10/22/20"
+                                />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+                              <div class="pt-2">
+                                <button
+                                  class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  class="btn btn-primary btn-sm shadow-sm"
+                                >
+                                  Save Changes
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <!-- <fa-icon [icon]="['fas', 'clock']"></fa-icon> -->
+                          <span class="bold">Completion Rules</span> - Manual
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow pt-0">
+                          <div style="min-width: 15rem;">
+                            <form class="p-1">
+                              <div class="form-group mb-0">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Search sources..."
+                                />
+                              </div>
+                            </form>
+                          </div>
+                          <div class="dropdownScrollMaxHeight">
+                            put datepicker in here...
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="bold text-medium text-muted"
+                          >Stage Specific Comments</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="submitters"
+                          ></label>
+                        </div>
+                      </div>
+                    </li>
+                    <!-- <li class="pb-2">
+                              <fa-icon
+                                [icon]="['fas', 'minus-circle']"
+                                class="text-warning mr-1"
+                              ></fa-icon>
+                              <span class="bold">Idea Visibility</span> - Visible when
+                              Filtered
+                            </li> -->
+                  </ul>
+                </div>
+                <div class="col-6" style="border-left: 1px solid #dddddd;">
+                  <p class="small text-muted mb-1 uppercase bold">
+                    Scorecarding Criteria
+                  </p>
+                  <ul class="small pl-4">
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of insert -->
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary ml-2"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(emailSendsWarning)"
+    >
+      Add Opportunity to Workflow
+    </button>
+  </div>
+</ng-template>
+<!-- end of add opportunity to workflow modal -->
+
+<!-- start of change workflow modal -->
+<ng-template #changeWorkflow let-modal>
+  <div class="modal-header card-header">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="small uppercase bold mb-0">Change Workflow of This Idea</p>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label class="montserrat">Select Workflow</label>
+        <div class="form-group mb-1">
+          <div ngbDropdown>
+            <div
+              class="removeCaret py-2 px-3 border rounded shadow-sm addHover"
+              ngbDropdownToggle
+            >
+              <div class="row">
+                <div class="col-11">
+                  No workflow selected
+                </div>
+                <div class="col-1">
+                  <fa-icon
+                    [icon]="['fas', 'sort']"
+                    class="text-muted float-right"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+            <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+              <button class="pl-3 py-2" ngbDropdownItem>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    Workflow Title One
+                    <fa-icon
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted mr-1"
+                      ngbTooltip="Workflow description if it exists..."
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline">
+                      <li class="list-inline-item text-medium mr-3">
+                        <fa-icon
+                          [icon]="['fas', 'conveyor-belt-alt']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        10 Stages
+                      </li>
+                      <li class="list-inline-item text-medium">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="text-muted"
+                        >
+                        </fa-icon>
+                        100 Ideas
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </button>
+            </div>
+          </div>
+        </div>
+        <p class="form-text text-muted text-medium">
+          Which workflow would you like to update your idea to?
+        </p>
+      </div>
+      <div class="form-group mb-3">
+        <label class="montserrat">Select Stage</label>
+        <div ngbDropdown>
+          <div
+            class="removeCaret py-2 px-2 border rounded addHover shadow-sm"
+            ngbDropdownToggle
+          >
+            <div class="row">
+              <div class="col-4">
+                <div class="media d-flex">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="align-self-center text-center mr-2 pointer text-primary"
+                  >
+                  </fa-icon>
+                  <div class="media-body d-flex align-self-center">
+                    <p class="bold mb-0">
+                      Stage Name
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted"
+                        ngbTooltip="Stage description if it exists..."
+                      >
+                      </fa-icon>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 d-flex align-items-center">
+                <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+              </div>
+              <div class="col-5 d-flex align-items-center pr-0">
+                <div class="ml-auto">
+                  <span
+                    class="badge badge-info badgePadding ml-1 rounded-right-0"
+                  >
+                    <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                    Stage Tool
+                  </span>
+                  <span
+                    class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                  >
+                    Global Status
+                  </span>
+                  <span
+                    class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                  >
+                    <ul class="list-inline mb-0 ml-auto">
+                      <li class="list-inline-item iconSize">
+                        <span class="text-success" ngbTooltip="Voting Enabled">
+                          <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span
+                          class="text-success"
+                          ngbTooltip="Commenting Enabled"
+                        >
+                          <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span class="text-danger" ngbTooltip="Sharing Disabled">
+                          <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                        </span>
+                      </li>
+                    </ul>
+                  </span>
+                </div>
+              </div>
+              <div class="col-1 d-flex align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted float-right ml-auto"
+                ></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-primary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span class="badge badge-light border shadow-sm ml-1"
+                    >Current Stage</span
+                  >
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-secondary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-tertiary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+          </div>
+        </div>
+        <p class="form-text text-muted text-medium">
+          Which stage would you like to update this idea to in your new
+          workflow?
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary ml-2"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(changeStageTwo)"
+    >
+      Next - Select Stage
+    </button>
+  </div>
+</ng-template>
+<!-- end of change workflow modal -->
+
+<!-- change stage two -->
+<ng-template #changeStageTwo let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Change Stage of This Idea</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalScrollMaxHeight">
+    <form>
+      <div class="form-group mb-3">
+        <p class="small text-muted mb-1 uppercase bold montserrat">
+          Selected Stage
+        </p>
+        <div ngbDropdown>
+          <div
+            class="removeCaret py-2 px-2 border rounded addHover shadow-sm"
+            ngbDropdownToggle
+          >
+            <div class="row">
+              <div class="col-4">
+                <div class="media d-flex">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    class="align-self-center text-center mr-2 pointer text-primary"
+                  >
+                  </fa-icon>
+                  <div class="media-body d-flex align-self-center">
+                    <p class="bold mb-0">
+                      Stage Name
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted"
+                        ngbTooltip="Stage description if it exists..."
+                      >
+                      </fa-icon>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 d-flex align-items-center">
+                <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+              </div>
+              <div class="col-5 d-flex align-items-center pr-0">
+                <div class="ml-auto">
+                  <span
+                    class="badge badge-info badgePadding ml-1 rounded-right-0"
+                  >
+                    <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                    Stage Tool
+                  </span>
+                  <span
+                    class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                  >
+                    Global Status
+                  </span>
+                  <span
+                    class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                  >
+                    <ul class="list-inline mb-0 ml-auto">
+                      <li class="list-inline-item iconSize">
+                        <span class="text-success" ngbTooltip="Voting Enabled">
+                          <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span
+                          class="text-success"
+                          ngbTooltip="Commenting Enabled"
+                        >
+                          <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                        </span>
+                      </li>
+                      <li class="list-inline-item iconSize">
+                        <span class="text-danger" ngbTooltip="Sharing Disabled">
+                          <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                        </span>
+                      </li>
+                    </ul>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="col-2 d-flex align-items-center">
+                <span class="badge badge-success badgePadding align-items-center">Global Status</span>
+              </div> -->
+              <!-- <div class="col-2 d-flex align-items-center">
+                <ul class="list-inline mb-0 ml-auto">
+                  <li class="list-inline-item text-medium">
+                    <span class="text-primary" ngbTooltip="Voting Enabled">
+                      <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                    </span>
+                  </li>
+                  <li class="list-inline-item text-medium">
+                    <span class="text-primary" ngbTooltip="Commenting Enabled">
+                      <fa-icon [icon]="['fas', 'comment']">
+                      </fa-icon>
+                    </span>
+                  </li>
+                  <li class="list-inline-item text-medium">
+                    <span class="text-danger" ngbTooltip="Sharing Disabled">
+                      <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                    </span>
+                  </li>
+                </ul>
+              </div> -->
+              <div class="col-1 d-flex align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'sort']"
+                  class="text-muted float-right ml-auto"
+                ></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-primary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span class="badge badge-light border shadow-sm ml-1"
+                    >Current Stage</span
+                  >
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-secondary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- start of one -->
+            <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="align-self-center text-center mr-2 pointer text-tertiary"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          ngbTooltip="Stage description if it exists..."
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <!-- <span class="badge badge-light border shadow-sm ml-1">Current Stage</span> -->
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badge-info badgePadding ml-1 rounded-right-0"
+                    >
+                      <fa-icon [icon]="['fas', 'star']"> </fa-icon>
+                      Stage Tool
+                    </span>
+                    <span
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      Global Status
+                    </span>
+                    <span
+                      class="badge badge-dark specialBadgePadding align-items-center rounded-left-0 border-left-0"
+                    >
+                      <ul class="list-inline mb-0 ml-auto">
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Voting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-success"
+                            ngbTooltip="Commenting Enabled"
+                          >
+                            <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                          </span>
+                        </li>
+                        <li class="list-inline-item iconSize">
+                          <span
+                            class="text-danger"
+                            ngbTooltip="Sharing Disabled"
+                          >
+                            <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                          </span>
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </button>
+            <!-- end of one -->
+            <!-- start of one -->
+            <!-- <button class="px-2 py-2" ngbDropdownItem>
+              <div class="row">
+                <div class="col-5">
+                  <div class="media d-flex">
+                    <fa-icon [icon]="['fas', 'star']"
+                      class="stageIcon align-self-center text-center mr-2 rounded-circle pointer bg-warning text-white">
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="bold mb-0">
+                        Stage Name
+                        <fa-icon [icon]="['fas', 'info-circle']" class="text-muted"
+                          ngbTooltip="Stage description if it exists...">
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span class="badge badge-info ml-1">Current Stage</span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <ul class="list-inline mb-0 ml-auto">
+                    <li class="list-inline-item text-medium">
+                      <span class="text-primary" ngbTooltip="Voting Enabled">
+                        <fa-icon [icon]="['fas', 'thumbs-up']"> </fa-icon>
+                      </span>
+                    </li>
+                    <li class="list-inline-item text-medium">
+                      <span class="text-primary" ngbTooltip="Voting Enabled">
+                        <fa-icon [icon]="['fas', 'comment']"> </fa-icon>
+                      </span>
+                    </li>
+                    <li class="list-inline-item text-medium">
+                      <span class="text-danger" ngbTooltip="Sharing Disabled">
+                        <fa-icon [icon]="['fas', 'share-alt']"> </fa-icon>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <span
+                    class="badge badge-success badgePadding align-items-center"
+                    >Global Status</span
+                  >
+                </div>
+              </div>
+            </button> -->
+            <!-- end of one -->
+          </div>
+        </div>
+      </div>
+      <!-- <hr class="mt-1 mb-3"> -->
+      <div class="form-row">
+        <div class="form-group col-7 mb-0">
+          <div class="row">
+            <div class="col-12">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small text-muted mb-1 uppercase bold montserrat">
+                    Stage Information
+                  </p>
+                </li>
+              </ul>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body bg-light p-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="text-medium mb-0 bold">
+                            Assignees for This Stage (35)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted text-medium"
+                            ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editAssignees">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleAssignees()"
+                          >
+                            Assigned to First Last, GroupName, FirstLast,
+                            GroupName, and Idea Owners
+                            <span class="text-primary">Edit</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editAssignees">
+                        <div class="col-12">
+                          <app-select-members></app-select-members>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleAssignees()"
+                          >
+                            Close
+                          </button>
+                          <!-- <button class="btn btn-sm btn-light border mt-2" (click)="toggleAssignees()">
+                              Cancel
+                            </button>
+                            <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleAssignees()">
+                              Save Changes
+                            </button> -->
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="small bold text-muted"
+                          >Send Email Notification to Assignees</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                            checked
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="submitters"
+                          ></label>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Send Reminder Email</span> - Weekly
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Never
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Weekly
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Every Two Weeks
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Every Month
+                          </button>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown container="body">
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Due Date</span> - 10 Days
+                          (10/28/20)
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="10/22/20"
+                                />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+                              <div class="pt-2">
+                                <button
+                                  class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  class="btn btn-primary btn-sm shadow-sm"
+                                >
+                                  Save Changes
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Completion Rules</span> - Once All
+                          Assignees Complete
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Once All Assignees Complete
+                          </button>
+                          <button ngbDropdownItem class="pl-3 btn-sm">
+                            Minimum Number of Assignees Complete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-2" />
+                  <div class="row">
+                    <div class="col-12">
+                      <!-- start of insert -->
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="mb-0 bold text-medium">
+                            Who Can View Stage Activity (100)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted text-medium"
+                            ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editViewers">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleViewers()"
+                          >
+                            First Last, GroupName, FirstLast, GroupName, and
+                            Idea Owners can see activity in this stage.<span
+                              class="text-primary"
+                              >Edit</span
+                            >
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editViewers">
+                        <div class="col-12">
+                          <app-select-members></app-select-members>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleViewers()"
+                          >
+                            Close
+                          </button>
+                          <!-- <button class="btn btn-sm btn-light border mt-2" (click)="toggleViewers()">
+                              Cancel
+                            </button>
+                            <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleViewers()">
+                              Save Changes
+                            </button> -->
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                      <hr class="my-2" />
+                      <!-- start of insert -->
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="mb-0 bold text-medium">
+                            Notification Settings (1,250)
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <fa-icon
+                            [icon]="['fas', 'question-circle']"
+                            class="text-muted"
+                            ngbTooltip="Notification settings explanation"
+                          >
+                          </fa-icon>
+                        </li>
+                      </ul>
+                      <div class="row" *ngIf="!editNotifications">
+                        <div class="col-12">
+                          <p
+                            class="small text-muted mb-0 showEditOnHover"
+                            (click)="toggleNotifications()"
+                          >
+                            Changing the stage of this opportunity will notify
+                            Followers, voters, and the idea submitter.
+                            <span class="text-primary">Edit</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row text-medium" *ngIf="editNotifications">
+                        <div class="col-12">
+                          <div class="form-row">
+                            <div class="form-group col-12 mb-0">
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="submitters"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="submitters"
+                                      >Send Notification to Submitter and
+                                      Co-Submitters (5)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="owner"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="owner"
+                                      >Send Notification to Opportunity Owner
+                                      (2)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="team"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="team"
+                                      >Send Notification to Team Members
+                                      (3)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="followers"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="followers"
+                                      >Send Notification to Followers (5)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="voters"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="voters"
+                                      >Send Notification to Voters
+                                      <span class="text-warning"
+                                        >(500)</span
+                                      ></label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-row pt-1">
+                                <div class="form-group col-12 mb-0">
+                                  <div class="custom-control custom-checkbox">
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      id="groups"
+                                      (click)="toggleSpecificGroups()"
+                                    />
+                                    <label
+                                      class="custom-control-label font-weight-normal"
+                                      for="groups"
+                                      >Send Notification to Specific Individuals
+                                      or Groups (0)</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- if specific groups is selected -->
+                              <div
+                                class="card bg-white mb-2 shadow-sm"
+                                *ngIf="notifySpecificGroups"
+                              >
+                                <div class="card-body pt-2">
+                                  <label class="small bold"
+                                    >Select Groups</label
+                                  >
+                                  <app-search-groups></app-search-groups>
+                                </div>
+                              </div>
+                              <!-- end if specific groups is selected -->
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-12 mb-0">
+                              <label class="mt-1 font-weight-normal"
+                                >Customize Message</label
+                              >
+                              <textarea
+                                class="form-control form-control-sm"
+                                rows="3"
+                                placeholder="Please enter the message you'd like to include in your email notification..."
+                              ></textarea>
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                            (click)="toggleNotifications()"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="bold small text-muted"
+                          >Send Email Notification to Stakeholders</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="sendEmailNotificationToStakeholders"
+                            checked
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="sendEmailNotificationToStakeholders"
+                          ></label>
+                        </div>
+                      </div>
+                      <!-- end of insert -->
+                    </div>
+                  </div>
+                  <!-- <hr class="my-2"> -->
+                  <!-- <div class="pb-1">
+                    <span class="bold text-medium text-muted">Stage Specific Comments</span>
+                    <div class="custom-control custom-switch float-right">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input"
+                        id="submitters"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="submitters"
+                      ></label>
+                    </div>
+                  </div> -->
+                  <!-- <div class="pb-1">
+                      <span class="bold text-medium text-muted">Send Email Notification to Stakeholders</span>
+                      <div class="custom-control custom-switch float-right">
+                        <input type="checkbox" class="custom-control-input" id="submitters" />
+                        <label class="custom-control-label" for="submitters"></label>
+                      </div>
+                    </div>
+                    <div class="pb-1">
+                      <span class="bold text-medium text-muted">Send Email Notification to Assignees</span>
+                      <div class="custom-control custom-switch float-right">
+                        <input type="checkbox" class="custom-control-input" id="submitters" />
+                        <label class="custom-control-label" for="submitters"></label>
+                      </div>
+                    </div> -->
+                  <!-- <div class="showEditOnHover" ngbDropdown>
+                      <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                        <span class="bold">Send Reminder Email</span> - Weekly
+                        <fa-icon [icon]="['fas', 'caret-down']" class="text-muted float-right mr-2"></fa-icon>
+                      </p>
+                      <div ngbDropdownMenu class="shadow w-100">
+                        <button ngbDropdownItem class="pl-3 btn-sm">
+                          Never
+                        </button>
+                        <button ngbDropdownItem class="pl-3 btn-sm">
+                          Weekly
+                        </button>
+                        <button ngbDropdownItem class="pl-3 btn-sm">
+                          Every Two Weeks
+                        </button>
+                        <button ngbDropdownItem class="pl-3 btn-sm">
+                          Every Month
+                        </button>
+                      </div>
+                    </div> -->
+                  <!-- <div class="showEditOnHover" ngbDropdown container="body">
+                    <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                      <span class="bold">Due Date</span> - 10 Days (10/28/20)
+                      <fa-icon
+                        [icon]="['fas', 'caret-down']"
+                        class="text-muted float-right mr-2"
+                      ></fa-icon>
+                    </p>
+                    <div ngbDropdownMenu class="shadow py-0">
+                      <div class="card border-0">
+                        <div class="card-body pt-2">
+                          <div class="pb-2">
+                            <label class="text-medium">Select Date</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="10/22/20"
+                            />
+                          </div>
+                          <ngb-datepicker #dateDisplay></ngb-datepicker>
+                          <div class="pt-2">
+                            <button
+                              class="btn btn-light border btn-sm mr-1 shadow-sm"
+                            >
+                              Cancel
+                            </button>
+                            <button class="btn btn-primary btn-sm shadow-sm">
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="showEditOnHover" ngbDropdown>
+                    <p class="mb-0 py-0 text-medium text-muted removeCaret" ngbDropdownToggle>
+                      <span class="bold">Completion Rules</span> - Manual
+                      <fa-icon
+                        [icon]="['fas', 'caret-down']"
+                        class="text-muted float-right mr-2"
+                      ></fa-icon>
+                    </p>
+                    <div ngbDropdownMenu class="shadow w-100">
+                      <button ngbDropdownItem class="pl-3 btn-sm">
+                        Never
+                      </button>
+                      <button ngbDropdownItem class="pl-3 btn-sm">
+                        Weekly
+                      </button>
+                      <button ngbDropdownItem class="pl-3 btn-sm">
+                        Every Two Weeks
+                      </button>
+                      <button ngbDropdownItem class="pl-3 btn-sm">
+                        Every Month
+                      </button>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of assign -->
+          <div class="row">
+            <div class="col-12">
+              <!-- <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="small text-muted mb-1 uppercase bold">Who Can View Stage Activity (100)</p>
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon [icon]="['fas', 'question-circle']" class="text-muted text-medium"
+                      ngbTooltip="These are the groups and individuals assigned to complete this stage."></fa-icon>
+                  </li>
+                </ul> -->
+              <!-- <div class="card shadow-sm mb-3">
+                  <div class="card-body bg-light p-2">
+                    <div class="row" *ngIf="!editViewers">
+                      <div class="col-12">
+                        <p class="text-medium mb-0 showEditOnHover" (click)="toggleViewers()">
+                          First Last, GroupName, FirstLast, GroupName, and Idea Owners can see activity in this stage.<span
+                            class="text-primary">Edit</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="editViewers">
+                      <div class="col-12">
+                        <app-select-members></app-select-members>
+                        <button class="btn btn-sm btn-light border mt-2" (click)="toggleViewers()">
+                          Cancel
+                        </button>
+                        <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleViewers()">
+                          Save Changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+          <!-- end of who can view -->
+          <div class="row">
+            <div class="col-12">
+              <!-- <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="small text-muted mb-1 uppercase bold montserrat">
+                      Notification Settings (1,250)
+                    </p>
+                  </li>
+                  <li class="list-inline-item">
+                    <fa-icon [icon]="['fas', 'question-circle']" class="text-muted" ngbTooltip="Notification settings explanation">
+                    </fa-icon>
+                  </li>
+                </ul>
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body bg-light p-2">
+                    <div class="row" *ngIf="!editNotifications">
+                      <div class="col-12">
+                        <p class="text-medium mb-0 showEditOnHover" (click)="toggleNotifications()">
+                          Changing the stage of this opportunity will notify Followers, voters, and the idea submitter.
+                          <span class="text-primary">Edit</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="editNotifications">
+                      <div class="col-12">
+                        <app-select-members></app-select-members>
+                        <button class="btn btn-sm btn-light border mt-2" (click)="toggleNotifications()">
+                          Cancel
+                        </button>
+                        <button class="btn btn-sm btn-primary mt-2 ml-1" (click)="toggleNotifications()">
+                          Save Changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+          <!-- end of notification settings -->
+        </div>
+        <div class="form-group col-5 mb-0">
+          <div class="row">
+            <div class="col-12">
+              <p class="small text-muted my-1 uppercase bold montserrat">
+                Scorecarding Criteria
+              </p>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body bg-light p-2">
+                  <div class="alert alert-info small p-2 mb-2">
+                    During this stage, assignees will complete a scorecard based
+                    on the criteria below.
+                  </div>
+                  <ul class="text-medium pl-4 mb-2">
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- <p class="small text-muted my-1 uppercase bold montserrat">
+                  Refinement Fields
+                </p>
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body bg-light p-2">
+                    <div class="alert alert-info small p-2 mb-2">
+                      During this stage, assignees will complete a scorecard based on the criteria below.
+                    </div>
+                    <ul class="text-medium pl-4 mb-2">
+                      <li>Refine One</li>
+                      <li>Refine One</li>
+                      <li>Refine One</li>
+                      <li>Refine One</li>
+                      <li>Refine One</li>
+                    </ul>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row d-none">
+        <div class="col-12">
+          <p class="small text-muted mb-1 uppercase bold">Stage Information</p>
+          <div class="card bg-light mb-4">
+            <div class="card-body p-2">
+              <div class="row">
+                <div class="col-6">
+                  <p class="small text-muted mb-2 uppercase bold">
+                    Stage Settings
+                  </p>
+                  <!-- edit category -->
+                  <div class="showEditOnHover" ngbDropdown>
+                    <p
+                      class="mb-0 py-1 text-medium removeCaret"
+                      ngbDropdownToggle
+                    >
+                      <span class="bold">Assigned To</span> - GroupName,
+                      GroupName, GroupName, IndividualName, Idea Owners
+                      <fa-icon
+                        [icon]="['fas', 'caret-down']"
+                        class="text-muted float-right mr-2"
+                      ></fa-icon>
+                    </p>
+                    <div
+                      ngbDropdownMenu
+                      class="shadow p-2"
+                      style="width: 130% !important;"
+                    >
+                      <app-select-members></app-select-members>
+                    </div>
+                  </div>
+                  <!-- edit category -->
+                  <ul class="list-unstyled small text-muted">
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted mr-1"
+                      ></fa-icon>
+                      <span class="bold">Assigned To</span> - GroupName
+                    </li>
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'check-circle']"
+                        class="text-primary mr-1"
+                      ></fa-icon>
+                      <span class="bold">Assign Task</span> - Enabled
+                    </li>
+                    <li class="pb-2">
+                      <fa-icon
+                        [icon]="['fas', 'times-circle']"
+                        class="text-danger mr-1"
+                      ></fa-icon>
+                      <span class="bold">Stage Automation</span> - Disabled
+                    </li>
+                    <li class="pb-2">
+                      <!-- <fa-icon
+                          [icon]="['fas', 'check-circle']"
+                          class="text-primary mr-1"
+                        ></fa-icon>
+                        <span class="bold">Time to Complete</span> - 10 Days
+                        (12/22/19) -->
+                      <div
+                        class="showEditOnHover mt-3"
+                        ngbDropdown
+                        container="body"
+                      >
+                        <p
+                          class="mb-0 py-0 text-medium text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Due Date</span> - 10 Days
+                          (10/28/20)
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="10/22/20"
+                                />
+                              </div>
+                              <ngb-datepicker #dateDisplay></ngb-datepicker>
+                              <div class="pt-2">
+                                <button
+                                  class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  class="btn btn-primary btn-sm shadow-sm"
+                                >
+                                  Save Changes
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <!-- <fa-icon [icon]="['fas', 'clock']"></fa-icon> -->
+                          <span class="bold">Completion Rules</span> - Manual
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow pt-0">
+                          <div style="min-width: 15rem;">
+                            <form class="p-1">
+                              <div class="form-group mb-0">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Search sources..."
+                                />
+                              </div>
+                            </form>
+                          </div>
+                          <div class="dropdownScrollMaxHeight">
+                            put datepicker in here...
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pb-1">
+                        <span class="bold text-medium text-muted"
+                          >Stage Specific Comments</span
+                        >
+                        <div class="custom-control custom-switch float-right">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="submitters"
+                          ></label>
+                        </div>
+                      </div>
+                    </li>
+                    <!-- <li class="pb-2">
+                        <fa-icon
+                          [icon]="['fas', 'minus-circle']"
+                          class="text-warning mr-1"
+                        ></fa-icon>
+                        <span class="bold">Idea Visibility</span> - Visible when
+                        Filtered
+                      </li> -->
+                  </ul>
+                </div>
+                <div class="col-6" style="border-left: 1px solid #dddddd;">
+                  <p class="small text-muted mb-1 uppercase bold">
+                    Scorecarding Criteria
+                  </p>
+                  <ul class="small pl-4">
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                    <li>Criteria One</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row d-none">
+        <div class="col-12">
+          <p class="small text-muted mb-1 uppercase bold">
+            Notification Settings
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              class="text-muted"
+              ngbTooltip="Notification settings explanation"
+            >
+            </fa-icon>
+          </p>
+          <div class="card mb-4">
+            <div class="card-body p-0 bg-light">
+              <!-- start of one notification section -->
+              <div class="row border-bottom mx-0 py-2">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-9">
+                      <label class="font-weight-normal"
+                        >Send Notification to Idea Submitter</label
+                      >
+                      <ul class="list-inline mb-0 small">
+                        <li class="list-inline-item inverseLink">
+                          Customize Message
+                        </li>
+                        <li class="list-inline-item inverseLink">
+                          Send Test Email
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-3">
+                      <div class="custom-control custom-switch float-right">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="submitters"
+                        />
+                        <label class="custom-control-label" for="submitters"
+                          >Enabled</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of one notification section -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer bg-light">
+    <button
+      class="btn btn-light mr-auto text-medium"
+      (click)="editWorkFlow()"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+      Change Workflow
+    </button>
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary ml-2"
+      (click)="open(emailSendsWarning)"
+      (click)="modal.dismiss('Cross click')"
+    >
+      Change Stage
+    </button>
+  </div>
+</ng-template>
+<!-- end change stage two -->
+
+<!-- change stage stage three -->
+<ng-template #emailSendsWarning let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="small uppercase text-white bold mb-0">
+      You're About to Send 10,000 Emails
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <p>
+          You're best friend here to make sure you want to send emails to
+          <b>1,500</b> people upon changing this stage. Confirm your settings
+          below or go back to edit them.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="text-medium mb-1 bold">Assignees for This Stage (35)</p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'question-circle']"
+              class="text-muted text-medium"
+              ngbTooltip="These are the groups and individuals assigned to complete this stage."
+            ></fa-icon>
+          </li>
+        </ul>
+        <div class="card bg-light shadow-sm">
+          <div class="card-body p-2">
+            <div class="row" *ngIf="!editAssignees">
+              <div class="col-12">
+                <p
+                  class="small text-muted mb-0 showEditOnHover"
+                  (click)="toggleAssignees()"
+                >
+                  Assigned to First Last, GroupName, FirstLast, GroupName, and
+                  Idea Owners <span class="text-primary">Edit</span>
+                </p>
+              </div>
+            </div>
+            <div class="row text-medium" *ngIf="editAssignees">
+              <div class="col-12">
+                <app-select-members></app-select-members>
+                <button
+                  class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                  (click)="toggleAssignees()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <div class="pb-1">
+              <span class="small bold text-muted"
+                >Send Email Notification to Assignees</span
+              >
+              <div class="custom-control custom-switch float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="submitters"
+                  checked
+                />
+                <label class="custom-control-label" for="submitters"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="mb-1 bold text-medium">
+              Notification Settings (1,250)
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'question-circle']"
+              class="text-muted"
+              ngbTooltip="Notification settings explanation"
+            >
+            </fa-icon>
+          </li>
+        </ul>
+        <div class="card bg-light shadow-sm">
+          <div class="card-body p-2">
+            <div class="row" *ngIf="!editNotifications">
+              <div class="col-12">
+                <p
+                  class="small text-muted mb-0 showEditOnHover"
+                  (click)="toggleNotifications()"
+                >
+                  Changing the stage of this opportunity will notify Followers,
+                  voters, and the idea submitter.
+                  <span class="text-primary">Edit</span>
+                </p>
+              </div>
+            </div>
+            <div class="row text-medium" *ngIf="editNotifications">
+              <div class="col-12">
+                <div class="form-row">
+                  <div class="form-group col-12 mb-0">
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="submitters"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="submitters"
+                            >Send Notification to Submitter and Co-Submitters
+                            (5)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="owner"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="owner"
+                            >Send Notification to Opportunity Owner (2)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="team"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="team"
+                            >Send Notification to Team Members (3)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="followers"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="followers"
+                            >Send Notification to Followers (5)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="voters"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="voters"
+                            >Send Notification to Voters
+                            <span class="text-warning">(500)</span></label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row pt-1">
+                      <div class="form-group col-12 mb-0">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="groups"
+                            (click)="toggleSpecificGroups()"
+                          />
+                          <label
+                            class="custom-control-label font-weight-normal"
+                            for="groups"
+                            >Send Notification to Specific Individuals or Groups
+                            (0)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <!-- if specific groups is selected -->
+                    <div
+                      class="card bg-white mb-2 shadow-sm"
+                      *ngIf="notifySpecificGroups"
+                    >
+                      <div class="card-body pt-2">
+                        <label class="small bold">Select Groups</label>
+                        <app-search-groups></app-search-groups>
+                      </div>
+                    </div>
+                    <!-- end if specific groups is selected -->
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-12 mb-0">
+                    <label class="mt-1 font-weight-normal"
+                      >Customize Message</label
+                    >
+                    <textarea
+                      class="form-control form-control-sm"
+                      rows="3"
+                      placeholder="Please enter the message you'd like to include in your email notification..."
+                    ></textarea>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                  (click)="toggleNotifications()"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <div class="pb-1">
+              <span class="bold small text-muted"
+                >Send Email Notification to Stakeholders</span
+              >
+              <div class="custom-control custom-switch float-right">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="sendEmailNotificationToStakeholders"
+                  checked
+                />
+                <label
+                  class="custom-control-label"
+                  for="sendEmailNotificationToStakeholders"
+                ></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button
+      class="btn btn-light border"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(changeStageTwo)"
+    >
+      Go Back
+    </button>
+    <button class="btn btn-info ml-2" (click)="modal.dismiss('Cross click')">
+      Confirm and Send Notifications
+    </button>
+  </div>
+</ng-template>
+<!-- end confirm notification settings -->
+
+<!-- start of idea settings modal -->
+<ng-template #ideaSettings let-modal>
+  <div class="modal-header pb-0 pl-0">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+          Edit Idea
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'link']" class="text-muted"></fa-icon>
+          Link (10)
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'code-merge']" class="text-muted"></fa-icon>
+          Merge (2)
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon
+            [icon]="['fas', 'conveyor-belt-alt']"
+            class="text-muted"
+          ></fa-icon>
+          Workflow
+        </p>
+      </li>
+      <li class="list-inline-item nav-underline active">
+        <p class="uppercase mb-0 text-muted small bold">
+          <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+          Settings
+        </p>
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <p class="uppercase bold mb-1 text-medium">Settings</p>
+      <hr class="mb-2 mt-1" />
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="public"
+          name="customRadio"
+          class="custom-control-input"
+          checked
+        />
+        <label class="custom-control-label font-weight-normal" for="public"
+          ><b>Public</b> - All users who have access to the community can view
+          this idea under "open ideas."</label
+        >
+      </div>
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="specificGroups"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="specificGroups"
+          ><b>Specific Groups</b> - Only the groups you designate will be able
+          to view this idea.</label
+        >
+      </div>
+      <!-- if specific groups is selected -->
+      <div class="card bg-light mb-2 shadow-sm">
+        <div class="card-body pt-2">
+          <label class="small bold">Select Groups</label>
+          <app-search-groups></app-search-groups>
+        </div>
+      </div>
+      <!-- end if specific groups is selected -->
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="private"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label class="custom-control-label font-weight-normal" for="private"
+          ><b>Private</b> - Only Community Admins, Moderators, Owners, Team
+          Members, and the idea submitter will be able to see this idea.</label
+        >
+      </div>
+      <p class="uppercase bold mb-1 text-medium pt-3">
+        Filter Visibility Settings
+      </p>
+      <hr class="mb-2 mt-1" />
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="limitedVisibility"
+          name="customRadio"
+          class="custom-control-input"
+          checked
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="limitedVisibility"
+          ><b>Open Ideas</b> - This idea will be visible under the "open ideas"
+          filter without needing to be filtered by status or stage.</label
+        >
+      </div>
+      <div class="custom-control custom-radio mb-2 text-medium">
+        <input
+          type="radio"
+          id="limitedVisibility"
+          name="customRadio"
+          class="custom-control-input"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="limitedVisibility"
+          ><b>Limited Visiblity</b> - This idea will only be visible when
+          filtered by the specific stage or status that it is currently
+          in.</label
+        >
+      </div>
+      <p class="uppercase bold mb-1 text-medium pt-4">Collaboration Settings</p>
+      <hr class="mb-0 mt-1" />
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Voting</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowVoting"
+              checked
+            />
+            <label class="custom-control-label" for="allowVoting"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Commenting</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowCommenting"
+              checked
+            />
+            <label class="custom-control-label" for="allowCommenting"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Notes</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input type="checkbox" class="custom-control-input pointer" id="participantsTab">
+            <label class="custom-control-label" for="participantsTab">Enabled</label>
+          </div>
+        </div>
+      </div> -->
+      <div class="form-row dottedBottomBorder pt-2 pb-2">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0 font-weight-normal">Allow Sharing</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="allowSharing"
+              checked
+            />
+            <label class="custom-control-label" for="allowSharing"
+              >Enabled</label
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border">Cancel</button>
+    <button class="btn btn-primary ml-2">Save Changes</button>
+  </div>
+</ng-template>
+<!-- end of idea settings modal -->
+
+<!-- start of add action item modal -->
+
+<ng-template #actionitem let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Add New Action Item</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-light border bg-light">
+      <div class="row">
+        <div class="col-1">
+          <fa-icon
+            [icon]="['fas', 'flag']"
+            class="text-muted mt-2"
+            style="font-size: 1.5rem;"
+          ></fa-icon>
+        </div>
+        <div class="col-11">
+          <span class="text-muted small"
+            >Use actions items to take full control of your innovation pipeline
+            by assigning stakeholders to complete actions on opportunities at
+            the right time. <a href="#">Learn more about action items</a>.
+          </span>
+        </div>
+      </div>
+    </div>
+    <form>
+      <div class="form-group">
+        <label>Action Item Title</label>
+        <input type="text" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Action Item Description</label>
+        <textarea class="form-control" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Select Action</label>
+        <select class="form-control">
+          <optgroup label="Idea Management">
+            <option>Updating Categories</option>
+            <option>Assigning Ownership</option>
+            <option>Tagging Ideas</option>
+            <option>Commenting on Ideas</option>
+            <option>Recording Outcomes</option>
+            <option>Complete Custom Field / Custom Field Group</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Select Action</label>
+        <select class="form-control">
+          <optgroup label="Idea Management">
+            <option>Updating Categories</option>
+            <option>Assigning Ownership</option>
+            <option>Tagging Ideas</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Action Item Type</label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="actionItemType"
+            id="exampleRadios1"
+            value="option1"
+            checked
+          />
+          <label
+            class="form-check-label font-weight-normal"
+            for="exampleRadios1"
+          >
+            One Time Action Item
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="actionItemType"
+            id="exampleRadios2"
+            value="option2"
+          />
+          <label
+            class="form-check-label font-weight-normal"
+            for="exampleRadios2"
+          >
+            Recurring Action Item
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-dark">Cancel</button>
+    <button class="btn btn-primary">Next</button>
+  </div>
+</ng-template>
+
+<!-- end of action item modal -->
+
+<!-- start of merge idea modal -->
+<ng-template #deleteIdea let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive This Idea</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="">
+      Are you sure you would like to archive this idea? Please review the
+      effects of archiving groups before proceeding.
+    </p>
+    <label>Effects of Archiving Ideas</label>
+    <ul class="pl-4">
+      <li>Effect One</li>
+      <li>Effect Two</li>
+      <li>Effect Three</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Archive')">
+      Cancel
+    </button>
+    <button class="btn btn-danger" (click)="archiveIdea()">
+      Yes, Archive This Idea
+    </button>
+  </div>
+</ng-template>
+<!-- end of merge idea modal -->

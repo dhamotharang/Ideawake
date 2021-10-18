@@ -1,0 +1,92 @@
+<div
+  (mouseenter)="showManageOptions = true"
+  (mouseleave)="showManageOptions = false"
+>
+  <app-managing-widget
+    *ngIf="showManageOptions"
+    [idea]="opportunity"
+    (action)="action.emit($event)"
+    [isPipelineView]="true"
+  >
+  </app-managing-widget>
+  <div
+    class="card-body shadow-sm rounded p-2 leftStatusInProgress"
+    [ngClass]="{
+      leftStatusInProgress: opportunity?.stageRemainingDays > 7,
+      leftStatusInDanger:
+        opportunity?.stageRemainingDays < 7 &&
+        opportunity?.stageRemainingDays > 0,
+      leftStatusInWarning: opportunity?.stageRemainingDays <= 0
+    }"
+    (click)="openSummaryModal.emit()"
+  >
+    <div class="row">
+      <div class="col-8">
+        <div class="media">
+          <div class="media-body">
+            <p class="mb-0 small">
+              <span class="text-primary bold">
+                {{ opportunity.id }}
+              </span>
+              <app-idea-title [idea]="opportunity"></app-idea-title>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-3"
+        *ngIf="stage?.actionItem?.abbreviation !== actionItems.NO_TOOL"
+      >
+        <div class="card h-100">
+          <div class="card-body p-0 text-center">
+            <p class="bold small mb-1 pt-1">
+              <span
+                *ngIf="
+                  stage?.actionItem?.abbreviation === actionItems.REFINEMENT
+                "
+              >
+                {{ opportunity?.completionStats?.total }}
+              </span>
+              <span
+                *ngIf="
+                  stage?.actionItem?.abbreviation === actionItems.SCORECARD
+                "
+              >
+                {{
+                  !opportunity?.currStageScore
+                    ? '--'
+                    : round(opportunity?.currStageScore)
+                }}
+              </span>
+            </p>
+            <div class="progress mt-auto rounded-top-0">
+              <div
+                *ngIf="opportunity?.completionStats"
+                class="progress-bar"
+                style="overflow: visible;"
+                role="progressbar"
+                [style.width]="
+                  opportunity?.completionStats?.total
+                    ? (opportunity?.completionStats?.completed /
+                        opportunity?.completionStats?.total) *
+                        100 +
+                      '%'
+                    : '0%'
+                "
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <span class="small px-1 bold">
+                  {{ opportunity?.completionStats?.completed }}/{{
+                    opportunity?.completionStats?.total
+                  }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

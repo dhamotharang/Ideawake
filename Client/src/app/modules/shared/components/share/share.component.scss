@@ -1,0 +1,30 @@
+.shareScrollMaxHeight {
+  max-height: 35vh;
+  overflow-y: scroll;
+}
+
+.disabledOpportunitySetting {
+  position: absolute;
+  bottom: 2rem;
+  right: 6.25rem;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  border: 2px solid white;
+}
+
+.custom-control-label::before {
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0.1rem;
+}
+
+.custom-checkbox .custom-control-label:hover {
+  cursor: pointer;
+}

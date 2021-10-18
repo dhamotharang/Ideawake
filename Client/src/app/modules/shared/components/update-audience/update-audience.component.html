@@ -1,0 +1,244 @@
+<span *ngIf="level == 'challenge'">
+  <div
+    class="custom-control custom-checkbox pointer pt-1"
+  >
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      id="challengeParticipants"
+      [(ngModel)]="targeting.challengeParticipants"
+      (change)="emitSettings()"
+    />
+    <label
+      class="custom-control-label font-weight-normal"
+      for="challengeParticipants"
+    >
+      All Challenge Participants
+    </label>
+  </div>
+  <div class="custom-control custom-checkbox pt-1 pb-1">
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      id="byGroupOrIndividual"
+      (click)="toggleGroups()"
+      [checked]="assignGroups"
+    />
+    <label
+      class="custom-control-label font-weight-normal"
+      for="byGroupOrIndividual"
+    >
+      Groups or Individuals
+    </label>
+  </div>
+  <!-- if groups or individuals -->
+  <ng-container *ngIf="assignGroups">
+    <app-search-groups
+      [isUser]="true"
+      [selection]="selectedGroupsAndUsers"
+      (dataEmitter)="setGroupsAndIndividuals($event)"
+    ></app-search-groups>
+  </ng-container>
+  <!-- end if groups or individuals -->
+</span>
+
+<!-- community level only -->
+<span *ngIf="level != 'challenge'">
+  <p class="mt-2" style="margin-bottom: 3px;">Specific Groups or Individuals</p>
+  <app-search-groups
+    [isUser]="true"
+    [selection]="selectedGroupsAndUsers"
+    (dataEmitter)="setGroupsAndIndividuals($event)"
+  ></app-search-groups>
+  <!-- <p class="mb-0 bold text-medium">Or, Select Users Who Meet these Criteria</p> -->
+</span>
+
+<!-- end community level only -->
+<hr class="mt-3 mb-2" />
+<div class="custom-control custom-checkbox pt-1 pb-0">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="allOpenItemsStages"
+    (click)="toggleOpenAction()"
+    [checked]="targeting.actionItemRelated.allOpenItemsStages"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="allOpenItemsStages"
+  >
+    Users who have open action items <span *ngIf="level == 'challenge'">in this challenge</span>
+  </label>
+</div>
+<ng-select
+  class="workflowGroup"
+  *ngIf="targeting.actionItemRelated.allOpenItemsStages"
+  [items]="stages"
+  bindLabel="title"
+  bindValue="id"
+  [groupBy]="groupByFn"
+  [groupValue]="groupValueFn"
+  [multiple]="true"
+  [(ngModel)]="targeting.actionItemRelated.openItemsStages"
+  (change)="emitOpenItemData()"
+>
+  <ng-template ng-optgroup-tmp let-item="item">
+    <span style="vertical-align: middle;">{{ item.name }}</span>
+  </ng-template>
+</ng-select>
+
+<div class="custom-control custom-checkbox pt-1 pb-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="allPastDueStages"
+    (click)="togglePastAction()"
+    [checked]="targeting.actionItemRelated.allPastDueStages"
+  />
+  <label class="custom-control-label font-weight-normal" for="allPastDueStages">
+    Users who have past due action items <span *ngIf="level == 'challenge'">in this challenge</span>
+  </label>
+</div>
+<ng-select
+  class="workflowGroup"
+  *ngIf="targeting.actionItemRelated.allPastDueStages"
+  [items]="stages"
+  bindLabel="title"
+  bindValue="id"
+  [groupBy]="groupByFn"
+  [groupValue]="groupValueFn"
+  [multiple]="true"
+  [(ngModel)]="targeting.actionItemRelated.openPastDueStages"
+  (change)="emitPastItemData()"
+>
+  <ng-template ng-optgroup-tmp let-item="item">
+    <span style="vertical-align: middle;">{{ item.name }}</span>
+  </ng-template>
+</ng-select>
+
+<hr class="mt-2 mb-2" />
+<div class="custom-control custom-checkbox pt-1" *ngIf="level == 'community'">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="admins"
+    [(ngModel)]="targeting.admins"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="admins">
+    Community Administrators
+  </label>
+</div>
+
+<div class="custom-control custom-checkbox pt-1" *ngIf="level == 'challenge'">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="challengeAdmins"
+    [(ngModel)]="targeting.challengeAdmins"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="challengeAdmins">
+    Challenge Administrators
+  </label>
+</div>
+
+<div
+  class="custom-control custom-checkbox pointer pt-1"
+  *ngIf="level == 'community'"
+>
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="moderators"
+    [(ngModel)]="targeting.moderators"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="moderators">
+    Community Moderators
+  </label>
+</div>
+
+<div
+  class="custom-control custom-checkbox pointer pt-1"
+  *ngIf="level == 'community'"
+>
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="allCommunityUsers"
+    [(ngModel)]="targeting.allCommunityUsers"
+    (change)="emitSettings()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="allCommunityUsers"
+  >
+    Community Users
+  </label>
+</div>
+
+<div
+  class="custom-control custom-checkbox pointer pt-1"
+  *ngIf="level == 'challenge'"
+>
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="challengeModerators"
+    [(ngModel)]="targeting.challengeModerators"
+    (change)="emitSettings()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="challengeModerators"
+  >
+    Challenge Moderators
+  </label>
+</div>
+
+<hr class="mt-3 mb-2" />
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="opportunityOwners"
+    [(ngModel)]="targeting.opportunityOwners"
+    (change)="emitSettings()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="opportunityOwners"
+  >
+    Users who own a submission <span *ngIf="level == 'challenge'">in this challenge</span>
+  </label>
+</div>
+
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="opportunityTeam"
+    [(ngModel)]="targeting.opportunityTeam"
+    (change)="emitSettings()"
+  />
+  <label class="custom-control-label font-weight-normal" for="opportunityTeam">
+    Users who are members of a Team <span *ngIf="level == 'challenge'">in this challenge</span>
+  </label>
+</div>
+
+<div class="custom-control custom-checkbox pt-1">
+  <input
+    type="checkbox"
+    class="custom-control-input"
+    id="opportunitySubmitters"
+    [(ngModel)]="targeting.opportunitySubmitters"
+    (change)="emitSettings()"
+  />
+  <label
+    class="custom-control-label font-weight-normal"
+    for="opportunitySubmitters"
+  >
+    User who have submitted an idea <span *ngIf="level == 'challenge'">in this challenge</span>
+  </label>
+</div>

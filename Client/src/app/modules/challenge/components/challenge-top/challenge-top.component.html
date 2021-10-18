@@ -1,0 +1,528 @@
+<div
+  *ngIf="!isLoading"
+  class="shadow animated slideInDown border-top-0 hide-navigation"
+  id="navbar"
+>
+  <div class="px-3">
+    <div class="row pt-1">
+      <div class="col-9 col-md-7 offset-md-1">
+        <!-- start of insert -->
+        <div class="row">
+          <div class="col-12">
+            <ul
+              class="nav nav-pills-secondary border-bottom-0 small uppercase bold montserrat"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link pointer"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ boolean: true }"
+                  [routerLink]="['/challenges/view/', challenge?.id]"
+                >
+                  {{ 'ChallengeTop.Labels.Home' | translationPipe }}
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link pointer"
+                  [routerLink]="['/challenges/ideas/', challenge?.id]"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ boolean: true }"
+                >
+                  {{ 'ChallengeTop.Labels.BrowseIdeas' | translationPipe }}
+                  <span class="d-none d-md-inline">
+                    {{ challenge?.opportunityType?.name | pluralize }}
+                  </span>
+                  ({{ challenge?.opportunityCount || 0 }})
+                </a>
+              </li>
+              <li class="nav-item pointer">
+                <a
+                  class="nav-link montserrat mr-0"
+                  [routerLink]="['/challenges/updates/', challenge?.id]"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ boolean: true }"
+                >
+                  {{ 'ChallengeView.Updates' | translationPipe }}
+                  ({{ totalCount || 0 }})
+                </a>
+              </li>
+              <li
+                class="nav-item pointer"
+                *ngIf="
+                  userChallengePermissions?.editChallengeDetails ||
+                  userChallengePermissions?.editChallengeSettings ||
+                  userChallengePermissions?.editChallengeTargetting
+                "
+              >
+                <a
+                  class="nav-link d-none d-md-inline-block"
+                  [routerLink]="['/challenges/analytics/', challenge?.id]"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ boolean: true }"
+                >
+                  {{ 'ChallengeTop.Labels.Analytics' | translationPipe }}
+                </a>
+              </li>
+              <li
+                class="nav-item pointer"
+                ngbDropdown
+                *ngIf="
+                  userChallengePermissions?.editChallengeDetails ||
+                  userChallengePermissions?.editChallengeSettings ||
+                  userChallengePermissions?.editChallengeTargetting
+                "
+              >
+                <a
+                  class="nav-link removeCaret"
+                  ngbDropdownToggle
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ boolean: true }"
+                >
+                  {{ 'ChallengeTop.Labels.Admin' | translationPipe }}
+                  <fa-icon
+                    [icon]="['fas', 'angle-down']"
+                    class="text-muted ml-1"
+                  ></fa-icon>
+                </a>
+                <div ngbDropdownMenu class="modalMinWidth mt-2 rounded-top-0">
+                  <!-- *ngIf="userChallengePermissions?.editChallengeTargeting" -->
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat d-md-none"
+                    [routerLink]="['/challenges/edit/', challenge?.id]"
+                  >
+                    {{ 'ChallengeTop.Labels.Analytics' | translationPipe }}
+                  </button>
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    (click)="openEditAudience()"
+                  >
+                    {{ 'ChallengeTop.Labels.EditAudience' | translationPipe }}
+                  </button>
+                  <!-- *ngIf="userChallengePermissions?.editChallengeDetails" -->
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    (click)="openEditDetails()"
+                  >
+                    {{ 'ChallengeTop.Labels.EditDetails' | translationPipe }}
+                  </button>
+                  <!-- *ngIf="userChallengePermissions?.editChallengeSettings" -->
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    (click)="openEditSettings()"
+                  >
+                    {{ 'ChallengeTop.Labels.EditSettings' | translationPipe }}
+                  </button>
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    (click)="openEditWorkflow()"
+                  >
+                    {{ 'ChallengeTop.Labels.EditWorkflow' | translationPipe }}
+                  </button>
+                  <hr class="my-0" />
+                  <!-- <button ngbDropdownItem class="pl-3 py-2 btn montserrat">
+                    <app-update-create></app-update-create>
+                  </button>
+                  <button ngbDropdownItem class="pl-3 py-2 btn montserrat">
+                    Change Phase
+                  </button>
+                  <hr class="my-0" />
+                  <button ngbDropdownItem class="pl-3 py-2 btn montserrat">
+                    Visualize Submissions
+                  </button>
+                  <button ngbDropdownItem class="pl-3 py-2 btn montserrat">
+                    Manage Pipeline
+                  </button>
+                  <button ngbDropdownItem class="pl-3 py-2 btn montserrat">
+                    Manage Action Items
+                  </button> -->
+                  <app-update-create
+                    [level]="'challenge'"
+                    [entityObjectId]="challenge.id"
+                    [inNavigation]="true"
+                  ></app-update-create>
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    (click)="openChallengeStatusSettings()"
+                  >
+                    {{ 'ChallengeTop.Labels.ChangeStatus' | translationPipe }}
+                    <p class="small text-muted mb-0 mt-1">
+                      <fa-icon
+                        [icon]="['fas', 'circle']"
+                        class="small"
+                        [ngClass]="
+                          challengeStatuses[challenge?.status]?.font_bg
+                        "
+                      ></fa-icon>
+                      {{
+                        'ChallengeTop.Labels.CurrentStatus' | translationPipe
+                      }}
+                      -
+                      {{ challengeStatuses[challenge?.status]?.status }}
+                    </p>
+                  </button>
+                  <hr class="my-0" />
+                  <button
+                    ngbDropdownItem
+                    class="pl-3 py-2 btn montserrat"
+                    *ngIf="
+                      !challenge?.isDeleted &&
+                      userCommunityPermissions?.postChallenge
+                    "
+                    (click)="openArchiveModal()"
+                  >
+                    {{
+                      'ChallengeTop.Labels.ArchiveChallenge' | translationPipe
+                    }}
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- end of insert -->
+      </div>
+      <!-- <div class="col-2"></div> -->
+      <div
+        class="col-3 col-md-2 offset-md-1 adjustFloatUp"
+        *ngIf="userChallengePermissions?.postOpportunity"
+      >
+        <button
+          class="btn btn-primary montserrat btn-block"
+          (click)="openPostIdea()"
+        >
+          <fa-icon
+            [icon]="['fas', challenge?.opportunityType?.icon]"
+            class="text-white d-none d-md-inline"
+          ></fa-icon>
+          {{ 'Shared.Post' | translationPipe }}
+          <span class="d-none d-md-inline">{{
+            challenge?.opportunityType?.name
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="alert alert-warning rounded-0 mb-0 negativeAlertMargins">
+  <p class="text-center mb-0">This challenge is in draft mode. You need to take it live for users to be invited to
+    it.
+    <button class="btn btn-sm btn-warning ml-2" (click)="open(launchChallenge)">Take it Live</button></p>
+</div> -->
+<!-- challenge admin insert -->
+<!-- end challenge admin insert -->
+<!-- *ngIf="!isLoading" -->
+<div *ngIf="!isLoading" class="row pb-3" (scroll)="onWindowScroll($event)">
+  <div class="col-12">
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="card bg-transparent border-0">
+          <div class="card-body px-0 pt-2 pb-0">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-12">
+                    <ul
+                      class="nav nav-pills-challenge border-bottom-0 small uppercase bold mb-0"
+                    >
+                      <li class="nav-item">
+                        <a
+                          class="nav-link pointer montserrat mr-0"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                          [routerLink]="['/challenges/view/', challenge?.id]"
+                        >
+                          {{ 'ChallengeTop.Labels.Home' | translationPipe }}
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link pointer montserrat mr-0"
+                          [routerLink]="['/challenges/ideas/', challenge?.id]"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                        >
+                          {{
+                            'ChallengeTop.Labels.BrowseIdeas' | translationPipe
+                          }}
+                          {{ challenge?.opportunityType?.name | pluralize }} ({{
+                            challenge?.opportunityCount || 0
+                          }})
+                        </a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a
+                          class="nav-link pointer"
+                          [routerLink]="['/challenges/ideas/', challenge?.id]"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                        >
+                          <fa-icon [icon]="['fas', 'thumbs-up']" class="text-primary"></fa-icon>
+                          Pairwise
+                        </a>
+                      </li> -->
+                      <!-- <li class="nav-item pointer" routerLink="/challenge-evaluations">
+                        <a class="nav-link text-white">
+                          <fa-icon [icon]="['fas', 'star']" class="text-primary"></fa-icon>
+                          Rank Ideas
+                        </a>
+                      </li>
+                      <li class="nav-item pointer" routerLink="/challenge/discussion">
+                        <a class="nav-link" routerLink="/challenges/pairwise/{{ challenge?.id }}">
+                          <fa-icon [icon]="['fas', 'thumbs-up']" class="text-muted pr-1"></fa-icon>
+                          Pairwise / Vote
+                          <span class="badge badge-secondary adjustLabel">10</span>
+                        </a>
+                      </li> -->
+                      <!-- <li class="nav-item" routerLink="/challenge-activity">
+                        <a class="nav-link pointer text-white">
+                          <fa-icon [icon]="['fas', 'stream']" class="text-primary"></fa-icon>
+                          Activity
+                        </a>
+                      </li>
+                      <li class="nav-item pointer" routerLink="/challenge-participants">
+                        <a class="nav-link text-white">
+                          <fa-icon [icon]="['fas', 'users']" class="text-primary"></fa-icon>
+                          Participants (15)
+                        </a>
+                      </li> -->
+                      <li class="nav-item pointer">
+                        <a
+                          class="nav-link montserrat mr-0"
+                          [routerLink]="['/challenges/updates/', challenge?.id]"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                        >
+                          {{ 'ChallengeView.Updates' | translationPipe }}
+                          ({{ totalCount || 0 }})
+                        </a>
+                      </li>
+                      <!-- <li class="nav-item pointer" routerLink="/challenge/discussion">
+                        <a class="nav-link">
+                          <fa-icon [icon]="['fas', 'comment']" class="text-primary"></fa-icon>
+                          Discussion (10)
+                        </a>
+                      </li> -->
+                      <li
+                        class="nav-item pointer"
+                        *ngIf="
+                          userChallengePermissions?.editChallengeDetails ||
+                          userChallengePermissions?.editChallengeSettings ||
+                          userChallengePermissions?.editChallengeTargetting
+                        "
+                      >
+                        <a
+                          class="nav-link montserrat d-none d-md-inline-block"
+                          [routerLink]="[
+                            '/challenges/analytics/',
+                            challenge?.id
+                          ]"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                        >
+                          {{
+                            'ChallengeTop.Labels.Analytics' | translationPipe
+                          }}
+                        </a>
+                      </li>
+                      <li
+                        class="nav-item pointer"
+                        ngbDropdown
+                        *ngIf="
+                          userChallengePermissions?.editChallengeDetails ||
+                          userChallengePermissions?.editChallengeSettings ||
+                          userChallengePermissions?.editChallengeTargetting
+                        "
+                      >
+                        <a
+                          class="nav-link removeCaret montserrat mr-0"
+                          ngbDropdownToggle
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                        >
+                          {{ 'ChallengeTop.Labels.Admin' | translationPipe }}
+                          <fa-icon
+                            [icon]="['fas', 'angle-down']"
+                            class="text-white ml-1"
+                          ></fa-icon>
+                        </a>
+                        <div
+                          ngbDropdownMenu
+                          class="modalMinWidth mt-2 rounded-top-0"
+                        >
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat d-md-none"
+                            [routerLink]="['/challenges/edit/', challenge?.id]"
+                          >
+                            {{
+                              'ChallengeTop.Labels.Analytics' | translationPipe
+                            }}
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            *ngIf="
+                              userChallengePermissions?.editChallengeTargetting
+                            "
+                            (click)="openEditAudience()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.EditAudience'
+                                | translationPipe
+                            }}
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            *ngIf="
+                              userChallengePermissions?.editChallengeDetails
+                            "
+                            (click)="openEditDetails()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.EditDetails'
+                                | translationPipe
+                            }}
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            *ngIf="
+                              userChallengePermissions?.editChallengeSettings
+                            "
+                            (click)="openEditSettings()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.EditSettings'
+                                | translationPipe
+                            }}
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            *ngIf="
+                              userChallengePermissions?.editChallengePhaseWorkflow
+                            "
+                            (click)="openEditWorkflow()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.EditWorkflow'
+                                | translationPipe
+                            }}
+                          </button>
+
+                          <hr class="my-0" />
+                          <app-update-create
+                            [level]="'challenge'"
+                            [entityObjectId]="challenge.id"
+                            [inNavigation]="true"
+                          ></app-update-create>
+                          <hr class="my-0" />
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            (click)="openChallengeStatusSettings()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.ChangeChallengeStatus'
+                                | translationPipe
+                            }}
+                            <p class="small text-muted mb-0 mt-1">
+                              <fa-icon
+                                [icon]="['fas', 'circle']"
+                                class="small"
+                                [ngClass]="
+                                  challengeStatuses[challenge?.status]?.font_bg
+                                "
+                              ></fa-icon>
+                              {{
+                                'ChallengeTop.Labels.CurrentStatus'
+                                  | translationPipe
+                              }}
+                              -
+                              {{ challengeStatuses[challenge?.status]?.status }}
+                            </p>
+                          </button>
+                          <!-- <hr class="my-0" />
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                          >
+                            Visualize Submissions
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                          >
+                            Manage Pipeline
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                          >
+                            Manage Action Items
+                          </button> -->
+                          <hr class="my-0" />
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 py-2 btn montserrat"
+                            *ngIf="
+                              !challenge?.isDeleted &&
+                              userCommunityPermissions?.postChallenge
+                            "
+                            (click)="openArchiveModal()"
+                          >
+                            {{
+                              'ChallengeTop.Labels.ArchiveChallenge'
+                                | translationPipe
+                            }}
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #archiveChallenge let-modal let-archive="archiveChallenge">
+  <div class="modal-header card-header">
+    {{ 'ChallengeTop.Labels.ArchiveChallenge' | translationPipe }}
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <p>{{ 'ChallengeTop.Labels.AreYouSure' | translationPipe }}</p>
+        <ul class="pl-4">
+          <li class="text-medium mb-2">
+            {{ 'ChallengeTop.Labels.TermOne' | translationPipe }}
+          </li>
+          <li class="text-medium">
+            {{ 'ChallengeTop.Labels.TermTwo' | translationPipe }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss()">
+      {{ 'ChallengeTop.Labels.Cancel' | translationPipe }}
+    </button>
+    <button class="btn btn-danger ml-1" (click)="archive(modal)">
+      {{ 'ChallengeTop.Labels.ArchiveThisChallenge' | translationPipe }}
+    </button>
+  </div>
+</ng-template>

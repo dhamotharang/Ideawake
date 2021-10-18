@@ -1,0 +1,113 @@
+<div class="modal-header card-header">
+  <p class="uppercase bold text-muted mb-0 small">Manage Groups</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pb-0">
+  <form>
+    <p class="bold text-muted small mb-1 uppercase">Add User to Groups</p>
+    <div
+      class="card bg-light mb-3"
+      *ngIf="notUserGroups.length > 0"
+      style="max-height: 30vh; overflow-y: auto;"
+    >
+      <div class="card-body px-3 py-2">
+        <!-- TODO will be added when design completes -->
+        <!-- <div class="form-group"> -->
+        <!-- <label>Search Groups</label> -->
+        <!-- <app-search-groups></app-search-groups> -->
+        <!-- </div> -->
+
+        <ng-container *ngFor="let group of notUserGroups; let i = index">
+          <hr *ngIf="i > 0" />
+          <div class="form-row">
+            <div class="form-group col-7 mb-0">
+              <div class="media">
+                <img
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="'https://via.placeholder.com/40x40'"
+                  class="mr-3 rounded-circle"
+                />
+                <div class="media-body">
+                  <p class="mt-0 mb-0">{{ group.name }}</p>
+                  <p class="small mb-0 text-muted">
+                    {{ group.userCount }} Members
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-5 mb-0"></div>
+          </div>
+        </ng-container>
+
+        <!-- <div class="form-row">
+          <div class="form-group col-7 mb-0">
+            <div class="media">
+              <img src="https://via.placeholder.com/40x40" class="mr-3 rounded-circle" />
+              <div class="media-body">
+                <p class="mt-0 mb-0">Group Name</p>
+                <p class="small mb-0 text-muted">100 Users</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-5 mb-0">
+            <span class="inverseLink small float-right pt-1">
+              <fa-icon [icon]="['fas', 'times-circle']"></fa-icon> Cancel
+            </span>
+          </div>
+        </div>
+        <hr class="mb-2 mt-2" /> -->
+      </div>
+    </div>
+    <p class="bold text-muted small mb-1 uppercase">
+      Current Groups ({{ userGroups.length }})
+    </p>
+    <div
+      class="card bg-light mb-3"
+      *ngIf="userGroups.length > 0"
+      style="max-height: 30vh; overflow-y: auto;"
+    >
+      <div class="card-body p-3">
+        <ng-container *ngFor="let group of userGroups; let i = index">
+          <hr class="mb-2 mt-2" *ngIf="i > 0" />
+          <div class="form-row">
+            <div class="form-group col-7 mb-0">
+              <div class="media">
+                <img
+                  [defaultImage]="defaultImage"
+                  [lazyLoad]="'https://via.placeholder.com/40x40'"
+                  class="mr-3 rounded-circle"
+                />
+                <div class="media-body">
+                  <p class="mt-0 mb-0">{{ group.name }}</p>
+                  <p class="small mb-0 text-muted">
+                    {{ group.userCount }} Members
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-5 mb-0">
+              <span
+                class="inverseLink small float-right pt-1"
+                (click)="remove(group.id)"
+              >
+                <fa-icon [icon]="['fas', 'times-circle']"></fa-icon> Remove from
+                Group
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-light border" (click)="close()">Cancel</button>
+  <button class="btn btn-primary" (click)="save()">Save Changes</button>
+</div>

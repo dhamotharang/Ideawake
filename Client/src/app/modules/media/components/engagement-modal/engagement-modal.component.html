@@ -1,0 +1,110 @@
+<div
+  class="modal-header bg-light card-header border-bottom-0 px-3"
+>
+  <ul class="list-inline mb-0">
+    <li
+      class="list-inline-item nav-underline bold small uppercase"
+      [ngClass]="{ active: opened === 'upvoters' }"
+      (click)="changeTab('upvoters')"
+    >
+      Upvotes ({{ upvoters?.length }})
+    </li>
+    <!-- <li class="list-inline-item nav-underline bold small uppercase">
+      Downvotes (0)
+    </li> -->
+    <li
+      class="list-inline-item nav-underline bold small uppercase"
+      [ngClass]="{ active: opened === 'followers' }"
+      (click)="changeTab('followers')"
+    >
+      Followers ({{ followers?.length || 0 }})
+    </li>
+  </ul>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modalRef.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light px-3">
+  <ng-container *ngIf="data.length === 0"
+    >No {{ opened.toUpperCase() }}</ng-container
+  >
+  <!-- start of one -->
+  <div
+    class="row pt-3 pb-3 dottedBottomBorder"
+    *ngFor="let datum of data; let i = index"
+  >
+    <div class="col-12">
+      <div class="media">
+        <img
+          class="rounded-circle userImage shadow-sm mr-2"
+          width="50"
+          height="50"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="datum.user.profileImage.url"
+        />
+        <div class="media-body ml-1">
+          <div class="row">
+            <div class="col-8">
+              <p class="mb-1 bold">
+                <a
+                  class="inverseLinkDark"
+                  [routerLink]="['/profile', datum.user.id]"
+                  (click)="modalRef.close()"
+                  >{{ datum.user.firstName + ' ' + datum.user.lastName }}</a
+                >
+              </p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small inverseLink mb-0">
+                    <fa-icon
+                      [icon]="['fas', 'lightbulb']"
+                      class="text-center"
+                    ></fa-icon>
+                    {{ (counts?.ideas)[datum.user.id] || 0 }} Ideas
+                  </p>
+                </li>
+                <li class="list-inline-item">
+                  <p class="small inverseLink mb-0">
+                    <fa-icon
+                      [icon]="['fas', 'comment']"
+                      class="text-center"
+                    ></fa-icon>
+                    {{ (counts?.comment)[datum.user.id] || 0 }} Comments
+                  </p>
+                </li>
+                <li class="list-inline-item">
+                  <p class="small inverseLink mb-0">
+                    <fa-icon
+                      [icon]="['fas', 'thumbs-up']"
+                      class="text-center"
+                    ></fa-icon>
+                    {{ (counts?.vote)[datum.user.id] || 0 }} Votes
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <app-follow-button
+                [data]="datum.user"
+                [entityObject]="{
+                  id: datum.user.id,
+                  typeId: userEntity?.id,
+                  entity: 'user'
+                }"
+                [entity]="entity"
+                [followersCount]="(counts?.follow)[datum.user.id]"
+                (followed)="follow($event, i)"
+              ></app-follow-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of one -->
+</div>

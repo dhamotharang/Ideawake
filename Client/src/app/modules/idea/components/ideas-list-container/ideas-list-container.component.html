@@ -1,0 +1,2475 @@
+<!-- start of table container -->
+<div (window:resize)="onResize()" class="container-fluid setMaxWidth">
+  <div class="row tableBackground">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="row"
+            style="padding-top: 0.85rem; padding-bottom: 0.65rem;"
+          >
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 px-1">
+                  <ul class="list-inline mb-md-2 mt-md-1 inverseLinkDark">
+                    <li class="list-inline-item mr-1">
+                      <h4 class="montserrat mb-1 mt-1 d-none d-md-inline">
+                        {{ count || 0 }}
+                      </h4>
+                      <h5 class="mb-0 d-inline montserrat d-inline d-md-none">
+                        {{ count || 0 }}
+                      </h5>
+                    </li>
+                    <li class="list-inline-item mr-1">
+                      <app-ideas-list-view-options
+                        (outputRes)="setSelectedView($event)"
+                      ></app-ideas-list-view-options>
+                    </li>
+                    <!-- <li class="list-inline-item">
+                      <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+                    </li> -->
+                    <!-- <li class="list-inline-item">
+                      <h5 class="montserrat mb-1 mt-1 d-none d-md-inline">
+                        {{ count || 0 }}
+                        {{ 'Shared.Submissions' | translationPipe }}
+                        {{ 'Shared.Returned' | translationPipe }}
+                      </h5>
+                      <h5 class="d-inline d-md-none montserrat">
+                        {{ count || 0 }}
+                        {{ 'Shared.Returned' | translationPipe }}
+                      </h5>
+                    </li> -->
+                    <!-- <li class="list-inline-item float-right">
+                      <button class="btn btn-primary px-4 bold d-none d-md-inline-block mb-2" (click)="openPostIdea()">
+                        {{ 'IdeasList.CreateNew' | translationPipe }}
+                      </button>
+                      <button
+                        class="btn btn-primary btn-sm px-4 bold d-inline-block d-md-none"
+                        style="position: relative; bottom: 3px;"
+                        (click)="openPostIdea()"
+                      >
+                        {{ 'IdeasList.CreateNew' | translationPipe }}
+                      </button>
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5 col-md-7 pl-1">
+                  <ul class="list-inline mb-0">
+                    <!-- <app-idea-filters
+                      [showChallengeSearch]="true"
+                      [horizontalFilter]="true"
+                      [pageType]="'table'"
+                      [entity]="ideaEntity"
+                      [appFilters]="appliedFilters"
+                      (filterApplied)="filterOpportunities($event)"
+                      [selectedFilterView]="selectedView"
+                      [updateFilters]="updateFilters"
+                    >
+                    </app-idea-filters> -->
+                    <li class="list-inline-item mr-3">
+                      <app-idea-filter-time
+                        [fromDate]="dateFrom"
+                        [toDate]="dateTo"
+                        (selectedDate)="dateFilter($event)"
+                      >
+                      </app-idea-filter-time>
+                    </li>
+                    <li class="list-inline-item mr-1">
+                      <span
+                        class="link bold text-medium"
+                        (click)="toggleFilter()"
+                      >
+                        <span *ngIf="!filterOptions.display">
+                          <fa-icon
+                            [icon]="['fas', 'sliders-v']"
+                            class="text-muted"
+                          ></fa-icon>
+                          More
+                        </span>
+                        <span *ngIf="filterOptions.display">
+                          <fa-icon
+                            [icon]="['fas', 'sliders-v']"
+                            class="text-muted"
+                          ></fa-icon>
+                          Hide
+                        </span>
+                        Filters
+                      </span>
+                    </li>
+                    <!-- <li class="list-inline-item mr-1">
+                      <button
+                        class="btn btn-white border btn-sm"
+                        (click)="toggleFilter()"
+                      >
+                        <span *ngIf="!filterOptions.display">
+                          <fa-icon
+                            [icon]="['fas', 'plus-square']"
+                            class="text-success"
+                          ></fa-icon>
+                          More
+                        </span>
+                        <span *ngIf="filterOptions.display">
+                          <fa-icon
+                            [icon]="['fas', 'minus-square']"
+                            class="text-danger"
+                          ></fa-icon>
+                          Hide
+                        </span>
+                        Filters
+                      </button>
+                    </li> -->
+                    <li
+                      class="list-inline-item"
+                      *ngIf="filterOptions.mobileRender"
+                      [ngStyle]="{
+                        display: filterOptions.display ? 'block' : 'none'
+                      }"
+                    >
+                      <div class="d-inline-block d-md-none" ngbDropdown>
+                        <button
+                          class="btn btn-white shadow-sm btn-sm border removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'filter']"
+                            class="text-muted"
+                          ></fa-icon>
+                          Filter
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted"
+                          ></fa-icon>
+                        </button>
+                        <div ngbDropdownMenu class="shadow p-2">
+                          <div class="filtersMobile">
+                            <div class="mr-2">
+                              <div class="alert alert-info py-1 px-2 mb-2">
+                                <p
+                                  class="small mb-0"
+                                  style="line-height: 1.25rem;"
+                                >
+                                  Filters will activate on the page as you
+                                  select them. To hide filtering options, simply
+                                  click anywhere outside of this dropdown.
+                                </p>
+                              </div>
+                              <app-idea-filters
+                                [showChallengeSearch]="true"
+                                [pageType]="'table'"
+                                [entity]="ideaEntity"
+                                [appFilters]="appliedFilters"
+                                (isSavedView)="setSavedView($event)"
+                                (filterApplied)="filterOpportunities($event)"
+                                [selectedFilterView]="selectedView"
+                                [updateFilters]="updateFilters"
+                              >
+                              </app-idea-filters>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-inline-item mr-1 ml-1">
+                      <app-list-management-options
+                        [pageType]="'table'"
+                        (columnsUpdated)="fetchUpdatedColumns($event)"
+                        (filtersUpdated)="fetchUpdatedFilters($event)"
+                      ></app-list-management-options>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <div class="d-none d-md-flex col-md-5 pl-md-0">
+                  <div class="row bg-light">
+                    <div class="col-12">
+                      <ul
+                        class="list-inline mb-0 d-none"
+                        style="position: relative; right: 0.5rem;"
+                      >
+                        <li class="list-inline-item">
+                          <p class="montserrat small mb-0 mt-1 bold">
+                            <fa-icon
+                              [icon]="['fas', 'check-square']"
+                              class="text-primary"
+                              style="
+                                font-size: 1rem;
+                                margin-left: 0.2rem;
+                                margin-right: 0.25rem;
+                              "
+                            ></fa-icon>
+                            25 Selected
+                          </p>
+                        </li>
+                        <li class="list-inline-item">
+                          <app-idea-bulk-actions></app-idea-bulk-actions>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-6 col-md-5 pr-1">
+                  <ul class="list-inline mb-0 float-right">
+                    <!-- <li class="list-inline-item mr-2">
+                      <button
+                        class="btn btn-primary btn-sm px-2 shadow-sm"
+                        (click)="openPostIdea()"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'plus-circle']"
+                          class="text-medium"
+                        ></fa-icon>
+                        Create New
+                      </button>
+                    </li> -->
+                    <li class="list-inline-item" *ngIf="exportFlag">
+                      <app-idea-export
+                        [appliedFilters]="paramAppliedFilters"
+                        [filterCount]="count"
+                      ></app-idea-export>
+                    </li>
+                    <li class="list-inline-item mr-1">
+                      <app-idea-sort-options
+                        (filter)="sortFilter($event)"
+                      ></app-idea-sort-options>
+                    </li>
+                    <li class="list-inline-item ml-1 mr-md-2">
+                      <div
+                        class="btn-group btn-group-sm border-0 rounded border"
+                      >
+                        <a
+                          class="btn btn-white border px-md-3"
+                          routerLink="/idea/cards"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                          ngbTooltip="Cards"
+                          placement="bottom"
+                          container="body"
+                          [openDelay]="300"
+                        >
+                          <fa-icon [icon]="['fas', 'th']"></fa-icon>
+                        </a>
+                        <a
+                          class="btn btn-white active border px-md-3"
+                          routerLink="/idea/table"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                          ngbTooltip="Table"
+                          placement="bottom"
+                          container="body"
+                          [openDelay]="300"
+                        >
+                          <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+                        </a>
+                        <a
+                          class="btn btn-white border px-md-3"
+                          routerLink="/idea/pipeline"
+                          routerLinkActive="active"
+                          [routerLinkActiveOptions]="{ boolean: true }"
+                          ngbTooltip="Swimlanes"
+                          placement="bottom"
+                          container="body"
+                          [openDelay]="300"
+                        >
+                          <div class="rotateBars">
+                            <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+                          </div>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- <hr class="mb-0" /> -->
+              <!-- <div class="row mb-3 mt-2">
+                <div class="col-12">
+                  <div class="float-right">
+                    <app-table-pagination
+                      [totalCount]="count"
+                      (changePage)="changePage($event)"
+                    ></app-table-pagination>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-6"
+          style="padding-left: 0.25rem; padding-right: 0.8rem;"
+        >
+          <app-applied-filters
+            [selectedView]="selectedView"
+            [onTables]="true"
+            [filters]="appliedFilters"
+            [pageType]="'table'"
+            (filterOutput)="filterOpportunities($event)"
+          ></app-applied-filters>
+        </div>
+        <div class="col-6">
+          <div
+            class="animated flipInX"
+            style="
+              padding-left: 0.25rem;
+              padding-right: 0.8rem;
+              padding-top: 0.75rem;
+              margin-bottom: 1.75rem;
+            "
+            *ngIf="timeFilter || !isSavedView || sortOpportunityFilter"
+          >
+            <app-save-shortcut-search
+              [pageType]="'table'"
+            ></app-save-shortcut-search>
+          </div>
+        </div>
+      </div>
+      <!-- if no ideas have been posted -->
+      <div class="row pt-4 mt-4" *ngIf="notPosted">
+        <div class="col-12">
+          <div class="text-center">
+            <fa-icon
+              [icon]="['fas', 'lightbulb']"
+              class="iconExtraLarge text-muted mb-3"
+            ></fa-icon>
+            <h4 class="montserrat">
+              No Ideas Have Been Posted in Your Community
+            </h4>
+            <p class="text-muted">
+              Be the first to post an idea in your community.
+            </p>
+            <button class="btn btn-primary" (click)="openPostIdea()">
+              <fa-icon
+                [icon]="['fas', 'plus-circle']"
+                class="montserrat"
+              ></fa-icon>
+              Post an Idea
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- end no ideas have been posted -->
+      <div *ngIf="!notPosted" class="row">
+        <!-- col-md-2  -->
+        <div
+          class="pt-2 mb-5 filter-div-height"
+          *ngIf="filterOptions.webRender"
+          [ngStyle]="{ display: filterOptions.display ? 'block' : 'none' }"
+          [ngClass]="
+            !filterOptions.display
+              ? 'noWidth'
+              : !filterScrollBarFlag
+              ? 'filterWidth adjustForScrollbar'
+              : ''
+          "
+        >
+          <!-- <div class="tableFilters"> -->
+          <div class="d-none d-md-block">
+            <div class="pl-1 pr-3 pt-1 mb-5 adjustForScrollbarFilters">
+              <!-- <h6 class="montserrat mb-0 mt-1 bold">Filter Results</h6> -->
+              <app-idea-filters
+                [showChallengeSearch]="true"
+                [entity]="ideaEntity"
+                [pageType]="'table'"
+                [appFilters]="appliedFilters"
+                (isSavedView)="setSavedView($event)"
+                (filterApplied)="filterOpportunities($event)"
+                [selectedFilterView]="selectedView"
+                [updateFilters]="updateFilters"
+              >
+              </app-idea-filters>
+            </div>
+          </div>
+        </div>
+        <div [ngClass]="!filterOptions.display ? 'col-12' : 'col-12 col-md-10'">
+          <!-- stage specific graph if filtered by workflow stage -->
+          <div class="row border-bottom d-none">
+            <div class="col-12">
+              <ul class="list-inline mb-0 ml-3 py-2">
+                <li class="list-inline-item">
+                  <button class="btn btn-primary btn-xs py-2 btn-rounded">
+                    <fa-icon [icon]="['fas', 'list']"></fa-icon>
+                    List Summary
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button
+                    class="btn btn-outline-primary btn-xs py-2 btn-rounded"
+                  >
+                    <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
+                    Analyze Entries
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  <button
+                    class="btn btn-outline-primary btn-xs py-2 btn-rounded"
+                  >
+                    <fa-icon [icon]="['fas', 'flag']"></fa-icon>
+                    Manage Action Items
+                  </button>
+                </li>
+                <li class="list-inline-item">
+                  Could also do stage specific filters here??
+                </li>
+                <li
+                  class="list-inline-item float-right mr-2 d-none d-md-inline"
+                  *ngIf="exportFlag"
+                >
+                  <app-idea-export
+                    [appliedFilters]="paramAppliedFilters"
+                    [filterCount]="count"
+                  ></app-idea-export>
+                </li>
+              </ul>
+              <!-- manage action items / analyze ideas in stage (could just include a link direct with preselected filters to show analytics by stage) -->
+            </div>
+          </div>
+          <!-- ideas list table -->
+          <div class="row">
+            <div class="col-12">
+              <div class="row scrollTableOnMobile">
+                <div class="col-sm-12 pl-1 pr-3">
+                  <table class="bg-white row-border hover border-top">
+                    <thead class="py-1">
+                      <th
+                        style="min-width: 83rem; padding: 0.55rem 0 0 0;"
+                        [hidden]="!selectedList.length"
+                      >
+                        <app-idea-bulk-actions
+                          [count]="count"
+                          (selectAllIdeas)="selectAllIdeas($event)"
+                          (archiveIdeas)="
+                            bulkUpdate(BULK_UPDATE_TYPES.ARCHIVE_IDEAS)
+                          "
+                          (updateOpportunites)="
+                            bulkUpdate(BULK_UPDATE_TYPES.CHANGE_STAGE, $event)
+                          "
+                          (updateBulkOpportunitySettings)="
+                            bulkUpdate(
+                              BULK_UPDATE_TYPES.OPPORTUNITY_SETTINGS,
+                              $event
+                            )
+                          "
+                          (addBulkUsers)="
+                            bulkUpdate(BULK_UPDATE_TYPES.USER_SETTINGS, $event)
+                          "
+                          (customFieldData)="
+                            bulkUpdate(BULK_UPDATE_TYPES.CUSTOM_FIELDS, $event)
+                          "
+                        >
+                        </app-idea-bulk-actions>
+                        <div
+                          *ngIf="isAllSelected"
+                          class="alert alert-info rounded-0 small py-2 mb-0 mt-1 border-0"
+                        >
+                          <p class="text-center mb-0">
+                            <ng-container *ngIf="!isSelectAllOpportunities">
+                              All {{ rows.length }} submissions on this page are
+                              selected.
+                              <span
+                                class="link bold"
+                                (click)="selectAllOpportunities()"
+                              >
+                                Select all {{ count }} submissions.
+                              </span>
+                            </ng-container>
+                            <ng-container *ngIf="isSelectAllOpportunities">
+                              All {{ count }} submissions are selected.
+                              <span
+                                class="link bold"
+                                (click)="deselectAllOpportunities()"
+                              >
+                                Deselect all submissions.
+                              </span>
+                            </ng-container>
+                          </p>
+                        </div>
+                        <div
+                          *ngIf="showUndoChangesDialog"
+                          class="undo-panel bg-dark text-white rounded undoNotification small shadow"
+                        >
+                          {{ selectedList.length }}
+                          <span *ngIf="selectedList.length === 1"
+                            >submission is</span
+                          >
+                          <span *ngIf="selectedList.length > 1"
+                            >submissions are</span
+                          >
+                          being updated in {{ remainingTime }}s
+                          <span
+                            class="link underline bold"
+                            (click)="undoChanges()"
+                            >Undo Changes</span
+                          >
+                        </div>
+                      </th>
+                    </thead>
+                  </table>
+                  <table
+                    class="stick-first-column stick-last-column table bg-white table-responsive row-border hover border-top"
+                    style="
+                      overflow-y: auto;
+                      max-width: none;
+                      position: relative;
+                      table-layout: fixed;
+                    "
+                  >
+                    <app-list-loader
+                      *ngIf="isSearching"
+                      [count]="10"
+                      [style]="{ 'border-radius': '5', height: '50px' }"
+                    >
+                    </app-list-loader>
+                    <!-- <app-idea-bulk-actions></app-idea-bulk-actions> -->
+
+                    <!-- Display dynamic columns -->
+                    <thead
+                      class="bg-light border-bottom-0"
+                      *ngIf="!isSearching"
+                    >
+                      <tr [hidden]="selectedList.length">
+                        <th
+                          scope="col"
+                          class="py-2 border-top-0 border-bottom-0 columnWidthTitle"
+                        >
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input disabled"
+                              (click)="selectAllIdeas($event.target.checked)"
+                              id="selectAll"
+                            />
+                            <label
+                              class="custom-control-label text-muted text-medium"
+                              container="body"
+                              for="selectAll"
+                            >
+                              <p class="mb-0 adjustFloat">
+                                {{ rows.length }}
+                                of {{ count || 0 }} Returned
+                              </p>
+                            </label>
+                          </div>
+                        </th>
+                        <ng-container *ngFor="let option of columnOptions">
+                          <th
+                            scope="col"
+                            [ngClass]="
+                              option.thClass !== undefined
+                                ? option.thClass
+                                : 'py-2 border-top-0 border-bottom-0 columnWidth'
+                            "
+                          >
+                            <div ngbDropdown>
+                              <span
+                                class="removeCaret bold text-medium text-muted"
+                                ngbDropdownToggle
+                              >
+                                <fa-icon
+                                  [icon]="['fas', totalScoreIcon]"
+                                  class="text-muted small adjustFloatUpSmall"
+                                  *ngIf="option.uniqueId === 'totalScore'"
+                                >
+                                </fa-icon>
+                                <fa-icon
+                                  [icon]="['fas', totalStageScoreIcon]"
+                                  class="text-muted small adjustFloatUpSmall"
+                                  *ngIf="
+                                    option.uniqueId === 'currentStageScore'
+                                  "
+                                >
+                                </fa-icon>
+                                {{ option.title }}
+                              </span>
+                              <div
+                                ngbDropdownMenu
+                                class="shadow"
+                                *ngIf="option.uniqueId === 'totalScore'"
+                              >
+                                <button
+                                  class="btn btn-sm"
+                                  ngbDropdownItem
+                                  (click)="sortScore('totalScore', 'DESC')"
+                                >
+                                  Highest Score First
+                                </button>
+                                <button
+                                  class="btn btn-sm"
+                                  ngbDropdownItem
+                                  (click)="sortScore('totalScore', 'ASC')"
+                                >
+                                  Lowest Score First
+                                </button>
+                              </div>
+
+                              <div
+                                ngbDropdownMenu
+                                class="shadow"
+                                *ngIf="option.uniqueId === 'currentStageScore'"
+                              >
+                                <button
+                                  class="btn btn-sm pl-3"
+                                  ngbDropdownItem
+                                  (click)="sortScore('currStageScore', 'DESC')"
+                                >
+                                  Highest Score First
+                                </button>
+                                <button
+                                  class="btn btn-sm pl-3"
+                                  ngbDropdownItem
+                                  (click)="sortScore('currStageScore', 'ASC')"
+                                >
+                                  Lowest Score First
+                                </button>
+                              </div>
+                              <div
+                                ngbDropdownMenu
+                                class="shadow pt-0 d-none"
+                                style="min-width: 15rem;"
+                                *ngIf="option.uniqueId === 'assignedTo'"
+                              >
+                                <div style="min-width: 15rem;">
+                                  <form class="p-1">
+                                    <div class="form-group mb-0">
+                                      <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        placeholder="Search Assignees..."
+                                      />
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="dropdownScrollMaxHeight">
+                                  <button
+                                    class="btn-sm pl-2 pr-2"
+                                    ngbDropdownItem
+                                  >
+                                    <div class="custom-control custom-checkbox">
+                                      <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="selectOption"
+                                      />
+                                      <label
+                                        class="custom-control-label font-weight-normal pointer"
+                                        style="padding-top: 0.1rem;"
+                                        for="selectOption"
+                                      >
+                                        Unassigned</label
+                                      >
+                                      <span
+                                        class="badge badge-light border float-right mt-1"
+                                        >100</span
+                                      >
+                                    </div>
+                                  </button>
+                                  <button
+                                    class="btn-sm pl-2 pr-2"
+                                    ngbDropdownItem
+                                  >
+                                    <div class="custom-control custom-checkbox">
+                                      <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="selectOption"
+                                      />
+                                      <label
+                                        class="custom-control-label font-weight-normal pointer"
+                                        style="padding-top: 0.1rem;"
+                                        for="selectOption"
+                                        >GroupName</label
+                                      >
+                                      <span
+                                        class="badge badge-light border float-right mt-1"
+                                        >100</span
+                                      >
+                                    </div>
+                                  </button>
+                                  <button
+                                    class="btn-sm pl-2 pr-2"
+                                    ngbDropdownItem
+                                  >
+                                    <div class="custom-control custom-checkbox">
+                                      <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="selectOption"
+                                      />
+                                      <label
+                                        class="custom-control-label font-weight-normal pointer"
+                                        style="padding-top: 0.1rem;"
+                                        for="selectOption"
+                                        >First Last Name</label
+                                      >
+                                      <span
+                                        class="badge badge-light border float-right mt-1"
+                                        >100</span
+                                      >
+                                    </div>
+                                  </button>
+                                  <button
+                                    class="btn-sm pl-2 pr-2"
+                                    ngbDropdownItem
+                                  >
+                                    <div class="custom-control custom-checkbox">
+                                      <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="selectOption"
+                                      />
+                                      <label
+                                        class="custom-control-label font-weight-normal pointer"
+                                        style="padding-top: 0.1rem;"
+                                        for="selectOption"
+                                        >First Last Name</label
+                                      >
+                                      <span
+                                        class="badge badge-light border float-right mt-1"
+                                        >100</span
+                                      >
+                                    </div>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </th>
+                        </ng-container>
+                        <th
+                          scope="col"
+                          class="py-2 border-top-0 border-bottom-0 columnWidthActions"
+                        ></th>
+                      </tr>
+                    </thead>
+                    <!-- End Display dynamic columns -->
+
+                    <!-- <p
+                      class="text-center alert alert-info"
+                      *ngIf="!isSearching && !rows.length"
+                    >
+                      No Ideas match your search, Please clear your search
+                      criteria and try again.
+                    </p> -->
+                    <div
+                      *ngIf="!isSearching && !rows.length"
+                      class="m-2 card rounded-top-0 border-0"
+                    >
+                      <div class="card-body text-center py-5">
+                        <fa-icon
+                          [icon]="['fas', 'lightbulb-on']"
+                          class="iconExtraLarge text-muted mb-3"
+                        >
+                        </fa-icon>
+                        <h4 class="montserrat">
+                          No Ideas match your search.
+                        </h4>
+                        <p>
+                          Please clear your search criteria and try again.
+                        </p>
+                      </div>
+                    </div>
+                    <tbody
+                      *ngIf="!isSearching"
+                      watchDomTree
+                      (dom-changed)="onTableChanged($event)"
+                    >
+                      <!-- start of one entry -->
+                      <!-- (mouseenter)="showManageOptions = true"
+                      (mouseleave)="showManageOptions = false" -->
+                      <tr
+                        *ngFor="let row of rows; let i = index"
+                        [id]="'checkable' + row.id"
+                        class="alwaysWhite setRowHeight"
+                      >
+                        <td
+                          scope="row"
+                          class="pr-0 align-middle columnWidthTitle"
+                        >
+                          <div class="fixedLeftColumn">
+                            <!-- start of checkbox -->
+                            <div
+                              class="custom-control custom-checkbox d-inline-block"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input float-left customCheckbox"
+                                (click)="rowCheck($event, row.id)"
+                                [id]="'select' + row.id"
+                              />
+                              <label
+                                class="custom-control-label font-weight-normal pl-0 pt-0"
+                                [for]="'select' + row.id"
+                              >
+                              </label>
+                            </div>
+                            <!-- end of checkbox -->
+                            <span
+                              class="mt-0 inverseLinkDark text-medium d-inline-block"
+                              style="position: relative; bottom: 0.175rem;"
+                              (click)="updateSummaryParams(row.id)"
+                            >
+                              <div
+                                class="media reduceFontSize"
+                                style="position: relative; top: 2.45px;"
+                              >
+                                <div
+                                  class="media-body"
+                                  style="font-weight: 600;"
+                                >
+                                  <!-- {{
+                                          row.title ? row.title.substring(0, 35) : '-'
+                                        }} -->
+                                  <!-- [autoClose]="'outside'" triggers="mouseenter" [closeDelay]="2000" container="body" placement="right"
+                                        [ngbPopover]="moreInformation" -->
+                                  <p
+                                    class="mb-0"
+                                    [ngbPopover]="showMoreInfoDescription"
+                                    [openDelay]="300"
+                                    container="body"
+                                    triggers="mouseenter:mouseleave"
+                                    placement="right"
+                                    popoverClass="descriptionClass"
+                                    [autoClose]="false"
+                                  >
+                                    {{
+                                      (row.title
+                                        ? row.title.substring(0, 32)
+                                        : '-'
+                                      ) | dynamicTranslation
+                                    }}
+                                    <span *ngIf="row.title.length > 36"
+                                      >...</span
+                                    >
+                                  </p>
+                                  <!-- <ng-template #showMoreInfo>
+                                    {{ row.title | dynamicTranslation }}
+                                  </ng-template> -->
+                                  <ng-template #showMoreInfoDescription>
+                                    <p
+                                      class="mb-1 text-medium montserrat bold"
+                                      *ngIf="row.title.length > 36"
+                                    >
+                                      {{ row.title | dynamicTranslation }}
+                                    </p>
+                                    <p
+                                      class="mb-0 text-muted"
+                                      style="font-size: 90%;"
+                                    >
+                                      {{ row.description | dynamicTranslation }}
+                                    </p>
+                                  </ng-template>
+                                </div>
+                              </div>
+                            </span>
+                            <ul class="list-inline mb-2 mt-2 ml-4 small">
+                              <!-- <li class="list-inline-item">
+                                    <p class="bold text-muted mb-0">
+                                      <fa-icon
+                                        [icon]="['fas', 'hashtag']"
+                                        class="small"
+                                      ></fa-icon>
+                                      {{ row.tags?.length }}
+                                    </p>
+                                  </li> -->
+                              <li class="list-inline-item">
+                                <p class="text-muted mb-0">
+                                  <fa-icon
+                                    [icon]="['fas', 'hashtag']"
+                                    class="iconSize"
+                                  ></fa-icon>
+                                  <span>{{ row.id }}</span>
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="text-muted mb-0">
+                                  <fa-icon
+                                    [icon]="['fas', 'clock']"
+                                    class="iconSize"
+                                  ></fa-icon>
+                                  {{ row.createdAt | date: "MM'/'dd'/'yy" }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="text-muted mb-0">
+                                  <fa-icon
+                                    [icon]="['fas', 'eye']"
+                                    class="iconSize"
+                                  ></fa-icon>
+                                  {{ row.viewCount }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="text-muted mb-0">
+                                  <fa-icon
+                                    [icon]="['fas', 'thumbs-up']"
+                                    class="iconSize"
+                                  ></fa-icon>
+                                  {{
+                                    upvoteCount ? upvoteCount[row.id] || 0 : 0
+                                  }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p class="text-muted mb-0">
+                                  <fa-icon
+                                    [icon]="['fas', 'comment']"
+                                    class="iconSize"
+                                  ></fa-icon>
+                                  {{
+                                    commentCounts
+                                      ? commentCounts[row.id] || 0
+                                      : 0
+                                  }}
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                        <!-- <td scope="row" class="pr-0 columnWidthTitle" style="padding-top: 0.9rem;">
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input float-left customCheckbox"
+                              (click)="rowCheck($event, row.id)"
+                              [id]="'select' + row.id"
+                            />
+                            <label
+                              class="custom-control-label font-weight-normal pl-0 pt-0"
+                              [for]="'select' + row.id"
+                            >
+                              <p
+                                class="mt-0 mb-2 inverseLinkDark text-medium"
+                                style="padding-top: 1px;"
+                                (click)="
+                                  updateSummaryParams(row, i);
+                                  openSummaryModal(row, i)
+                                "
+                              >
+                                <span class="font-italic text-muted"
+                                  >#{{ row.id }}</span
+                                >
+                                {{ row.title ? row.title.substring(0, 35) : '-' }}
+                                <span *ngIf="row.title.length > 14">...</span>
+                              </p>
+                              <ul class="list-inline mb-0 small">
+                                <li class="list-inline-item">
+                                  <p class="bold text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'certificate']"
+                                      class="small"
+                                    ></fa-icon>
+                                    0
+                                  </p>
+                                </li>
+                                <li class="list-inline-item">
+                                  <p class="bold text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'hashtag']"
+                                      class="small"
+                                    ></fa-icon>
+                                    {{ row.tags?.length }}
+                                  </p>
+                                </li>
+                                <li class="list-inline-item">
+                                  <p class="bold text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'eye']"
+                                      class="small"
+                                    ></fa-icon>
+                                    {{ row.viewCount }}
+                                  </p>
+                                </li>
+                                <li class="list-inline-item">
+                                  <p class="bold text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'comment']"
+                                      class="small"
+                                    ></fa-icon>
+                                    {{ commentCounts[row.id] || 0 }}
+                                  </p>
+                                </li>
+                                <li class="list-inline-item">
+                                  <p class="bold text-muted mb-0">
+                                    <fa-icon
+                                      [icon]="['fas', 'thumbs-up']"
+                                      class="small"
+                                    ></fa-icon>
+                                    {{ upvoteCount[row.id] || 0 }}
+                                  </p>
+                                </li>
+                              </ul>
+                            </label>
+                          </div>
+                        </td> -->
+                        <ng-container *ngFor="let option of columnOptions">
+                          <td
+                            class="align-top pl-4 columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'totalScore'
+                            "
+                          >
+                            <span
+                              class="badge montserrat pointer"
+                              (click)="openIdeaEvalutionsStage(row)"
+                              [ngbPopover]="
+                                row?.summary ? totalStageSummary : ''
+                              "
+                              triggers="mouseenter:mouseleave"
+                              [openDelay]="300"
+                              placement="right"
+                              popoverClass="scorePreviewStyle scoreScrollMaxHeight"
+                              container="body"
+                              [ngClass]="{
+                                scoreBadgeFirstQuartile:
+                                  row?.totalScore > 75 &&
+                                  row?.totalScore <= 100,
+                                scoreBadgeSecondQuartile:
+                                  row?.totalScore > 50 && row?.totalScore <= 75,
+                                scoreBadgeThirdQuartile:
+                                  row?.totalScore > 25 && row?.totalScore <= 50,
+                                scoreBadgeFourthQuartile:
+                                  row?.totalScore > 0 && row?.totalScore <= 25,
+                                scoreBadgeNoScore: row?.totalScore === 0,
+                                scoreBadgeNotApplicable: !isNumber(
+                                  row?.totalScore
+                                )
+                              }"
+                            >
+                              {{
+                                !row?.totalScore ? '--' : round(row?.totalScore)
+                              }}
+                            </span>
+                            <!-- insert starting popover -->
+                            <!-- <ng-template #totalStageSummary>
+                            <p class="small uppercase bold mb-1">
+                              StageName (80/100)
+                            </p>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <hr class="my-2" />
+                            <p class="small uppercase bold mb-1">
+                              StageName (80/100)
+                            </p>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                          </ng-template> -->
+                            <!-- end popover -->
+                            <ng-template #totalStageSummary>
+                              <div style="min-width: 12rem;">
+                                <ul
+                                  class="list-inline mb-1"
+                                  *ngFor="let summary of row?.summary"
+                                >
+                                  <li class="list-inline-item">
+                                    <p class="text-medium mb-0">
+                                      {{
+                                        summary?.stage?.title.length > 18
+                                          ? summary?.stage?.title.substring(
+                                              0,
+                                              18
+                                            ) + '...'
+                                          : summary?.stage?.title
+                                      }}
+                                    </p>
+                                  </li>
+                                  <li class="list-inline-item float-right">
+                                    {{ summary?.score | number: '1.0-2' }} / 100
+                                  </li>
+                                </ul>
+                              </div>
+                              <!-- <p class="small uppercase bold mb-1">
+                              StageName (80/100)
+                            </p>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item w-70">
+                                <p class="text-medium mb-0">Criteria Title</p>
+                              </li>
+                              <li class="list-inline-item w-20 float-right">
+                                <b>8/10</b>
+                              </li>
+                            </ul> -->
+                            </ng-template>
+                            <!-- end popover -->
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'currentStageScore'
+                            "
+                          >
+                            <span
+                              *ngIf="
+                                row?.stage?.actionItem?.abbreviation ===
+                                actionItems.SCORECARD
+                              "
+                              class="badge montserrat"
+                              [ngClass]="{
+                                scoreBadgeFirstQuartile:
+                                  row?.currStageScore > 75 &&
+                                  row?.currStageScore <= 100,
+                                scoreBadgeSecondQuartile:
+                                  row?.currStageScore > 50 &&
+                                  row?.currStageScore <= 75,
+                                scoreBadgeThirdQuartile:
+                                  row?.currStageScore > 25 &&
+                                  row?.currStageScore <= 50,
+                                scoreBadgeFourthQuartile:
+                                  row?.currStageScore > 0 &&
+                                  row?.currStageScore <= 25,
+                                scoreBadgeNoScore: !row?.currStageScore
+                              }"
+                            >
+                              {{
+                                !row?.currStageScore
+                                  ? '--'
+                                  : round(row?.currStageScore)
+                              }}
+                            </span>
+                            <span
+                              class="badge scoreBadgeNotApplicable montserrat"
+                              *ngIf="
+                                row?.stage?.actionItem?.abbreviation ===
+                                  actionItems.NO_TOOL ||
+                                row?.stage?.actionItem?.abbreviation ===
+                                  actionItems.REFINEMENT ||
+                                !row?.stage
+                              "
+                            >
+                              --
+                            </span>
+                          </td>
+                          <td
+                            class="align-top columnWidthCurrentStage"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'currentStage'
+                            "
+                          >
+                            <div *ngIf="row.stage">
+                              <div class="media text-medium">
+                                <div class="media-body">
+                                  {{
+                                    row?.stage?.title
+                                      ? row.stage?.title.substring(0, 16)
+                                      : '-'
+                                  }}
+                                  <span
+                                    *ngIf="row?.stage?.title.length > 16"
+                                    ngbTooltip="{{ row?.stage?.title }}"
+                                    >..</span
+                                  >
+                                  <div
+                                    class="progress stageProgressBar"
+                                    style="width: 90%;"
+                                    *ngIf="
+                                      row?.stage?.actionItem?.abbreviation !==
+                                        actionItems.NO_TOOL && row.workflow
+                                    "
+                                  >
+                                    <div
+                                      class="progress-bar py-2"
+                                      style="width: 100%;"
+                                      [ngStyle]="{
+                                        width:
+                                          ((row?.completionStats?.completed /
+                                            row?.completionStats?.total) *
+                                            100 || 0) + '%'
+                                      }"
+                                      role="progressbar"
+                                      aria-valuenow="0"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                    ></div>
+                                  </div>
+                                  <!-- <div
+                                  *ngIf="
+                                    row?.stage?.actionItem?.abbreviation !==
+                                      actionItems.NO_TOOL && row.workflow
+                                  "
+                                  class="row"
+                                  style="
+                                    position: relative;
+                                    bottom: 1.7rem;
+                                    height: 0;
+                                    font-size: 85%;
+                                  "
+                                >
+                                  <div class="col-12">
+                                    <ul class="list-inline mb-0 ml-1 mr-0">
+                                      <li class="list-inline-item pt-1">
+                                        <p class="small text-white mb-0 mr-1 pt-1">
+                                          {{ row?.completionStats?.completed }}/{{
+                                            row?.completionStats?.total
+                                          }}
+                                          Fields
+                                        </p>
+                                      </li>
+                                      <li class="list-inline-item float-right">
+                                        <p class="small text-white mb-0 mr-1 pt-2">
+                                          {{
+                                            (row?.completionStats?.completed /
+                                              row?.completionStats?.total) *
+                                              100 || 0
+                                          }}%
+                                        </p>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div> -->
+                                  <!-- end of insert -->
+                                </div>
+                              </div>
+                              <div
+                                class="media"
+                                style="padding-top: 2px; width: 90%;"
+                              >
+                                <fa-icon
+                                  style="
+                                    position: relative;
+                                    top: 2.7px;
+                                    left: 1px;
+                                    font-size: 70%;
+                                  "
+                                  [icon]="[
+                                    'fas',
+                                    actionItemsIcon[
+                                      row?.stage?.actionItem?.abbreviation
+                                    ]?.icon
+                                  ]"
+                                  class="text-muted small mr-1"
+                                ></fa-icon>
+                                <div class="media-body small text-muted">
+                                  <ul class="list-inline mb-0">
+                                    <li
+                                      class="list-inline-item"
+                                      *ngIf="
+                                        row?.stage?.actionItem?.abbreviation !==
+                                          actionItems.NO_TOOL && row.workflow
+                                      "
+                                    >
+                                      <span class="small mb-0">
+                                        {{ row?.completionStats?.completed }}/{{
+                                          row?.completionStats?.total
+                                        }}
+                                        <span
+                                          *ngIf="
+                                            row?.stage?.actionItem
+                                              ?.abbreviation ===
+                                            actionItems.REFINEMENT
+                                          "
+                                        >
+                                          Fields
+                                        </span>
+                                        <span
+                                          *ngIf="
+                                            row?.stage?.actionItem
+                                              ?.abbreviation ===
+                                            actionItems.SCORECARD
+                                          "
+                                        >
+                                          Reviews
+                                        </span>
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="list-inline-item"
+                                      *ngIf="
+                                        row?.stage?.actionItem?.abbreviation ===
+                                          actionItems.NO_TOOL && row.workflow
+                                      "
+                                    >
+                                      <span
+                                        class="font-weight-normal small text-muted mb-0"
+                                      >
+                                        No Action
+                                      </span>
+                                    </li>
+                                    <li class="list-inline-item float-right">
+                                      <span
+                                        class="font-weight-normal small text-muted"
+                                        *ngIf="
+                                          row?.stage?.actionItem
+                                            ?.abbreviation !==
+                                            actionItems.NO_TOOL && row.workflow
+                                        "
+                                      >
+                                        {{
+                                          ceiling(
+                                            (row?.completionStats?.completed /
+                                              row?.completionStats?.total) *
+                                              100 || 0
+                                          )
+                                        }}%
+                                      </span>
+                                      <!-- <p class="small mb-0 mr-1 pt-2">
+                                        {{
+                                          (row?.completionStats?.completed /
+                                            row?.completionStats?.total) *
+                                            100 || 0
+                                        }}%
+                                      </p> -->
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <!-- no workflow -->
+                              <div
+                                *ngIf="
+                                  !row.stage &&
+                                  row?.permissions?.changeOpportunityWorkflow
+                                "
+                                class="showEditOnHover adjustPositionUp"
+                                container="body"
+                                ngbTooltip="'Add this {{
+                                  row?.opportunityType?.name
+                                }} to a workflow to control the steps it will go through to be evaluated, tested, and implemented.'
+                            "
+                                (click)="addToWorkflowModal(row)"
+                              >
+                                <p class="mb-0 text-medium text-primary">
+                                  <fa-icon
+                                    [icon]="['fas', 'plus-circle']"
+                                  ></fa-icon>
+                                  Add To Workflow
+                                </p>
+                              </div>
+                              <!-- end no workflow -->
+                              <div
+                                class="media text-medium"
+                                *ngIf="
+                                  !row.stage &&
+                                  !row?.permissions?.changeOpportunityWorkflow
+                                "
+                              >
+                                <div class="media-body">
+                                  No workflow Added
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td
+                            class="align-top columnWidthLarge"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'assignedTo'
+                            "
+                          >
+                            <div
+                              class="showEditOnHover adjustPositionUp pt-0"
+                              (click)="
+                                row?.permissions?.changeOpportunityWorkflow
+                                  ? openChangeStage(row)
+                                  : false
+                              "
+                              *ngIf="
+                                row.stage &&
+                                row?.stage?.actionItem?.abbreviation !==
+                                  actionItems.NO_TOOL
+                              "
+                            >
+                              <p
+                                class="mb-0 text-medium"
+                                ngbTooltip="View or Edit Assignees"
+                                *ngIf="row?.assignees"
+                                style="padding-top: 0.2rem;"
+                              >
+                                <span *ngFor="let assignee of [row?.assignees]">
+                                  <ng-container
+                                    *ngIf="
+                                      unAssignedOrNot(assignee);
+                                      then unassigned;
+                                      else assigned
+                                    "
+                                  ></ng-container>
+                                  <ng-template #unassigned
+                                    >Unassigned</ng-template
+                                  >
+                                  <ng-template #assigned>
+                                    <!-- <ng-container
+                                    *ngIf="
+                                      assignee.allMembers;
+                                      then allMembers;
+                                      else notAllMembers
+                                    "
+                                  ></ng-container> -->
+                                    <!-- <ng-template #allMembers
+                                    >All Members</ng-template
+                                  > -->
+                                    <ng-container *ngIf="assignee.allMembers">
+                                      {{ 'All Members' + ', ' }}
+                                    </ng-container>
+                                    <ng-container
+                                      *ngFor="
+                                        let individual of assignee?.individuals;
+                                        let isLastIndividual = last
+                                      "
+                                    >
+                                      {{
+                                        individual.firstName +
+                                          ' ' +
+                                          individual.lastName +
+                                          ', '
+                                      }}
+                                    </ng-container>
+                                    <ng-container
+                                      *ngFor="
+                                        let group of assignee?.groups;
+                                        let isLastGroup = last
+                                      "
+                                    >
+                                      {{ group.name + ', ' }}
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="
+                                        !assignee.allMembers &&
+                                        assignee.communityAdmins
+                                      "
+                                    >
+                                      Administrators,
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="
+                                        !assignee.allMembers &&
+                                        assignee.communityModerators
+                                      "
+                                    >
+                                      Moderators,
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="
+                                        !assignee.allMembers &&
+                                        assignee.communityUsers
+                                      "
+                                    >
+                                      All Community Users,
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="assignee.opportunityTeams"
+                                    >
+                                      Team,
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="assignee.opportunitySubmitters"
+                                    >
+                                      Submitters,
+                                    </ng-container>
+                                    <ng-container
+                                      *ngIf="assignee.opportunityOwners"
+                                    >
+                                      Owners
+                                    </ng-container>
+                                  </ng-template>
+                                </span>
+                              </p>
+                              <span
+                                class="mb-0 text-medium"
+                                ngbTooltip="View or Edit Assignees"
+                                *ngIf="
+                                  !row?.assignees &&
+                                  row?.stage?.actionItem?.abbreviation !==
+                                    actionItems.NO_TOOL
+                                "
+                              >
+                                <span class="text-warning">Unassigned</span>
+                              </span>
+                            </div>
+                            <div
+                              class="showEditOnHover adjustPositionUp"
+                              (click)="
+                                row?.permissions?.changeOpportunityWorkflow
+                                  ? addToWorkflowModal(row)
+                                  : false
+                              "
+                              *ngIf="!row.stage"
+                            >
+                              <p class="mb-0 text-medium text-muted">
+                                <span
+                                  *ngIf="
+                                    row?.permissions?.changeOpportunityWorkflow
+                                  "
+                                  container="body"
+                                  ngbTooltip="'Add this {{
+                                    row?.opportunityType?.name
+                                  }} to a workflow to control the steps it will go through to be evaluated, tested, and implemented.'
+                            "
+                                >
+                                  --
+                                  <!-- <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Add To Workflow -->
+                                </span>
+                                <span
+                                  *ngIf="
+                                    !row?.permissions?.changeOpportunityWorkflow
+                                  "
+                                >
+                                  <!-- No Workflow Added -->
+                                  --
+                                </span>
+                              </p>
+                            </div>
+                            <div
+                              class="showEditOnHover adjustPositionUp"
+                              (click)="
+                                row?.permissions?.changeOpportunityWorkflow
+                                  ? openChangeStage(row)
+                                  : false
+                              "
+                              *ngIf="row.workflow && !row.stage"
+                            >
+                              <p
+                                class="mb-0 text-medium text-primary"
+                                ngbTooltip="Assign Users or Groups to Complete This Stage"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Assign Stage
+                              </p>
+                            </div>
+                            <p
+                              class="text-medium text-muted adjustPositionUpSmall"
+                              *ngIf="
+                                row?.stage?.actionItem?.abbreviation ===
+                                actionItems.NO_TOOL
+                              "
+                            >
+                              <span
+                                placement="top"
+                                container="body"
+                                ngbTooltip="There are not assignees in a 'no action' stage"
+                              >
+                                <!-- <fa-icon [icon]="['fas', 'minus-circle']"></fa-icon> -->
+                                <!-- No assignees no action -->
+                                --
+                              </span>
+                            </p>
+                          </td>
+                          <!-- <td class="align-top">
+                          <div
+                            class="progress stageProgressBar"
+                            *ngIf="
+                              row?.stage?.actionItem?.abbreviation !==
+                                actionItems.NO_TOOL && row.workflow
+                            "
+                          >
+                            <div
+                              class="progress-bar py-2"
+                              style="width: 100%;"
+                              [ngStyle]="{
+                                width:
+                                  ((row?.completionStats?.completed /
+                                    row?.completionStats?.total) *
+                                    100 || 0) + '%'
+                              }"
+                              role="progressbar"
+                              aria-valuenow="0"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            ></div>
+                          </div>
+                          <div
+                            *ngIf="
+                              row?.stage?.actionItem?.abbreviation !==
+                                actionItems.NO_TOOL && row.workflow
+                            "
+                            class="row"
+                            style="
+                              position: relative;
+                              bottom: 1.7rem;
+                              height: 0;
+                              font-size: 85%;
+                            "
+                          >
+                            <div class="col-12">
+                              <ul class="list-inline mb-0 ml-1 mr-0">
+                                <li class="list-inline-item pt-1">
+                                  <p class="small text-white mb-0 mr-1 pt-1">
+                                    {{ row?.completionStats?.completed }}/{{
+                                      row?.completionStats?.total
+                                    }}
+                                    Fields
+                                  </p>
+                                </li>
+                                <li class="list-inline-item float-right">
+                                  <p class="small text-white mb-0 mr-1 pt-2">
+                                    {{
+                                      (row?.completionStats?.completed /
+                                        row?.completionStats?.total) *
+                                        100 || 0
+                                    }}%
+                                  </p>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <p
+                            class="text-medium text-muted"
+                            *ngIf="
+                              row?.stage?.actionItem?.abbreviation ===
+                              actionItems.NO_TOOL
+                            "
+                          >
+                            <span
+                              placement="top"
+                              container="body"
+                              ngbTooltip="There is no progress to track in a 'no action' stage"
+                            >
+                              Disabled in this Stage
+                            </span>
+                          </p>
+                          <div
+                            class="showEditOnHover adjustPositionUp"
+                            (click)="addToWorkflowModal(row)"
+                            *ngIf="
+                              !row.workflow &&
+                              row?.permissions?.changeOpportunityWorkflow
+                            "
+                          >
+                            <p class="mb-0 text-medium text-primary">
+                              <span
+                                container="body"
+                                [ngbTooltip]="
+                                  'Add this ' +
+                                  row?.opportunityType?.name +
+                                  ' to a workflow to control the steps it will go through to be evaluated, tested, and implemented.'
+                                "
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Add To Workflow
+                              </span>
+                            </p>
+                          </div>
+                          <div
+                            class="text-medium text-muted font-italic"
+                            *ngIf="
+                              !row.stage &&
+                              !row?.permissions?.changeOpportunityWorkflow
+                            "
+                          >
+                            <span container="body">
+                              No workflow Added
+                            </span>
+                          </div>
+                        </td> -->
+                          <!-- <td class="align-middle py-1">
+                          <span ngbDropdown>
+                            <span
+                              class="badge badge-light badgePadding border addHover removeCaret"
+                              ngbDropdownToggle
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'tag']"
+                                class="text-muted"
+                              ></fa-icon>
+                              Marketing
+                              <fa-icon
+                                [icon]="['fas', 'caret-down']"
+                                class="text-muted"
+                              ></fa-icon>
+                            </span>
+                            <div ngbDropdownMenu class="shadow pt-0">
+                              <div style="min-width: 15rem;">
+                                <form class="p-1">
+                                  <div class="form-group mb-0">
+                                    <input
+                                      type="text"
+                                      class="form-control form-control-sm"
+                                      placeholder="Search categories..."
+                                    />
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="dropdownScrollMaxHeight">
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                                <button class="btn-sm pl-2" ngbDropdownItem>
+                                  Category Name
+                                </button>
+                              </div>
+                            </div>
+                          </span>
+                        </td> -->
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'dueDate'
+                            "
+                          >
+                            <p
+                              class="text-medium mb-0"
+                              [ngClass]="{
+                                'text-warning': row?.stageRemainingDays <= 5,
+                                'text-danger': row?.stageRemainingDays <= 2
+                              }"
+                              *ngIf="row.stageRemainingDays !== undefined"
+                            >
+                              {{ row?.stageDueDate?.month }}/{{
+                                row?.stageDueDate?.day
+                              }}/{{ row?.stageDueDate?.year }}
+                            </p>
+                            <!-- if no due date -->
+                            <p
+                              *ngIf="row.stageRemainingDays === undefined"
+                              class="text-medium mb-0"
+                            >
+                              --
+                            </p>
+                            <div
+                              class="showEditOnHover adjustPositionUp"
+                              *ngIf="false"
+                            >
+                              <p
+                                class="mb-0 text-medium text-primary"
+                                container="body"
+                                ngbTooltip="Add a date that you would like this stage to be completed by."
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>
+                                Add Date
+                              </p>
+                            </div>
+                            <!-- end if no due date -->
+                          </td>
+                          <td class="align-top" *ngIf="false">
+                            <!--Last Touched -->
+                            <p class="text-medium mb-0">
+                              10/22/20
+                            </p>
+                            <!-- <p class="mb-0">
+                            <span class="badge badge-warning text-white"
+                              >10/22/21</span
+                            >
+                          </p>
+                          <p class="mb-0">
+                            <span class="badge badge-danger">10/22/19</span>
+                          </p> -->
+                          </td>
+                          <!-- Owner Row -->
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'ownersWidget'
+                            "
+                          >
+                            <ul
+                              class="list-inline mb-0 showEditOnHover adjustPositionUp"
+                              *ngIf="
+                                getUserByType(row, userTypes.owner) &&
+                                row?.experience?.allowOpportunityOwnership
+                              "
+                            >
+                              <li
+                                class="list-inline-item removeMargins"
+                                *ngFor="
+                                  let owner of getUserByType(
+                                    row,
+                                    userTypes.owner
+                                  )
+                                "
+                                (click)="
+                                  row?.permissions?.addOpportunityOwner
+                                    ? openAddNewBox(userTypes.owner, row)
+                                    : null
+                                "
+                              >
+                                <ng-template #popContentOwner>
+                                  <app-information-popup
+                                    [config]="owner"
+                                  ></app-information-popup>
+                                </ng-template>
+                                <img
+                                  class="rounded-circle userImage pointer"
+                                  style="z-index: 2000;"
+                                  [ngbPopover]="popContentOwner"
+                                  [openDelay]="500"
+                                  [closeDelay]="500"
+                                  triggers="mouseenter:mouseleave"
+                                  placement="left"
+                                  [defaultImage]="defaultImage"
+                                  [lazyLoad]="owner.user?.profileImage?.url"
+                                />
+                              </li>
+                            </ul>
+                            <!-- if no owner -->
+                            <div
+                              class="showEditOnHover adjustPositionUp"
+                              *ngIf="
+                                !getUserByType(row, userTypes.owner) &&
+                                row?.experience?.allowOpportunityOwnership
+                              "
+                            >
+                              <p
+                                class="mb-0 text-medium inverseLinkDark"
+                                container="body"
+                                ngbTooltip="Assign an owner to this idea to be responsible for its progress."
+                                (click)="
+                                  row?.permissions?.addOpportunityOwner
+                                    ? openAddNewBox(userTypes.owner, row)
+                                    : null
+                                "
+                              >
+                                Add Owner
+                              </p>
+                            </div>
+                            <!-- end if no owner -->
+                            <p
+                              class="text-medium text-muted font-italic"
+                              *ngIf="
+                                !row?.experience?.allowOpportunityOwnership
+                              "
+                            >
+                              <span
+                                placement="top"
+                                ngbTooltip="Owners are currently disabled for {{
+                                  row?.opportunityType?.name
+                                }}"
+                                container="body"
+                              >
+                                <!-- <fa-icon [icon]="['fas', 'minus-circle']"></fa-icon> -->
+                                Owners Disabled
+                              </span>
+                            </p>
+                          </td>
+                          <!-- team row -->
+                          <td
+                            class="align-top columnWidthNormal"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'teamMembersWidget'
+                            "
+                          >
+                            <ul
+                              class="list-inline mb-0 showEditOnHover adjustPositionUp"
+                              *ngIf="
+                                getUserByType(row, userTypes.contributors) &&
+                                row?.experience?.allowOpportunityTeams
+                              "
+                            >
+                              <li
+                                class="list-inline-item removeMargins"
+                                *ngFor="
+                                  let contributor of getUserByType(
+                                    row,
+                                    userTypes.contributors
+                                  )
+                                "
+                                (click)="
+                                  row?.permissions?.addOpportunityContributor
+                                    ? openAddNewBox(userTypes.contributors, row)
+                                    : null
+                                "
+                              >
+                                <ng-template #popContentOwner>
+                                  <app-information-popup
+                                    [config]="contributor"
+                                  ></app-information-popup>
+                                </ng-template>
+                                <img
+                                  class="rounded-circle userImage pointer"
+                                  style="z-index: 2000;"
+                                  [ngbPopover]="popContentOwner"
+                                  [openDelay]="500"
+                                  [closeDelay]="500"
+                                  triggers="mouseenter:mouseleave"
+                                  placement="left"
+                                  [defaultImage]="defaultImage"
+                                  [lazyLoad]="
+                                    contributor.user?.profileImage?.url
+                                  "
+                                />
+                              </li>
+                            </ul>
+                            <div
+                              class="showEditOnHover adjustPositionUp"
+                              *ngIf="
+                                !getUserByType(row, userTypes.contributors) &&
+                                row?.experience?.allowOpportunityTeams
+                              "
+                              (click)="
+                                row?.permissions?.addOpportunityContributor
+                                  ? openAddNewBox(userTypes.contributors, row)
+                                  : null
+                              "
+                            >
+                              <p
+                                class="mb-0 text-medium inverseLinkDark"
+                                container="body"
+                                ngbTooltip="Add team members to this opportunityType.name"
+                              >
+                                <!-- <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon> -->
+                                Add Team Members
+                              </p>
+                            </div>
+                            <p
+                              class="text-medium text-muted font-italic"
+                              *ngIf="!row?.experience?.allowOpportunityTeams"
+                            >
+                              <span
+                                placement="top"
+                                container="body"
+                                ngbTooltip="Teams are currently disabled for {{
+                                  row?.opportunityType?.name
+                                }}"
+                              >
+                                <!-- <fa-icon [icon]="['fas', 'minus-circle']"></fa-icon> -->
+                                Teams disabled
+                              </span>
+                            </p>
+                          </td>
+                          <!-- end team row -->
+                          <!-- Submitter Row -->
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'submittersWidget'
+                            "
+                          >
+                            <!-- start of insert -->
+                            <ul
+                              class="list-inline mb-0 showEditOnHover adjustPositionUp"
+                              *ngIf="
+                                getUserByType(row, userTypes.submitter) &&
+                                row?.experience?.allowOpportunityCosubmitters
+                              "
+                            >
+                              <li
+                                class="list-inline-item removeMargins"
+                                *ngFor="
+                                  let submitter of getUserByType(
+                                    row,
+                                    userTypes.submitter
+                                  )
+                                "
+                                (click)="
+                                  row?.permissions?.addOpportunitySubmitter
+                                    ? openAddNewBox(userTypes.submitter, row)
+                                    : null
+                                "
+                              >
+                                <ng-template #popContentOwner>
+                                  <app-information-popup
+                                    [config]="{
+                                      anonymous: row.anonymous,
+                                      user: submitter.user
+                                    }"
+                                  ></app-information-popup>
+                                </ng-template>
+                                <img
+                                  class="rounded-circle userImage pointer"
+                                  style="z-index: 2000;"
+                                  [ngbPopover]="popContentOwner"
+                                  [openDelay]="500"
+                                  [closeDelay]="500"
+                                  triggers="mouseenter:mouseleave"
+                                  placement="left"
+                                  [defaultImage]="defaultImage"
+                                  [lazyLoad]="
+                                    row.anonymous
+                                      ? 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'
+                                      : submitter.user?.profileImage?.url
+                                  "
+                                />
+                              </li>
+                            </ul>
+                            <p
+                              class="text-medium text-muted font-italic"
+                              *ngIf="
+                                !row?.experience?.allowOpportunityCosubmitters
+                              "
+                            >
+                              <span
+                                placement="top"
+                                container="body"
+                                ngbTooltip="Co-Submitters are currently disabled for {{
+                                  row?.opportunityType?.name
+                                }}"
+                              >
+                                <!-- <fa-icon [icon]="['fas', 'minus-circle']"></fa-icon> -->
+                                Co-Submitters disabled
+                              </span>
+                            </p>
+                            <!-- end of insert -->
+                          </td>
+                          <td
+                            class="align-top pl-4 columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'opportunityType'
+                            "
+                          >
+                            <p class="mb-0 text-medium">
+                              {{ row?.opportunityType?.name }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthLarge"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'description'
+                            "
+                          >
+                            <p class="mb-0 text-medium">
+                              {{
+                                (row.description?.length >= 50
+                                  ? row.description.substring(0, 50) + '...'
+                                  : row.description
+                                ) | dynamicTranslation
+                              }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthLarge"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'challengeName'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{
+                                (row?.challenge?.title.length >= 50
+                                  ? row.challenge.title.substring(0, 50) + '...'
+                                  : row.challenge?.title
+                                ) | dynamicTranslation
+                              }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'createdDate'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{ row.createdAt | date: "MM'/'dd'/'yy" }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'submitterMember'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{ row?.submitterGroups }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthLarge"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'tags'
+                            "
+                          >
+                            <ng-container *ngIf="row?.tags?.length">
+                              <span
+                                class="badge badge-light tag border font-weight-normal tagPadding"
+                                container="body"
+                                *ngFor="let tag of row?.tags"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'hashtag']"
+                                  class="text-muted tagIcon"
+                                ></fa-icon
+                                >{{ tagsData ? tagsData[tag] : ' ' }}
+                              </span>
+                            </ng-container>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'currentWorkflow'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{ row.workflow?.title }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'previousStage'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{
+                                row?.previousStage
+                                  ? row?.previousStage?.title
+                                  : '--'
+                              }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'daysInPreviousStage'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{
+                                row?.daysInPreviousStage
+                                  ? (row?.daysInPreviousStage
+                                      | number: '1.0-2') + ' Days'
+                                  : '--'
+                              }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'daysInCurrentStage'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{
+                                row?.daysInCurrentStage
+                                  ? (row?.daysInCurrentStage
+                                      | number: '1.0-2') + ' Days'
+                                  : '--'
+                              }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'currentStatus'
+                            "
+                          >
+                            <p class="text-medium mb-0">
+                              {{ row.stage?.status.title }}
+                            </p>
+                          </td>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'daysInCurrentStatus'
+                            "
+                          >
+                            <p class="text-medium mb-0"></p>
+                          </td>
+                          <!-- <td
+                            class="align-top columnWidthShort"
+                            *ngIf="
+                              option.type === 'static' &&
+                              option.uniqueId === 'previousStage'
+                            "
+                          >
+                            <p class="text-medium mb-0"></p>
+                          </td> -->
+
+                          <!-- <td
+                          class="align-top columnWidthActions bg-transparent"
+                        ></td> -->
+                          <!-- *ngIf="showManageOptions" -->
+                          <td
+                            class="align-top"
+                            *ngIf="option.type === 'customField'"
+                            [ngClass]="
+                              option.fieldDataObject.type === 'rich_text'
+                                ? 'columnWidthLarge'
+                                : 'columnWidthShort'
+                            "
+                          >
+                            <p
+                              class="text-medium mb-0"
+                              *ngIf="row[option.uniqueId] !== undefined"
+                            >
+                              <a
+                                href="{{ row[option.uniqueId].fieldData.file }}"
+                                *ngIf="
+                                  option.fieldDataObject.type ===
+                                    'image_upload' ||
+                                  option.fieldDataObject.type ===
+                                    'file_upload' ||
+                                  option.fieldDataObject.type === 'video_upload'
+                                "
+                              >
+                                {{
+                                  row[option.uniqueId].fieldData.name?.length >=
+                                  35
+                                    ? row[
+                                        option.uniqueId
+                                      ].fieldData.name.substring(0, 35) + '...'
+                                    : row[option.uniqueId].fieldData.name
+                                }}
+                              </a>
+                              {{
+                                option.fieldDataObject.type ===
+                                  'single_line_text' ||
+                                option.fieldDataObject.type ===
+                                  'multi_line_text' ||
+                                option.fieldDataObject.type === 'rich_text'
+                                  ? row[option.uniqueId].fieldData.text
+                                      ?.length >= 50
+                                    ? row[
+                                        option.uniqueId
+                                      ].fieldData.text.substring(0, 50) + '...'
+                                    : row[option.uniqueId].fieldData.text
+                                  : option.fieldDataObject.type ===
+                                    'formatted_number'
+                                  ? row[option.uniqueId].fieldData.number
+                                  : option.fieldDataObject.type ===
+                                      'single_select' ||
+                                    option.fieldDataObject.type ===
+                                      'multi_select'
+                                  ? row[option.uniqueId].fieldData.selected
+                                  : option.fieldDataObject.type === 'datepicker'
+                                  ? row[option.uniqueId].fieldData.date.month +
+                                    '/' +
+                                    row[option.uniqueId].fieldData.date.day +
+                                    '/' +
+                                    row[option.uniqueId].fieldData.date.year
+                                  : ''
+                              }}
+                            </p>
+                            <div
+                              *ngIf="row[option.uniqueId] == undefined"
+                              container="body"
+                              (click)="
+                                openCustomFieldModal(
+                                  addCustomFieldModal,
+                                  row,
+                                  option
+                                )
+                              "
+                            >
+                              <p class="mb-0 text-medium inverseLinkDark">
+                                <!-- <fa-icon
+                                  [icon]="['fas', 'plus-circle']"
+                                ></fa-icon>  -->
+                                Add Entry
+                              </p>
+                            </div>
+                          </td>
+                          <ng-template #addCustomFieldModal let-modal>
+                            <div class="modal-header bg-light">
+                              <p class="uppercase bold small mb-0 mt-1">
+                                Add or Edit Field
+                              </p>
+                              <button
+                                type="button"
+                                class="close"
+                                aria-label="Close"
+                                (click)="modal.dismiss('Cross click')"
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body modalScrollMaxHeight">
+                              <app-custom-fields
+                                [customFields]="customFieldConfig"
+                                [view]="false"
+                                (fieldsData)="bindCustomFieldData($event)"
+                              ></app-custom-fields>
+                            </div>
+                            <div class="modal-footer bg-light">
+                              <button
+                                class="btn btn-light border"
+                                (click)="close()"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                class="btn btn-primary"
+                                (click)="
+                                  bulkAttachCustomFieldsData(
+                                    bindedCustomFieldData,
+                                    [row.id]
+                                  )
+                                "
+                              >
+                                Save Changes
+                              </button>
+                            </div>
+                          </ng-template>
+                          <td
+                            class="align-top columnWidthShort"
+                            *ngIf="option.type === 'criteria'"
+                          >
+                            <span
+                              class="badge montserrat pointer scoreBadgeNoScore"
+                              placement="right"
+                              container="body"
+                              *ngIf="
+                                row[option.uniqueId] !== undefined &&
+                                option.evaluationType.abbreviation ===
+                                  typeAbbreviation.NUMERICAL_RANGE
+                              "
+                            >
+                              {{
+                                (row[option.uniqueId].score.avgScore
+                                  | number: '1.0-2') +
+                                  row[option.uniqueId].score.criteria
+                                    .criteriaObject.unit
+                              }}
+                            </span>
+                            <span
+                              class="badge montserrat pointer scoreBadgeNoScore"
+                              placement="right"
+                              container="body"
+                              *ngIf="
+                                row[option.uniqueId] !== undefined &&
+                                option.evaluationType.abbreviation ===
+                                  typeAbbreviation.QUESTION
+                              "
+                            >
+                              {{
+                                row[option.uniqueId].score.avgNormalizedScore
+                                  | number: '1.0-2'
+                              }}
+                            </span>
+                            <p
+                              class="text-medium mb-0"
+                              *ngIf="row[option.uniqueId] == undefined"
+                            >
+                              {{ '---' }}
+                            </p>
+                          </td>
+                        </ng-container>
+                        <td
+                          class="align-top columnWidthActions"
+                          id="action-col-{{ i }}"
+                        >
+                          <app-idea-moderate-widget
+                            [index]="i"
+                            [idea]="row"
+                            [userOpportunityPermissions]="row?.permissions"
+                            [followerData]="followersData"
+                            [inlineText]="true"
+                            (updateRow)="updateRow()"
+                            (archive)="archiveIdea($event)"
+                          ></app-idea-moderate-widget>
+                        </td>
+                      </tr>
+                      <!-- end of one entry -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end ideas list table -->
+        </div>
+      </div>
+      <!-- && count > defaultPage.take -->
+      <div
+        *ngIf="!notPosted"
+        class="row border-top shadow-sm bg-light"
+        style="
+          background-color: #ffffff;
+          position: absolute;
+          bottom: 0;
+          padding: 15px 10px;
+          width: 100%;
+          z-index: 1000;
+        "
+      >
+        <div [ngClass]="filterOptions.display ? 'col-12' : 'col-10 offset-2'">
+          <app-table-pagination
+            [totalCount]="count"
+            [pageSize]="defaultPage.take"
+            (changePage)="changePage($event)"
+          >
+          </app-table-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of table container -->
+</div>

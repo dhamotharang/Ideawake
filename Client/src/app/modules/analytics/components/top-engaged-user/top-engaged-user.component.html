@@ -1,0 +1,84 @@
+<div class="card-header bg-white border-bottom-0 px-3">
+  <ul class="list-inline mb-0">
+    <li class="list-inline-item">
+      <p class="mb-0 bold small text-muted uppercase montserrat">
+        {{ 'TopGroupUser.Users' | translationPipe }}
+      </p>
+    </li>
+    <li class="list-inline-item float-right adjustFloatUp">
+      <app-widget-manage></app-widget-manage>
+    </li>
+  </ul>
+</div>
+<div class="card-body px-0 py-0" [style.height]="height">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center d-flex noDataStyle" *ngIf="dataRows.length === 0">
+        <ul
+          class="list-unstyled mb-0 text-center w-100 d-block align-self-center"
+        >
+          <li class="mb-2">
+            <fa-icon
+              [icon]="['fas', 'trophy']"
+              class="text-muted iconExtraLarge"
+            ></fa-icon>
+          </li>
+          <li>
+            <p class="text-medium text-muted mb-0">
+              No User Data Available Yet
+            </p>
+          </li>
+        </ul>
+      </div>
+      <table class="table small mb-1" *ngIf="dataRows.length !== 0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ 'TopGroupUser.User' | translationPipe }}</th>
+            <th scope="col">{{ 'TopGroupUser.Points' | translationPipe }}</th>
+            <th scope="col">{{ 'TopGroupUser.Change' | translationPipe }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of dataRows">
+            <th scope="row">
+              {{ ordinalSuffixOf(row.rank) }}
+            </th>
+            <td>{{ row.firstName }} {{ row.lastName }}</td>
+            <td>
+              <h6 class="mb-0 align-self-center montserrat text-primary">
+                {{ row.experiencePoint }}
+                <span class="text-muted small">XP</span>
+              </h6>
+            </td>
+            <td>
+              <h6 class="text-muted mb-0">
+                <fa-icon
+                  [icon]="['fas', getRankChangedIcon(row.rankChanged)]"
+                  [ngClass]="{
+                    'text-danger': !row.rankChanged || row.rankChanged < 0,
+                    'text-primary': row.rankChanged > 0
+                  }"
+                ></fa-icon>
+                {{
+                  row.rankChanged < 0
+                    ? row.rankChanged * -1
+                    : row.rankChanged || 0
+                }}
+              </h6>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card-footer bg-white border-top-0 pt-0" ngbTooltip="Coming soon!">
+  <a
+    class="btn btn-outline-primary btn-sm shadow-sm btn-block disabled"
+    routerLink="/community/leaderboard"
+  >
+    {{ 'TopGroupUser.ViewUsers' | translationPipe }}
+    <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+  </a>
+</div>

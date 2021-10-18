@@ -1,0 +1,99 @@
+<div class="card-header ml-0 pl-1">
+  Recent Uploads
+</div>
+<div class="container scrollable">
+  <div class="row">
+    <div
+      class="col-3 card-upload-content contentContainer"
+      [ngClass]="{ contentContainerSelected: file.isSelected === 1 }"
+      *ngFor="let file of files; let i = index"
+      (click)="selectFile(file)"
+    >
+      <div class="card-body px-2 py-1">
+        <ul class="list-unstyled mb-0">
+          <li>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item small text-muted">
+                <fa-icon
+                  [icon]="
+                    file.fontawesomeIcon
+                      ? file.fontawesomeIcon
+                      : file.attachmentType
+                  "
+                ></fa-icon>
+                {{
+                  file.name
+                    ? file.name
+                        .split('.')
+                        [file.name.split('.').length - 1].toUpperCase()
+                    : file.url
+                        .split('.')
+                        [file.url.split('.').length - 1].toUpperCase()
+                }}
+                <!-- file.fontawesomeIcon -->
+              </li>
+              <li
+                class="list-inline-item float-right"
+                *ngIf="file.isSelected == '1'"
+              >
+                <fa-icon
+                  [icon]="['fas', 'check-circle']"
+                  class="inverseLinkDanger small text-info"
+                  ngbTooltip="Delete Media"
+                ></fa-icon>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <img
+              *ngIf="file.attachmentType === 'image'"
+              [defaultImage]="defaultImage"
+              [lazyLoad]="file.url"
+              width="100"
+              height="100"
+            />
+
+            <p
+              *ngIf="file.type !== 'image'"
+              class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+            >
+              {{
+                file.name
+                  ? file.name
+                  : file.url
+                      .split('.')
+                      [file.url.split('.').length - 2].split('/')[
+                      file.url
+                        .split('.')
+                        [file.url.split('.').length - 2].split('/').length - 1
+                    ] +
+                    file.url
+                      .split('.')
+                      [file.url.split('.').length - 1].toUpperCase()
+              }}
+            </p>
+          </li>
+
+          <li>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item small text-muted">
+                {{ file.size }} KB
+              </li>
+              <li class="list-inline-item float-right" *ngIf="false">
+                <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                <fa-icon
+                  [icon]="['fas', 'times-circle']"
+                  class="inverseLinkDanger small cross-icon"
+                  ngbTooltip="Delete Media"
+                  (click)="deleteMedia(file)"
+                >
+                </fa-icon>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<hr />

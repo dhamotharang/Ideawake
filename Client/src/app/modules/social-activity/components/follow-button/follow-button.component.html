@@ -1,0 +1,27 @@
+<button
+  [disabled]="isDisabled"
+  [ngbTooltip]="
+    'Follow this challenge to receive updates on new submissions, updates, and activity.'
+  "
+  placement="bottom"
+  (click)="toggle()"
+  class="btn btn-outline-primary btn-block btn-xs py-2 bold"
+  [ngClass]="{ 'inverseLinkSelected btn-outline-secondary': data?.following }"
+>
+  <fa-icon
+    [icon]="data?.following ? ['fas', 'check'] : ['fas', 'rss']"
+    class="mr-1"
+  ></fa-icon>
+  {{
+    data?.following
+      ? ('SocialActivity.Following' | translationPipe)
+      : ('SocialActivity.Follow' | translationPipe)
+  }}
+  {{
+    followersCount !== 0 &&
+    followersCount !== undefined &&
+    followersCount !== null
+      ? '+' + followersCount
+      : ''
+  }}
+</button>

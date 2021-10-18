@@ -1,0 +1,51 @@
+<div class="modal-header card-header border-bottom-0 bg-light">
+  <p class="uppercase bold montserrat text-muted small mb-0">Add New Gadget</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body bg-light">
+  <div class="row">
+    <div class="col-4 mb-3" *ngFor="let gadget of gadgetTypes | keyvalue">
+      <div
+        class="card cardAnimation shadow-sm pointer selectStakeholder"
+        (click)="createWidget(gadget.value.type)"
+      >
+        <div class="card-body px-3 py-3">
+          <div class="media">
+            <fa-icon
+              [icon]="['fas', gadget.value.icon]"
+              class="iconLarge icon mr-1"
+            ></fa-icon>
+            <div class="media-body align-self-center ml-2">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="mb-0 montserrat bold">{{ gadget.value.title }}</p>
+                </li>
+                <li class="list-inline-item float-right">
+                  <fa-icon
+                    [icon]="['fas', 'plus-circle']"
+                    class="icon"
+                  ></fa-icon>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+
+<div class="modal-footer bg-light border-top-0">
+  <button class="btn btn-white text-primary montserrat bold border btn-block" (click)="modal.dismiss('Cross click')">
+    Done Adding New Gadgets? Close This Modal
+  </button>
+</div>

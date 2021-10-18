@@ -1,0 +1,499 @@
+<div class="">
+  <div class="row workflowContainerPadding">
+    <!-- <div class="col-12 col-md-2">
+      <app-community-navigation></app-community-navigation>
+    </div> -->
+    <div class="col-12 pt-3">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <a class="mb-0 uppercase bold pt-1" routerLink="/workflow/list"
+                >Workflows</a
+              >
+            </li>
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'angle-right']"
+                class="mr-1 ml-1 text-muted"
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <p class="mb-0 uppercase bold pt-1">
+                <a
+                  class="mb-0 uppercase bold pt-1"
+                  routerLink="/workflow/stage-list/{{ workflow.id }}"
+                  >Manage {{ workflow.title }}</a
+                >
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <fa-icon
+                [icon]="['fas', 'angle-right']"
+                class="mr-1 ml-1 text-muted"
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <p class="mb-0 uppercase bold pt-1">
+                {{ stageId ? 'Edit' : 'Add' }} Stage
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-md-8 col-12">
+                  <div class="card mb-3 shadow-sm">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-12 col-md-8">
+                          <p class="uppercase bold text-muted mb-0">
+                            Basic Info
+                          </p>
+                        </div>
+                        <!-- <div class="col-12 col-md-4">
+                            <div class="form-group mb-0">
+                              <select class="form-control">
+                                <option>Select a Template</option>
+                              </select>
+                            </div>
+                          </div> -->
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <!-- <div class="alert alert-warning">
+                        <div class="media">
+                          <div class="media-body">
+                            <p class="small mb-0">
+                              Editing this stage will impact 10 opportunities and 3 challenges it is currently linked to.
+                            </p>
+                          </div>
+                        </div>
+                      </div> -->
+                      <app-workflow-stage-basic-information
+                        [stageInfo]="stage"
+                        (basicInfo)="basicInfo($event)"
+                      ></app-workflow-stage-basic-information>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 pl-0 d-none d-sm-block">
+                  <!-- <div class="card shadow-sm bg-info mb-3">
+                    <div class="card-header bg-white border-bottom-0 pt-2 pb-0">
+                      <p class="mb-0 uppercase bold text-muted">Stage Info</p>
+                    </div>
+                    <div class="card-body">
+                      Show high level / summary information about the stage
+                      here...
+                    </div>
+                  </div> -->
+                  <div class="alert alert-info shadow-sm">
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="mb-0 bold">Stage Actions</p>
+                        <hr class="mt-2 mb-3" />
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="media mb-3">
+                              <fa-icon
+                                [icon]="['fas', 'minus-circle']"
+                                class="text-muted mr-2"
+                              ></fa-icon>
+                              <div class="media-body">
+                                <p class="text-medium mb-0">
+                                  <b>No Action</b> - Use this as a holding stage
+                                  when you don't want to collect any additional
+                                  information or evaluate an idea.
+                                </p>
+                              </div>
+                            </div>
+                            <div class="media mb-3">
+                              <fa-icon
+                                [icon]="['fas', 'info-circle']"
+                                class="text-secondary mr-2"
+                              ></fa-icon>
+                              <div class="media-body">
+                                <p class="text-medium mb-0">
+                                  <b>Refinement</b> - Use this action to collect
+                                  additional information about ideas using
+                                  custom fields.
+                                </p>
+                              </div>
+                            </div>
+                            <div class="media mb-3">
+                              <fa-icon
+                                [icon]="['fas', 'question-circle']"
+                                class="text-warning mr-2"
+                              ></fa-icon>
+                              <div class="media-body">
+                                <p class="text-medium mb-0">
+                                  <b>Scorecard</b> - Evaluate information
+                                  collected about ideas based on custom
+                                  numerical or non-numerical scorecarding
+                                  criteria.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="noTool">
+                <div class="col-md-8 col-12">
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-header">
+                      <p class="uppercase bold text-muted mb-0">
+                        Stage Specific Settings - No Tool Holding Stage
+                      </p>
+                    </div>
+                    <div class="card-body py-4">
+                      <ul class="list-unstyled text-center">
+                        <li class="mb-2">
+                          <fa-icon
+                            [icon]="['fas', 'times-circle']"
+                            class="text-muted mr-2 ml-1"
+                            style="font-size: 2.75rem;"
+                          ></fa-icon>
+                        </li>
+                        <li>
+                          <h5 class="bold mb-2 montserrat">
+                            There Are No Action Items Associated with this Stage
+                          </h5>
+                          <p class="text-muted">
+                            This stage will not generate any action items for
+                            users to complete. Use this stage as a holding
+                            stage.
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" id="stage-specific">
+                <div class="col-12">
+                  <!-- <app-workflow-pairwise></app-workflow-pairwise> -->
+                  <app-workflow-stage-scorecard
+                    *ngIf="
+                      currentTool?.abbreviation ==
+                        actionItemInfo?.scorecard?.abbreviation ||
+                      currentTool?.abbreviation ==
+                        actionItemInfo?.decision_question_poll?.abbreviation
+                    "
+                    (criteriaSelected)="attachedCriteria($event)"
+                  ></app-workflow-stage-scorecard>
+                  <!-- <app-workflow-stage-survey></app-workflow-stage-survey> -->
+                  <app-workflow-stage-refine
+                    *ngIf="
+                      currentTool?.abbreviation ==
+                      actionItemInfo?.refinement?.abbreviation
+                    "
+                    (output)="attachedCustomFields($event)"
+                  ></app-workflow-stage-refine>
+                  <div *ngIf="!noTool">
+                    <app-workflow-stage-assign
+                      [modelChange]="model"
+                      [stageInfo]="stage"
+                      [potentialCounts]="potentialCounts"
+                      (dataSet)="stageAssignee($event)"
+                    ></app-workflow-stage-assign>
+                  </div>
+                  <!-- <app-workflow-stage-project></app-workflow-stage-project> -->
+                  <!-- <div class="card shadow-sm mb-3">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-12">
+                          <p class="uppercase bold text-muted mb-0">
+                            Stage Rules
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-2">
+                      <app-rules-list></app-rules-list>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="card mb-3 shadow-sm">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-12">
+                          <p class="uppercase bold text-muted mb-0">
+                            Notification Settings
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-0 pb-3">
+                      <app-workflow-stage-settings
+                        [settingsData]="settings"
+                        (settings)="getSettings($event)"
+                      ></app-workflow-stage-settings>
+                    </div>
+                    <div class="card-footer mt-3">
+                      <div class="float-right">
+                        <!-- <button
+                          class="btn btn-light border"
+                          (click)="modal.dismiss('Cross click')"
+                        >
+                          Delete Stage
+                        </button> -->
+                        <button
+                          class="btn btn-light border"
+                          routerLink="/workflow/stage-list/{{ workflow.id }}"
+                        >
+                          Cancel Changes
+                        </button>
+                        <button
+                          *ngIf="stageId"
+                          class="btn btn-primary ml-2"
+                          (click)="open(confirmStageEdit)"
+                        >
+                          Save Changes
+                        </button>
+                        <button
+                          *ngIf="!stageId"
+                          class="btn btn-light border ml-2"
+                          routerLink="/workflow/stage-list/{{ workflow.id }}"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          *ngIf="!stageId"
+                          class="btn btn-primary ml-2"
+                          (click)="submit(formType.create)"
+                        >
+                          Create Stage
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 d-none d-sm-block">
+                  <!-- <div class="alert alert-info shadow-sm">
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="mb-0 bold">Stage Info</p>
+                        <hr class="mt-2 mb-3" />
+                        Show high level / summary information about the stage
+                        here...
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- confirm stage changes -->
+<div
+  class="row w-100 py-3 shadow-sm bg-white border-top d-none"
+  style="position: fixed; bottom: 0;"
+>
+  <div class="col-6 offset-3">
+    <div class="float-right">
+      <button class="btn btn-primary">Save Changes</button>
+    </div>
+  </div>
+</div>
+<!-- end confirm stage changes -->
+
+<!-- confirm unsaved changes -->
+<ng-template #confirmUnsavedChanges let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive This Status</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-warning">
+      <p class="mb-0 small">
+        This status currently has <span class="bold">27</span> ideas active
+        inside of it. Please select a new status to update these ideas to before
+        archiving it.
+      </p>
+    </div>
+    <form>
+      <div class="form-group">
+        <p class="mb-2 bold">Select New Status</p>
+        <!-- <app-idea-status></app-idea-status> -->
+        <p class="pt-2 mb-0 small text-muted">
+          The <span class="bold">27</span> ideas in this status you're about to
+          archive will be updated to the new status you select above.
+        </p>
+      </div>
+    </form>
+    <hr />
+    <label>Effects of Archiving This Status</label>
+    <p>
+      By archiving this status, you will no longer be able to put ideas into it,
+      but you will still be able to get analytics on this status and access it
+      in reports. Are you sure you would like to archive this status?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-danger">Yes, Archive This Status</button>
+  </div>
+</ng-template>
+<!-- confirm confirm unsaved changes -->
+
+<!-- confirm stage changes on edit modal -->
+<ng-template #confirmStageEdit let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">Confirm Changes</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body pb-0">
+    <div class="alert alert-warning">
+      <p class="mb-0 text-medium">
+        <!-- This opportunity is currently linked to <b>2 challenges</b>,
+        <b>1 opportunity type</b>, and <b>10 opportunities</b>. Please confirm
+        what you would like to do regarding these opportunities -->
+        <!-- Updating this stage will update all the opportunities currently linked to it. Please confirm
+        stage changes or click "cancel" to go back. -->
+        <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+        These changes will impact opportunities already posted.
+      </p>
+    </div>
+    <p>
+      Updating this stage will update all the opportunities currently linked to
+      it. Please confirm stage changes or click "cancel" to go back.
+    </p>
+    <!-- could also offer to clone this template if updating specific opportunity
+    types is too complex... -->
+    <form class="d-none">
+      <div class="form-group">
+        <p class="mb-2 bold">Options</p>
+        <div class="custom-control custom-radio mb-1">
+          <input
+            type="radio"
+            id="unassigned"
+            name="assignStage"
+            class="custom-control-input"
+            checked
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="unassigned"
+            >Apply Changes to All Opportunities Posted After This Update</label
+          >
+        </div>
+        <div class="custom-control custom-radio mb-1">
+          <input
+            type="radio"
+            id="allUsers"
+            name="assignStage"
+            class="custom-control-input"
+          />
+          <label class="custom-control-label font-weight-normal" for="allUsers"
+            >Specific Challenges, Opportunity Types, and Opportunities</label
+          >
+        </div>
+        <div class="custom-control custom-radio">
+          <input
+            type="radio"
+            id="segmentedUsers"
+            name="assignStage"
+            class="custom-control-input"
+            (click)="toggleSpecificMembers()"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="segmentedUsers"
+            >All Previously Submitted Challenges, Opportunities, and Opportunity
+            Types Linked to this Workflow</label
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-top-0">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-info" (click)="submit(formType.update)">
+      Confirm Changes
+    </button>
+  </div>
+</ng-template>
+<!-- confirm stage changes on edit modal -->
+
+<!-- confirm stage changes on edit modal -->
+<ng-template #archiveStage let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive This Stage</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-warning">
+      <p class="mb-0 small">
+        This stage currently has <span class="bold">27</span> ideas active
+        inside of it. Please select a new stage to update these ideas to before
+        archiving it.
+      </p>
+    </div>
+    <form>
+      <div class="form-group">
+        <p class="mb-2 bold">Select New Stage</p>
+        <!-- <app-idea-status></app-idea-status> -->
+        <p class="pt-2 mb-0 small text-muted">
+          The <span class="bold">27</span> ideas in this status you're about to
+          archive will be updated to the new status you select above.
+        </p>
+      </div>
+    </form>
+    <hr />
+    <label>Effects of Archiving This Status</label>
+    <p>
+      By archiving this status, you will no longer be able to put ideas into it,
+      but you will still be able to get analytics on this status and access it
+      in reports. Are you sure you would like to archive this status?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-danger">Yes, Archive This Status</button>
+  </div>
+</ng-template>
+<!-- confirm stage changes on edit modal -->

@@ -1,0 +1,481 @@
+<!-- one status -->
+<div class="row pt-2 pb-2">
+  <div class="col-12">
+    <div class="media">
+      <fa-icon
+        [icon]="['fas', 'grip-vertical']"
+        class="text-muted pr-3 moveOnHover"
+        placement="left"
+        ngbTooltip="Drag and drop to change order"
+      ></fa-icon>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-9">
+            <h5 class="mb-1">
+              Status Name
+              <span
+                class="badge badge-primary small pl-2 pr-2 ml-1 adjustFloatUp"
+                >1st</span
+              >
+            </h5>
+            <p class="text-muted small mb-0">
+              This is the status description this is the status description this
+              is...
+            </p>
+          </div>
+          <div class="col-3">
+            <ul class="list-inline mb-0 float-right">
+              <li
+                class="list-inline-item inverseLink mr-2"
+                (click)="open(editStatus)"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <span class="removeCaret" ngbDropdownToggle>
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 inverseLink"
+                  ></fa-icon>
+                </span>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                  <button
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteStatus)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                      (click)="open(deleteStatus)"
+                    ></fa-icon>
+                    Archive Status
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="row">
+              <div class="col-12">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <p class="small mb-0">
+                      <fa-icon [icon]="['fas', 'minus-circle']" class="text-warning"></fa-icon>
+                      <span class="ml-1 text-muted">Visibility - Filtered</span>
+                    </p>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="small mb-0 text-primary">
+                      <fa-icon [icon]="['fas', 'check-circle']" class="text-success"></fa-icon>
+                      <span class="ml-1 text-muted">Voting - Enabled</span>
+                    </p>
+                  </li>
+                  <li class="list-inline-item">
+                    <p class="small mb-0">
+                      <fa-icon [icon]="['fas', 'times-circle']" class="text-danger"></fa-icon>
+                      <span class="ml-1 text-muted">Commenting - Disabled</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end one status -->
+<hr class="mb-1 mt-1" />
+<!-- one status -->
+<div class="row pt-2 pb-2">
+  <div class="col-12">
+    <div class="media">
+      <fa-icon
+        [icon]="['fas', 'grip-vertical']"
+        class="text-muted pr-3 moveOnHover"
+        placement="left"
+        ngbTooltip="Drag and drop to change order"
+      ></fa-icon>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-9">
+            <h5 class="mb-1">
+              Status Name
+              <span
+                class="badge badge-secondary small pl-2 pr-2 ml-1 adjustFloatUp"
+                >2nd</span
+              >
+            </h5>
+            <p class="text-muted small mb-0">
+              This is the status description this is the status description this
+              is...
+            </p>
+          </div>
+          <div class="col-3">
+            <ul class="list-inline mb-0 float-right">
+              <li
+                class="list-inline-item inverseLink mr-2"
+                (click)="open(editStatus)"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <span class="removeCaret" ngbDropdownToggle>
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 inverseLink"
+                  ></fa-icon>
+                </span>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                  <button
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteStatus)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                      (click)="open(deleteStatus)"
+                    ></fa-icon>
+                    Archive Status
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end one status -->
+<hr class="mb-1 mt-1" />
+<!-- one status -->
+<div class="row pt-2 pb-2">
+  <div class="col-12">
+    <div class="media">
+      <fa-icon
+        [icon]="['fas', 'grip-vertical']"
+        class="text-muted pr-3 moveOnHover"
+        placement="left"
+        ngbTooltip="Drag and drop to change order"
+      ></fa-icon>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-9">
+            <h5 class="mb-1">
+              Status Name
+              <span class="badge badge-dark small pl-2 pr-2 ml-1 adjustFloatUp"
+                >3rd</span
+              >
+            </h5>
+            <p class="text-muted small mb-0">
+              This is the status description this is the status description this
+              is...
+            </p>
+          </div>
+          <div class="col-3">
+            <ul class="list-inline mb-0 float-right">
+              <li
+                class="list-inline-item inverseLink mr-2"
+                (click)="open(editStatus)"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <span class="removeCaret" ngbDropdownToggle>
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 inverseLink"
+                  ></fa-icon>
+                </span>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                  <button
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteStatus)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Archive Status
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end one status -->
+<hr class="mb-1 mt-1" />
+<!-- one status -->
+<div class="row pt-2 pb-2">
+  <div class="col-12">
+    <div class="media">
+      <fa-icon
+        [icon]="['fas', 'grip-vertical']"
+        class="text-muted pr-3 moveOnHover"
+        placement="left"
+        ngbTooltip="Drag and drop to change order"
+      ></fa-icon>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-9">
+            <h5 class="mb-1">
+              Status Name
+              <span class="badge badge-info small pl-2 pr-2 ml-1 adjustFloatUp"
+                >4th</span
+              >
+            </h5>
+            <p class="text-muted small mb-0">
+              This is the status description this is the status description this
+              is...
+            </p>
+          </div>
+          <div class="col-3">
+            <ul class="list-inline mb-0 float-right">
+              <li
+                class="list-inline-item inverseLink mr-2"
+                (click)="open(editStatus)"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <span class="removeCaret" ngbDropdownToggle>
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 inverseLink"
+                  ></fa-icon>
+                </span>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                  <button
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteStatus)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Archive Status
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end one status -->
+<hr class="mb-1 mt-1" />
+<!-- one status -->
+<div class="row pt-2 pb-2">
+  <div class="col-12">
+    <div class="media">
+      <fa-icon
+        [icon]="['fas', 'grip-vertical']"
+        class="text-muted pr-3 moveOnHover"
+        placement="left"
+        ngbTooltip="Drag and drop to change order"
+      ></fa-icon>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-9">
+            <h5 class="mb-1">
+              Parking Lot
+              <span
+                class="badge badge-warning small pl-2 pr-2 ml-1 adjustFloatUp"
+                >5th</span
+              >
+            </h5>
+            <p class="text-muted small mb-0">
+              This is the status description this is the status description this
+              is...
+            </p>
+          </div>
+          <div class="col-3">
+            <ul class="list-inline mb-0 float-right">
+              <li
+                class="list-inline-item inverseLink mr-2"
+                (click)="open(editStatus)"
+              >
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <span class="removeCaret" ngbDropdownToggle>
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 inverseLink"
+                  ></fa-icon>
+                </span>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0">
+                  <button
+                    ngbDropdownItem
+                    class="pt-2 pb-2"
+                    (click)="open(deleteStatus)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Archive Status
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end one status -->
+
+<!-- start of edit status modal -->
+<ng-template #editStatus let-modal>
+  <div class="modal-header card-header">
+    <p class="uppercase bold text-muted mb-0 small">Create / Edit Status</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- one status -->
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label>Status Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter status title here..."
+            />
+          </div>
+          <div class="form-group">
+            <label>Status Order</label>
+            <select class="form-control">
+              <option>
+                Select status order
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status Description</label>
+            <textarea
+              class="form-control"
+              placeholder="Enter a status description here..."
+            ></textarea>
+          </div>
+          <div class="form-group mb-0">
+            <label>Select Color</label>
+          </div>
+          <app-color-select></app-color-select>
+          <!-- <label class="mb-0">Status Settings</label>
+          <hr class="mt-1 mb-1">
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Idea Visibility</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <select class="form-control form-control-sm">
+                <option>Open Ideas</option>
+                <option>Filtered in Feed</option>
+                <option>Hidden from Feed</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Commenting</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input type="checkbox" class="custom-control-input pointer" id="commenting">
+                <label class="custom-control-label" for="commenting">Enabled</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row dottedBottomBorder pt-2 pb-2">
+            <div class="form-group col-9 mb-0">
+              <label class="mb-0 font-weight-normal">Voting</label>
+            </div>
+            <div class="form-group col-3 mb-0">
+              <div class="custom-control custom-switch mr-auto float-right">
+                <input type="checkbox" class="custom-control-input pointer" id="voting">
+                <label class="custom-control-label" for="voting">Enabled</label>
+              </div>
+            </div>
+          </div> -->
+        </form>
+      </div>
+    </div>
+    <!-- end one status -->
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary">
+      Save Changes
+    </button>
+  </div>
+</ng-template>
+<!-- end of edit status modal -->
+
+<ng-template #deleteStatus let-modal>
+  <div class="modal-header card-header bg-danger">
+    <p class="uppercase bold text-white mb-0 small">Archive This Status</p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-warning">
+      <p class="mb-0 small">
+        This status currently has <span class="bold">27</span> ideas active
+        inside of it. Please select a new status to update these ideas to before
+        archiving it.
+      </p>
+    </div>
+    <form>
+      <div class="form-group">
+        <p class="mb-2 bold">Select New Status</p>
+        <app-idea-status></app-idea-status>
+        <p class="pt-2 mb-0 small text-muted">
+          The <span class="bold">27</span> ideas in this status you're about to
+          archive will be updated to the new status you select above.
+        </p>
+      </div>
+    </form>
+    <hr />
+    <label>Effects of Archiving This Status</label>
+    <p>
+      By archiving this status, you will no longer be able to put ideas into it,
+      but you will still be able to get analytics on this status and access it
+      in reports. Are you sure you would like to archive this status?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-danger">Yes, Archive This Status</button>
+  </div>
+</ng-template>

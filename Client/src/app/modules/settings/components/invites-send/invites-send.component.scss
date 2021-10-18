@@ -1,0 +1,72 @@
+.form-control.select {
+  color: #1ab394;
+  border-color: #1ab394;
+}
+.form-control.select option {
+  color: #495057;
+  border-color: #495057;
+}
+.form-control:focus {
+  position: relative;
+  z-index: 1;
+}
+.form-row {
+  margin-right: 0;
+  margin-left: 0;
+}
+.form-group.col-3 .form-control {
+  border-radius: 0rem 0.15rem 0.15rem 0rem;
+}
+.alert {
+  padding: 0.63rem 0 0;
+  margin: 0;
+}
+.img-box {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.img-box img {
+  width: 100%;
+}
+.list-inline.list li {
+  position: relative;
+  padding: 0 15px;
+}
+.list-inline.list li:first-child {
+  padding-left: 0;
+  margin-right: 0;
+}
+.list-inline.list li:after {
+  content: '';
+  width: 1px;
+  height: 80%;
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  background: #d8d8d8;
+}
+.list-inline.list li:first-child:after {
+  display: none;
+}
+.list-inline.list li span {
+  color: #00aa8a;
+  text-decoration: underline;
+}
+// form.ng-untouched.ng-pristine.ng-valid {
+//     border-top: dashed 1px #d8d8d8;
+//     padding-top: 18px;
+// }
+.form-row.no-gutters.mb-3 {
+  margin-bottom: 0.85rem !important;
+}
+.form-group.col-12.mt-2 {
+  margin-top: 0.7rem !important;
+}
+.form-group.pb-4 {
+  padding-bottom: 0.7rem !important;
+}
+.scroll-dev {
+  max-height: 50vh;
+  overflow-y: auto;
+}

@@ -1,0 +1,799 @@
+<!-- *ngIf="viewOne" -->
+<div class="row">
+  <div class="col-12 px-0">
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-light mt-3 ml-3 mr-3 border">
+          <div class="row">
+            <div class="col-8">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="link mb-0">Manage Action Items</p>
+                </li>
+                <li class="list-inline-item">
+                  /
+                </li>
+                <li class="list-inline-item">
+                  <p class="link mb-0">Challenge Title</p>
+                </li>
+                <li class="list-inline-item">
+                  /
+                </li>
+                <li class="list-inline-item">
+                  <p class="mb-0">Stage Title (ToolType)</p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <a class="float-right" href="#">Action Items Manager</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-progress-steps></app-progress-steps> -->
+    <div class="row">
+      <div class="col-12">
+        <div class="btn-group btn-group-sm border ml-2" role="group">
+          <button type="button" class="btn btn-light">
+            Open (1)
+          </button>
+          <button type="button" class="btn btn-light">
+            Completed (3)
+          </button>
+          <button type="button" class="btn btn-light">Incomplete (4)</button>
+        </div>
+        <button class="btn btn-light btn-sm border float-right mr-2">
+          <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table" style="overflow-x: scroll;">
+          <thead>
+            <tr>
+              <!-- <th scope="col" class="py-2 border-top-0 border-bottom-0 w-5">#</th> -->
+              <th scope="col" class="w-20 py-2 border-top-0 border-bottom-0">
+                <span
+                  class="removeCaret pointer bold small montserrat text-muted uppercase"
+                >
+                  <!-- <fa-icon [icon]="['fas', 'sort']" class="text-muted small adjustFloatUpSmall mr-1">
+                  </fa-icon> -->
+                  Title
+                </span>
+              </th>
+              <!-- <th scope="col" class="py-2 border-top-0 border-bottom-0">
+                <div ngbDropdown class="adjustTableFilterRight">
+                  <span class="removeCaret pointer bold small montserrat text-muted uppercase" ngbDropdownToggle>
+                    <fa-icon [icon]="['fas', 'sort']" class="text-muted small adjustFloatUpSmall mr-1">
+                    </fa-icon>
+                    Total Score
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Highest Score First
+                    </button>
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Lowest Score First
+                    </button>
+                  </div>
+                </div>
+              </th> -->
+              <th scope="col" class="py-2 border-top-0 border-bottom-0 w-10">
+                <div ngbDropdown class="adjustTableFilterRight">
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small adjustFloatUpSmall mr-1"
+                    >
+                    </fa-icon>
+                    Stage Score
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Highest Score First
+                    </button>
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Lowest Score First
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="py-2 border-top-0 border-bottom-0">
+                <div ngbDropdown class="adjustTableFilterRight">
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small adjustFloatUpSmall mr-1"
+                    >
+                    </fa-icon>
+                    Assigned To
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Highest Score First
+                    </button>
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Lowest Score First
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="py-2 w-10 border-top-0 border-bottom-0">
+                <div ngbDropdown class="adjustTableFilterRight">
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small adjustFloatUpSmall mr-1"
+                    >
+                    </fa-icon>
+                    % Complete
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Highest Score First
+                    </button>
+                    <button class="btn btn-sm" ngbDropdownItem>
+                      Lowest Score First
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="py-2 border-top-0 border-bottom-0">
+                <div ngbDropdown>
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small"
+                    ></fa-icon>
+                    Due Date
+                  </span>
+                  <div ngbDropdownMenu class="shadow" style="min-width: 15rem;">
+                    <button class="btn-sm pl-3 pr-2" ngbDropdownItem>
+                      No Due Date Set
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Coming Due Soon
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Past Due
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="py-2 border-top-0 border-bottom-0 w-20">
+                <div ngbDropdown class="adjustTableFilterRight">
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small adjustFloatUpSmall mr-1"
+                    >
+                    </fa-icon>
+                    QuestionTitleLonger
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Higest Score First
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Lowest Score First
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <hr class="my-0" />
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said Yes
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said No
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said Needs More Information
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <!-- <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      ng-repeat question options
+                      <span class="badge badge-light border float-right mt-1">100</span>
+                    </button> -->
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="py-2 border-top-0 border-bottom-0">
+                <div ngbDropdown class="">
+                  <span
+                    class="removeCaret pointer bold small montserrat text-muted uppercase"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'sort']"
+                      class="text-muted small adjustFloatUpSmall"
+                    >
+                    </fa-icon>
+                    RatingTitle ($Unit)
+                  </span>
+                  <div ngbDropdownMenu class="shadow">
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said Yes
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said No
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      Majority Said Needs More Information
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                    <button class="btn btn-sm pl-3 pr-2" ngbDropdownItem>
+                      ng-repeat question options
+                      <span class="badge badge-light border float-right mt-1"
+                        >100</span
+                      >
+                    </button>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle py-1">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" />
+                  <label class="custom-control-label text-muted">
+                    <p class="text-medium text-muted mb-0 font-weight-normal">
+                      Opportunity Title
+                    </p>
+                  </label>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  92 <small>/ 100</small>
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                </ul>
+              </td>
+              <td class="align-middle py-1">
+                <div class="media align-items-center">
+                  <p class="text-medium text-muted mb-0 mr-2">
+                    8 / <small>11</small>
+                  </p>
+                  <div class="media-body">
+                    <div class="progress mb-0" style="height: 1.3rem;">
+                      <div
+                        class="progress-bar"
+                        style="width: 79%;"
+                        role="progressbar"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        <span class="internalText">(22%)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  10/22/20
+                </p>
+                <!-- <p class="mb-0">
+                  <span class="badge badge-warning text-white"
+                    >10/22/21</span
+                  >
+                </p>
+                <p class="mb-0">
+                  <span class="badge badge-danger">10/22/19</span>
+                </p> -->
+              </td>
+              <td class="align-middle py-1">
+                <img
+                  src="https://i.imgur.com/7fQgy49.png"
+                  style="width: 3rem;"
+                />
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">$1,500,000</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle py-1">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" />
+                  <label class="custom-control-label text-muted">
+                    <p class="text-medium text-muted mb-0 font-weight-normal">
+                      Opportunity Title
+                    </p>
+                  </label>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  92 <small>/ 100</small>
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                </ul>
+              </td>
+              <td class="align-middle py-1">
+                <div class="media align-items-center">
+                  <p class="text-medium text-muted mb-0 mr-2">
+                    8 / <small>11</small>
+                  </p>
+                  <div class="media-body">
+                    <div class="progress mb-0" style="height: 1.3rem;">
+                      <div
+                        class="progress-bar"
+                        style="width: 79%;"
+                        role="progressbar"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        <span class="internalText">(22%)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  10/22/20
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <div class="progress" style="height: 1.4rem;">
+                  <ng-template #responseOne>
+                    <label class="mb-0 text-primary">Yes</label>
+                    <ul class="list-unstyled mb-2">
+                      <li>
+                        First Last Name
+                      </li>
+                      <li>
+                        First Last Name
+                      </li>
+                      <li>
+                        First Last Name
+                      </li>
+                    </ul>
+                  </ng-template>
+                  <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="15" aria-valuemin="0"
+                    aria-valuemax="100" [ngbTooltip]="responseOne">
+                    <span class="internalText">
+                      Yes (10)
+                    </span>
+                  </div>
+                  <div
+                    class="progress-bar bg-success"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="30"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <span class="internalText">
+                      No (5)
+                    </span>
+                  </div>
+                  <div
+                    class="progress-bar bg-info"
+                    role="progressbar"
+                    style="width: 25%;"
+                    aria-valuenow="20"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <span class="internalText">
+                      NMI (5)
+                    </span>
+                  </div>
+                </div>
+                <!-- <p class="text-medium text-muted mb-0">4.235 <small>/ 5</small></p> -->
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">$1,500,000</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle py-1">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" />
+                  <label class="custom-control-label text-muted">
+                    <p class="text-medium text-muted mb-0 font-weight-normal">
+                      Opportunity Title
+                    </p>
+                  </label>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  92 <small>/ 100</small>
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                </ul>
+              </td>
+              <td class="align-middle py-1">
+                <div class="media align-items-center">
+                  <p class="text-medium text-muted mb-0 mr-2">
+                    8 / <small>11</small>
+                  </p>
+                  <div class="media-body">
+                    <div class="progress mb-0" style="height: 1.3rem;">
+                      <div
+                        class="progress-bar"
+                        style="width: 79%;"
+                        role="progressbar"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        <span class="internalText">(22%)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  10/22/20
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  4.235 <small>/ 10</small>
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">$1,500,000</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle py-1">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" />
+                  <label class="custom-control-label text-muted">
+                    <p class="text-medium text-muted mb-0 font-weight-normal">
+                      Opportunity Title
+                    </p>
+                  </label>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  92 <small>/ 100</small>
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                  <li class="list-inline-item removeMargins">
+                    <img
+                      class="userImage rounded-circle"
+                      ngbTooltip="Full Name"
+                      src="https://ideawake-test.s3.amazonaws.com/attachments/users/a33e5080-79ab-11ea-931d-6bab431a940f.png"
+                    />
+                  </li>
+                </ul>
+              </td>
+              <td class="align-middle py-1">
+                <div class="media align-items-center">
+                  <p class="text-medium text-muted mb-0 mr-2">
+                    8 / <small>11</small>
+                  </p>
+                  <div class="media-body">
+                    <div class="progress mb-0" style="height: 1.3rem;">
+                      <div
+                        class="progress-bar"
+                        style="width: 79%;"
+                        role="progressbar"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        <span class="internalText">(22%)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">
+                  10/22/20
+                </p>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">Strongly Agree</p>
+              </td>
+              <td class="align-middle py-1">
+                <p class="text-medium text-muted mb-0">$1,500,000</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row d-none">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3 pr-0" style="max-height: 80vh; overflow-y: scroll;">
+            <div
+              class="card rounded-0 border-right-0 h-100 shadow zindexSet"
+              style="min-height: 100vh; overflow-y: visible;"
+            >
+              <div class="card-header pl-0">
+                <div class="row">
+                  <div class="col-12">
+                    <div
+                      class="btn-group btn-group-sm border ml-2"
+                      role="group"
+                    >
+                      <button type="button" class="btn btn-light">
+                        Open (1)
+                      </button>
+                      <button type="button" class="btn btn-light">
+                        Completed (3)
+                      </button>
+                      <button type="button" class="btn btn-light">
+                        All (4)
+                      </button>
+                    </div>
+                    <button
+                      class="btn btn-light btn-sm border float-right mr-2"
+                    >
+                      <fa-icon [icon]="['fas', 'cog']"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table small mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">
+                            #
+                          </th>
+                          <th scope="col">Idea Title</th>
+                          <th scope="col">Action</th>
+                          <th scope="col">Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="addHover">
+                          <th scope="row">122</th>
+                          <td>Leverage Vr to...</td>
+                          <td>Scorecard</td>
+                          <td>555</td>
+                        </tr>
+                        <tr class="addHover">
+                          <th scope="row">122</th>
+                          <td>Leverage Vr to...</td>
+                          <td>Scorecard</td>
+                          <td>555</td>
+                        </tr>
+                        <tr class="addHover">
+                          <th scope="row">122</th>
+                          <td>Leverage Vr to...</td>
+                          <td>Scorecard</td>
+                          <td>555</td>
+                        </tr>
+                        <tr class="addHover">
+                          <th scope="row">122</th>
+                          <td>Leverage Vr to...</td>
+                          <td>Scorecard</td>
+                          <td>555</td>
+                        </tr>
+                        <tr class="addHover">
+                          <th scope="row">122</th>
+                          <td>Leverage Vr to...</td>
+                          <td>Scorecard</td>
+                          <td>555</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 border bg-light-gray">
+            <p>idea top container</p>
+            <p>idea summary information</p>
+          </div>
+          <div class="col-3 pl-0">
+            <!-- wrapper for to do item -->
+            <div class="card rounded-0 border-left-0 h-100 shadow zindexSet">
+              <div class="card-header">
+                <p class="mb-0 uppercase text-muted bold">Scorecard</p>
+              </div>
+              <div class="card-body">
+                <!-- <app-review-complete></app-review-complete> -->
+              </div>
+            </div>
+            <!-- end wrapper for to do item -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="h-100"
+  style="max-height: 80vh; overflow-y: hidden; overflow-x: hidden;"
+  *ngIf="drillDown"
+>
+  <div class="row">
+    <div class="col-12 pl-0 pr-0">
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-light mt-3 ml-3 mr-3 border">
+            <div class="row">
+              <div class="col-8">
+                My Action Items / Challenge Title / "Stage" Title (Tool)
+              </div>
+              <div class="col-4">
+                <a class="float-right" href="#">Action Items Manager</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

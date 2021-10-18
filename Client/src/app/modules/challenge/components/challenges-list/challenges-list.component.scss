@@ -1,0 +1,35 @@
+h5.challengeTitle {
+  line-height: 1.75rem;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 0.05rem;
+  left: 32.9rem;
+  padding: 0.5rem 2rem;
+  border-radius: 0.19rem;
+}
+
+.challengeImage {
+  z-index: 9;
+  object-fit: cover;
+  min-height: 8rem;
+}
+
+.challengeStatus {
+  position: absolute;
+  top: -176px;
+  left: -1px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.challengeParticipants {
+  position: absolute;
+  top: -45px;
+  left: 15px;
+}
+
+.pointer {
+  cursor: pointer;
+}

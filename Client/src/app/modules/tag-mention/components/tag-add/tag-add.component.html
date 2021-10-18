@@ -1,0 +1,42 @@
+<!-- <button class="btn btn-light btn-sm rounded-circle border" ngbTooltip="Add Tags">
+  <fa-icon [icon]="['fas', 'plus']" class="text-muted text-medium"></fa-icon>
+</button> -->
+<span
+  class="badge badge-light tag border pointer pt-1 pb-1"
+  (click)="open(addTags)"
+>
+  <fa-icon [icon]="['fas', 'plus']" class="text-muted"></fa-icon> Add Tags
+</span>
+
+<!-- add tags to idea modal -->
+<ng-template #addTags let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Add Tags to this Idea</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>
+          Add Tags
+        </label>
+        <app-search-tags></app-search-tags>
+      </div>
+    </form>
+    <app-tags></app-tags>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-2">Add Tags</button>
+  </div>
+</ng-template>
+<!-- end add tags to idea modal -->

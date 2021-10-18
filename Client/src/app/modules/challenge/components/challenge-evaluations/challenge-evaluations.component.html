@@ -1,0 +1,125 @@
+<app-challenge-top-summary></app-challenge-top-summary>
+<div class="row">
+  <div class="col-md-10 offset-md-1 col-12">
+    <app-challenge-pairwise></app-challenge-pairwise>
+  </div>
+</div>
+<!-- start of crowdfund -->
+<div class="row pageTopPadding">
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="row">
+      <div class="col-8">
+        <h4 class="montserrat mt-0 mb-0">Pairwise</h4>
+        <p class="text-muted small mb-0">This is my description</p>
+      </div>
+      <div class="col-4">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item text-center mr-0 w-25">
+            <h5 class="mb-0 bold">90</h5>
+            <p class="text-muted uppercase mb-0 small">Days</p>
+          </li>
+          <li class="list-inline-item text-center mr-0 w-25">
+            <h5 class="mb-0 bold">22</h5>
+            <p class="text-muted uppercase mb-0 small">Hours</p>
+          </li>
+          <li class="list-inline-item text-center mr-0 w-25">
+            <h5 class="mb-0 bold">10</h5>
+            <p class="text-muted uppercase mb-0 small">Mins</p>
+          </li>
+          <li class="list-inline-item text-center mr-0 w-25">
+            <h5 class="mb-0 bold">22</h5>
+            <p class="text-muted uppercase mb-0 small">Secs</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <h5>
+                  <app-idea-title></app-idea-title>
+                </h5>
+                <p class="mb-2 text-medium text-muted">
+                  <app-idea-description></app-idea-description>
+                </p>
+                <app-tags></app-tags>
+              </div>
+              <div class="col-4">
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <form>
+                          <div class="form-group">
+                            <div class="input-group mb-0 mr-sm-2">
+                              <div class="input-group-prepend">
+                                <div
+                                  class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'certificate']"
+                                  ></fa-icon>
+                                </div>
+                              </div>
+                              <input
+                                type="text"
+                                class="form-control border-left-0"
+                                placeholder="Enter in tokens..."
+                              />
+                              <p class="form-text small text-muted">
+                                Enter in the number of tokens you'd like to
+                                invest in this idea.
+                              </p>
+                            </div>
+                          </div>
+                          <div class="form-group mb-0">
+                            <button
+                              class="btn btn-primary btn-block btn-sm montserrat"
+                            >
+                              Fund This Idea
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <ng-template #fundIdeaTitle>
+                  Parent versus Child Ideas
+                </ng-template>
+                <ng-template #fundIdeaDescription>
+                  <label class="mb-0">Parent Idea</label>
+                  <p class="mb-2 small">The <span class="badge badge-info">Parent Idea</span> will continue to display in your feed.
+                    Unique votes, comments, and activity from child ideas will be removed from child ideas and added to the parent idea.
+                  </p>
+                  <label class="mb-0">Child Ideas</label>
+                  <p class="mb-2 small">
+                    Child ideas are merged into the parent idea. Once child ideas are merged into the parent idea, child ideas will -
+                  </p>
+                  <ul class="mb-0 small pl-3">
+                    <li>
+                      Display under the description section of the parent idea and no longer be visible in your feed.
+                    </li>
+                    <li>
+                      Comments from children ideas will be added to the parent idea.
+                    </li>
+                    <li>
+                      Unique votes from children ideas will be added to the parent idea.
+                    </li>
+                  </ul>
+                </ng-template>
+                <span [openDelay]="200" [closeDelay]="1500" triggers="mouseenter:mouseleave" placement="right"
+                  [ngbPopover]="fundIdeaDescription" [popoverTitle]="fundIdeaTitle" container="body">fund this idea</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of crowdfund -->

@@ -1,0 +1,43 @@
+<!-- stage specific settings decision -->
+<div class="card shadow-sm mb-3">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <p class="uppercase bold text-muted mb-0">
+          Stage Specific Settings - Decision / Survey
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="alert alert-info">
+      <p class="small mb-0">
+        Allow stakeholders to make a quick decision and automatically send an
+        opportunity to a stage depending on their response.
+      </p>
+    </div>
+    <!-- start of one section -->
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 flex-column">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <h6 class="bold montserrat pt-1 mb-0 align-baseline">
+                  Select Questions You'd Like to Ask
+                </h6>
+              </li>
+              <li class="list-inline-item float-right adjustFloatUp">
+                <app-add-question></app-add-question>
+              </li>
+            </ul>
+            <app-search-questions></app-search-questions>
+          </div>
+        </div>
+        <app-question-list></app-question-list>
+      </div>
+    </div>
+    <!-- end of one section -->
+  </div>
+</div>
+<!-- end stage specific settings decision -->

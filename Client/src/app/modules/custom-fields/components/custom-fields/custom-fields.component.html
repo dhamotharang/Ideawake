@@ -1,0 +1,114 @@
+<ng-container
+  *ngFor="let customField of customFields; let i = index"
+  [ngSwitch]="customField.customFieldType.abbreviation"
+>
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-input
+      *ngSwitchCase="fieldTypes.SINGLE_LINE_TEXT"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="textField($event, customField, i)"
+    ></app-field-input>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-textarea
+      *ngSwitchCase="fieldTypes.MULTI_LINE_TEXT"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="textField($event, customField, i)"
+    ></app-field-textarea>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-rich-textarea
+      *ngSwitchCase="fieldTypes.RICH_TEXT"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="textField($event, customField, i)"
+    ></app-field-rich-textarea>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-user-group
+      *ngSwitchCase="fieldTypes.COMMUNITY_USER_GROUP"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="selectableField($event, customField, i)"
+    ></app-field-user-group>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-select
+      *ngSwitchCase="fieldTypes.SINGLE_SELECT"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="selectableField($event, customField, i)"
+    ></app-field-select>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-multiselect
+      *ngSwitchCase="fieldTypes.MULTI_SELECT"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="selectableField($event, customField, i)"
+    ></app-field-multiselect>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-datepicker
+      *ngSwitchCase="fieldTypes.DATEPICKER"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="datepickerField($event, customField, i)"
+    ></app-field-datepicker>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-upload
+      *ngSwitchCase="fieldTypes.FILE_UPLOAD"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="uploadField($event, customField, i)"
+    ></app-field-upload>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-upload-video
+      *ngSwitchCase="fieldTypes.VIDEO_UPLOAD"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="uploadField($event, customField, i)"
+    ></app-field-upload-video>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-upload-image
+      *ngSwitchCase="fieldTypes.IMAGE_UPLOAD"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="uploadField($event, customField, i)"
+    ></app-field-upload-image>
+  </ng-container>
+
+  <ng-container *ngIf="customField.permissions?.viewCustomFieldData">
+    <app-field-number
+      *ngSwitchCase="fieldTypes.NUMBER"
+      [view]="view"
+      [customField]="customField"
+      [roles]="allRoles"
+      (data)="numberField($event, customField, i)"
+    ></app-field-number>
+  </ng-container>
+</ng-container>

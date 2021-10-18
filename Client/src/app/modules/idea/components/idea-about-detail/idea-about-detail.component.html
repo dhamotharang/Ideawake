@@ -1,0 +1,59 @@
+<div [ngClass]="{ hiddenHeight: hide }">
+  <div id="opportunity_description" class="row">
+    <div class="col-12">
+      <p class="text-medium bold mb-2 mt-2">
+        {{ 'SharedText.Description' | translationPipe }}
+      </p>
+      <p class="text-medium mb-2">
+        <span [innerHTML]="descriptionHtml"></span>
+      </p>
+    </div>
+  </div>
+  <div class="mb-0">
+    <!-- *ngIf="tagsData" -->
+    <ul *ngIf="idea.tags" class="list-inline mb-3">
+      <li class="list-inline-item mb-2" *ngFor="let tag of idea.tags">
+        <span
+          class="badge badge-light tag border tagPadding font-weight-normal montserrat"
+          [ngbPopover]=""
+          [openDelay]="100"
+          triggers="mouseenter"
+          [autoClose]="true"
+          popoverClass="popoverStyle"
+          container="body"
+        >
+          <fa-icon
+            [icon]="['fas', 'hashtag']"
+            class="text-muted tagIcon"
+          ></fa-icon
+          >{{ tagsData[tag] }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="mb-4">
+    <p class="text-medium bold mb-2">
+      {{ 'IdeaPage.Attachments' | translationPipe }}
+    </p>
+    <app-media-feature
+      [files]="files"
+      [from]="'idea'"
+      [userOpportunityPermissions]="userOpportunityPermissions"
+      (update)="editIdeaImages()"
+    >
+    </app-media-feature>
+  </div>
+  <div class="mt-2">
+    <app-custom-fields
+      [customFields]="customFields"
+      [view]="true"
+      (fieldsData)="updateSummaryCustomFieldData($event)"
+    ></app-custom-fields>
+  </div>
+</div>
+<!-- <div class="card-footer addHover viewMore">
+    <p class="text-center mb-0 uppercase small bold montserrat" (click)="hide = !hide">
+      <fa-icon [icon]="['fas', hide ? 'angle-down' : 'angle-up']"></fa-icon>
+      {{ hide ? 'View More' : 'View Less' }}
+    </p>
+  </div> -->

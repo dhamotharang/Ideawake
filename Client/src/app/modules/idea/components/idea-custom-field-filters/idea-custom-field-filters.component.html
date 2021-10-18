@@ -1,0 +1,151 @@
+<ng-container [ngSwitch]="dataSet.type">
+  <ng-container *ngSwitchCase="fieldTypes.MULTI_SELECT">
+    <ng-container [ngTemplateOutlet]="multi_single_select"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="fieldTypes.SINGLE_SELECT">
+    <ng-container [ngTemplateOutlet]="multi_single_select"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="fieldTypes.DATEPICKER">
+    <ng-container [ngTemplateOutlet]="datepicker"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="fieldTypes.NUMBER">
+    <ng-container [ngTemplateOutlet]="number"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <ng-container [ngTemplateOutlet]="default"></ng-container>
+  </ng-container>
+</ng-container>
+
+<!-- Templates -->
+<ng-template #multi_single_select>
+  <ul class="list-inline mb-0 mt-2">
+    <li class="list-inline-item">
+      <p class="text-medium bold mb-1">{{ dataSet?.title }}</p>
+    </li>
+  </ul>
+  <ul class="list-unstyled mb-0">
+    <li
+      *ngFor="let option of dataSet?.options; let j = index"
+      class="small"
+      style="padding-right: 0.375rem;"
+    >
+      <div class="custom-control custom-checkbox w-100">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="{{ dataSet.uniqueId + option.value }}"
+          (change)="changeInValue()"
+          [(ngModel)]="dataSet.options[j].selected"
+          [checked]="dataSet.options[j].selected"
+        />
+        <label
+          class="custom-control-label font-weight-normal pointer adjustSmallLabel w-100"
+          for="{{ dataSet.uniqueId + option.value }}"
+        >
+          {{ option?.label | slice: 0:20 }}
+          <span *ngIf="option?.label.length > 20">..</span>
+          <span class="float-right">
+            <span class="badge adjustFloatUpSmall text-muted">
+              {{ getOptionCount(option) }}
+            </span>
+          </span>
+        </label>
+      </div>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #datepicker>
+  <ul class="list-inline mb-0 mt-2">
+    <li class="list-inline-item">
+      <p class="text-medium bold mb-1">{{ dataSet?.title }}</p>
+    </li>
+  </ul>
+  <ul class="list-unstyled mb-0">
+    <li class="small">
+      <app-idea-filter-time
+        [label]="'Date Range'"
+        [fromDate]="dataSet.from"
+        [toDate]="dataSet.to"
+        (selectedDate)="dateFilter($event)"
+      >
+      </app-idea-filter-time>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #number>
+  <ul class="list-inline mb-0 mt-2">
+    <li class="list-inline-item">
+      <p class="text-medium bold mb-1">{{ dataSet?.title }}</p>
+    </li>
+  </ul>
+  <ul class="list-unstyled mb-0">
+    <li>
+      <div
+        class="btn-group btn-group-xs btn-block mb-2"
+        role="group"
+        aria-label="Basic example"
+      >
+        <button
+          (click)="changeSort('ASC')"
+          type="button"
+          class="btn btn-light py-3 border text-wrap btn-text"
+          [ngClass]="{ active: dataSet.numValueSort === 'ASC' }"
+        >
+          {{ 'SharedText.LowToHigh' | translationPipe }}
+        </button>
+        <button
+          (click)="changeSort('DESC')"
+          type="button"
+          class="btn btn-light py-3 border text-wrap btn-text"
+          [ngClass]="{ active: dataSet.numValueSort === 'DESC' }"
+        >
+          {{ 'SharedText.HighToLow' | translationPipe }}
+        </button>
+      </div>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #default>
+  <ul class="list-inline mb-0 mt-2">
+    <li class="list-inline-item">
+      <p class="text-medium bold mb-1">{{ dataSet?.title }}</p>
+    </li>
+  </ul>
+  <ul class="list-unstyled mb-0">
+    <li class="small">
+      <app-search-inline
+        [showIcon]="false"
+        (search)="searchText($event)"
+      ></app-search-inline>
+    </li>
+    <li>
+      <div
+        class="btn-group btn-group-xs shadow-sm btn-block mb-2 mt-2"
+        role="group"
+        aria-label="Basic example"
+      >
+        <button
+          (click)="noEntry(false)"
+          type="button"
+          class="btn btn-light py-2 border text-wrap btn-text"
+          [ngClass]="{ active: dataSet.noEntry === false }"
+        >
+          {{ 'SharedText.HasEntry' | translationPipe }}
+          ({{ counts?.hasEntry || 0 }})
+        </button>
+        <button
+          (click)="noEntry(true)"
+          type="button"
+          class="btn btn-light py-2 border text-wrap btn-text"
+          [ngClass]="{ active: dataSet.noEntry }"
+        >
+          {{ 'SharedText.NoEntry' | translationPipe }}
+          ({{ counts?.noEntry || 0 }})
+        </button>
+      </div>
+    </li>
+  </ul>
+</ng-template>

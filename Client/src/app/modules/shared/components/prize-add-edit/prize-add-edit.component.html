@@ -1,0 +1,262 @@
+<div class="modal-header card-header border-bottom-0 px-3">
+  <p class="uppercase bold text-muted mb-0 montserrat small">
+    {{ 'AddPrize.Labels.AddNewPrize' | translationPipe }}
+  </p>
+  <button type="button" class="close" aria-label="Close" (click)="closeModel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light modalScrollMaxHeight pt-0">
+  <form [formGroup]="form">
+    <div class="form-row">
+      <div class="col-12 form-group mb-3">
+        <label class="montserrat">{{
+          'AddPrize.Labels.PrizeImage' | translationPipe
+        }}</label>
+        <span
+          *ngIf="imagPosted"
+          class="list-inline-item float-right removeImage mr-1"
+        >
+          <button class="btn btn-xs btn-danger" (click)="removeImage()">
+            <fa-icon
+              [icon]="['fas', 'times-circle']"
+              placement="top"
+              ngbTooltip="Remove Image"
+            >
+            </fa-icon>
+            {{ 'AddPrize.Labels.RemoveImage' | translationPipe }}
+          </button>
+        </span>
+        <span *ngIf="!imagPosted">
+          <app-upload-single-file
+            class="h-100"
+            [folder]="s3Folder.PRIZE"
+            (file)="addImage($event)"
+          ></app-upload-single-file>
+        </span>
+        <img
+          *ngIf="imagPosted"
+          class="w-100"
+          style="max-height: 150px; object-fit: cover;"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="form.value.image"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-12 form-group mb-0">
+        <div class="row mb-3">
+          <div class="col-12">
+            <label class="montserrat">{{
+              'AddPrize.Labels.Title' | translationPipe
+            }}</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="title"
+              placeholder="Enter a title for your prize..."
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="montserrat">{{
+              'AddPrize.Labels.Description' | translationPipe
+            }}</label>
+            <textarea
+              class="form-control"
+              rows="3"
+              formControlName="description"
+              placeholder="Include how users can win, what the prize includes, and when it will be awarded..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row pt-3">
+      <div class="form-group col-12">
+        <label class="montserrat mb-2">{{
+          'AddPrize.Labels.Category' | translationPipe
+        }}</label>
+        <div class="card-group text-center">
+          <div
+            *ngFor="let category of prizeCategories"
+            [ngClass]="{ active: form.value.category == category.id }"
+            class="card cardAnimation selectStakeholder shadow-sm pointer"
+          >
+            <div class="card-body py-2" (click)="setCategory(category.id)">
+              <p class="card-title montserrat mb-0">
+                <fa-icon
+                  [icon]="['fas', prizeCategoryIcon[category.abbreviation]]"
+                  class="icon mr-1"
+                ></fa-icon>
+                {{ category.title }}
+              </p>
+              <!-- <fa-icon
+                    [icon]="['fas', prizeCategoryIcon[category.abbreviation]]"
+                    class="icon mb-2"
+                    ></fa-icon> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="montserrat">Prize Settings</label>
+    <hr class="my-0" />
+    <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+      <div class="form-group col-9 mb-0">
+        <label class="mb-0 font-weight-normal">{{
+          'AddPrize.Labels.MultipleWinners' | translationPipe
+        }}</label>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="multipleWinners"
+            [checked]="numberAvailable"
+            (click)="toggleNumber()"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="multipleWinners"
+          >
+            <span *ngIf="numberAvailable" class="pl-1">{{
+              'ChallengePost.Labels.Enabled' | translationPipe
+            }}</span>
+            <span *ngIf="!numberAvailable">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-light border-top-0 rounded-0" *ngIf="numberAvailable">
+      <div class="card-body pl-3 pr-2 py-2">
+        <div class="row">
+          <div class="col-6">
+            <label class="bold small">{{
+              'AddPrize.Labels.NumberAvailable' | translationPipe
+            }}</label>
+            <p class="mb-0 text-muted small">
+              Enter the number of this particular prize that you will be
+              awarding during this challenge.
+            </p>
+          </div>
+          <div class="col-6">
+            <input
+              type="number"
+              min="1"
+              formControlName="totalWinners"
+              class="form-control"
+              placeholder="10"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+      <div class="form-group col-9 mb-0">
+        <label class="mb-0 font-weight-normal">{{
+          'AddPrize.Labels.IncludeDollarValue' | translationPipe
+        }}</label>
+      </div>
+      <div class="form-group col-3 mb-0">
+        <div class="custom-control custom-switch mr-auto float-right">
+          <input
+            type="checkbox"
+            class="custom-control-input pointer"
+            id="includeDollarValue"
+            [checked]="dollarValue"
+            (click)="toggleDollarValue()"
+          />
+          <label
+            class="custom-control-label font-weight-normal"
+            for="includeDollarValue"
+          >
+            <span *ngIf="dollarValue" class="pl-1">{{
+              'ChallengePost.Labels.Enabled' | translationPipe
+            }}</span>
+            <span *ngIf="!dollarValue">Disabled</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-light border-top-0 rounded-0" *ngIf="dollarValue">
+      <div class="card-body pl-3 pr-2 py-2">
+        <div class="row">
+          <div class="col-6">
+            <label class="small bold">{{
+              'AddPrize.Labels.EnterDollarValue' | translationPipe
+            }}</label>
+            <p class="mb-0 text-muted small">
+              Enter how much each one of the items you're awarding is worth.
+            </p>
+          </div>
+          <div class="col-6">
+            <input
+              type="number"
+              min="0"
+              formControlName="prizeValue"
+              class="form-control"
+              placeholder="$150"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+        <div class="form-group col-9 mb-0">
+          <label class="mb-0">Redeemable Prize</label>
+        </div>
+        <div class="form-group col-3 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input
+              type="checkbox"
+              class="custom-control-input pointer"
+              id="redeemable"
+              (click)="toggleRedeemable()"
+              />
+            <label class="custom-control-label" for="redeemable"></label>
+          </div>
+        </div>
+      </div> -->
+    <div class="card bg-light border-top-0 rounded-0" *ngIf="redeemableDetails">
+      <div class="card-body pl-3 pr-2 py-2">
+        <div class="row">
+          <div class="col-5">
+            <label class="font-weight-normal">Enter Redeemable Points</label>
+          </div>
+          <div class="col-7">
+            <input type="text" class="form-control" placeholder="100 RP" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer bg-light">
+  <p class="mr-auto small text-muted font-italic">
+    You must include a title to add a new prize.
+  </p>
+  <button type="button" class="btn btn-light border" (click)="closeModel()">
+    {{ 'AddPrize.Labels.Cancel' | translationPipe }}
+  </button>
+  <button
+    *ngIf="!prizeValue.title"
+    type="submit"
+    class="btn btn-primary px-4"
+    [disabled]="!form.valid"
+    (click)="onSubmit(form.value)"
+  >
+    {{ 'AddPrize.Labels.AddPrize' | translationPipe }}
+  </button>
+  <button
+    *ngIf="prizeValue.title"
+    type="submit"
+    class="btn btn-primary px-4"
+    [disabled]="!form.valid"
+    (click)="onSubmit(form.value)"
+  >
+    {{ 'AddPrize.Labels.EditPrize' | translationPipe }}
+  </button>
+</div>

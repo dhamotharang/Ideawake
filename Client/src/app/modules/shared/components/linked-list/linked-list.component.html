@@ -1,0 +1,176 @@
+<div class="card bg-light shadow-sm rounded-0 border-left-0 border-right-0">
+  <div
+    class="card-body text-medium p-0"
+    style="border-left: 0; border-right: 0;"
+    *ngFor="let item of linkedOpportunities"
+  >
+    <!-- start of one-->
+    <div class="row py-2">
+      <div class="col-12">
+        <div class="row mr-0">
+          <div class="col-4">
+            <div class="media d-flex align-items-center">
+              <fa-icon
+                [icon]="['fas', 'angle-down']"
+                (click)="toggleDetails()"
+                *ngIf="!viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <fa-icon
+                [icon]="['fas', 'angle-up']"
+                (click)="toggleDetails()"
+                *ngIf="viewDetails"
+                class="mx-2 inverseLinkDark"
+                style="font-size: 1.1rem; line-height: 0.9rem;"
+                ngbTooltip="View More"
+              >
+              </fa-icon>
+              <div class="media-body">
+                <label
+                  class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                  ngbTooltip="{{ item?.linkedOpportunity?.title }}"
+                  placement="bottom"
+                  style="width: 200px;"
+                  ><span class="text-muted">{{
+                    '#' + item?.linkedOpportunity?.id
+                  }}</span>
+                  {{
+                    item?.linkedOpportunity?.title.length >= 20
+                      ? item?.linkedOpportunity?.title.substring(0, 20) + '..'
+                      : item?.linkedOpportunity?.title
+                  }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium">
+            <p class="text-medium mb-0">{{ item.opportunityTypeName }}</p>
+          </div>
+          <div class="col-2 d-flex align-items-center pl-0">
+            <span
+              class="badge badge-info py-1"
+              ngbTooltip="{{ item?.linkedOpportunity?.stage?.description }}"
+              placement="botom"
+              >{{ item?.linkedOpportunity?.stage?.status?.title }}
+            </span>
+          </div>
+          <div class="col-2 d-flex align-items-center text-medium pl-0">
+            <p
+              class="text-medium mb-0"
+              style="margin-left: -25px;"
+              ngbTooltip="Date Submitted"
+            >
+              {{
+                item?.linkedOpportunity?.createdAt?.month +
+                  '/' +
+                  item?.linkedOpportunity?.createdAt?.day +
+                  '/' +
+                  item?.linkedOpportunity?.createdAt?.year
+              }}
+            </p>
+          </div>
+          <div class="col-2 align-items-center pl-0">
+            <div ngbDropdown>
+              <div
+                ngbDropdownToggle
+                class="btn btn-sm text-medium repositionParent removeCaret"
+              >
+                {{ item?.relationTitle }}
+                <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+              </div>
+              <div ngbDropdownMenu>
+                <button
+                  *ngFor="let option of opportunityLinkageRelationships"
+                  ngbDropdownItem
+                  class="btn-sm pl-2"
+                  (click)="updateLinkageRelationship(item?.id, option.key)"
+                >
+                  {{ option.title }}
+                </button>
+              </div>
+            </div>
+
+            <div class="float-right" ngbDropdown>
+              <fa-icon
+                [icon]="['fas', 'times-circle']"
+                class="inverseLink removeCaret"
+                ngbDropdownToggle
+                ngbTooltip="Remove Link"
+              >
+              </fa-icon>
+              <div ngbDropdownMenu class="pt-0 setMinWidth">
+                <div
+                  class="bg-light text-center py-1 mb-3 border-bottom rounded-top"
+                >
+                  <label class="text-muted mb-0 small bold"
+                    >Unlink This Opportunity</label
+                  >
+                </div>
+                <div class="px-3" style="max-width: 15rem;">
+                  <p class="text-medium text-center">
+                    Are you sure you would like to unlink this opportunity?
+                  </p>
+                  <button
+                    class="btn-sm btn-outline-primary btn-block"
+                    (click)="unlinkOpportunity(item?.id)"
+                  >
+                    <fa-icon [icon]="['fas', 'object-ungroup']"></fa-icon>
+                    Unlink Opportunity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- if view more -->
+    <div
+      class="card-footer bg-white"
+      *ngIf="viewDetails && item?.linkedOpportunity?.description"
+    >
+      <div class="row">
+        <div class="col-12">
+          <p class="small text-muted mb-2">
+            {{ item?.linkedOpportunity?.description }}
+            <span
+              class="link font-underline"
+              *ngIf="item?.linkedOpportunity?.description"
+              ><u>read more...</u></span
+            >
+          </p>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p
+                class="small text-muted mb-0"
+                *ngIf="item?.linkedOpportunity?.description"
+              >
+                {{ item?.linkedOpportunity?.createdBy }}
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p
+                class="small text-muted mb-0"
+                *ngIf="item?.linkedOpportunity?.description"
+              >
+                {{
+                  item?.linkedOpportunity?.createdAt?.month +
+                    '/' +
+                    item?.linkedOpportunity?.createdAt?.day +
+                    '/' +
+                    item?.linkedOpportunity?.createdAt?.year
+                }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- end if view more -->
+    <!-- end of one-->
+    <hr class="my-0" />
+  </div>
+</div>

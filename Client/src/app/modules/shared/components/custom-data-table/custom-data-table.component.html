@@ -1,0 +1,58 @@
+<div class="row scrollTableOnMobile">
+  <div class="col-12 removePaddingOnMobile">
+    <table class="table table-striped bg-white" style="overflow-x: hidden;">
+      <ng-container *ngIf="isLoading">
+        <app-list-loader
+          [count]="5"
+          [style]="{ 'border-radius': '5', height: '50px' }"
+        >
+        </app-list-loader>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoading">
+        <thead>
+          <tr>
+            <th *ngFor="let col of columnConfigs">
+              {{ col.header }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <td *ngFor="let col of columnConfigs">
+              <!-- if there is no customCellTemplate, just render the data -->
+              <div *ngIf="!col.customCellTemplate">
+                {{ row[col.key] }}
+              </div>
+              <div *ngIf="col.customCellTemplate">
+                <ng-template
+                  #customCellTemplateT
+                  *ngTemplateOutlet="
+                    col.customCellTemplate;
+                    context: { $implicit: { row: row, col: col } }
+                  "
+                ></ng-template>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container>
+    </table>
+  </div>
+</div>
+<div class="row pt-2 mb-0">
+  <div class="col-sm-12">
+    <div class="card rounded-0 shadow-sm mb-2">
+      <div class="card-body bg-white">
+        <div class="float-right">
+          <app-table-pagination
+            maxSize="2"
+            [totalCount]="totalCount"
+            (changePage)="changePage($event)"
+          >
+          </app-table-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

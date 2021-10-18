@@ -1,0 +1,62 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.selectStakeholder {
+  background-color: $white;
+  color: $gray-900;
+}
+
+.selectStakeholder:hover {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder.active {
+  background-color: $primary;
+  color: $white;
+}
+
+.selectStakeholder .icon {
+  color: $gray-600;
+}
+
+.selectStakeholder:hover .icon {
+  color: $white;
+}
+
+.selectStakeholder.active .icon {
+  color: $white;
+}
+
+.nav-link {
+  padding-left: 0;
+  padding-right: 0;
+  color: #434343;
+}
+
+.nav-link.active {
+  padding-left: 0;
+  padding-right: 0;
+  color: #1ab394;
+}
+
+.angleIcon {
+  position: relative;
+  top: 0.1rem;
+  font-size: 1.2rem;
+}
+
+.importSection {
+  padding: 1rem;
+  border: 2px dotted #dddddd;
+}
+
+.iconPosition {
+  position: absolute;
+  right: 14.9rem;
+  bottom: 4rem;
+  font-size: 3.85rem;
+  z-index: 10;
+}

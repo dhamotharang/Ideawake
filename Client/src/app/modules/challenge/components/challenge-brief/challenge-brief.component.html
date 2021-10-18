@@ -1,0 +1,644 @@
+<div class="row">
+  <div
+    [ngClass]="modal ? 'col-12' : 'col-12 col-md-8 marginAdjustPostChallenge'"
+    class="removePaddingOnMobile"
+  >
+    <div [ngClass]="!modal ? 'mb-4' : ''" class="card shadow-sm">
+      <div class="card-header py-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p class="uppercase montserrat bold text-muted mb-0 pt-1">
+              {{ 'ChallengePost.Labels.ChallengeBrief' | translationPipe }}
+            </p>
+          </li>
+          <!-- <li class="list-inline-item float-right">
+            <p class="form-text text-muted small mb-0">
+              You're using the template TemplateName.
+              <a class="">
+                <fa-icon [icon]="['fas', 'edit']" class="text-muted"></fa-icon>
+                Change Template
+              </a>
+            </p>
+          </li> -->
+          <li class="list-inline-item float-right" *ngIf="modal">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="close()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+          <li class="list-inline-item float-right pt-1" *ngIf="!modal">
+            <p class="small bold uppercase text-muted mb-0">Step 3 of 5</p>
+          </li>
+        </ul>
+      </div>
+      <!-- challengeScrollMaxHeight -->
+      <div
+        class="card-body"
+        [ngClass]="modal ? 'modalScrollMaxHeight hideOverflow' : ''"
+      >
+        <form [formGroup]="form">
+          <div class="form-row">
+            <!-- <div class="form-group mb-0 col-md-3 col-12">
+              <label>{{
+                'ChallengePost.Labels.Banner' | translationPipe
+              }}</label>
+            </div> -->
+            <div class="form-group col-md-12 col-12">
+              <label>{{
+                'ChallengePost.Labels.Banner' | translationPipe
+              }}</label>
+              <span
+                *ngIf="form.value.bannerImage"
+                class="list-inline-item float-right removeImage mr-1"
+              >
+                <button class="btn btn-xs btn-danger" (click)="removeBanner()">
+                  <fa-icon
+                    [icon]="['fas', 'times-circle']"
+                    placement="top"
+                    ngbTooltip="Remove Image"
+                  >
+                  </fa-icon>
+                  {{ 'AddPrize.Labels.RemoveImage' | translationPipe }}
+                </button>
+              </span>
+              <app-upload-single-file
+                *ngIf="!form.value.bannerImage"
+                [folder]="s3Folders.CHALLENGE"
+                (file)="setFile($event)"
+              >
+              </app-upload-single-file>
+              <p
+                *ngIf="!form.value.bannerImage"
+                class="small text-muted pt-1 mb-0"
+              >
+                {{ 'ChallengePost.Labels.OptimalImageSize' | translationPipe }}
+              </p>
+              <img
+                *ngIf="form.value.bannerImage"
+                class="w-100"
+                style="max-height: 200px; object-fit: cover;"
+                [defaultImage]="defaultImage"
+                [lazyLoad]="form.value.bannerImage"
+              />
+
+              <!-- <app-uploaded-content
+                (file)="setFile($event)"
+              ></app-uploaded-content> -->
+            </div>
+          </div>
+          <div class="form-row">
+            <!-- <div class="form-group mb-0 col-md-3 col-12">
+              <label>{{
+                'ChallengePost.Labels.Title' | translationPipe
+              }}</label>
+            </div> -->
+            <div class="form-group col-md-12 col-12">
+              <label>
+                {{ 'ChallengePost.Labels.Title' | translationPipe }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="title"
+                formControlName="title"
+                placeholder="{{
+                  'ChallengePost.Labels.PlaceholderTitle' | translationPipe
+                }}"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <!-- <div class="form-group mb-0 col-md-3 col-12">
+              <label>{{
+                'ChallengePost.Labels.Description' | translationPipe
+              }}</label>
+            </div> -->
+            <div class="form-group col-md-12 col-12 mb-0">
+              <div class="form-group mb-0">
+                <label>
+                  {{ 'ChallengePost.Labels.Description' | translationPipe }}
+                </label>
+                <textarea
+                  class="form-control"
+                  rows="7"
+                  name="description"
+                  formControlName="description"
+                  placeholder="{{
+                    'ChallengePost.Labels.PlaceholderDescription'
+                      | translationPipe
+                  }}"
+                ></textarea>
+                <!-- <div class="repositionUploadContentOptions">
+                  <app-upload-content-options></app-upload-content-options>
+                </div> -->
+              </div>
+              <div class="form-row pb-2">
+                <div class="form-group col-12 mb-0">
+                  <div
+                    class="addFiles text-center"
+                    (click)="openUploadComponent()"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'file']"
+                      class="text-muted mr-1"
+                    ></fa-icon>
+                    {{
+                      'ChallengePost.Labels.AddChallengeFiles' | translationPipe
+                    }}
+                  </div>
+                </div>
+              </div>
+              <!-- start of files added -->
+              <ul class="list-unstyled border-bottom mb-0 pb-2">
+                <li
+                  class="mb-1"
+                  *ngFor="let attachment of attachments; let i = index"
+                >
+                  <div class="media">
+                    <fa-icon
+                      [icon]="['fas', 'file']"
+                      class="text-info text-medium"
+                    ></fa-icon>
+                    <a
+                      class="inverseLinkDark text-medium ml-2"
+                      [href]="attachment.url"
+                      target="_blank"
+                      [ngbTooltip]="attachment.name"
+                      >{{
+                        attachment.name.length > 40
+                          ? attachment.name.substring(0, 40) + '...'
+                          : attachment.name
+                      }}</a
+                    >
+                    <div class="media-body">
+                      <p
+                        class="float-right mb-0 inverseLinkDanger text-medium"
+                        (click)="deleteMedia(i)"
+                      >
+                        <fa-icon
+                          [icon]="['fas', 'times-circle']"
+                          class="text-medium"
+                        ></fa-icon>
+                        {{ 'IdeaUsers.Labels.Remove' | translationPipe }}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <!-- end of files added -->
+              <div class="form-row pt-2 pb-2 mx-0 dottedBottomBorder">
+                <div class="form-group col-9 mb-0">
+                  <label class="mb-0 font-weight-normal">{{
+                    'ChallengePost.Labels.AdditionalChallengeBrief'
+                      | translationPipe
+                  }}</label>
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="ml-1 text-muted"
+                    ngbTooltip="Need to provide more than a simple description for your challenge? Use the additional challenge brief to embed images, media, and a richer description of your challenge."
+                    placement="bottom"
+                  ></fa-icon>
+                </div>
+                <div class="form-group col-3 mb-0">
+                  <div class="custom-control custom-switch mr-auto float-right">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input pointer"
+                      id="hasAdditionalBrief"
+                      name="hasAdditionalBrief"
+                      formControlName="hasAdditionalBrief"
+                    />
+                    <label
+                      class="custom-control-label font-weight-normal"
+                      for="hasAdditionalBrief"
+                    >
+                      <span
+                        *ngIf="form.value.hasAdditionalBrief"
+                        class="pl-1"
+                        >{{
+                          'ChallengePost.Labels.Enabled' | translationPipe
+                        }}</span
+                      >
+                      <span *ngIf="!form.value.hasAdditionalBrief">{{
+                        'ChallengePost.Labels.Disabled' | translationPipe
+                      }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- if additional challenge brief enabled -->
+              <div class="card rounded-0" *ngIf="form.value.hasAdditionalBrief">
+                <div class="card-body px-3 py-6 bg-light">
+                  <div class="form-group">
+                    <label>{{
+                      'ChallengePost.Labels.AdditionalChallengeBrief'
+                        | translationPipe
+                    }}</label>
+                    <editor
+                      apiKey="73sltfaluqj4o5n330wol1t1k1j1u8bre6or3dbr3mjz4gmn"
+                      formControlName="additionalBrief"
+                      [init]="tinyMceConfig"
+                    ></editor>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0 d-none">
+                <div class="form-group col-9 mb-0">
+                  <label class="mb-0 font-weight-normal"
+                    >Dedicated Terms and Conditions for This Challenge</label
+                  >
+                </div>
+                <div class="form-group col-3 mb-0">
+                  <div class="custom-control custom-switch mr-auto float-right">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input pointer"
+                      id="participantsTab"
+                      (click)="dedicatedTerms = !dedicatedTerms"
+                    />
+                    <label
+                      class="custom-control-label font-weight-normal"
+                      for="participantsTab"
+                    >
+                      Enabled
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- if special terms enabled -->
+              <div
+                class="card rounded-0 border-top-0 bg-light"
+                *ngIf="dedicatedTerms"
+              >
+                <div class="card-body px-3 py-3">
+                  <div class="alert alert-info">
+                    <p class="small mb-0">
+                      By requiring participants to opt in to terms and
+                      conditions, they will first be required to "register" for
+                      your challenge before being able to post an idea.
+                    </p>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-12 mb-0">
+                      <label>Introductory Message</label>
+                    </div>
+                    <div class="form-group col-12 mb-0">
+                      <input
+                        type="text"
+                        class="form-control mb-2"
+                        placeholder="Enter an introductory message here..."
+                      />
+                      <p class="small text-muted">
+                        This is the introductory message that participants will
+                        see when they click "register" to your challenge.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-12 mb-0">
+                      <label>Terms and Conditions for Participation</label>
+                    </div>
+                    <div class="form-group col-12 mb-0 pt-1">
+                      PUT IN RICH TEXT EDITOR HERE
+                      <p class="small text-muted mb-0">
+                        Upload your terms and conditions using the upload
+                        section to the right.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end if special terms enabled -->
+            </div>
+          </div>
+          <!-- <div class="form-row">
+            <div class="form-group col-4">
+              <label>Upload a Banner Image</label>
+              <app-upload-content></app-upload-content>
+            </div>
+            <div class="form-group col-4">
+              <label>Upload Featured Images</label>
+              <app-upload-content></app-upload-content>
+            </div>
+            <div class="form-group col-4">
+              <label>Upload a Featured Video</label>
+              <app-upload-content></app-upload-content>
+            </div>
+          </div> -->
+          <!-- timeline -->
+          <div class="form-row">
+            <!-- <div class="form-group mb-0 col-md-3 col-12"></div> -->
+            <div class="form-group mb-2 col-md-12 col-12">
+              <div class="form-row dottedBottomBorder pt-2 pb-2 mx-0">
+                <div class="form-group col-9 mb-0">
+                  <label class="mb-0 font-weight-normal">
+                    {{ 'ChallengePost.Labels.StartEndDate' | translationPipe }}
+                  </label>
+                  <fa-icon
+                    [icon]="['fas', 'info-circle']"
+                    class="ml-1 text-muted"
+                    ngbTooltip="If enabled, a countdown timer will display on your challenge to tell participants how much time they have to make a submission to your challenge."
+                    placement="bottom"
+                  ></fa-icon>
+                </div>
+                <div class="form-group col-3 mb-0">
+                  <div class="custom-control custom-switch mr-auto float-right">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input pointer"
+                      id="startEndDate"
+                      (click)="haveExpiryChange($event)"
+                      formControlName="haveExpiry"
+                    />
+                    <label
+                      class="custom-control-label font-weight-normal"
+                      for="startEndDate"
+                    >
+                      <span *ngIf="form.value.haveExpiry" class="pl-1">{{
+                        'ChallengePost.Labels.Enabled' | translationPipe
+                      }}</span>
+                      <span *ngIf="!form.value.haveExpiry">{{
+                        'ChallengePost.Labels.Disabled' | translationPipe
+                      }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="form.value.haveExpiry"
+                class="card rounded-0 border-top-0"
+              >
+                <div class="card-body px-3 pb-1 bg-light">
+                  <div class="row">
+                    <div class="col-6">
+                      <div
+                        ngbDropdown
+                        container="body"
+                        #startDrop="ngbDropdown"
+                      >
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon2">
+                              <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="expiryStartDate"
+                            class="form-control"
+                            placeholder="Start Date"
+                            ngbDropdownToggle
+                          />
+                          <div
+                            ngbDropdownMenu
+                            class="shadow py-0"
+                            isOpen="dropdownIsOpen"
+                          >
+                            <div class="card border-0">
+                              <div class="card-body pt-2">
+                                <div class="pb-2">
+                                  <label class="text-medium">Select Date</label>
+                                  <input
+                                    type="text"
+                                    formControlName="expiryStartDate"
+                                    class="form-control form-control-sm"
+                                    placeholder="10/22/20"
+                                  />
+                                </div>
+                                <ngb-datepicker
+                                  #startDate
+                                  [minDate]="minDate"
+                                  (dateSelect)="
+                                    onDateSelect($event, 'expiryStartDate')
+                                  "
+                                ></ngb-datepicker>
+                                <div class="pt-2">
+                                  <button
+                                    class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                    (click)="startDrop.close()"
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button
+                                    class="btn btn-primary btn-sm shadow-sm"
+                                    (click)="startDrop.close()"
+                                  >
+                                    Save Changes
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div ngbDropdown container="body" #endDrop="ngbDropdown">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                              <fa-icon [icon]="['fas', 'calendar']"></fa-icon>
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            formControlName="expiryEndDate"
+                            class="form-control"
+                            placeholder="End Date"
+                            ngbDropdownToggle
+                          />
+                          <div ngbDropdownMenu class="shadow py-0">
+                            <div class="card border-0">
+                              <div class="card-body pt-2">
+                                <div class="pb-2">
+                                  <label class="text-medium">Select Date</label>
+                                  <input
+                                    type="text"
+                                    formControlName="expiryEndDate"
+                                    class="form-control form-control-sm"
+                                    placeholder="10/22/20"
+                                  />
+                                </div>
+                                <ngb-datepicker
+                                  #endDate
+                                  [minDate]="minDate"
+                                  (dateSelect)="
+                                    onDateSelect($event, 'expiryEndDate')
+                                  "
+                                ></ngb-datepicker>
+                                <div class="pt-2">
+                                  <button
+                                    class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                    (click)="endDrop.close()"
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button
+                                    class="btn btn-primary btn-sm shadow-sm"
+                                    (click)="endDrop.close()"
+                                  >
+                                    Save Changes
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end timeline -->
+          <div class="form-row pt-3">
+            <!-- <div class="form-group mb-0 col-md-3 col-12 mb-0">
+              <label>{{
+                'ChallengePost.Labels.ChallengeTags' | translationPipe
+              }}</label>
+            </div> -->
+            <div class="form-group col-md-12 col-12 mb-0">
+              <label>{{
+                'ChallengePost.Labels.ChallengeTags' | translationPipe
+              }}</label>
+              <app-search-tags
+                [data]="tags"
+                (dataEmitter)="tagSelected($event)"
+                [selected]="form.value.tags"
+              >
+              </app-search-tags>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- footerFixed -->
+      <div class="card-footer px-3 pb-5 pb-md-3" *ngIf="!modal">
+        <div class="form-row">
+          <div class="col-6 form-group mb-0">
+            <button
+              class="btn btn-light border"
+              (click)="changeTab('audience')"
+            >
+              <fa-icon [icon]="['fas', 'angle-left']" class="mt-1"></fa-icon>
+              {{ 'ChallengePost.Labels.Previous' | translationPipe }}
+              <span class="d-none d-md-inline"
+                >- {{ 'ChallengePost.Labels.Audience' | translationPipe }}</span
+              >
+            </button>
+          </div>
+          <div class="col-6 form-group mb-0">
+            <div class="float-right">
+              <span ngbTooltip="Coming soon!">
+                <button
+                  (click)="saveDraft()"
+                  [disabled]="form.invalid"
+                  class="btn btn-light mr-1 disabled"
+                  style="cursor: not-allowed;"
+                  *ngIf="!challengeId"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'save']"
+                    class="text-muted"
+                  ></fa-icon>
+                  {{ 'ChallengePost.Labels.SaveDraft' | translationPipe }}
+                </button>
+              </span>
+              <button
+                class="btn btn-primary mb-0"
+                [disabled]="form.invalid"
+                (click)="changeTab('settings')"
+              >
+                {{ 'ChallengePost.Labels.Next' | translationPipe }}
+                <span class="d-none d-md-inline"
+                  >-
+                  {{
+                    'ChallengePost.Labels.SelectSettings' | translationPipe
+                  }}</span
+                >
+                <fa-icon [icon]="['fas', 'angle-right']" class="ml-1"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light" *ngIf="modal">
+        <button class="btn btn-light border" (click)="close()">Cancel</button>
+        <button class="btn btn-primary ml-1" (click)="updateDetails()">
+          Save Changes
+        </button>
+      </div>
+      <!-- <div class="card-footer">
+        <div class="form-row">
+          <div class="col-12 col-md-2 form-group mb-0">
+            <button
+              class="btn btn-light border btn-block"
+              [disabled]="form.invalid"
+              (click)="saveDraft()"
+              *ngIf="!challengeId"
+            >
+              {{ 'ChallengePost.Labels.SaveDraft' | translationPipe }}
+            </button>
+          </div>
+          <div class="col-12 col-md-2 offset-md-5 form-group mb-0">
+            <button
+              class="btn btn-light border btn-block"
+              (click)="changeTab('audience')"
+            >
+              <fa-icon [icon]="['fas', 'angle-left']" class="mt-1"></fa-icon>
+              {{ 'ChallengePost.Labels.Previous' | translationPipe }}
+            </button>
+          </div>
+          <div class="col-12 col-md-3 form-group mb-0">
+            <button
+              class="btn btn-primary btn-block"
+              [disabled]="form.invalid"
+              (click)="changeTab('settings')"
+            >
+              {{ 'ChallengePost.Labels.Next' | translationPipe }}
+              <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div
+    class="d-none d-md-block col-md-3 pl-0"
+    style="margin-top: 0.3rem;"
+    *ngIf="!modal"
+  >
+    <div class="alert alert-info shadow-sm">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-0 bold">How to Create Valuable Challenge Statements</p>
+          <hr class="mt-2 mb-2" />
+          <div class="row">
+            <div class="col-12">
+              <p class="small">
+                Challenge statements are simply topics that are related to short
+                or long-term organizational objectives. For more information,
+                check out our free
+                <a
+                  href="https://docs.google.com/document/d/1zfKYcJ05S5xo_mWMtCS4n4IsrLQKlufEvPabpO9xFZ4/edit"
+                  class="text-info underline"
+                  target="_blank"
+                  >challenge statement examples</a
+                >.
+              </p>
+              <!-- <ol class="ml-2">
+                <li>
+
+                </li>
+              </ol> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

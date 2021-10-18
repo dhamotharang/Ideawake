@@ -1,0 +1,280 @@
+<button
+  class="btn btn-light shadow-sm border btn-xs"
+  (click)="open(mergeOpportunity)"
+>
+  <fa-icon [icon]="['fas', 'code-merge']"></fa-icon>
+  Add New
+</button>
+
+<ng-template #mergeOpportunity let-modal>
+  <div class="modal-header card-header">
+    <p class="small uppercase bold mb-0">Merge Opportunities</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm bg-light mb-3">
+          <div class="card-body py-3">
+            <p class="mb-1 text-muted uppercase small bold">
+              Search Ideas
+            </p>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-12 mb-0">
+                  <!-- start of insert -->
+                  <div ngbDropdown>
+                    <div class="form-group mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Start typing to search ideas..."
+                        ngbDropdownToggle
+                      />
+                    </div>
+                    <div
+                      class="row searchDropdownComponent border shadow pt-0 pb-0"
+                      style="width: 145%;"
+                      ngbDropdownMenu
+                    >
+                      <div class="col-12 p-0">
+                        <!-- start of one -->
+                        <div class="globalUserSearchResult addHover">
+                          <!-- start of one -->
+                          <div class="globalUserSearchResult addHover">
+                            <div class="row mr-0">
+                              <div class="col-4">
+                                <label
+                                  class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                                  ><span class="text-muted">#25</span>
+                                  Opportunity Title</label
+                                >
+                              </div>
+                              <div
+                                class="col-3 d-flex align-items-center text-medium"
+                              >
+                                <p class="text-medium mb-0">Opp Type</p>
+                              </div>
+                              <div class="col-3 d-flex align-items-center pl-0">
+                                <span
+                                  class="badge badge-info py-1"
+                                  ngbTooltip="Status description if exists..."
+                                  >Global Status</span
+                                >
+                              </div>
+                              <div
+                                class="col-2 d-flex align-items-center text-medium pl-0"
+                              >
+                                <p
+                                  class="text-medium mb-0"
+                                  ngbTooltip="Date Submitted"
+                                >
+                                  10/22/15
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- end of one -->
+                        </div>
+                        <!-- end of one -->
+                        <!-- no results returned -->
+                        <div class="globalUserSearchResult pt-3 pb-3">
+                          <div class="text-center">
+                            <fa-icon
+                              [icon]="['fas', 'eye-slash']"
+                              class="iconLarge text-muted"
+                            ></fa-icon>
+                          </div>
+                          <h6 class="text-center mb-0">
+                            Oops! No Ideas Returned
+                          </h6>
+                          <p
+                            class="mb-0 pt-1 pb-1 text-muted text-center small"
+                          >
+                            Sorry, we couldn't find any ideas that matched your
+                            search.
+                          </p>
+                        </div>
+                        <!-- instructions for offclick -->
+                        <div class="globalUserSearchResult bg-light py-1">
+                          <p
+                            class="mb-0 pt-1 pb-1 text-muted text-center small"
+                          >
+                            <fa-icon
+                              [icon]="['fas', 'info-circle']"
+                              class="text-muted"
+                            ></fa-icon>
+                            Close this dropdown by clicking outside of it.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end of insert -->
+                </div>
+                <div class="form-group col-4 mb-0">
+                  <li class="list-inline-item" ngbDropdown>
+                    <button
+                      class="btn btn-light border removeCaret btn-block"
+                      ngbDropdownToggle
+                    >
+                      Relates To
+                      <fa-icon
+                        [icon]="['fas', 'angle-down']"
+                        class="ml-1"
+                      ></fa-icon>
+                    </button>
+                    <div ngbDropdownMenu>
+                      <button ngbDropdownItem class="btn-sm pl-2">
+                        Relates To
+                      </button>
+                      <button ngbDropdownItem class="btn-sm pl-2">
+                        Blocks
+                      </button>
+                      <button ngbDropdownItem class="btn-sm pl-2">
+                        Is Blocked By
+                      </button>
+                    </div>
+                  </li>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- parent idea -->
+    <p class="mb-1 text-muted uppercase small bold">
+      Parent Idea
+    </p>
+    <div class="row">
+      <div class="col-12">
+        <div class="row py-2">
+          <div class="col-12">
+            <div class="row mr-0">
+              <div class="col-4">
+                <div class="media d-flex align-items-center">
+                  <fa-icon
+                    [icon]="['fas', 'angle-down']"
+                    (click)="toggleDetails()"
+                    *ngIf="!viewDetails"
+                    class="mx-2 inverseLinkDark"
+                    style="font-size: 1.1rem; line-height: 0.9rem;"
+                    ngbTooltip="View More"
+                  >
+                  </fa-icon>
+                  <fa-icon
+                    [icon]="['fas', 'angle-up']"
+                    (click)="toggleDetails()"
+                    *ngIf="viewDetails"
+                    class="mx-2 inverseLinkDark"
+                    style="font-size: 1.1rem; line-height: 0.9rem;"
+                    ngbTooltip="View More"
+                  >
+                  </fa-icon>
+                  <div class="media-body">
+                    <label
+                      class="mb-0 font-weight-normal inverseLinkDark text-medium"
+                      ><span class="text-muted">#25</span> Opportunity
+                      Title</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 d-flex align-items-center text-medium">
+                <p class="text-medium mb-0">Opp Type</p>
+              </div>
+              <div class="col-2 d-flex align-items-center pl-0">
+                <span
+                  class="badge badge-info py-1"
+                  ngbTooltip="Status description if exists..."
+                  >Global Status</span
+                >
+              </div>
+              <div class="col-2 d-flex align-items-center text-medium pl-0">
+                <p class="text-medium mb-0" ngbTooltip="Date Submitted">
+                  10/22/15
+                </p>
+              </div>
+              <div class="col-2 align-items-center pl-0">
+                <span class="badge badge-secondary repositionParent"
+                  >Parent Idea</span
+                >
+                <!-- <div class="float-right" ngbDropdown>
+                  <fa-icon [icon]="['fas', 'times-circle']" class="inverseLink" ngbDropdownToggle ngbTooltip="Remove Merge">
+                  </fa-icon>
+                  <div ngbDropdownMenu class="pt-0 setMinWidth">
+                    <div class="bg-light text-center py-1 mb-3 border-bottom rounded-top">
+                      <label class="text-muted mb-0 small bold">Unmerge This Opportunity</label>
+                    </div>
+                    <div class="px-3" style="max-width: 15rem;">
+                      <p class="text-medium text-center">Are you sure you would like to unmerge this opportunity?</p>
+                      <button class="btn-sm btn-outline-primary btn-block">
+                        <fa-icon [icon]="['fas', 'object-ungroup']"></fa-icon>
+                        Unmerge Opportunity
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- if view more -->
+        <div class="card-footer bg-white" *ngIf="viewDetails">
+          <div class="row">
+            <div class="col-12">
+              <p class="small text-muted mb-2">
+                Diseases like Autism and Asperger’s syndrome are incurable
+                uptill date. As of current situation, autism therapy includes
+                in-person sessions with the doctor. But with an effective use of
+                these sessions can be lessened to a good extent. Mobile VR
+                actually helps investigate social interactions with autistic
+                kids by including virtual characters.
+                <span class="link font-underline"><u>read more...</u></span>
+              </p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small text-muted mb-0">
+                    Posted by Coby Skonord
+                  </p>
+                </li>
+                <li class="list-inline-item">
+                  <p class="small text-muted mb-0">
+                    Posted on 12/22/20
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- if view more -->
+      </div>
+    </div>
+    <hr class="mt-0" />
+    <!-- end parent idea -->
+    <p class="mb-1 text-muted uppercase small bold">
+      Ideas Being Merged Into Parent Idea
+    </p>
+    <div class="card bg-light mb-2 shadow-sm">
+      <div class="card-body text-medium p-0">
+        <app-merged-list></app-merged-list>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-primary" (click)="modal.dismiss('Cross click')">
+      Save Changes
+    </button>
+  </div>
+</ng-template>

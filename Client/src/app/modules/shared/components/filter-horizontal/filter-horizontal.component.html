@@ -1,0 +1,73 @@
+<div class="row pt-2">
+  <div class="col-sm-12">
+    <div class="card rounded-0 border-right-0 border-left-0">
+      <div class="card-body pt-3 pb-3 pl-3 pr-3">
+        <div class="row">
+          <div class="col-sm-3 pt-1">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" />
+              <label class="custom-control-label pl-0 pt-0" for="selectAll">
+                <h5 class="mb-0 text-muted font-weight-normal">
+                  {{ length }} Results Returned
+                </h5>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <form>
+              <div class="input-group mb-0 mr-sm-2">
+                <div class="input-group-prepend">
+                  <div
+                    class="input-group-text pb-0 pt-0 pl-2 pr-2 border-right-0 bg-white"
+                  >
+                    <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="form-control form-control-sm border-left-0"
+                  placeholder="Search..."
+                />
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-5 pt-1">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item pr-3">
+                <h5 class="mb-0 font-weight-normal text-muted">
+                  <fa-icon [icon]="['fas', 'filter']" class="small"></fa-icon>
+                  Filter
+                  <fa-icon
+                    [icon]="['fas', 'caret-down']"
+                    class="small"
+                  ></fa-icon>
+                </h5>
+              </li>
+              <li class="list-inline-item">
+                <div ngbDropdown class="d-inline-block">
+                  <h5
+                    class="mb-0 font-weight-normal text-muted pointer"
+                    id="sortDropdown"
+                    ngbDropdownToggle
+                  >
+                    <fa-icon [icon]="['fas', 'sort']"></fa-icon>
+                    Sort - Newest
+                  </h5>
+                  <div ngbDropdownMenu aria-labelledby="sortDropdown">
+                    <button ngbDropdownItem>Newest</button>
+                    <button ngbDropdownItem>Oldest</button>
+                  </div>
+                </div>
+              </li>
+              <li class="list-inline-item float-right">
+                <h5 class="mb-0 font-weight-normal text-muted">
+                  <fa-icon [icon]="['fas', 'cog']" class="text-muted"></fa-icon>
+                </h5>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

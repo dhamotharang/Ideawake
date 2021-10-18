@@ -1,0 +1,711 @@
+<div class="container-fluid">
+  <div
+    class="row"
+    style="max-height: 90vh; overflow-y: hidden; overflow-x: hidden;"
+  >
+    <div class="col-12">
+      <div class="row bg-transparent">
+        <div class="col-12">
+          <div class="headerPadding" *ngIf="selectedWorkflow">
+            <!-- container for custom padding -->
+            <div class="row pb-1 pt-4">
+              <div class="col-12">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <h4 class="montserrat mb-1 mt-1 d-none d-md-inline">
+                      {{ totalOpportunities }}
+                      {{ 'Shared.Submissions' | translationPipe }}
+                      {{ 'Shared.Returned' | translationPipe }}
+                    </h4>
+                    <h5 class="d-inline d-md-none montserrat">
+                      {{ totalOpportunities }}
+                      {{ 'Shared.Returned' | translationPipe }}
+                    </h5>
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline mb-0">
+                      <!-- <li class="list-inline-item removeCaret" ngbDropdown>
+                        <button class="btn btn-light btn-sm removeCaret" container="body" ngbDropdownToggle>
+                          Actions
+                          <fa-icon [icon]="['fas', 'angle-down']" class="text-muted"></fa-icon>
+                        </button>
+                        <div ngbDropdownMenu class="shadow">
+                          <app-idea-export></app-idea-export>
+                        </div>
+                      </li> -->
+                      <!-- <li class="list-inline-item">
+                        <button
+                          class="btn btn-primary btn-sm px-4 bold d-none d-md-inline-block"
+                          (click)="openPostIdea()"
+                        >
+                          {{ 'IdeasList.CreateNew' | translationPipe }}
+                        </button>
+                        <button class="btn btn-primary btn-sm px-4 bold d-inline-block d-md-none"
+                          style="position: relative; bottom: 3px;" (click)="openPostIdea()">
+                          {{ 'IdeasList.CreateNew' | translationPipe }}
+                        </button>
+                      </li> -->
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="row py-2">
+                  <div class="col-8 pt-1">
+                    <div class="media">
+                      <div class="media-body">
+                        <ul class="list-inline mb-0">
+                          <!-- <li *ngIf="selectedWorkflow" class="list-inline-item">
+                            <button
+                              class="btn btn-sm border btn-light bold montserrat text-medium"
+                              (click)="clearSelectedWorkflow()"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'angle-left']"
+                                class="text-muted"
+                              ></fa-icon>
+                              Back
+                            </button>
+                          </li> -->
+                          <li class="list-inline-item">
+                            <app-search-inline
+                              (search)="onSearch($event)"
+                            ></app-search-inline>
+                          </li>
+                          <li class="list-inline-item mr-0 ml-2" ngbDropdown>
+                            <span
+                              class="removeCaret bold link text-medium"
+                              style="font-weight: 600;"
+                              container="body"
+                              ngbDropdownToggle
+                            >
+                              Workflow - {{ selectedWorkflow.title }}
+                              <fa-icon
+                                [icon]="['fas', 'angle-down']"
+                                class="text-muted"
+                              ></fa-icon>
+                            </span>
+                            <div
+                              ngbDropdownMenu
+                              class="shadow modalScrollMaxHeight minWidth mt-2"
+                            >
+                              <button
+                                class="pl-3 py-2 btn-sm"
+                                *ngFor="let workflow of workflows"
+                                (click)="selectWorkflow(workflow)"
+                                ngbDropdownItem
+                              >
+                                <ul class="list-inline mb-0">
+                                  <li class="list-inline-item">
+                                    {{ workflow.title }}
+                                  </li>
+                                  <li class="list-inline-item float-right">
+                                    <ul class="list-inline mb-0">
+                                      <li class="list-inline-item">
+                                        <fa-icon
+                                          [icon]="['fas', 'lightbulb']"
+                                          class="text-muted"
+                                        ></fa-icon>
+                                        {{ workflow.opportunitiesCount }}
+                                      </li>
+                                      <li class="list-inline-item">
+                                        <fa-icon
+                                          [icon]="['fas', 'conveyor-belt-alt']"
+                                          class="text-muted"
+                                        ></fa-icon>
+                                        {{ workflow.stagesCount }}
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </button>
+                            </div>
+                          </li>
+                          <!-- <li class="list-inline-item mr-0 ml-3" ngbDropdown>
+                            <span class="removeCaret bold link text-medium" style="font-weight: 600;" container="body"
+                              ngbDropdownToggle>
+                              (1) Challenge
+                              <fa-icon [icon]="['fas', 'angle-down']" class="text-muted"></fa-icon>
+                            </span>
+                            <div ngbDropdownMenu class="shadow modalScrollMaxHeight minWidth mt-2">
+                              <div class="px-1">
+                                <app-search-inline></app-search-inline>
+                              </div>
+                              <button class="pl-2 btn-sm py-2" ngbDropdownItem>
+                                <div class="custom-control custom-checkbox" ngbDropdownItem>
+                                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                  <label class="custom-control-label font-weight-normal" for="customCheck1">
+                                    <ul class="list-inline mb-0">
+                                      <li class="list-inline-item">
+                                        Challenge Title the challenge title
+                                      </li>
+                                      <li class="list-inline-item float-right">
+                                        <fa-icon [icon]="['fas', 'lightbulb']" class="text-muted"></fa-icon>
+                                        25 Ideas
+                                      </li>
+                                    </ul>
+                                  </label>
+                                </div>
+                              </button>
+                            </div>
+                          </li> -->
+                          <!-- <li class="list-inline-item mr-0 ml-3" ngbDropdown>
+                            <span
+                              class="removeCaret bold link text-medium bgSelected"
+                              style="font-weight: 600;"
+                              container="body"
+                              ngbDropdownToggle
+                            >
+                              (1) Challenge
+                              <fa-icon [icon]="['fas', 'angle-down']" class="text-muted"></fa-icon>
+                              <fa-icon [icon]="['fas', 'times']" class="text-muted pl-2"></fa-icon>
+                            </span>
+                            <div ngbDropdownMenu class="shadow modalScrollMaxHeight">
+                              <button
+                                class="pl-3 btn-sm"
+                                *ngFor="let workflow of workflows"
+                                (click)="selectWorkflow(workflow)"
+                                ngbDropdownItem>
+                                Challenges here
+                              </button>
+                            </div>
+                          </li> -->
+                          <li class="list-inline-item ml-3">
+                            <app-idea-filter-time
+                              [fromDate]="dateFrom"
+                              [toDate]="dateTo"
+                              (selectedDate)="dateFilter($event)"
+                            ></app-idea-filter-time>
+                          </li>
+                          <!-- <li class="list-inline-item mr-0" ngbDropdown>
+                            <span class="removeCaret bold link text-medium" style="font-weight: 600;" container="body"
+                              ngbDropdownToggle>
+                              <fa-icon [icon]="['fas', 'filter']" class="text-muted"></fa-icon>
+                              More Filters
+                            </span>
+                            <div ngbDropdownMenu class="shadow modalScrollMaxHeight">
+                              <button class="pl-3 btn-sm" ngbDropdownItem>
+                                testing
+                              </button>
+                            </div>
+                          </li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <ul class="list-inline mb-0 float-right adjustFloat">
+                      <!-- <li class="list-inline-item ml-1">
+                        <app-idea-filter-options></app-idea-filter-options>
+                      </li> -->
+                      <!-- <li class="list-inline-item ml-1">
+                        <app-idea-filter-time></app-idea-filter-time>
+                      </li> -->
+                      <!-- <li class="list-inline-item ml-1">
+                        <app-idea-export></app-idea-export>
+                      </li> -->
+                      <li class="list-inline-item ml-1">
+                        <app-idea-sort-options
+                          (filter)="sortFilter($event)"
+                        ></app-idea-sort-options>
+                      </li>
+                      <li class="list-inline-item">
+                        <div
+                          class="btn-group btn-group-sm border-0 rounded border"
+                        >
+                          <a
+                            class="btn btn-white border px-md-3"
+                            routerLink="/idea/cards"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ boolean: true }"
+                            ngbTooltip="Cards"
+                            placement="bottom"
+                            container="body"
+                            [openDelay]="300"
+                          >
+                            <fa-icon [icon]="['fas', 'th']"></fa-icon>
+                          </a>
+                          <a
+                            class="btn btn-white border px-md-3"
+                            routerLink="/idea/table"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ boolean: true }"
+                            ngbTooltip="Table"
+                            placement="bottom"
+                            container="body"
+                            [openDelay]="300"
+                          >
+                            <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+                          </a>
+                          <a
+                            class="btn btn-white border px-md-3"
+                            routerLink="/idea/pipeline"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ boolean: true }"
+                            ngbTooltip="Swimlanes"
+                            placement="bottom"
+                            container="body"
+                            [openDelay]="300"
+                          >
+                            <div class="rotateBars">
+                              <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+                            </div>
+                          </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- <app-applied-filters></app-applied-filters> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="headerPadding">
+        <hr class="my-1" />
+      </div> -->
+      <!-- start of unselected -->
+      <div *ngIf="!selectedWorkflow" class="row pt-md-5">
+        <div class="col-12 col-md-10 offset-md-1">
+          <div class="row mb-md-4" *ngIf="workflows.length !== 0">
+            <div class="col-12">
+              <h4 class="text-center mb-1 bold montserrat">
+                Please Select a Workflow to Display
+              </h4>
+              <p class="text-center">
+                In order to view a pipeline, please select a workflow you would
+                like to view.
+              </p>
+            </div>
+          </div>
+          <div class="row" *ngIf="workflows.length === 0">
+            <div class="col-12">
+              <!-- Change stage permission is on opportunity level and this is community level so can't apply permission -->
+              <!-- <div class="row text-center mt-5">
+                <div class="col-12">
+                  <fa-icon [icon]="['fas', 'rocket']" class="iconExtraLarge text-muted mb-3"></fa-icon>
+                  <h4 class="text-center mb-2 mt-3 bold montserrat">
+                    This Page is Still Being Setup!
+                  </h4>
+                  <p class="text-center mb-4">
+                    Looks like your administrators are still setting up this page... Go back to the previous page to view the list of ideas in your community.
+                  </p>
+                  <a class="btn btn-primary" routerLink="/idea/cards">Go Back</a>
+                </div>
+              </div> -->
+              <div class="row text-center mt-5">
+                <div class="col-12">
+                  <fa-icon
+                    [icon]="['fas', 'conveyor-belt-alt']"
+                    class="iconExtraLarge text-muted mb-3"
+                  ></fa-icon>
+                  <h4 class="text-center mb-2 mt-3 bold montserrat">
+                    You Must Have at Least One Workflow Created to Use This View
+                  </h4>
+                  <p class="text-center mb-4">
+                    Let's quickly setup the steps in your pipeline by creating a
+                    workflow.
+                  </p>
+                  <a class="btn btn-primary" routerLink="/workflow/list"
+                    >Create Your First Workflow</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-md-4">
+            <div
+              *ngFor="let workflow of workflows"
+              class="col"
+              (click)="selectWorkflow(workflow)"
+            >
+              <div class="card text-center selectWorkflow">
+                <div class="card-body">
+                  <h5 class="montserrat bold">{{ workflow.title }}</h5>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="mb-0">
+                        {{ workflow.opportunitiesCount }} submissions
+                      </p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="mb-0">{{ workflow.stagesCount }} steps</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-3">
+              <div class="card text-center selectWorkflow">
+                <div class="card-body">
+                  <h5 class="montserrat bold">Workflow Title</h5>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="mb-0">20 submissions</p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="mb-0">5 steps</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-3">
+              <div class="card text-center selectWorkflow">
+                <div class="card-body">
+                  <h5 class="montserrat bold">Workflow Title</h5>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="mb-0">20 submissions</p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="mb-0">5 steps</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-3">
+              <div class="card text-center selectWorkflow">
+                <div class="card-body">
+                  <h5 class="montserrat bold">Workflow Title</h5>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="mb-0">20 submissions</p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="mb-0">5 steps</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div cdkDropListGroup>
+        <!-- end of unselected -->
+        <div *ngIf="selectedWorkflow" class="row">
+          <div class="col-12">
+            <!-- style="padding-left: 0; padding-right: 0; overflow-x: auto;" -->
+            <!-- start of card deck -->
+            <div class="card-group dragDropContainer" style="flex-flow: unset;">
+              <!-- start of one -->
+              <div
+                *ngFor="let stage of stages"
+                class="card minCardWidth rounded border pl-2 pr-1 py-2 mr-2"
+              >
+                <div class="card-body cardLane p-0 drop-list">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card mb-0 stageHeader border-0">
+                        <div class="card-body pb-2 pt-0 pl-3 pr-4">
+                          <div class="row">
+                            <div class="col-12 px-0">
+                              <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                  <p class="montserrat bold mb-0">
+                                    <!-- ngbTooltip="{{ stage?.actionItem?.title }}"
+                                  [openDelay]="300" -->
+                                    <fa-icon
+                                      [icon]="[
+                                        'fas',
+                                        actionItemsIcon[
+                                          stage?.actionItem?.abbreviation
+                                        ]?.icon
+                                      ]"
+                                      class="text-muted"
+                                    >
+                                    </fa-icon>
+                                    {{ stage.title.substring(0, 22) }} ({{
+                                      stage.count
+                                    }})
+                                  </p>
+                                </li>
+                                <li
+                                  class="list-inline-item float-right adjustFloatUpSmall"
+                                >
+                                  <ul class="list-inline mb-0">
+                                    <!-- <li class="list-inline-item mr-0">
+                                    <span class="mb-0 text-danger pointer small bold" placement="bottom" ngbTooltip="Count of Ideas with Past Due Action Items">
+                                      10
+                                    </span>
+                                  </li> -->
+                                    <!-- <li class="list-inline-item mr-0">
+                                    <span
+                                      class="mb-0 inverseLink pointer ml-2 small"
+                                      placement="bottom"
+                                      ngbTooltip="Edit Status"
+                                    >
+                                      <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                                    </span>
+                                  </li> -->
+                                    <li class="list-inline-item mr-0">
+                                      <span
+                                        class="mb-0 inverseLink pointer ml-2 small"
+                                        placement="bottom"
+                                        [openDelay]="300"
+                                        ngbTooltip="View in Table"
+                                        container="body"
+                                        (click)="viewInTable(stage)"
+                                      >
+                                        <fa-icon
+                                          [icon]="['fas', 'eye']"
+                                        ></fa-icon>
+                                      </span>
+                                    </li>
+                                    <li
+                                      class="list-inline-item mr-0"
+                                      container="body"
+                                      ngbDropdown
+                                    >
+                                      <span
+                                        class="mb-0 removeCaret inverseLink pointer ml-2 small"
+                                        placement="bottom"
+                                        ngbTooltip="Manage Stage"
+                                        [openDelay]="300"
+                                        container="body"
+                                        ngbDropdownToggle
+                                      >
+                                        <fa-icon
+                                          [icon]="['fas', 'ellipsis-h']"
+                                        ></fa-icon>
+                                      </span>
+                                      <div
+                                        ngbDropdownMenu
+                                        container="body"
+                                        placement="bottom-right"
+                                        class="shadow dropdown-menu dropdown-menu-right dropdownPosition"
+                                      >
+                                        <!-- <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Manage Development
+                                      </button>
+                                      <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Configure Development
+                                      </button> -->
+                                        <!-- <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Add Rule
+                                      </button>
+                                      <hr class="my-1" /> -->
+                                        <button
+                                          class="btn btn-sm pl-3"
+                                          ngbDropdownItem
+                                          (click)="editStage(stage)"
+                                        >
+                                          Edit Stage
+                                        </button>
+                                        <!-- <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Clone Stage
+                                      </button> -->
+                                        <!-- <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Export
+                                      </button> -->
+                                        <!-- <hr class="my-1" />
+                                      <button
+                                        class="btn btn-sm pl-3"
+                                        ngbDropdownItem
+                                      >
+                                        Delete Stage
+                                      </button> -->
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- start of one -->
+                      <div
+                        class="columnContainer"
+                        cdkDropList
+                        [cdkDropListData]="stage"
+                        (cdkDropListDropped)="drop($event, stage)"
+                      >
+                        <div
+                          *ngFor="
+                            let opportunity of stage.opportunities;
+                            let i = index
+                          "
+                          cdkDrag
+                          class="card mb-2 grab addHover"
+                          [ngbPopover]="showMoreInfoDescription"
+                          [openDelay]="400"
+                          container="body"
+                          triggers="mouseenter:mouseleave"
+                          placement="right"
+                          popoverClass="descriptionClass"
+                          [autoClose]="false"
+                          (cdkDragStarted)="onDragStart()"
+                          (cdkDragEnded)="onDragEnd()"
+                          (cdkDragMoved)="onDrag()"
+                        >
+                          <div
+                            class="opportunity-placeholder"
+                            *cdkDragPlaceholder
+                          ></div>
+
+                          <app-idea-pipeline-feed
+                            [opportunity]="opportunity"
+                            [stage]="stage"
+                            (openSummaryModal)="openSummaryModal(opportunity)"
+                            (action)="cardActions($event, opportunity, stage)"
+                          >
+                          </app-idea-pipeline-feed>
+                          <ng-template #showMoreInfoDescription>
+                            <p class="mb-1 text-medium montserrat bold">
+                              {{ opportunity.title }}
+                            </p>
+                            <p class="mb-0 text-muted" style="font-size: 90%;">
+                              {{ opportunity.description }}
+                            </p>
+                            <ul class="list-inline mb-0 mt-2 small">
+                              <li class="list-inline-item">
+                                <p
+                                  class="mb-0 text-muted"
+                                  placement="top"
+                                  ngbTooltip="Date Entered Status"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'clock']"
+                                    class="text-muted small"
+                                  ></fa-icon>
+                                  {{
+                                    opportunity.createdAt | date: "MM'/'dd'/'yy"
+                                  }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p
+                                  class="mb-0 pointer"
+                                  placement="top"
+                                  ngbTooltip="Votes"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'thumbs-up']"
+                                    class="text-muted small"
+                                  ></fa-icon>
+                                  {{
+                                    upvoteCount
+                                      ? upvoteCount[opportunity.id] || 0
+                                      : 0
+                                  }}
+                                </p>
+                              </li>
+                              <li class="list-inline-item">
+                                <p
+                                  class="mb-0 pointer"
+                                  placement="top"
+                                  ngbTooltip="Comments"
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'comment']"
+                                    class="text-muted small"
+                                  ></fa-icon>
+                                  {{
+                                    commentCounts
+                                      ? commentCounts[opportunity.id] || 0
+                                      : 0
+                                  }}
+                                </p>
+                              </li>
+                            </ul>
+                          </ng-template>
+                        </div>
+                        <!-- end of one -->
+                        <!-- show more -->
+                        <button
+                          class="btn btn-white border btn-block mt-2 mb-3"
+                          *ngIf="stage.opportunities.length < stage.count"
+                          (click)="loadMoreOpportunities(stage)"
+                        >
+                          Load More
+                          <fa-icon
+                            [icon]="['fas', 'angle-down']"
+                            class="ml-1"
+                          ></fa-icon>
+                        </button>
+                        <!-- end show more -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="py-2 text-center" style="background-color: #f4f6f9;">
+                <span class="text-muted text-medium w-100 font-weight-normal">
+                  <fa-icon
+                    [icon]="[
+                      'fas',
+                      actionItemsIcon[stage?.actionItem?.abbreviation]?.icon
+                    ]"
+                  >
+                  </fa-icon>
+                  {{ stage?.actionItem?.title }}
+                </span>
+              </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- start of actions -->
+        <div *ngIf="selectedWorkflow" class="row affixBottomActions">
+          <div [hidden]="!showBottomActions" class="col-12">
+            <div class="row text-center">
+              <!-- <div class="col-3 addHover py-3">
+                <fa-icon [icon]="['fas', 'bullseye']" class="text-muted"></fa-icon>
+                Add or Change Challenge
+              </div> -->
+              <div
+                class="col addHover py-3"
+                cdkDropList
+                (cdkDropListDropped)="
+                  onActionDrop($event, manageActions.workflow)
+                "
+              >
+                <fa-icon
+                  [icon]="['fas', 'conveyor-belt-alt']"
+                  class="text-muted"
+                ></fa-icon>
+                Change Workflow
+              </div>
+              <!-- <div class="col-3 addHover py-3">
+                <fa-icon [icon]="['fas', 'code-merge']" class="text-muted"></fa-icon>
+                Add to Merge Cart
+              </div> -->
+              <div
+                class="col addHover py-3"
+                cdkDropList
+                (cdkDropListDropped)="
+                  onActionDrop($event, manageActions.archive)
+                "
+              >
+                <fa-icon [icon]="['fas', 'trash']" class="text-muted"></fa-icon>
+                Archive
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of actions -->
+    </div>
+  </div>
+</div>

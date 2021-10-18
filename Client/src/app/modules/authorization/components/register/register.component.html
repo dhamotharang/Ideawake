@@ -1,0 +1,145 @@
+<div class="row pageTopPadding loginBackground">
+  <div class="col-md-6 offset-md-3 col-sm-12">
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <p class="text-muted text-medium mb-1 text-center uppercase bold">
+          Step 1 of 2
+        </p>
+        <h4 class="text-center bold montserrat" style="margin-bottom: 1.95rem;">
+          <!-- {{
+            "Registration.CreateAccountFromIdeawake" | translationPipe
+          }} -->
+          Create Your Ideawake Account
+        </h4>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>{{ 'FirstName' | translationPipe }}</label>
+              <input
+                id="firstName"
+                type="text"
+                [formControl]="firstName"
+                class="form-control"
+                placeholder="Nicola"
+                required
+                #fName
+              />
+              <div
+                [hidden]="hideErrorMessage || firstName.value !== ''"
+                class="error-txt"
+              >
+                First Name is Required
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label>{{ 'LastName' | translationPipe }}</label>
+              <input
+                type="text"
+                [formControl]="lastName"
+                placeholder="Tesla"
+                class="form-control"
+              />
+              <div
+                [hidden]="hideErrorMessage || lastName.value !== ''"
+                class="error-txt"
+              >
+                Last Name is Required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ 'CompanyEmail' | translationPipe }}</label>
+            <input
+              type="email"
+              [formControl]="email"
+              placeholder="nicola@tesla.com"
+              class="form-control"
+              (blur)="checkDuplicateEmail()"
+            />
+            <div
+              *ngIf="
+                submitted &&
+                registrationForm.controls.email.errors &&
+                registrationForm.controls.email.errors.email
+              "
+              class="error-txt"
+            >
+              Not a valid Email
+            </div>
+            <div
+              *ngIf="
+                submitted &&
+                registrationForm.controls.email.errors &&
+                registrationForm.controls.email.errors.required
+              "
+              class="error-txt"
+            >
+              Company Email is Required
+            </div>
+            <div [hidden]="hideDuplicateErrorMessage" class="error-txt">
+              Email Already Registered
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ 'CompanyName' | translationPipe }}</label>
+            <input
+              type="text"
+              [formControl]="userName"
+              placeholder="Tesla"
+              class="form-control"
+            />
+            <div
+              [hidden]="hideErrorMessage || userName.value !== ''"
+              class="error-txt"
+            >
+              Company Name is Required
+            </div>
+            <div
+              *ngIf="userName.errors && userName.errors.pattern"
+              class="error-txt"
+            >
+              Company Name should be text based
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ 'SelectDefaultLanguage' | translationPipe }}</label>
+            <select [formControl]="defaultLanguage" class="form-control">
+              <option
+                *ngFor="let language of languages"
+                [value]="language.key"
+                >{{ language.title }}</option
+              >
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'CreatePassword' | translationPipe }}</label>
+            <input
+              type="password"
+              placeholder="*********"
+              [formControl]="password"
+              class="form-control"
+            />
+            <div
+              [hidden]="hideErrorMessage || password.value !== ''"
+              class="error-txt"
+            >
+              Password is Required
+            </div>
+          </div>
+          <div class="form-group mb-0 pt-3">
+            <button
+              [disabled]="registrationForm.invalid"
+              class="btn btn-primary btn-block btn-lg bold montserrat"
+            >
+              {{ 'Registration.CreateAccount' | translationPipe }}
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="card-footer text-center text-muted">
+        {{ 'Registration.AlreadyHaveAnAccount' | translationPipe }}
+        <a routerLink="/auth/login">{{ 'Login.Login' | translationPipe }}</a>
+      </div> -->
+    </div>
+  </div>
+</div>

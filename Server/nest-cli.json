@@ -1,0 +1,40 @@
+{
+  "language": "ts",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/ideawake/src",
+  "monorepo": true,
+  "root": "apps/ideawake",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/ideawake/tsconfig.app.json"
+  },
+  "projects": {
+    "ideawake": {
+      "type": "application",
+      "root": "apps/ideawake",
+      "entryFile": "main",
+      "sourceRoot": "apps/ideawake/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/ideawake/tsconfig.app.json"
+      }
+    },
+    "notification": {
+      "type": "application",
+      "root": "apps/notification",
+      "entryFile": "main",
+      "sourceRoot": "apps/notification/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notification/tsconfig.app.json"
+      }
+    },
+    "elastic": {
+      "type": "application",
+      "root": "apps/elastic",
+      "entryFile": "main",
+      "sourceRoot": "apps/elastic/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/elastic/tsconfig.app.json"
+      }
+    }
+  }
+}

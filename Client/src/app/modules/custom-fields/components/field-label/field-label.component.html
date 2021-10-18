@@ -1,0 +1,4 @@
+<label class="text-medium" placement="right" [ngbTooltip]="customField?.description">
+  {{ customField?.title }}
+  <fa-icon [icon]="['fas', 'info-circle']" class="text-muted" *ngIf="customField?.description"></fa-icon>
+</label>

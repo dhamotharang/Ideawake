@@ -1,0 +1,507 @@
+<div class="row">
+  <div class="col-12">
+    <!-- multiple followers -->
+    <div class="card rounded-bottom-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'rss']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-2">
+                  First Name, FirstName, FirstName and 10 others followed
+                  ideaName
+                </p>
+                <app-social-images></app-social-images>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- multiple views -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'eye']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-2">
+                  First Name, FirstName, FirstName and 10 others viewed ideaName
+                </p>
+                <app-social-images></app-social-images>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- multiple votes -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="mr-3 mt-1">
+            <div
+              class="activityIcon rounded-circle bg-primary border-white"
+              style="z-index: 5000;"
+            >
+              <fa-icon
+                [icon]="['fas', 'thumbs-up']"
+                class="text-white align-middle text-center"
+              ></fa-icon>
+            </div>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-2">
+                  First Name, FirstName, FirstName and 10 others voted for
+                  ideaName
+                </p>
+                <app-social-images></app-social-images>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- new scorecard review -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'star']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              completed a review on ideaName
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- new status change -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'conveyor-belt-alt']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              updated the status of this idea from previousStatus to newStatus
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- edit idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'edit']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              edited this idea
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- this idea merged into another idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'code-merge']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              merged this idea into <app-idea-title></app-idea-title>
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- other idea merged into this idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'code-merge']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              merged <app-idea-title></app-idea-title> into this idea
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- this idea linked to another idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'link']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              linked this idea to
+              <app-idea-title></app-idea-title>
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- this idea linked to another idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'link']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <p class="text-medium mb-1">
+              <a routerLink="/profile-container" class="inverseLinkDark"
+                >FirstName</a
+              >
+              linked <app-idea-title></app-idea-title> to this idea
+            </p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="mb-0 small text-muted">
+                  <fa-icon
+                    [icon]="['fas', 'clock']"
+                    class="text-muted"
+                  ></fa-icon>
+                  10 Days Ago
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- new reply to your comment -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'comment']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-2">
+                  First Last Name posted a comment on
+                  <a class="inverseLinkDark" routerLink="/idea-page-container"
+                    >[#250] Leverage VR to Engage Clients Remotely</a
+                  >
+                </p>
+                <div class="card mb-2 bg-light">
+                  <div class="card-body p-2">
+                    <p class="text-medium mb-1 text-muted">
+                      This is the comment body This is the comment body This is
+                      the comment body This is the comment body This is the
+                      comment body This is the comment body
+                    </p>
+                    <!-- <button class="btn btn-primary btn-sm">Reply</button> -->
+                    <span
+                      class="badge badge-primary badgePadding pointer"
+                      routerLink="/idea-page-container"
+                      >Reply to Comment</span
+                    >
+                  </div>
+                </div>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-2 mr-2">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">You Submitted This Idea</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- new reply to comment on idea -->
+    <div class="card rounded-0 border-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'comment']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-2">
+                  First Last Name posted a reply to your comment on
+                  <a class="inverseLinkDark" routerLink="/idea-page-container"
+                    >[#250] Leverage VR to Engage Clients Remotely</a
+                  >
+                </p>
+                <div class="card mb-2 bg-light">
+                  <div class="card-body p-2">
+                    <p class="text-medium mb-1 text-muted">
+                      This is the comment body This is the comment body This is
+                      the comment body This is the comment body This is the
+                      comment body This is the comment body
+                    </p>
+                    <!-- <button class="btn btn-primary btn-sm">Reply</button> -->
+                    <span
+                      class="badge badge-primary badgePadding pointer"
+                      routerLink="/idea-page-container"
+                      >Reply to Comment</span
+                    >
+                  </div>
+                </div>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                  <li class="list-inline-item ml-2 mr-2">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      class="small separatorIcon text-muted"
+                    ></fa-icon>
+                  </li>
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">You Follow This User</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+    <!-- new idea / opportunity posted -->
+    <div class="card border-top-0 rounded-top-0">
+      <div class="card-body pt-3 pb-3 px-3">
+        <div class="media">
+          <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+            <fa-icon
+              [icon]="['fas', 'lightbulb']"
+              class="text-white align-middle text-center"
+            ></fa-icon>
+          </div>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12">
+                <p class="text-medium mb-1">
+                  <a routerLink="/profile-container" class="inverseLinkDark"
+                    >FirstName</a
+                  >
+                  posted this idea
+                </p>
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-0">
+                    <p class="mb-0 small text-muted">
+                      <fa-icon
+                        [icon]="['fas', 'clock']"
+                        class="text-muted"
+                      ></fa-icon>
+                      10 Days Ago
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+  </div>
+</div>

@@ -1,0 +1,1301 @@
+<div class="modal-header border-bottom-0 bg-light px-3 card-header">
+  <p class="small montserrat text-muted uppercase bold mb-0">
+    Change This Ideas Stage
+  </p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="closePopup.emit(true)"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body bg-light modalScrollMaxHeight pt-1">
+  <div class="form-group mb-3">
+    <p class="mb-1 bold montserrat">
+      Select Stage
+    </p>
+    <div *ngIf="stages?.length > 0" class="form-group mb-3">
+      <div ngbDropdown>
+        <div
+          class="removeCaret pl-2 pr-3 border bg-white rounded addHover"
+          style="padding-top: 0.5rem; padding-bottom: 0.5rem;"
+          ngbDropdownToggle
+        >
+          <div class="row">
+            <div class="col-8">
+              <div class="media d-flex">
+                <fa-icon
+                  class="mr-1 ml-1"
+                  style="font-size: 1rem;"
+                  [ngStyle]="{
+                    color: selectedStage?.status?.colorCode
+                  }"
+                  [icon]="[
+                    'fas',
+                    actionItems[selectedStage?.actionItem?.abbreviation]?.icon
+                  ]"
+                >
+                </fa-icon>
+                <div
+                  class="media-body d-flex align-self-center"
+                  style="padding-left: 0.1rem;"
+                >
+                  <p class="mb-0">
+                    {{ selectedStage?.title }}
+                    <fa-icon
+                      container="body"
+                      *ngIf="selectedStage.description"
+                      [icon]="['fas', 'info-circle']"
+                      class="text-muted"
+                      [ngbTooltip]="selectedStage?.description"
+                    >
+                    </fa-icon>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-4"
+              style="
+                padding-left: 0.75rem;
+                position: relative;
+                bottom: 0.05rem;
+              "
+            >
+              <ul class="list-inline mb-0 w-100 d-flex">
+                <li class="list-inline-item w-90 mr-0">
+                  <span class="text-muted text-medium w-100 font-weight-normal">
+                    <!-- [ngClass]="['' + actionItems[stage.actionItem.abbreviation].background ]" -->
+                    <fa-icon
+                      [icon]="[
+                        'fas',
+                        actionItems[selectedStage?.actionItem?.abbreviation]
+                          ?.icon
+                      ]"
+                    >
+                    </fa-icon>
+                    <span class="d-none d-md-inline"> Action -</span>
+                    {{ selectedStage?.actionItem?.title }}
+                  </span>
+                </li>
+                <!-- <li class="list-inline-item w-45 mr-0">
+                  <span class="font-weight-normal small" [ngStyle]="{ color: selectedStage?.status?.colorCode }">
+                    Status - {{ selectedStage?.status?.title }}
+                  </span>
+                  <span
+                    class="ml-2 text-medium badge w-100"
+                    style="border: 1px solid;"
+                    [ngStyle]="{
+                      'border-color': selectedStage?.status?.colorCode
+                    }"
+                  >
+                    <span
+                      class="font-weight-normal"
+                      [ngStyle]="{ color: selectedStage?.status?.colorCode }"
+                    >
+                      Status - {{ selectedStage?.status?.title }}
+                    </span>
+                  </span>
+                </li> -->
+                <li class="list-inline-item w-10 mr-0">
+                  <span class="w-100 text-center">
+                    <fa-icon
+                      [icon]="['fas', 'caret-down']"
+                      class="text-muted float-right ml-auto"
+                    ></fa-icon>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="row">
+              <div class="col-4">
+                <div class="media d-flex">
+                  <fa-icon
+                    [icon]="['fas', 'circle']"
+                    [ngStyle]="{ color: selectedStage?.status?.colorCode }"
+                    class="align-self-center text-center mr-2 pointer"
+                  >
+                  </fa-icon>
+                  <div class="media-body d-flex align-self-center">
+                    <p class="mb-0">
+                      {{ selectedStage?.title }}
+                      <fa-icon
+                        *ngIf="selectedStage.description"
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted"
+                        [ngbTooltip]="selectedStage?.description"
+                      >
+                      </fa-icon>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-5 d-flex align-items-center pr-0">
+                <div class="ml-auto">
+                  <span class="text-muted text-medium">
+                    <fa-icon [icon]="[
+                      'fas',
+                      actionItems[selectedStage?.actionItem?.abbreviation]
+                        ?.icon
+                    ]">
+                    </fa-icon>
+                    {{ selectedStage?.actionItem?.title }}
+                  </span>
+                  <span class="ml-2 text-muted text-medium">
+                    <fa-icon [icon]="['fas', 'circle']" [ngStyle]="{ color: selectedStage?.status?.colorCode }"
+                      class="align-self-center text-center mr-1 pointer">
+                    </fa-icon>
+                    {{ selectedStage?.status?.title }}
+                  </span>
+                </div>
+              </div>
+              <div class="col-1 d-flex align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'caret-down']"
+                  class="text-muted float-right ml-auto"
+                ></fa-icon>
+              </div>
+            </div> -->
+        </div>
+        <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+          <!-- start of one -->
+          <button
+            *ngFor="let stage of stages"
+            (click)="chooseStage(stage)"
+            class="pl-2 py-2"
+            style="padding-right: 1.25rem;"
+            ngbDropdownItem
+          >
+            <div class="row">
+              <div class="col-8">
+                <div class="media d-flex">
+                  <!-- <fa-icon
+                                  [icon]="['fas', 'circle']"
+                                  [ngStyle]="{ color: stage?.status?.colorCode }"
+                                  class="align-self-center text-center mr-2 pointer"
+                                >
+                                </fa-icon> -->
+                  <!-- <span
+                    class="rounded-circle mr-2"
+                    style="padding: 0rem 0.25rem 0rem 0.25rem;"
+                    [ngStyle]="{
+                      'background-color': stage?.status?.colorCode
+                    }"
+                  >
+                    <fa-icon
+                      class="text-white"
+                      style="font-size: 1.25rem;"
+                      [icon]="[
+                        'fas',
+                        actionItems[stage?.actionItem?.abbreviation]?.icon
+                      ]"
+                    >
+                    </fa-icon>
+                  </span> -->
+                  <fa-icon
+                    class="mr-1"
+                    [ngStyle]="{
+                      color: stage?.status?.colorCode
+                    }"
+                    style="font-size: 1.25rem;"
+                    [icon]="[
+                      'fas',
+                      actionItems[stage?.actionItem?.abbreviation]?.icon
+                    ]"
+                  >
+                  </fa-icon>
+                  <div class="media-body d-flex align-self-center">
+                    <p class="mb-0">
+                      {{ stage?.title }}
+                      <fa-icon
+                        *ngIf="stage.description"
+                        [icon]="['fas', 'info-circle']"
+                        class="text-muted"
+                        [ngbTooltip]="
+                          stage.description || 'No description provided'
+                        "
+                      >
+                      </fa-icon>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 d-flex align-items-center">
+                <div class="w-100 mr-4">
+                  <span class="text-muted text-medium font-weight-normal w-90">
+                    <!-- [ngClass]="['' + actionItems[stage.actionItem.abbreviation].background ]" -->
+                    <fa-icon
+                      [ngStyle]="{
+                        color:
+                          actionItems[stage.actionItem.abbreviation].background
+                      }"
+                      [icon]="[
+                        'fas',
+                        actionItems[stage?.actionItem?.abbreviation]?.icon
+                      ]"
+                    >
+                    </fa-icon>
+                    <span class="d-none d-md-inline"> Action -</span>
+                    {{ stage?.actionItem?.title }}
+                  </span>
+                  <!-- <span
+                    class="ml-2 text-medium badge w-50"
+                    style="border: 1px solid;"
+                    [ngStyle]="{ 'border-color': stage?.status?.colorCode }"
+                  >
+                    <span
+                      class="font-weight-normal"
+                      [ngStyle]="{ color: stage?.status?.colorCode }"
+                    >
+                      {{ stage?.status?.title }}
+                    </span>
+                  </span> -->
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-4">
+                  <div class="media d-flex">
+                    <fa-icon
+                      [icon]="['fas', 'circle']"
+                      [ngStyle]="{ color: stage.status.colorCode }"
+                      class="align-self-center text-center mr-2 pointer"
+                    >
+                    </fa-icon>
+                    <div class="media-body d-flex align-self-center">
+                      <p class="mb-0">
+                        {{ stage.title }}
+                        <fa-icon
+                          *ngIf="stage.description"
+                          [icon]="['fas', 'info-circle']"
+                          class="text-muted"
+                          [ngbTooltip]="
+                            stage.description || 'No description provided'
+                          "
+                        >
+                        </fa-icon>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-5 d-flex align-items-center pr-0">
+                  <div class="ml-auto">
+                    <span
+                      class="badge badgePadding ml-1 rounded-right-0 text-white"
+                      [ngClass]="[
+                        '' +
+                          actionItems[stage.actionItem.abbreviation].background
+                      ]"
+                    >
+                      <fa-icon
+                        [icon]="[
+                          'fas',
+                          actionItems[stage.actionItem.abbreviation].icon
+                        ]"
+                      >
+                      </fa-icon>
+                      {{ stage.actionItem.title }}
+                    </span>
+                    <span
+                      [ngStyle]="{
+                        'background-color': stage?.status?.colorCode
+                      }"
+                      class="badge badge-primary badgePadding align-items-center rounded-left-0 rounded-right-0"
+                    >
+                      {{ stage.status.title }}
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+          </button>
+          <!-- end of one -->
+        </div>
+      </div>
+      <!-- <p class="form-text text-muted small">
+        Which stage would you like to update this idea to in your new workflow?
+      </p> -->
+    </div>
+  </div>
+  <!-- <hr class="mt-1 mb-3"> -->
+  <!-- <ul class="list-inline mb-0">
+    <li class="list-inline-item">
+      <p class="mb-1 bold montserrat">
+        Assignees for This Stage ({{ assigneeCount }})
+      </p>
+    </li>
+  </ul>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row" *ngIf="!editAssignees">
+            <div class="col-12">
+              <p class="montserrat mb-0 showEditOnHover" (click)="editAssignees = !editAssignees">
+                {{ assigneeDetail() }}
+                <span class="text-primary">
+                  Edit Assignees
+                  <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="row" *ngIf="editAssignees">
+            <div class="col-12">
+              <app-select-members [settings]="selectedStageAssigneeSettings" [potentialCounts]="stakeHolderCounts"
+                (updatedSettings)="updateAssigneeSettings($event)">
+              </app-select-members>
+              <button class="btn btn-sm btn-light btn-block border mt-2 mb-2" (click)="editAssignees = !editAssignees">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="form-row pt-2">
+    <div class="form-group col-12 mb-0">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="mb-1 bold montserrat">
+                Confirm Stage Information
+              </p>
+            </li>
+          </ul>
+          <div
+            class="card mb-3"
+            *ngIf="
+              selectedStage?.actionItem !== null &&
+              selectedStage?.actionItem.abbreviation !== noToolAbbreviation
+            "
+          >
+            <div class="card-body" style="padding: 0.5rem 0.8rem;">
+              <div class="row">
+                <div class="col-8 border-right">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row" *ngIf="!editAssignees">
+                        <div class="col-12">
+                          <p class="bold uppercase small text-muted mb-1 mt-1">
+                            Assignees for This Stage
+                            <ng-container *ngIf="!isBulkUpdate">
+                              ({{ assigneeCount }})
+                            </ng-container>
+                            <fa-icon
+                              [icon]="['fas', 'info-circle']"
+                              class="text-muted"
+                              ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                            >
+                            </fa-icon>
+                          </p>
+                          <div *ngIf="assigneeCount == 0">
+                            <div
+                              class="alert alert-warning animated fadeIn py-1 px-2 mt-2 mb-1"
+                              ngbTooltip="Click on the 'Edit Assignees' section below to
+                              assign someone to complete this stage."
+                              placement="right"
+                            >
+                              <div class="row">
+                                <div class="col-12">
+                                  <p class="mb-0 small">
+                                    This stage is currently unassigned, please
+                                    assign someone to complete it.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <p
+                            class="mb-0 showEditOnHover"
+                            (click)="editAssignees = !editAssignees"
+                          >
+                            {{ assigneeDetail() }}
+                            <span
+                              *ngIf="stagesCustomFieldAssignee?.fieldId"
+                              placement="bottom"
+                              triggers="mouseenter:mouseleave"
+                              [ngbPopover]="smartRoute"
+                              [popoverTitle]="smartRouteTitle"
+                              [openDelay]="200"
+                              [closeDelay]="300"
+                              popoverClass="popoverStageInfo"
+                            >
+                              {{
+                                allCustomFields[
+                                  stagesCustomFieldAssignee?.fieldId
+                                ]?.title
+                              }}
+                              <fa-icon [icon]="['fas', 'random']"> </fa-icon>
+                            </span>
+                            <br />
+                            <span class="text-primary small">
+                              <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                              Edit Assignees
+                            </span>
+                          </p>
+                          <ng-template #smartRouteTitle>
+                            <div class="row mb-0">
+                              <div class="col-5">
+                                <p class="mb-0 text-medium">
+                                  Response
+                                </p>
+                              </div>
+                              <div class="col-1 px-0">
+                                <fa-icon
+                                  [icon]="['fas', 'arrow-right']"
+                                  class="text-muted small"
+                                ></fa-icon>
+                              </div>
+                              <div class="col-6">
+                                <p class="mb-0 text-medium">Assignee</p>
+                              </div>
+                            </div>
+                          </ng-template>
+                          <ng-template #smartRoute>
+                            <div
+                              *ngFor="
+                                let option of stagesCustomFieldAssignee?.options
+                              "
+                              class="row mb-0 pb-2 mb-1 border-bottom"
+                            >
+                              <div class="col-5">
+                                <p class="mb-0 small">
+                                  {{ option?.label }}
+                                </p>
+                              </div>
+                              <div class="col-1 px-0">
+                                <fa-icon
+                                  [icon]="['fas', 'arrow-right']"
+                                  class="text-muted small"
+                                ></fa-icon>
+                              </div>
+                              <div class="col-6">
+                                <p class="mb-0 small">
+                                  {{ option?.assignee }}
+                                </p>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="editAssignees">
+                        <div class="col-12">
+                          <div class="row">
+                            <div class="col-8">
+                              <p class="bold uppercase small mb-1 mt-1">
+                                Edit Assignees for This Stage ({{
+                                  assigneeCount
+                                }})
+                              </p>
+                            </div>
+                            <div class="col-4">
+                              <!-- <button
+                                class="btn btn-sm btn-light border mt-2 mb-2"
+                                (click)="editAssignees = !editAssignees"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'times-circle']"
+                                  class="text-muted"
+                                ></fa-icon>
+                                Hide Assignee Options
+                              </button> -->
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <app-select-members
+                                [settings]="selectedStageAssigneeSettings"
+                                [potentialCounts]="stakeHolderCounts"
+                                (updatedSettings)="
+                                  updateAssigneeSettings($event)
+                                "
+                                [isBulkUpdate]="isBulkUpdate"
+                              >
+                              </app-select-members>
+                              <button
+                                class="btn btn-light btn-block btn-sm text-primary border mt-2 mb-2"
+                                (click)="editAssignees = !editAssignees"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'angle-up']"
+                                  class="text-muted"
+                                ></fa-icon>
+                                Hide Assignees
+                                <fa-icon
+                                  [icon]="['fas', 'angle-up']"
+                                  class="text-muted"
+                                ></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-2" />
+                      <div class="row pb-1">
+                        <div class="col-12">
+                          <span
+                            class="text-medium text-muted"
+                            container="body"
+                            placement="right"
+                            ngbTooltip="If enabled, assignees will receive an email notification that they have been assigned to complete this stage."
+                            >Send Email to Assignees
+                            <!-- <fa-icon
+                              [icon]="['fas', 'info-circle']"
+                              class="text-muted mr-2"
+                            ></fa-icon> -->
+                          </span>
+                          <div
+                            class="custom-control custom-switch float-right adjustFloat"
+                          >
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                              id="submitters"
+                              [(ngModel)]="
+                                selectedStageAssignmentSettings.emailNotification
+                              "
+                              checked
+                            />
+                            <label
+                              class="custom-control-label font-weight-normal text-medium"
+                              for="submitters"
+                            >
+                              <span
+                                *ngIf="
+                                  selectedStageAssignmentSettings.emailNotification
+                                "
+                                style="position: relative; top: 1px;"
+                                class="pl-1 text-success"
+                                >{{
+                                  'ChallengePost.Labels.Enabled'
+                                    | translationPipe
+                                }}</span
+                              >
+                              <span
+                                *ngIf="
+                                  !selectedStageAssignmentSettings.emailNotification
+                                "
+                                class="text-muted"
+                                style="position: relative; top: 1px;"
+                              >
+                                Disabled
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-4"></div>
+                      </div>
+
+                      <div
+                        *ngIf="
+                          assigneeCount > 10 &&
+                          selectedStageAssignmentSettings.emailNotification
+                        "
+                      >
+                        <div
+                          class="alert alert-info shadow-sm animated fadeIn py-2 px-2 mt-2 mb-2"
+                        >
+                          <div class="row">
+                            <div class="col-12">
+                              <p class="mb-0 small">
+                                <span class="bold"
+                                  >Changing This Stage Will Send
+                                  {{ assigneeCount }} Emails -
+                                </span>
+                                Double check who is assigned to complete this
+                                stage or disable the "send email reminder"
+                                setting above.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="showEditOnHover"
+                        style="width: 102.5%;"
+                        ngbDropdown
+                      >
+                        <p
+                          class="mb-0 py-0 text-medium text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span
+                            class="text-muted"
+                            container="body"
+                            placement="right"
+                            ngbTooltip="Set how often to send a reminder to assignees who have not yet completed their assigned task."
+                            >Send Reminder Email
+                            <!-- <fa-icon
+                              [icon]="['fas', 'info-circle']"
+                              class="text-muted mr-2"
+                            ></fa-icon> -->
+                          </span>
+                          <span class="float-right mr-2">
+                            {{
+                              convertString(
+                                selectedStageAssignmentSettings.emailReminder
+                              )
+                            }}
+                          </span>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.emailReminder =
+                                'never'
+                            "
+                          >
+                            Never
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.emailReminder =
+                                'every_week'
+                            "
+                          >
+                            Weekly
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.emailReminder =
+                                'every_two_week'
+                            "
+                          >
+                            Every Two Weeks
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.emailReminder =
+                                'every_month'
+                            "
+                          >
+                            Every Month
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="showEditOnHover"
+                        style="width: 102.5%;"
+                        ngbDropdown
+                        container="body"
+                      >
+                        <p
+                          class="mb-0 py-0 text-medium removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span
+                            class="text-muted"
+                            container="body"
+                            placement="right"
+                            ngbTooltip="Set how long assignees have to complete this stage."
+                            >Due Date
+                            <!-- <fa-icon
+                              [icon]="['fas', 'info-circle']"
+                              class="text-muted mr-2"
+                              style="font-size: 14px;"
+                            ></fa-icon> -->
+                          </span>
+                          <span class="float-right text-muted mr-2">
+                            {{
+                              selectedStageAssignmentSettings.stageTimeLimit ||
+                                0
+                            }}
+                            Days ({{ navEnd.month }}/{{ navEnd.day }}/{{
+                              navEnd.year
+                            }})
+                            <!-- <fa-icon [icon]="['fas', 'caret-down']" class="text-muted"></fa-icon> -->
+                          </span>
+                        </p>
+                        <div ngbDropdownMenu class="shadow py-0">
+                          <div class="card border-0">
+                            <div class="card-body pt-2">
+                              <div class="pb-2">
+                                <label class="text-medium">Select Date</label>
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="{{ dueDate.day }}/{{
+                                    dueDate.month
+                                  }}/{{ dueDate.year }}"
+                                />
+                              </div>
+                              <!-- <ngb-datepicker
+                                  (dateSelect)="date($event)"
+                                  [displayMonths]="2"
+                                  [dayTemplate]="t"
+                                  outsideDays="hidden"
+                                  #dpStart
+                                ></ngb-datepicker> -->
+                              <ngb-datepicker
+                                (select)="date($event)"
+                                [(ngModel)]="navEnd"
+                                [minDate]="minimumNgbDate"
+                                #dpStart
+                              ></ngb-datepicker>
+
+                              <!-- <div class="pt-2">
+                                <button
+                                  class="btn btn-light border btn-sm mr-1 shadow-sm"
+                                >
+                                  Cancel
+                                </button>
+                                <button class="btn btn-primary btn-sm shadow-sm">
+                                  Save Changes
+                                </button>
+                              </div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <div class="showEditOnHover" ngbDropdown>
+                        <p
+                          class="mb-0 py-0 small text-muted removeCaret"
+                          ngbDropdownToggle
+                        >
+                          <span class="bold">Completion Rules</span> -
+                          {{
+                            selectedStageAssignmentSettings.allAssigneesCompleted
+                              ? 'Once All Assignees Complete'
+                              : 'Minimum Number of Assignees Complete'
+                          }}
+                          <fa-icon
+                            [icon]="['fas', 'caret-down']"
+                            class="text-muted float-right mr-2"
+                          ></fa-icon>
+                        </p>
+                        <div ngbDropdownMenu class="shadow w-100">
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.allAssigneesCompleted = true
+                            "
+                          >
+                            Once All Assignees Complete
+                          </button>
+                          <button
+                            ngbDropdownItem
+                            class="pl-3 btn-sm"
+                            (click)="
+                              selectedStageAssignmentSettings.allAssigneesCompleted = false
+                            "
+                          >
+                            Minimum Number of Assignees Complete
+                          </button>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                          <p class="bold uppercase text-muted small mb-1 mt-1">
+                            <span
+                              class="d-block"
+                              *ngIf="
+                                selectedStage.actionItem.abbreviation ==
+                                'scorecard'
+                              "
+                            >
+                              Evaluation Criteria ({{
+                                selectedStageDetails?.length || 0
+                              }})
+                            </span>
+                            <span
+                              class="d-block"
+                              *ngIf="
+                                selectedStage.actionItem.abbreviation ==
+                                'refinement'
+                              "
+                            >
+                              Refinement Fields ({{
+                                selectedStageDetails?.length || 0
+                              }})
+                            </span>
+                          </p>
+                        </li>
+                      </ul>
+
+                      <!-- <div class="alert alert-info small p-2 mb-2">
+                          During this stage, assignees will complete a scorecard based
+                          on the criteria below.
+                        </div> -->
+                      <!-- <p
+                        class="text-medium mb-2 bold d-none d-md-block"
+                        style="padding-top: 1px;"
+                        *ngIf="selectedStage.actionItem.abbreviation == 'scorecard'"
+                      >
+                        Evaluation Criteria ({{ selectedStageDetails?.length || 0 }})
+                      </p>
+                      <p
+                        class="text-medium mb-2 bold d-none d-md-block"
+                        style="padding-top: 1px;"
+                        *ngIf="selectedStage.actionItem.abbreviation == 'refinement'"
+                      >
+                        Refinement Fields ({{ selectedStageDetails?.length || 0 }})
+                      </p> -->
+                      <ul
+                        class="text-medium list-unstyled mb-2 mt-1"
+                        *ngIf="selectedStageDetails?.length; else noDetails"
+                      >
+                        <li *ngFor="let detail of selectedStageDetails">
+                          <div class="media">
+                            <fa-icon
+                              [icon]="['fas', 'circle']"
+                              style="
+                                font-size: 8px;
+                                position: relative;
+                                top: 0.29rem;
+                              "
+                              class="text-muted"
+                            ></fa-icon>
+                            <div class="media-body ml-1">
+                              <p class="text-medium mb-1">
+                                {{
+                                  (detail.field || detail.evaluationCriteria)
+                                    .title
+                                }}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <ng-template #noDetails>
+                        <div>
+                          No Evaluation Criteria / Refinement Fields Attached
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <hr
+                class="my-2"
+                *ngIf="
+                  selectedStage.actionItem !== null &&
+                  selectedStage.actionItem.abbreviation !== 'no_tool'
+                "
+              /> -->
+              <div class="row">
+                <div class="col-12">
+                  <!-- <ul
+                      class="list-inline mb-0"
+                      *ngIf="
+                        selectedStage.actionItem !== null &&
+                        selectedStage.actionItem.abbreviation !== 'no_tool'
+                      "
+                    >
+                      <li class="list-inline-item">
+                        <p class="mb-0 bold text-medium">
+                          Who Can View Stage Activity ({{
+                            (stakeHolderCounts?.allCommunityMembers || 0) +
+                              (followerData
+                                ? followerData[opportunity.id]?.length
+                                : 0) +
+                              (opportunity?.totalUpvoteCount || 0)
+                          }})
+                        </p>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', 'question-circle']"
+                          class="text-muted text-medium"
+                          ngbTooltip="These are the groups and individuals assigned to complete this stage."
+                        >
+                        </fa-icon>
+                      </li>
+                    </ul>
+                    <div
+                      class="row"
+                      *ngIf="
+                        !editViewers &&
+                        selectedStage.actionItem !== null &&
+                        selectedStage.actionItem.abbreviation !== 'no_tool'
+                      "
+                    >
+                      <div class="col-12">
+                        <p
+                          class="small text-muted mb-0 showEditOnHover"
+                          (click)="editViewers = !editViewers"
+                        >
+                          First Last, GroupName, FirstLast, GroupName, and Idea
+                          Owners can see activity in this stage.<span
+                            class="text-primary"
+                            >Edit</span
+                          >
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="row text-medium"
+                      *ngIf="
+                        editViewers &&
+                        selectedStage.actionItem !== null &&
+                        selectedStage.actionItem.abbreviation !== 'no_tool'
+                      "
+                    >
+                      <div class="col-12">
+                        <app-select-members
+                          [settings]="selectedStageActivityVisibilitySettings"
+                          [potentialCounts]="stakeHolderCounts"
+                          (updatedSettings)="
+                            selectedStageActivityVisibilitySettings = $event
+                          "
+                        ></app-select-members>
+                        <button
+                          class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                          (click)="editViewers = !editViewers"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                    <hr
+                      class="my-2"
+                      *ngIf="
+                        selectedStage.actionItem !== null &&
+                        selectedStage.actionItem.abbreviation !== 'no_tool'
+                      "
+                    /> -->
+                </div>
+              </div>
+              <!-- <hr class="my-2"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card mb-3"
+    *ngIf="selectedStage.actionItem.abbreviation === noToolAbbreviation"
+  >
+    <div class="card-body px-3 py-3">
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center">
+            <fa-icon
+              [icon]="['fas', 'minus-circle']"
+              class="text-muted mr-2 ml-1"
+              style="font-size: 2.5rem;"
+            >
+            </fa-icon>
+            <p class="bold mb-1 mt-1 montserrat">
+              There Are No Action Items Associated with this Stage
+            </p>
+            <p class="text-medium text-muted mb-4">
+              Changing the stage of this idea will not result in any users being
+              assigned to complete specific actions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row pt-2">
+    <div class="col-12 form-group mb-1">
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item">
+          <p class="mb-1 bold montserrat">
+            Notification Settings ({{ notifiableUsersCount }})
+          </p>
+        </li>
+        <li class="list-inline-item">
+          <fa-icon
+            [icon]="['fas', 'info-circle']"
+            class="text-muted"
+            ngbTooltip="Users and groups you select here will be notified in the application and optionally via email when this idea changes stages."
+          >
+          </fa-icon>
+        </li>
+      </ul>
+      <div class="card mb-2">
+        <div class="card-body" style="padding: 0.5rem 0.8rem;">
+          <!-- start of insert -->
+          <div class="row" *ngIf="!editNotifications">
+            <div class="col-12">
+              <p
+                class="mb-0 showEditOnHover"
+                (click)="editNotifications = !editNotifications"
+              >
+                Changing the stage of this idea will notify
+                {{ notifiableUsersDetail() }}
+                <br />
+                <span class="text-primary small">
+                  <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                  Edit users you would like to notify
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="row text-medium" *ngIf="editNotifications">
+            <div class="col-12">
+              <div class="form-row">
+                <div class="form-group col-12 mb-0">
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="notficationSubmitters"
+                          [(ngModel)]="
+                            selectedStageNotificationSettings.opportunitySubmitters
+                          "
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="notficationSubmitters"
+                          >Send Notification to Submitter and Co-Submitters ({{
+                            stakeHolderCounts?.opportunitySubmitters || 0
+                          }})</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="notificationOwner"
+                          [(ngModel)]="
+                            selectedStageNotificationSettings.opportunityOwners
+                          "
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="notificationOwner"
+                          >Send Notification to Opportunity Owner ({{
+                            stakeHolderCounts?.opportunityOwners || 0
+                          }})</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="notificationTeam"
+                          [(ngModel)]="
+                            selectedStageNotificationSettings.opportunityTeams
+                          "
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="notificationTeam"
+                          >Send Notification to Team Members ({{
+                            stakeHolderCounts?.opportunityTeamMembers || 0
+                          }})</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="notificationFollowers"
+                          [(ngModel)]="
+                            selectedStageNotificationSettings.followers
+                          "
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="notificationFollowers"
+                          >Send Notification to Followers ({{
+                            followerData
+                              ? followerData[opportunity.id]?.length || 0
+                              : 0
+                          }})</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [(ngModel)]="selectedStageNotificationSettings.voters"
+                          id="notificationVoters"
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="notificationVoters"
+                          >Notification to Voters ({{
+                            opportunity?.totalUpvoteCount || 0
+                          }})
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row pt-1">
+                    <div class="form-group col-12 mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="groups"
+                          (click)="notifySpecificGroups = !notifySpecificGroups"
+                          [checked]="
+                            selectedStageNotificationSettingsArrays?.length > 0
+                          "
+                        />
+                        <label
+                          class="custom-control-label font-weight-normal"
+                          for="groups"
+                          >Notification to Specific Individuals or Groups ({{
+                            notificationUniqueUserCount
+                          }})</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <!-- if specific groups is selected -->
+                  <div
+                    class="card bg-white mb-2 shadow-sm"
+                    *ngIf="notifySpecificGroups"
+                  >
+                    <div class="card-body pt-2">
+                      <label class="small bold"
+                        >Select Groups/Individuals</label
+                      >
+                      <app-search-groups
+                        [isUser]="true"
+                        [selection]="selectedStageNotificationSettingsArrays"
+                        (dataEmitter)="
+                          setGroupsAndIndividualsForNotifications($event)
+                        "
+                      ></app-search-groups>
+                    </div>
+                  </div>
+                  <!-- end if specific groups is selected -->
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-12 mb-0">
+                  <label class="mt-1 font-weight-normal"
+                    >Customize Message</label
+                  >
+                  <textarea
+                    class="form-control form-control-sm"
+                    rows="3"
+                    placeholder="Please enter the message you'd like to include in your email notification..."
+                    [(ngModel)]="selectedStageNotificationSettings.message"
+                  ></textarea>
+                </div>
+              </div>
+              <button
+                class="btn btn-sm btn-light btn-block border mt-2 mb-2"
+                (click)="closeEditNotifications()"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+          <hr class="my-2" />
+          <div class="pb-1 pt-1">
+            <span *ngIf="selectedStageNotificationSettings.sendEmail">
+              <span class="bold text-success text-medium"
+                >Send Email Notification
+                <span class="d-none d-md-inline"
+                  >to Selected Members</span
+                ></span
+              >
+            </span>
+            <span *ngIf="!selectedStageNotificationSettings.sendEmail">
+              <span class="bold text-muted text-medium"
+                >Send Email Notification
+                <span class="d-none d-md-inline"
+                  >to Selected Members</span
+                ></span
+              >
+            </span>
+            <div class="custom-control custom-switch float-right">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="sendEmailNotificationToStakeholders"
+                [(ngModel)]="selectedStageNotificationSettings.sendEmail"
+                checked
+              />
+              <label
+                class="custom-control-label font-weight-normal"
+                for="sendEmailNotificationToStakeholders"
+              >
+                <span
+                  *ngIf="selectedStageNotificationSettings.sendEmail"
+                  class="pl-1 text-success"
+                  >{{ 'ChallengePost.Labels.Enabled' | translationPipe }}</span
+                >
+                <span
+                  *ngIf="!selectedStageNotificationSettings.sendEmail"
+                  class="text-muted"
+                >
+                  Disabled
+                </span>
+              </label>
+            </div>
+          </div>
+          <!-- <p class="small mb-2">
+            <span
+              class="text-success"
+              *ngIf="selectedStageNotificationSettings.sendEmail"
+            >
+              <b>Enabled</b> - An email notification will be sent to community
+              members selected above.
+            </span>
+            <span
+              class="text-muted"
+              *ngIf="!selectedStageNotificationSettings.sendEmail"
+            >
+              <b>Disabled</b> - An email notification will not be sent to
+              community members selected above.
+            </span>
+          </p> -->
+          <!-- end of insert -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg-light">
+  <button
+    *ngIf="!isBulkUpdate"
+    class="btn btn-light border mr-auto"
+    (click)="changeWorkflow.emit()"
+  >
+    <fa-icon [icon]="['fas', 'conveyor-belt-alt']" class="text-muted"></fa-icon>
+    Change Workflow
+  </button>
+  <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+    Cancel
+  </button>
+  <button class="btn btn-primary ml-2" (click)="submitStageSettings()">
+    Save Changes
+  </button>
+</div>

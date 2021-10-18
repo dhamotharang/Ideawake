@@ -1,0 +1,627 @@
+<div class="row">
+  <div
+    *ngIf="totalDuplicates > 0"
+    class="px-0 animated slideInLeft similarSubmissionsDesign"
+  >
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-1 rounded-bottom-0">
+          <div
+            class="card-header px-2 border-bottom-0"
+            style="padding-bottom: 0.35rem; margin-right: 4px;"
+          >
+            <ul
+              class="list-inline mb-0"
+              style="position: relative; bottom: 0.2rem;"
+            >
+              <li class="list-inline-item">
+                <p class="small text-muted mb-0 uppercase bold montserrat link">
+                  {{ 'Post.SimilarIdeas' | translationPipe }}
+                  {{ 'Shared.Submissions' | translationPipe }}
+                  ({{ totalDuplicates || 0 }})
+                </p>
+              </li>
+              <li class="list-inline-item float-right mr-1">
+                <fa-icon
+                  [icon]="['fas', 'question-circle']"
+                  class="text-muted text-medium"
+                  position="right"
+                  container="body"
+                  ngbTooltip="{{ 'Post.SimilarTooltip' | translationPipe }}"
+                >
+                </fa-icon>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- end of card -->
+        <div class="similarHeightContainer similarSubmissionScroll">
+          <!-- start of one -->
+          <div *ngFor="let duplicate of duplicates" class="card mb-2">
+            <div class="card-body p-2">
+              <div class="row">
+                <div class="col-12">
+                  <div class="pl-1">
+                    <a
+                      routerLink="/idea/view/{{ duplicate?.id }}"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ boolean: true }"
+                      target="_blank"
+                      class="mb-1 mt-1 link text-medium bold"
+                    >
+                      {{ duplicate?.title }} (#{{ duplicate?.id || 0 }})
+                      <fa-icon [icon]="['fas', 'external-link-alt']"></fa-icon>
+                    </a>
+                    <p
+                      *ngIf="showFullDesc(duplicate?.id); else showLess"
+                      class="small text-muted mb-1"
+                    >
+                      {{ util.replaceUrls(duplicate?.description) }}
+                      <a
+                        (click)="readLess(duplicate?.id)"
+                        class="link font-underline bold"
+                      >
+                        {{ 'SharedText.ReadMore' | translationPipe }}
+                      </a>
+                    </p>
+                    <ng-template #showLess>
+                      <p class="small text-muted mb-1">
+                        {{
+                          util.replaceUrls(
+                            duplicate?.description?.substring(0, 50)
+                          )
+                        }}
+                        <a
+                          *ngIf="duplicate?.description?.length > 50"
+                          class="link font-underline bold"
+                          (click)="readFull(duplicate?.id)"
+                        >
+                          {{ 'SharedText.ReadLess' | translationPipe }}
+                        </a>
+                      </p>
+                    </ng-template>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <p class="small text-muted mb-0">
+                          <fa-icon
+                            [icon]="['fas', duplicate?.opportunityType?.icon]"
+                            [ngStyle]="{
+                              color: duplicate?.opportunityType?.color
+                            }"
+                          ></fa-icon>
+                          {{ duplicate?.opportunityType?.name }}
+                        </p>
+                      </li>
+                      <li
+                        *ngIf="duplicate?.stage"
+                        class="list-inline-item float-right"
+                      >
+                        <span
+                          [ngStyle]="{
+                            color: duplicate?.stage?.status?.colorCode
+                          }"
+                          class="small"
+                        >
+                          {{ duplicate?.stage?.status?.title }}
+                          <fa-icon
+                            *ngIf="duplicate?.stage?.status?.description"
+                            [icon]="['fas', 'info-circle']"
+                            [ngbTooltip]="duplicate?.stage?.status?.description"
+                          ></fa-icon>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer px-2 py-2">
+              <div class="row">
+                <div class="col-7">
+                  <!-- <button class="btn btn-xs btn-primary mr-1">
+                    <fa-icon
+                      [icon]="['fas', 'users']"
+                    ></fa-icon>
+                    Join Team
+                  </button> -->
+                  <button
+                    (click)="commentOnSimilar(duplicate?.id)"
+                    class="btn btn-xs btn-outline-primary"
+                  >
+                    <fa-icon [icon]="['fas', 'comment']"></fa-icon>
+                    {{ 'Post.Comment' | translationPipe }}
+                  </button>
+                </div>
+                <div class="col-5">
+                  <button
+                    (click)="markNotSimilar(duplicate.id)"
+                    class="btn btn-xs btn-light adjustFloat float-right"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ 'Post.NotSimilar' | translationPipe }}
+                  </button>
+                  <!-- <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <p class="small mb-0" ngbTooltip="Votes">
+                        <fa-icon
+                          [icon]="['fas', 'thumbs-up']"
+                          class="text-muted"
+                        ></fa-icon>
+                        10
+                      </p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="small mb-0" ngbTooltip="Comments">
+                        <fa-icon
+                          [icon]="['fas', 'comment']"
+                          class="text-muted"
+                        ></fa-icon>
+                        10
+                      </p>
+                    </li>
+                    <li class="list-inline-item">
+                      <p class="small mb-0" ngbTooltip="Views">
+                        <fa-icon
+                          [icon]="['fas', 'eye']"
+                          class="text-muted"
+                        ></fa-icon>
+                        10
+                      </p>
+                    </li>
+                  </ul> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of one -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-8 ml-auto"> -->
+  <div class="col-12 ml-auto">
+    <div
+      class="modal-header card-header bg-light py-2"
+      *ngIf="!idea && !viewDrafts"
+    >
+      <p class="uppercase bold text-muted montserrat mb-0 small pt-2">
+        {{ !idea ? 'Post New' : 'Edit' }} {{ selectedType?.name }}
+      </p>
+      <button
+        type="button"
+        class="btn btn-sm"
+        aria-label="Close"
+        (click)="openConfirmBox()"
+      >
+        <fa-icon [icon]="['fas', 'times']" class="text-muted"></fa-icon>
+        {{ 'Shared.Cancel' | translationPipe }}
+      </button>
+    </div>
+    <app-form-loader *ngIf="isLoading"></app-form-loader>
+    <div
+      class="modal-body bg-white pt-1 animated fadeIn"
+      style="z-index: 10;"
+      [ngClass]="!idea ? 'modalScrollMaxHeight' : '`'"
+      *ngIf="!isLoading"
+      infiniteScroll
+      [infiniteScrollDistance]="scrollDownDistance"
+      (scrolled)="changePage()"
+      [scrollWindow]="false"
+      [infiniteScrollDisabled]="disableScroll"
+    >
+      <div class="row" *ngIf="viewDrafts">
+        <div class="col-12">
+          <ul class="list-inline mb-3 pt-3">
+            <li class="list-inline-item pr-2">
+              <fa-icon
+                [icon]="['fas', 'arrow-left']"
+                class="inverseLink"
+                (click)="
+                  viewDrafts = !viewDrafts;
+                  initializeOpportunitySubmissionForm()
+                "
+              ></fa-icon>
+            </li>
+            <li class="list-inline-item">
+              <h5 class="mb-0">My Drafts</h5>
+            </li>
+          </ul>
+          <div>
+            <div class="row mb-3" *ngFor="let draft of draftList">
+              <div class="col-12">
+                <p class="bold link mb-1" (click)="editDraft(draft)">
+                  {{ draft?.title }}
+                </p>
+                <ul class="list-inline mb-0 small">
+                  <li
+                    class="list-inline-item inverseLink"
+                    (click)="editDraft(draft)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Edit
+                  </li>
+                  <li
+                    class="list-inline-item inverseLinkDanger"
+                    (click)="openArchiveModal(deleteDraft, draft.id)"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'trash']"
+                      class="text-muted"
+                    ></fa-icon>
+                    Delete
+                  </li>
+                  <li class="list-inline-item float-right">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        {{ draft?.updatedAt | date: 'medium' }}
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-icon
+                          [icon]="['fas', draft?.opportunityType.icon]"
+                          class="text-muted"
+                        ></fa-icon>
+                        {{ draft?.opportunityType.name }}
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!viewDrafts">
+        <div class="col-12">
+          <div
+            class="alert alert-info py-1 text-center small"
+            *ngIf="totalDraft > 0 && !idea"
+          >
+            You have {{ totalDraft }} existing draft(s).
+            <span
+              class="link"
+              (click)="viewDrafts = !viewDrafts; getDraftList(true)"
+              >View Drafts</span
+            >
+          </div>
+
+          <div
+            class="form-row mt-2"
+            *ngIf="!challenge && opportunityTypes.length > 1"
+          >
+            <div class="form-group col-5 mb-0">
+              <label class="text-medium">
+                {{ 'Post.SelectType' | translationPipe }}
+              </label>
+              <div ngbDropdown>
+                <div
+                  class="removeCaret px-2 border addHover"
+                  style="
+                    border-radius: 0.15rem;
+                    padding-left: 0.65rem !important;
+                    padding-top: 0.35rem;
+                    padding-bottom: 0.35rem;
+                  "
+                  ngbDropdownToggle
+                >
+                  <div class="row">
+                    <div class="col-10">
+                      <fa-icon
+                        [icon]="['fas', selectedType?.icon]"
+                        class="mr-1"
+                        [ngStyle]="{ color: selectedType?.color }"
+                      >
+                      </fa-icon>
+                      {{ selectedType?.name }}
+                    </div>
+                    <div class="col-2">
+                      <fa-icon
+                        [icon]="['fas', 'angle-down']"
+                        class="text-muted ml-auto"
+                      ></fa-icon>
+                    </div>
+                  </div>
+                </div>
+                <div ngbDropdownMenu class="shadow pt-0 pb-0 w-100">
+                  <button
+                    *ngFor="let type of opportunityTypes; let i = index"
+                    (click)="selectedType = type; getCustomFields()"
+                    class="pl-3"
+                    ngbDropdownItem
+                  >
+                    <fa-icon
+                      [icon]="['fas', type.icon]"
+                      class="mr-1 small"
+                      [ngStyle]="{ color: type.color }"
+                    ></fa-icon>
+                    {{ type.name }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div ngbDropdown>
+            <span class="badge badge-light badgePadding border addHover removeCaret w-25" ngbDropdownToggle>
+            <fa-icon [icon]="['fas', selectedType?.icon]" class="mr-1" [ngStyle]="{ color: selectedType?.color }"></fa-icon>
+            {{ selectedType?.name }}
+            <fa-icon [icon]="['fas', 'angle-down']" class="text-muted ml-auto"></fa-icon>
+            </span>
+            <div ngbDropdownMenu class="shadow">
+            <button *ngFor="let type of opportunityTypes; let i = index" (click)="selectedType = type" class="btn-sm pl-3"
+            ngbDropdownItem>
+            <fa-icon [icon]="['fas', type.icon]" class="mr-1 small" [ngStyle]="{ color: type.color }"></fa-icon>
+            {{ type.name }}
+            </button>
+            </div>
+            </div> -->
+          <form [formGroup]="postIdeaForm">
+            <div class="form-group mb-3">
+              <!-- <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                <label>Opportunity Type</label>
+                </li>
+                <li class="list-inline-item">
+                <p class="small text-muted mb-0 pt-1">
+                </p>
+                </li>
+                </ul> -->
+            </div>
+            <div class="form-group mb-3">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="text-medium">
+                    {{ selectedType?.name }}
+                    {{ 'Post.Title' | translationPipe }}
+                  </label>
+                </li>
+                <li class="list-inline-item float-right">
+                  <p class="small text-muted mb-0 pt-1">
+                    {{ title.value.length }} / 250
+                  </p>
+                </li>
+              </ul>
+              <app-mentionable-area
+                *ngIf="mentionTags"
+                [placeholder]="titlePlaceHolder"
+                [maxLength]="250"
+                [data]="title.value"
+                [tags]="mentionTags"
+                [element]="'input'"
+                (selectedTag)="selectedTags($event)"
+                (getText)="title.setValue($event)"
+                #ngTitleId
+              ></app-mentionable-area>
+            </div>
+            <div class="form-group mb-0">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <label class="text-medium">
+                    {{ selectedType?.name }}
+                    {{ 'Post.Description' | translationPipe }}
+                  </label>
+                </li>
+                <li class="list-inline-item float-right">
+                  <p class="small text-muted mb-0 pt-1">
+                    {{ description.value.length }} / 5000
+                  </p>
+                </li>
+              </ul>
+              <app-mentionable-area
+                *ngIf="mentionGroups && mentionUsers && mentionTags"
+                [data]="description.value"
+                [placeholder]="descPlaceHolder"
+                [maxLength]="5000"
+                [groups]="mentionGroups"
+                [users]="mentionUsers"
+                [tags]="mentionTags"
+                [element]="'textarea'"
+                container="body"
+                style="z-index: 5000;"
+                (selectedMention)="mentions.push($event)"
+                (selectedTag)="selectedTags($event)"
+                #ngMentionId
+                (getText)="description.setValue($event)"
+              ></app-mentionable-area>
+            </div>
+            <div
+              class="form-row border-bottom border-left border-right rounded-bottom"
+              style="
+                margin-right: 0;
+                border-color: #ced4da !important;
+                margin-left: 0;
+                background-color: white;
+                position: relative;
+                bottom: 2px;
+              "
+            >
+              <div class="form-group col-12 mb-0">
+                <!-- start of uploads display -->
+                <div class="upload-content-container">
+                  <div
+                    class="card-upload-content contentContainer uploadedContentContainer"
+                    *ngFor="let file of selectedFiles; let i = index"
+                    #fileContainer
+                  >
+                    <div class="card-body px-2 py-1">
+                      <ul class="list-unstyled mb-0">
+                        <li>
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item small text-muted">
+                              <fa-icon
+                                [icon]="
+                                  file.fontawesomeIcon
+                                    ? file.fontawesomeIcon
+                                    : file.attachmentType
+                                "
+                              ></fa-icon>
+                              {{ file.url | fileNameUpdate: 'extensionOnly' }}
+                              <!-- file.fontawesomeIcon -->
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <img
+                            *ngIf="file.type === 'image'"
+                            [defaultImage]="defaultImage"
+                            [lazyLoad]="file.url"
+                            width="100"
+                            height="100"
+                          />
+
+                          <p
+                            *ngIf="file.type !== 'image'"
+                            class="card-text small inverseLink pt-2 pb-1 ellipse-text"
+                          >
+                            {{ file.url | fileNameUpdate }}
+                          </p>
+                        </li>
+
+                        <li>
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item small text-muted">
+                              {{ file.size }} KB
+                            </li>
+                            <li class="list-inline-item float-right">
+                              <!-- <fa-icon [icon]="['fas', 'edit']" class="inverseLink small mr-1" ngbTooltip="Replace Media"></fa-icon> -->
+                              <fa-icon
+                                [icon]="['fas', 'times-circle']"
+                                class="inverseLinkDanger small"
+                                ngbTooltip="Delete Media"
+                                (click)="deleteMedia(file)"
+                              >
+                              </fa-icon>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- end of uploads display -->
+                <app-upload-content-options
+                  (postAnonymously)="anonymous = $event"
+                  (trigger)="ngMentionTriggers($event)"
+                  [from]="'idea'"
+                  [data]="idea"
+                  [permissions]="permissionsData"
+                >
+                </app-upload-content-options>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="form-group mb-0">
+                <app-custom-fields
+                  [customFields]="customFields"
+                  (fieldsData)="opportunityTypeFieldsData = $event"
+                >
+                </app-custom-fields>
+              </div>
+              <div class="form-group">
+                <label class="text-medium">
+                  {{ 'Post.AddTags' | translationPipe }}
+                </label>
+                <app-search-tags
+                  [data]="mentionTags"
+                  (dataEmitter)="this.tagsSelected = $event; getTags()"
+                  [selected]="tags"
+                  [entityObject]="idea"
+                ></app-search-tags>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer bg-light" *ngIf="!idea && !viewDrafts">
+      <p *ngIf="isEdit" class="small text-muted font-italic mr-3 mb-0">
+        Last Saved at 10:05 AM
+      </p>
+      <!-- <button class="btn btn-light border text-muted" (click)="openConfirmBox()">
+        Cancel
+      </button> -->
+      <!-- [ngbTooltip]="title.value === '' ? 'Please Add a Title' : ''" -->
+      <span *ngIf="title.value">
+        <button
+          class="btn btn-light border"
+          [disabled]="!title.value || draftDisabled"
+          (click)="saveDraft()"
+        >
+          <fa-icon [icon]="['fas', 'save']" class="text-muted"> </fa-icon>
+          Save Draft
+        </button>
+      </span>
+      <!-- <button
+        type="button"
+        class="btn btn-white montserrat border px-4 bold"
+        aria-label="Close"
+        (click)="openConfirmBox()"
+      >
+        {{ 'Shared.Cancel' | translationPipe }}
+      </button> -->
+      <button class="btn btn-primary px-3" type="submit" (click)="postIdea()">
+        {{ 'Post.Post' | translationPipe }}
+        {{ selectedType?.name }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmDismiss let-modal>
+  <div class="modal-header card-header bg-white">
+    <p class="uppercase bold text-muted mb-0 small">Confirm Close</p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="false">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-white">
+    you have unsaved changes, are you sure that you would like to dismiss this
+    modal?
+  </div>
+  <div class="modal-footer bg-white">
+    <button class="btn btn-primary" (click)="closeModal()">
+      Confirm
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteDraft let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="uppercase bold text-white mb-0 small">
+      Archive This Draft
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="">
+      Are you sure you would like to archive this draft?
+    </p>
+  </div>
+  <div class="modal-footer bg-light">
+    <button class="btn btn-light border" (click)="modal.dismiss('Archive')">
+      Cancel
+    </button>
+    <button
+      class="btn btn-info"
+      (click)="archiveOpportunityDraft(); modal.dismiss('Archive')"
+    >
+      Yes, Archive This Draft
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,160 @@
+<div class="row">
+  <div class="col-12 removePaddingOnMobile">
+    <div class="bg-light border-bottom py-2">
+      <label class="text-medium mb-0 bold text-muted pl-3">More Options</label>
+    </div>
+    <button
+      ngbDropdownItem
+      routerLink="/community/leaderboard"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'trophy']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Leaderboard
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/profile/view/{{ user.id }}"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'user']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      My Profile
+    </button>
+    <button
+      ngbDropdownItem
+      [routerLink]="['/idea/cards']"
+      [queryParams]="{ sideFilter: ideaQueryParam }"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'lightbulb']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      My Ideas
+    </button>
+    <button
+      ngbDropdownItem
+      [routerLink]="['/profile/view/', user.id]"
+      [queryParams]="{ tab: 'bookmarks' }"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'bookmark']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      My Bookmarks
+    </button>
+    <hr class="mb-0 mt-0" />
+    <button ngbDropdownItem (click)="logout()" class="pt-2 pb-2 pl-3">
+      <fa-icon
+        [icon]="['fas', 'sign-out']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Logout
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 removePaddingOnMobile">
+    <div class="bg-light border-bottom border-top py-2">
+      <label class="text-medium mb-0 bold text-muted pl-3"
+        >Manage Your Community</label
+      >
+    </div>
+    <button
+      ngbDropdownItem
+      routerLink="/community/analytics"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'chart-bar']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Community Analytics
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/settings/users-list"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'user']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Manage Users
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/groups/list"
+      class="pt-2 pb-2"
+      style="padding-left: 0.8rem;"
+    >
+      <fa-icon [icon]="['fas', 'users']" class="text-muted mr-1"></fa-icon>
+      Manage Groups
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/workflow/list"
+      class="pt-2 pb-2"
+      style="padding-left: 0.8rem;"
+    >
+      <fa-icon
+        [icon]="['fas', 'conveyor-belt-alt']"
+        class="text-muted mr-1"
+      ></fa-icon>
+      Manage Workflows
+    </button>
+    <hr class="my-0" />
+    <button
+      ngbDropdownItem
+      routerLink="/settings/send-invites"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'paper-plane']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Send Invites
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/settings/invites-pending"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'envelope-open-text']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Manage Invites
+    </button>
+    <button
+      ngbDropdownItem
+      routerLink="/community/manage/email"
+      class="pt-2 pb-2 pl-3"
+    >
+      <fa-icon
+        [icon]="['fas', 'envelope']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Manage Emails
+    </button>
+    <hr class="my-0" />
+    <button ngbDropdownItem routerLink="/settings/all" class="pt-2 pb-2 pl-3">
+      <fa-icon
+        [icon]="['fas', 'cogs']"
+        class="text-muted mr-1 text-medium"
+      ></fa-icon>
+      Community Settings
+      <!-- <fa-icon
+        [icon]="['fas', 'lock']"
+        class="text-muted mr-1 text-medium"
+        ngbTooltip="You're currently a moderator, you must be an administrator to edit community settings."
+      ></fa-icon> -->
+    </button>
+  </div>
+</div>

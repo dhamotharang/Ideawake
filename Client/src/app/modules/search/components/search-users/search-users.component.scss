@@ -1,0 +1,87 @@
+@import '../../../../../variables';
+@import '../../../../../variables-custom';
+
+.ng-select.custom .ng-select-container{
+  border: 1px solid #ced4da !important;
+  border-radius: 3px !important;
+  font-size: 1rem !important;
+  padding: .15rem .25rem;
+  // height: calc(1.5em + .75rem + 2px);
+  width: 100% !important;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{
+  color: #6C757D;
+  font-size: 1rem;
+  padding-bottom: 0;
+  padding-top: 1.3px;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-label{
+  padding: 1px 5px 1px 7px;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value{
+  background-color: $primary;
+  color: white;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon:hover{
+  background-color: $primary;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.right{
+  border-left: 1px solid #f1f1f1;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon{
+  padding: 1px 5px 3px 5px;
+}
+
+.ng-select.custom .ng-select-container:hover{
+  box-shadow: none !important;
+  border-radius: .15rem !important;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #868e96 !important;
+  font-weight: 400 !important;
+  opacity: 1 !important; /* Firefox */
+  font-size: 1rem !important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #868e96 !important;
+  font-weight: 400 !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #868e96 !important;
+  font-weight: 400 !important;
+}
+
+
+.ng-dropdown-panel {
+  width: 100% !important;
+  top: 102%;
+}
+
+.ng-dropdown-panel .ng-select-bottom {
+  width: 100% !important;
+  top: 102%;
+}
+
+.ng-select .ng-select-container .custom{
+  border: 100% !important;
+  top: 102%;
+}
+
+.ng-select.ng-select-opened > .ng-select-container {
+  border: 1px 100% #ced4da !important;
+  top: 103%;
+}
+
+.imageWidth {
+  width: 20px !important;
+  height: 20px !important;
+}

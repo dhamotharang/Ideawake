@@ -1,0 +1,89 @@
+<div class="teamImagesMinWidth">
+  <div class="row">
+    <div class="col-12">
+      <div class="media">
+        <img
+          class="activityFeedProfileImage rounded-circle mr-2"
+          [defaultImage]="defaultImage"
+          [lazyLoad]="
+            config?.anonymous
+              ? 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'
+              : getUserImage(config?.user)
+          "
+        />
+        <div class="media-body">
+          <h6 class="mb-0">
+            <a
+              *ngIf="!config?.anonymous"
+              [routerLink]="['/profile/view/', config?.user?.id]"
+              class="inverseLinkDark"
+              >{{ config?.user?.firstName }} {{ config?.user?.lastName }}</a
+            >
+            <a *ngIf="config?.anonymous" class="inverseLinkDark">Anonymous</a>
+          </h6>
+          <!-- <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="small bold text-muted mb-2">
+                <fa-icon
+                  [icon]="['fas', 'trophy']"
+                  class="text-center text-primary"
+                >
+                </fa-icon>
+                1st Place
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small bold text-muted mb-0">
+                <fa-icon
+                  [icon]="['fas', 'award']"
+                  class="text-center text-muted"
+                ></fa-icon>
+                Level 2
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small bold text-muted mb-0">
+                <fa-icon
+                  [icon]="['fas', 'certificate']"
+                  class="text-center text-muted"
+                >
+                </fa-icon>
+                256 XP
+              </p>
+            </li>
+          </ul> -->
+          <!-- <hr class="mt-0 mb-1" /> -->
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <p class="small bold inverseLink mb-0">
+                <fa-icon
+                  [icon]="['fas', 'lightbulb-on']"
+                  class="text-center"
+                ></fa-icon>
+                {{ config?.ideaCount || 0 }} Ideas
+              </p>
+            </li>
+            <!-- <li class="list-inline-item">
+              <p class="small bold inverseLink mb-0">
+                <fa-icon
+                  [icon]="['fas', 'comment']"
+                  class="text-center"
+                ></fa-icon>
+                100
+              </p>
+            </li>
+            <li class="list-inline-item">
+              <p class="small bold inverseLink mb-0">
+                <fa-icon
+                  [icon]="['fas', 'thumbs-up']"
+                  class="text-center"
+                ></fa-icon>
+                233
+              </p>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

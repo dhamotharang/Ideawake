@@ -1,0 +1,214 @@
+<div class="modal-header card-header bg-white border-bottom-0 px-3">
+  <p class="small uppercase bold mb-0">Add New Post Type</p>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modalScrollMaxHeight">
+  <div class="form-group mb-0">
+    <label>Post Type Title</label>
+    <div class="input-group mb-1 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Give your opportunity type a title..."
+        [(ngModel)]="opportunity.name"
+      />
+      <!-- <div class="input-group-prepend">
+        <div
+          class="input-group-text bg-light"
+          placement="top"
+          ngbTooltip="Edit unique label ID for this field"
+        >
+          <fa-icon [icon]="['fas', 'code']" class="link"></fa-icon>
+        </div>
+      </div> -->
+    </div>
+    <div [hidden]="hideError || opportunity.name !== ''" class="error-txt">
+      Title is Required
+    </div>
+  </div>
+  <label class="text-medium font-weight-normal">UniqueID - </label>
+  <span> {{ opportunity.name | replaceSpacesWith: '_' }}</span>
+  <hr class="my-1" />
+  <div class="form-group mb-0 mt-1">
+    <span class="bold small link pointer" *ngIf="false">
+      <fa-icon [icon]="['fas', 'code']" class="mt-2"></fa-icon>
+      Edit UniqueID
+    </span>
+    <span
+      class="bold small link pointer"
+      (click)="descriptionVisibility = !descriptionVisibility"
+    >
+      <fa-icon [icon]="['fas', 'plus-circle']" class="mt-2"></fa-icon>
+      Add Description
+    </span>
+  </div>
+  <!-- show if add description clicked -->
+  <div class="card bg-light" *ngIf="descriptionVisibility">
+    <div class="card-body p-2">
+      <div class="form-group mb-0">
+        <label class="bold small mb-0">Add Field Description</label>
+        <textarea
+          class="form-control form-control-sm"
+          rows="3"
+          placeholder="Add a field description..."
+          [(ngModel)]="opportunity.description"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+  <!-- end if add description clicked -->
+  <div class="form-group mb-0 mt-2 d-none">
+    <label class="bold small mb-0">Unique ID of This Field</label>
+    <input
+      type="text"
+      class="form-control form-control-sm mb-2"
+      placeholder="Enter a unique ID for this field"
+    />
+  </div>
+  <div class="form-row pt-3">
+    <div class="col-6 form-group">
+      <!-- start of color select -->
+      <label>Post Type Icon</label>
+      <div container="body" ngbDropdown>
+        <span
+          class="btn btn-light btn-block removeCaret bold text-align-left shadow-sm border py-3"
+          ngbDropdownToggle
+        >
+          <div class="row">
+            <div class="col-9">
+              <h6 class="mb-1 text-left">Selected Icon</h6>
+              <p class="small mb-0 text-left">
+                {{ toCapital(opportunity.icon) }}
+              </p>
+            </div>
+            <div class="col-3 px-0">
+              <fa-icon
+                [icon]="['fas', opportunity.icon]"
+                class="text-right iconLarge"
+              ></fa-icon>
+            </div>
+          </div>
+          <!-- the current color selected -->
+        </span>
+        <div ngbDropdownMenu class="shadow p-2">
+          <div class="row mr-0">
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'rocket'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'rocket']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'lightbulb'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'lightbulb']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'book-open'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'book-open']"></fa-icon>
+              </button>
+            </div>
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'atom'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'atom']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'file-alt'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'file-alt']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'building'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'building']"></fa-icon>
+              </button>
+            </div>
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'bolt'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'bolt']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'chart-bar'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'chart-bar']"></fa-icon>
+              </button>
+            </div>
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'gem'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'gem']"></fa-icon>
+              </button>
+            </div>
+            <div
+              class="col-2 mb-3 pr-0"
+              (click)="opportunity.icon = 'handshake'"
+            >
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'handshake']"></fa-icon>
+              </button>
+            </div>
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'heart'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'heart']"></fa-icon>
+              </button>
+            </div>
+            <div class="col-2 mb-3 pr-0" (click)="opportunity.icon = 'dna'">
+              <button class="btn btn-light btn-block colorSelect">
+                <fa-icon [icon]="['fas', 'dna']"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of color select -->
+    </div>
+    <div class="col-6 form-group">
+      <!-- start of color select -->
+      <label>Post Type Color</label>
+      <app-color-picker
+        [heading]="'Select'"
+        [color]="opportunity.color"
+        (selected)="opportunity.color = $event"
+      ></app-color-picker>
+      <!-- end of color select -->
+    </div>
+  </div>
+  <!-- <div class="form-group">
+            <label>Who Can Post This Opportunity Type?</label>
+            <app-group-dropdown-select></app-group-dropdown-select>
+          </div>
+          <div class="form-group">
+            <label>Who Can View This Opportunity Type?</label>
+            <app-group-dropdown-select></app-group-dropdown-select>
+          </div> -->
+</div>
+<div class="modal-footer bg-light">
+  <button class="btn btn-light border" (click)="modal.close()">Cancel</button>
+  <button
+    class="btn btn-primary ml-2"
+    [disabled]="isDisabled"
+    (click)="addOpportunity()"
+  >
+    Add New Type
+  </button>
+</div>

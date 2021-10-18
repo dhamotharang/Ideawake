@@ -1,0 +1,176 @@
+<div class="row">
+  <div class="removePaddingOnMobile col-12">
+    <div class="card shadow-sm 'mb-4">
+      <div class="card-header py-2">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <p
+              class="bold text-muted mb-0 uppercase pt-1 montserrat pointer"
+              (click)="close()"
+            >
+              Evaluations
+            </p>
+          </li>
+          <li class="list-inline-item">
+            <fa-icon
+              [icon]="['fas', 'angle-right']"
+              class="text-muted"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item">
+            <p class="bold text-muted mb-0 uppercase pt-1 montserrat">
+              {{ stage.title }}
+            </p>
+          </li>
+          <li class="list-inline-item float-right">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="close()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body modalScrollMaxHeight py-0 rounded">
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="float-right">
+                  <!-- <app-idea-export></app-idea-export> -->
+                  <div class="btn-group mr-2 ml-2" role="group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-light border"
+                      (click)="onClickToggleChoice('Scores')"
+                      [ngClass]="toggleChoice == 'Scores' ? 'active' : ''"
+                    >
+                      Scores
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-light border"
+                      (click)="onClickToggleChoice('Responses')"
+                      [ngClass]="toggleChoice == 'Responses' ? 'active' : ''"
+                    >
+                      Responses
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="mt-3" />
+            <div style="width: 100%; overflow-x: auto;" (scroll)="changePage()">
+              <!-- start of table -->
+              <table [ngStyle]="{ width: totalCount > 3 ? '120%' : '100%' }">
+                <thead class="pb-2 mb-2">
+                  <th
+                    scope="col"
+                    class="py-2 columnWidthExtraShort border-top-0 border-bottom-0"
+                  >
+                    Criteria Title
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                  >
+                    Average
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                  >
+                    Variance
+                  </th>
+                  <th
+                    scope="col"
+                    class="py-2 columnWidthExtraShort text-center border-top-0 border-bottom-0"
+                    *ngFor="let userScore of users"
+                  >
+                    <img
+                      class="userImage rounded-circle"
+                      [ngbTooltip]="
+                        userScore?.user?.firstName +
+                        ' ' +
+                        userScore?.user?.lastName
+                      "
+                      [defaultImage]="defaultImage"
+                      [lazyLoad]="userScore?.user?.profileImage?.url || image"
+                    />
+                  </th>
+                </thead>
+                <tbody class="text-medium">
+                  <tr class="border-bottom" *ngFor="let criteria of criterias">
+                    <td class="my-0 py-2" scope="row">
+                      <p class="text-medium mb-0">
+                        {{ criteria?.evaluationCriteria.title }}
+                      </p>
+                    </td>
+                    <td class="text-center py-2">
+                      <p class="mb-0">
+                        {{
+                          getSummaryValue(
+                            criteria?.evaluationCriteria,
+                            'average'
+                          )
+                        }}
+                      </p>
+                    </td>
+                    <td class="text-center py-2">
+                      <p class="mb-0">
+                        {{
+                          getSummaryValue(
+                            criteria?.evaluationCriteria,
+                            'variance'
+                          )
+                        }}
+                      </p>
+                    </td>
+                    <td
+                      class="text-center py-2"
+                      *ngFor="let userScore of users"
+                    >
+                      <p class="mb-0">
+                        {{
+                          getUserScore(
+                            userScore.user,
+                            criteria?.evaluationCriteria
+                          )
+                        }}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr class="bold">
+                    <td class="my-0 py-2" scope="row">
+                      <p class="mb-0">
+                        Totals
+                      </p>
+                    </td>
+                    <td class="text-center py-2">
+                      <p class="mb-0">{{ totalScore | number: '1.0-2' }}/100</p>
+                    </td>
+                    <td class="text-center py-2">
+                      <p class="mb-0"></p>
+                    </td>
+                    <td
+                      class="text-center py-2"
+                      *ngFor="let userScore of users"
+                    >
+                      <p class="mb-0">
+                        {{ userScore?.totalScore | number: '1.0-2' }}/10
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- end of table -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

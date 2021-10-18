@@ -1,0 +1,783 @@
+<div class="row">
+  <!-- <div class="col-12 col-md-2">
+    <app-community-navigation></app-community-navigation>
+  </div> -->
+  <div class="col-12">
+    <div class="row pt-3 workflowContainerPadding">
+      <div class="col-12">
+        <div class="row mb-2">
+          <div class="col-8 col-md-9">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a
+                  class="mb-0 uppercase bold pt-1"
+                  routerLink="/workflow/list"
+                  >{{ 'StageList.Workflows' | translationPipe }}</a
+                >
+              </li>
+              <li class="list-inline-item">
+                <fa-icon
+                  [icon]="['fas', 'angle-right']"
+                  class="mr-1 ml-1 text-muted"
+                ></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="mb-0 uppercase bold pt-1">
+                  <span class="d-none d-md-inline">
+                    {{ 'StageList.Manage' | translationPipe }}
+                    {{ workflow.title }}
+                  </span>
+                  <span class="d-inline d-md-none">
+                    {{ workflow?.title?.substring(0, 12) }}
+                    <span *ngIf="workflow?.title?.length > 12">...</span>
+                  </span>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="col-4 col-md-3">
+            <span class="float-right">
+              <button
+                class="btn btn-primary btn-sm mr-2"
+                (click)="open(addStageStepOne)"
+              >
+                <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+                {{ 'StageList.AddStage' | translationPipe }}
+              </button>
+              <!-- <span ngbDropdown>
+                <button
+                  class="btn btn-light border btn-sm removeCaret"
+                  ngbDropdownToggle
+                >
+                  <fa-icon
+                    [icon]="['fas', 'ellipsis-v']"
+                    class="mr-1 text-muted"
+                  ></fa-icon>
+                  {{ 'StageList.MoreOptions' | translationPipe }}
+                  <fa-icon
+                    [icon]="['fas', 'caret-down']"
+                    class="text-muted"
+                  ></fa-icon>
+                </button>
+                <div
+                  ngbDropdownMenu
+                  aria-labelledby="groupPageMore"
+                  class="shadow pt-0 pb-0"
+                >
+                  <button ngbDropdownItem class="pt-2 pb-2">
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ 'StageList.EditWorkflowTitle' | translationPipe }}
+                  </button>
+                  <button ngbDropdownItem class="pt-2 pb-2">
+                    <fa-icon
+                      [icon]="['fas', 'edit']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ 'StageList.CloneWorkflow' | translationPipe }}
+                  </button>
+                  <hr class="mb-0 mt-0" />
+                  <button ngbDropdownItem class="pt-2 pb-2">
+                    <fa-icon
+                      [icon]="['fas', 'times-circle']"
+                      class="text-muted"
+                    ></fa-icon>
+                    {{ 'StageList.ArchiveWorkflow' | translationPipe }}
+                  </button>
+                </div>
+              </span> -->
+            </span>
+          </div>
+        </div>
+        <hr class="mb-2 mt-3" />
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div
+                cdkDropList
+                class="col-12"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <!-- start of header -->
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-4 col-md-3">
+                        <label class="small bold">
+                          {{ 'StageList.StageName' | translationPipe }}
+                        </label>
+                      </div>
+                      <div class="d-none d-md-inline-block col-md-2">
+                        <label class="small bold">
+                          {{ 'StageList.StageDetails' | translationPipe }}
+                        </label>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <label class="small bold">
+                          {{ 'StageList.Assignee' | translationPipe }}
+                        </label>
+                      </div>
+                      <div class="d-none d-md-inline-block col-md-2">
+                        <label class="small bold">
+                          {{ 'StageList.Status' | translationPipe }}
+                        </label>
+                      </div>
+                      <div class="d-none d-md-inline-block col-md-1">
+                        <label class="small bold">
+                          <!-- {{ 'StageList.DueDate' | translationPipe }} -->
+                          # Days
+                        </label>
+                      </div>
+                      <!-- <div class="col-2">
+                                <label class="small">
+                                  {{ 'StageList.Notifications' | translationPipe }}
+                                </label>
+                              </div> -->
+                      <!-- <div class="col-1">
+                        <label class="small bold">
+                          {{ 'StageList.Manage' | translationPipe }}
+                        </label>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- end of header -->
+                <!-- start of one stage entry -->
+                <div *ngFor="let stage of stages" class="row">
+                  <div cdkDrag class="col-12">
+                    <div class="card shadow-sm d-flex">
+                      <div class="card-body px-0 py-2">
+                        <div class="row flex-row">
+                          <div class="col-4 col-md-3 align-self-center">
+                            <div class="media">
+                              <fa-icon
+                                cdkDragHandle
+                                [icon]="['fas', 'grip-vertical']"
+                                class="text-muted d-none d-md-inline mr-3 iconLarge moveOnHover stagePositioning"
+                                placement="right"
+                                ngbTooltip="Drag and drop to change order"
+                              ></fa-icon>
+                              <fa-icon
+                                [icon]="[
+                                  'fas',
+                                  actionItemsIcon[
+                                    stage?.actionItem?.abbreviation
+                                  ].icon
+                                ]"
+                                class="stageIcon d-none d-md-block ml-2 mr-2 rounded-circle pointer text-white align-self-center text-center {{
+                                  actionItemsIcon[
+                                    stage?.actionItem?.abbreviation
+                                  ].background
+                                }}"
+                              >
+                              </fa-icon>
+                              <div class="media-body align-self-center">
+                                <p
+                                  class="mb-0 text-medium inverseLinkDark font-weight-normal"
+                                  routerLink="/workflow/{{
+                                    workflowId
+                                  }}/stage/edit/{{ stage?.id }}"
+                                >
+                                  {{ stage.title.substring(0, 30) }}
+                                  <span *ngIf="stage.title.length > 30"
+                                    >..</span
+                                  >
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted ml-1"
+                                    placement="top"
+                                    [ngbTooltip]="stage.description"
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="d-none d-md-inline-block col-md-2 align-self-center"
+                          >
+                            <span
+                              *ngIf="
+                                stage?.actionItem?.abbreviation ==
+                                actionItemAbbreviations.NO_TOOL
+                              "
+                            >
+                              <p class="small mb-0 text-muted font-italic">
+                                No Action
+                              </p>
+                            </span>
+                            <span
+                              *ngIf="
+                                stage?.actionItem?.abbreviation ==
+                                actionItemAbbreviations.SCORECARD
+                              "
+                            >
+                              <ng-template #criteriaDescription>
+                                <span
+                                  [innerHtml]="criteriaDescriptionHtml(stage)"
+                                ></span>
+                              </ng-template>
+                              <p
+                                class="small mb-0"
+                                container="body"
+                                placement="left"
+                                triggers="mouseenter:mouseleave"
+                                [ngbPopover]="criteriaDescription"
+                                [openDelay]="200"
+                                [closeDelay]="300"
+                                popoverClass="popoverStageInfo"
+                                [popoverTitle]="criteriaTitle"
+                              >
+                                {{ getCriteriaCount(stage) }} Criteria
+                              </p>
+                            </span>
+                            <span
+                              *ngIf="
+                                stage?.actionItem?.abbreviation ==
+                                actionItemAbbreviations.REFINEMENT
+                              "
+                            >
+                              <ng-template #fieldDescription>
+                                <span
+                                  [innerHtml]="fieldDescriptionHtml(stage)"
+                                ></span>
+                              </ng-template>
+                              <p
+                                class="small mb-0"
+                                container="body"
+                                placement="left"
+                                [openDelay]="200"
+                                [closeDelay]="300"
+                                popoverClass="popoverStageInfo"
+                                triggers="mouseenter:mouseleave"
+                                [ngbPopover]="fieldDescription"
+                                [popoverTitle]="fieldTitle"
+                              >
+                                {{ getCustomFieldsCount(stage) }} Fields
+                              </p>
+                            </span>
+                          </div>
+                          <div class="col-6 col-md-3 align-self-center">
+                            <p class="small mb-0">
+                              {{ stagesAssignee[stage.id] }}
+                              <span
+                                *ngIf="
+                                  stagesCustomFieldAssignee[stage.id]?.fieldId
+                                "
+                                placement="auto top"
+                                triggers="mouseenter:mouseleave"
+                                [ngbPopover]="smartRoute"
+                                [popoverTitle]="smartRouteTitle"
+                                [openDelay]="200"
+                                [closeDelay]="300"
+                                popoverClass="popoverStageInfo"
+                              >
+                                {{
+                                  allCustomFields[
+                                    stagesCustomFieldAssignee[stage.id]?.fieldId
+                                  ]?.title
+                                }}
+                                <fa-icon
+                                  [icon]="['fas', 'random']"
+                                  style="
+                                    position: relative;
+                                    top: 1.1px;
+                                    left: 1px;
+                                  "
+                                >
+                                </fa-icon>
+                              </span>
+                            </p>
+                            <p
+                              class="small text-info mb-0"
+                              *ngIf="
+                                stagesAssignee[stage.id]?.length === 0 &&
+                                !stagesCustomFieldAssignee[stage.id]?.fieldId
+                              "
+                            >
+                              <span
+                                placement="top"
+                                ngbTooltip="No user or group is currently assigned to complete this stage."
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'exclamation-triangle']"
+                                >
+                                </fa-icon>
+                                Unassigned
+                              </span>
+                            </p>
+                            <ng-template #smartRouteTitle>
+                              <ul class="row list-inline mb-0">
+                                <li class="col-4">
+                                  <p class="mb-0 bold text-medium">Response</p>
+                                </li>
+                                <li class="col-8">
+                                  <p class="mb-0 bold text-medium">Assignee</p>
+                                </li>
+                              </ul>
+                            </ng-template>
+                            <ng-template #smartRoute>
+                              <div
+                                *ngFor="
+                                  let option of stagesCustomFieldAssignee[
+                                    stage.id
+                                  ]?.options
+                                "
+                                class="row small pt-1 pb-2 mb-1 border-bottom"
+                              >
+                                <div class="col-4">
+                                  <p class="mb-0">
+                                    {{ option?.label }}
+                                  </p>
+                                </div>
+                                <div class="col-8">
+                                  <p class="mb-0">
+                                    {{ option?.assignee }}
+                                  </p>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </div>
+                          <div
+                            class="d-none d-md-inline-block col-md-2 align-self-center"
+                          >
+                            <span
+                              class="badge badge-secondary"
+                              [ngStyle]="{
+                                'background-color': stage?.status?.colorCode
+                              }"
+                            >
+                              {{
+                                'Statuses.' + stage?.status?.title
+                                  | translationPipe
+                              }}
+                            </span>
+                          </div>
+                          <div
+                            class="d-none d-md-inline-block col-md-1 align-self-center"
+                          >
+                            <p
+                              class="small mb-0"
+                              ngbTooltip="Assignees will have This Many Days to Complete This Stage"
+                              [openDelay]="200"
+                              [closeDelay]="200"
+                              container="body"
+                              placement="left"
+                            >
+                              {{ getStageLimit(stage) }}
+                            </p>
+                          </div>
+                          <!-- <div class="col-1 align-self-center">
+                                            <label class="small">
+                                              Crowdsourced
+                                            </label>
+                                          </div> -->
+                          <!-- <div class="col-1 align-self-center text-center">
+                                            <label class="small mr-2" ngbTooltip="Voting disabled in this stage">
+                                              <fa-icon [icon]="['fas', 'thumbs-up']" class="text-danger"></fa-icon>
+                                            </label>
+                                            <label class="small mr-2" ngbTooltip="Commenting enabled in this stage">
+                                              <fa-icon [icon]="['fas', 'comment']" class="text-primary"></fa-icon>
+                                            </label>
+                                            <label class="small" ngbTooltip="Sharing disabled in this stage">
+                                              <fa-icon [icon]="['fas', 'share-alt']" class="text-primary"></fa-icon>
+                                            </label>
+                                          </div> -->
+                          <!-- <div class="col-2 align-self-center">
+                                    <label class="small text-primary">
+                                      {{
+                                        stage?.stageNotificationSettings?.length
+                                          ? 'Enabled'
+                                          : 'Disabled'
+                                      }}
+                                    </label>
+                                  </div> -->
+                          <div class="col-2 col-md-1 align-self-center">
+                            <div class="float-right mr-3">
+                              <span
+                                class="inverseLink mr-1"
+                                routerLink="/workflow/{{
+                                  workflowId
+                                }}/stage/edit/{{ stage?.id }}"
+                              >
+                                <fa-icon
+                                  [icon]="['fas', 'edit']"
+                                  ngbTooltip="Edit This Stage"
+                                  container="body"
+                                  class="mr-2"
+                                ></fa-icon>
+                              </span>
+                              <span ngbDropdown>
+                                <span
+                                  class="inverseLink removeCaret"
+                                  ngbDropdownToggle
+                                >
+                                  <fa-icon
+                                    [icon]="['fas', 'ellipsis-v']"
+                                    ngbTooltip="More Options"
+                                    container="body"
+                                  ></fa-icon>
+                                </span>
+                                <div
+                                  ngbDropdownMenu
+                                  aria-labelledby="groupPageMore"
+                                  class="shadow pt-0 pb-0"
+                                >
+                                  <button
+                                    (click)="
+                                      open(confirmarchive); selectStage(stage)
+                                    "
+                                    ngbDropdownItem
+                                    class="pt-2 pb-2"
+                                  >
+                                    <fa-icon
+                                      [icon]="['fas', 'trash']"
+                                      class="text-muted"
+                                    ></fa-icon>
+                                    Archive Stage
+                                  </button>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- start of show expanded -->
+                      <div class="card-footer px-2 py-2 d-none">
+                        view more section
+                      </div>
+                      <!-- end of show expanded -->
+                    </div>
+                  </div>
+                  <div class="verticalSeparator"></div>
+                </div>
+                <!-- end of one stage entry -->
+                <div
+                  class="card pointer cardAnimation"
+                  *ngIf="stages.length == 0"
+                  (click)="open(addStageStepOne)"
+                >
+                  <div class="card-body text-center">
+                    <fa-icon
+                      [icon]="['fas', 'plus-circle']"
+                      class="text-muted"
+                      style="font-size: 2.5rem"
+                    ></fa-icon>
+                    <h4 class="text-center montserrat bold">
+                      Add Your First Stage to This Workflow
+                    </h4>
+                    <p>Add your first stage to this workflow.</p>
+                  </div>
+                </div>
+                <div
+                  class="card cardAnimation shadow-sm pointer mb-5"
+                  *ngIf="stages.length >= 1"
+                >
+                  <div
+                    (click)="open(addStageStepOne)"
+                    class="card-body"
+                    style="
+                      padding-top: 1.1rem;
+                      padding-bottom: 1rem;
+                      font-weight: 500;
+                    "
+                  >
+                    <p
+                      class="text-center mb-0 uppercase montserrat bold text-muted"
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'plus-circle']"
+                        class="text-muted"
+                      ></fa-icon>
+                      {{ 'StageList.AddNewStage' | translationPipe }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <!-- <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body p-2 bg-gray">
+                    <div class="row">
+                      <div class="col-12">
+                        <p class="mb-1 montserrat">Generic Modules</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card shadow-sm mb-2 cardAnimation">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              ></fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card shadow-sm mb-2 cardAnimation">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              >
+                              </fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card shadow-sm mb-2 cardAnimation">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              >
+                              </fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row pt-2">
+                      <div class="col-12">
+                        <p class="mb-1 montserrat">Reuse Your Stages</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card shadow-sm mb-2 cardAnimation">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              ></fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card shadow-sm mb-2 cardAnimation">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              >
+                              </fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card shadow-sm mb-2 cardAnimation grab">
+                          <div class="card-body p-2">
+                            <div class="media align-items-center">
+                              <fa-icon
+                                [icon]="['fas', 'star']"
+                                class="stageIcon text-center mr-2 rounded-circle pointer bg-warning text-white"
+                              >
+                              </fa-icon>
+                              <div class="media-body">
+                                <p class="bold mb-0">
+                                  StageName
+                                  <fa-icon
+                                    [icon]="['fas', 'info-circle']"
+                                    class="text-muted"
+                                    ngbTooltip="Stage Description..."
+                                  >
+                                  </fa-icon>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- confirm delete stage -->
+<ng-template #confirmarchive let-modal>
+  <div class="modal-header card-header bg-info">
+    <p class="small text-white uppercase bold mb-0">
+      Are You Sure You Would Like to Archive This Stage?
+    </p>
+    <button
+      type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      Please review the impact of deleting a stage before continuing, note that
+      this action cannot be undone.
+    </p>
+    <ul style="padding-left: 1.5rem">
+      <li>
+        All ideas currently in this stage will be removed from this workflow.
+      </li>
+      <li>
+        All data associated with this stage will be deleted, including analytics
+        on ideas that have previously gone through this stage.
+      </li>
+      <li>This stage will no longer be visible in this workflow.</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-light border" (click)="modal.dismiss('Cross click')">
+      Cancel
+    </button>
+    <button class="btn btn-info" (click)="archiveStage(selectedStage)">
+      Yes, Archive This Stage
+    </button>
+  </div>
+</ng-template>
+<!-- confirm delete stage -->
+
+<!-- step one add stage modal -->
+<ng-template #addStageStepOne let-modal>
+  <div class="modal-header card-header bg-light border-bottom-0 px-3">
+    <p class="small uppercase text-muted montserrat bold mb-0">
+      {{ 'StageList.AddStageToWorkflow' | translationPipe }}
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light py-1">
+    <div class="alert alert-light border bg-white px-3">
+      <div class="row">
+        <div class="col-12">
+          <p class="text-muted small mb-0">
+            <b>Select Stage Action</b> - Your stage action is the primary
+            activity you want to happen during this stage. Select "No Action" if
+            you would like this new stage to act as a holding stage.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row flex-row" *ngFor="let tool of tools">
+      <div class="col-12">
+        <div
+          class="card mb-2 shadow-sm addHoverTwo"
+          (click)="modal.dismiss('Cross click')"
+          [routerLink]="['/workflow/' + workflowId + '/stage/add']"
+          [queryParams]="{ tool: tool.id }"
+        >
+          <div class="card-body p-2 px-1">
+            <div class="media">
+              <fa-icon
+                [icon]="['fas', actionItemsIcon[tool.abbreviation].icon]"
+                [ngClass]="actionItemsIcon[tool.abbreviation].background"
+                class="stageIcon text-center mr-2 rounded-circle pointer text-white"
+              >
+              </fa-icon>
+              <div class="media-body align-self-center">
+                <label class="mb-0 align-middle montserrat pointer">{{
+                  tool.title
+                }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer border-top-0 bg-light"></div>
+</ng-template>
+<!-- end step one add stage modal -->
+<ng-template #criteriaTitle>
+  <ul class="list-inline mb-0 popoverUserMinWidth row">
+    <li class="list-inline-item mr-0 col-7">
+      <p class="bold text-medium mb-0">Criteria</p>
+    </li>
+    <li class="list-inline-item mr-0 col-5">
+      <p class="bold text-medium text-center mb-0">Weight</p>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #fieldTitle>
+  <ul class="list-inline mb-0 popoverUserMinWidth row">
+    <li class="list-inline-item mr-0 col-6">
+      <p class="bold text-medium mb-0">Field Title</p>
+    </li>
+    <li class="list-inline-item mr-0 col-6">
+      <p class="bold text-medium text-center mb-0">Type</p>
+    </li>
+  </ul>
+</ng-template>

@@ -1,0 +1,111 @@
+// custom flexboxes
+
+.leftContainer {
+  flex: 0 0 72.6666667%;
+  max-width: 72.6666667%;
+  -webkit-box-flex: 0;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.leftCol {
+  flex: 0 0 25%;
+  max-width: 25%;
+  -webkit-box-flex: 0;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.rightContainer {
+  flex: 0 0 27%;
+  max-width: 27%;
+  -webkit-box-flex: 0;
+  position: relative;
+  width: 100%;
+  padding-right: 8px;
+  padding-left: 5px;
+}
+
+.fixed {
+  position: fixed;
+  // top: 1rem;
+  top: 6rem;
+  // left: 6.5rem;
+  height: 85%;
+  margin-bottom: 40px;
+  overflow-y: scroll;
+  width: 16%;
+}
+
+.setHeight {
+  max-height: 45rem;
+  overflow-y: scroll;
+}
+
+// extra small devices
+
+.centerCol {
+  flex: 0 0 99%;
+  max-width: 99%;
+  -webkit-box-flex: 0;
+  position: relative;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .centerCol {
+    flex: 0 0 75%;
+    max-width: 75%;
+    -webkit-box-flex: 0;
+    position: relative;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .centerCol {
+    flex: 0 0 75%;
+    max-width: 75%;
+    -webkit-box-flex: 0;
+    position: relative;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .centerCol {
+    flex: 0 0 75%;
+    max-width: 75%;
+    -webkit-box-flex: 0;
+    position: relative;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .centerCol {
+    flex: 0 0 75%;
+    max-width: 75%;
+    -webkit-box-flex: 0;
+    position: relative;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}

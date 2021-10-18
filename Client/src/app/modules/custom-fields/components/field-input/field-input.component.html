@@ -1,0 +1,62 @@
+<div class="row pb-3">
+  <div class="col-12">
+    <app-field-label [customField]="customField"></app-field-label>
+    <app-field-access-badges
+      [customField]="customField"
+      [roles]="roles"
+    ></app-field-access-badges>
+    <!-- if completed -->
+    <p
+      class="mb-0 ml-1 py-1 text-muted noFieldEntry text-medium"
+      *ngIf="!dataAvailable && view && !editMode"
+      (click)="customField.permissions.editCustomFieldData ? autoFocus() : null"
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+    >
+      Add an entry for this field...
+    </p>
+    <p
+      *ngIf="
+        !dataAvailable && view && !customField.permissions.editCustomFieldData
+      "
+    >
+      This field doesn't have an entry yet
+    </p>
+    <p
+      class="showEditOnHover text-medium mb-0"
+      *ngIf="dataAvailable && view && !editMode"
+      (click)="customField.permissions.editCustomFieldData ? autoFocus() : null"
+      [ngbTooltip]="
+        !customField.permissions.editCustomFieldData
+          ? 'You don\'t have access to edit this field'
+          : 'Click to edit'
+      "
+      [innerHTML]="htmlText"
+    ></p>
+    <!-- non completed or edit -->
+    <input
+      #input
+      *ngIf="editMode || !view"
+      type="text"
+      class="form-control"
+      [(ngModel)]="text"
+      [placeholder]="
+        customField?.placeholderText || 'Enter ' + customField?.title + '...'
+      "
+      (keyup)="!view ? data.emit(text) : null"
+    />
+    <app-raw-field-buttons
+      *ngIf="editMode"
+      (cancel)="text = backupText; editMode = false"
+      (save)="saveChanges()"
+    ></app-raw-field-buttons>
+    <app-field-history
+      [customField]="customField"
+      [dataType]="fieldDataType.TEXT"
+      *ngIf="view && customField?.opportunityFieldData"
+    ></app-field-history>
+  </div>
+</div>

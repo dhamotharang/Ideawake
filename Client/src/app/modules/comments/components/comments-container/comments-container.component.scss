@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.comments-wrapper {
+  padding: 0.5rem 0.9rem;
+  background-color: #f8f9fa;
+  border-radius: 0.15rem;
+  margin-bottom: 1rem;
+  border: 0.05rem solid #dddddd;
+}
+
+.customRightMargin {
+  margin-right: 0.75rem;
+}
+
+.move-comment-control-text {
+  position: relative;
+  bottom: 0.1rem;
+  cursor: pointer;
+}
+
+.stakeholderBadge {
+  font-size: 0.6rem;
+}
+
+.comment-file {
+  display: block;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.thumbnailImage {
+  width: 6rem;
+  height: 5.5rem;
+  border-radius: 3%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.userImage {
+  border: 2px solid white;
+  width: 3.25rem;
+  height: 3.25rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.userImageSmall{
+  border: 2px solid white;
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.text-comment {
+  font-size: 0.85rem;
+}
+
+.setCommentsHeight{
+  height: 31rem;
+  max-height: 68vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

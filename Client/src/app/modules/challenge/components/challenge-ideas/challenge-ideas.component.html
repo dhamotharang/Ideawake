@@ -1,0 +1,328 @@
+<div class="">
+  <div class="row bg-white border-bottom shadow-sm workflowContainerPadding">
+    <div class="col-12">
+      <app-challenge-top-summary
+        [challenge]="challenge"
+        [userChallengePermissions]="challengePermissions"
+        (update)="getChallengeDetail()"
+      ></app-challenge-top-summary>
+      <!-- (permissions)="updatePermissionSettings($event)" -->
+    </div>
+  </div>
+  <div class="row pt-4 mb-0">
+    <div class="col-12"></div>
+  </div>
+
+  <!-- card list view -->
+  <div class="container-fluid" style="max-width: 1350px;">
+    <!-- if challenge visibility of ideas disabled -->
+    <div *ngIf="notPosted && visibilityPrivate" class="row pt-4 mt-4">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body text-center py-5">
+            <div class="row">
+              <div class="col-12 col-md-8 offset-md-2">
+                <fa-icon
+                  [icon]="['fas', 'eye-slash']"
+                  class="iconExtraLarge text-muted mb-3"
+                ></fa-icon>
+                <h4 class="montserrat bold">
+                  {{ challenge?.opportunityType?.name | pluralize }}
+                  {{ 'ChallengeView.NotVisibleTitle' | translationPipe }}
+                </h4>
+                <p class="text-muted">
+                  {{
+                    'ChallengeView.NotVisibleDescriptionOne' | translationPipe
+                  }}
+                  {{ challenge?.opportunityType?.name | pluralize }}.
+                  {{ challenge?.opportunityType?.name | pluralize }}
+                  {{
+                    'ChallengeView.NotVisibleDescriptionTwo' | translationPipe
+                  }}
+                </p>
+                <button
+                  (click)="openPostIdea()"
+                  class="btn btn-primary"
+                  *ngIf="challengePermissions?.postOpportunity"
+                >
+                  <fa-icon
+                    [icon]="['fas', 'plus-circle']"
+                    class="montserrat"
+                  ></fa-icon>
+                  {{ 'ChallengeView.PostYour' | translationPipe }}
+                  {{ challenge?.opportunityType?.name }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end if challenge visibility of ideas disabled -->
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 removePaddingOnMobile">
+            <div class="row pt-1" *ngIf="!visibilityPrivate">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-12 col-md-12">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item d-inline-block d-md-none">
+                        <div ngbDropdown>
+                          <button
+                            class="btn btn-light shadow-sm btn-sm border removeCaret"
+                            ngbDropdownToggle
+                          >
+                            <fa-icon
+                              [icon]="['fas', 'filter']"
+                              class="text-muted"
+                            ></fa-icon>
+                            {{ 'Shared.Filter' | translationPipe }}
+                            <fa-icon
+                              [icon]="['fas', 'caret-down']"
+                              class="text-muted"
+                            ></fa-icon>
+                          </button>
+                          <div ngbDropdownMenu class="shadow p-2">
+                            <div class="filtersMobile">
+                              <div class="mr-2">
+                                <div class="alert alert-info py-1 px-2 mb-2">
+                                  <p
+                                    class="small mb-0"
+                                    style="line-height: 1.25rem;"
+                                  >
+                                    {{
+                                      'IdeaFilters.FiltersMobileMessage'
+                                        | translationPipe
+                                    }}
+                                  </p>
+                                </div>
+                                <app-idea-filters
+                                  [entity]="ideaEntity"
+                                  [pageType]="'challenge'"
+                                  [challengeId]="challengeId"
+                                  [appFilters]="appliedFilters"
+                                  [onChallengePage]="true"
+                                  (filterApplied)="filterOpportunities($event)"
+                                >
+                                </app-idea-filters>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-inline-item pr-1 pl-2 pl-md-0">
+                        <h5
+                          class="montserrat mb-0 pt-2 align-self-center d-none d-md-inline-block"
+                        >
+                          {{ ideas?.length || 0 }}
+                          {{ 'ChallengeView.Of' | translationPipe }}
+                          {{ count }}
+                          {{ challenge?.opportunityType?.name | pluralize }}
+                          {{ 'Shared.Returned' | translationPipe }}
+                        </h5>
+                        <p
+                          class="montserrat mb-0 pt-2 align-self-center d-inline-block d-md-none"
+                        >
+                          {{ ideas?.length || 0 }}
+                          {{ 'ChallengeView.Of' | translationPipe }}
+                          {{ count }}
+                          {{ challenge?.opportunityType?.name }}s
+                          {{ 'Shared.Returned' | translationPipe }}
+                        </p>
+                      </li>
+                      <li
+                        class="list-inline-item pr-1 float-right adjustFloatUp"
+                      >
+                        <ul class="list-inline mb-0">
+                          <li
+                            class="list-inline-item d-none d-md-inline-block"
+                            *ngIf="challengePermissions?.exportOpportunity"
+                          >
+                            <app-idea-export
+                              [appliedFilters]="paramAppliedFilters"
+                              [filterCount]="count"
+                              [challengeId]="challengeId"
+                            ></app-idea-export>
+                          </li>
+                          <li class="list-inline-item">
+                            <app-idea-sort-options
+                              (filter)="sortFilter($event)"
+                            ></app-idea-sort-options>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <div class="col-5">
+                      <ul class="list-inline mb-0 float-right">
+                        <li class="list-inline-item pr-1"></li>
+                        <li class="list-inline-item">
+                          <app-ideas-list-view-options></app-ideas-list-view-options>
+                        </li>
+                      </ul>
+                    </div> -->
+                </div>
+                <hr class="mt-3 mb-1" />
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-12 col-12">
+                <div class="row">
+                  <div class="col-12">
+                    <app-applied-filters
+                      [filters]="appliedFilters"
+                      [pageType]="'challenge'"
+                      (filterOutput)="filterOpportunities($event)"
+                    >
+                    </app-applied-filters>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- <div
+                    class="d-none d-sm-block"
+                    *ngIf="!notPosted || !visibilityPrivate"
+                  > -->
+                  <div
+                    class="d-none d-sm-block"
+                    [ngClass]="!notPosted ? 'col-md-2' : 'd-none'"
+                    *ngIf="!notPosted || !visibilityPrivate"
+                  >
+                    <div class="row pt-3">
+                      <div class="col-12">
+                        <div>
+                          <app-idea-filters
+                            [entity]="ideaEntity"
+                            [pageType]="'challenge'"
+                            [challengeId]="challengeId"
+                            [appFilters]="appliedFilters"
+                            [onChallengePage]="true"
+                            (filterApplied)="filterOpportunities($event)"
+                          >
+                          </app-idea-filters>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    [ngClass]="
+                      !notPosted ? 'col-12 col-md-10' : 'col-12 col-md-10'
+                    "
+                  >
+                    <div class="row mt-2" *ngIf="isSearching">
+                      <div class="col-12 pr-0">
+                        <app-content-card-loader [count]="8">
+                        </app-content-card-loader>
+                      </div>
+                    </div>
+                    <!-- if no ideas have been posted -->
+                    <div
+                      *ngIf="notPosted && !isFilter && !visibilityPrivate"
+                      class="row mt-3"
+                    >
+                      <div class="col-12">
+                        <div class="card shadow-sm">
+                          <div class="card-body text-center py-5">
+                            <fa-icon
+                              [icon]="['fas', 'lightbulb']"
+                              class="iconExtraLarge text-muted mb-3"
+                            ></fa-icon>
+                            <h4 class="montserrat bold">
+                              {{ 'ChallengeView.No' | translationPipe }}
+                              {{ challenge?.opportunityType?.name | pluralize }}
+                              {{
+                                'ChallengeView.HaveBeenPosted' | translationPipe
+                              }}
+                            </h4>
+                            <p class="text-muted">
+                              {{ 'ChallengeView.BeTheFirst' | translationPipe }}
+                              {{ challenge?.opportunityType?.name | article }}
+                              {{ challenge?.opportunityType?.name }}
+                              {{
+                                'ChallengeView.OnThisChallenge'
+                                  | translationPipe
+                              }}
+                            </p>
+                            <button
+                              (click)="openPostIdea()"
+                              class="btn btn-primary"
+                              *ngIf="challengePermissions?.postOpportunity"
+                            >
+                              <fa-icon
+                                [icon]="['fas', 'plus-circle']"
+                                class="montserrat"
+                              ></fa-icon>
+                              {{ 'ChallengeView.PostYour' | translationPipe }}
+                              {{ challenge?.opportunityType?.name }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end no ideas have been posted -->
+                    <div
+                      infiniteScroll
+                      [infiniteScrollDistance]="scrollDownDistance"
+                      (scrolled)="changePage()"
+                      [scrollWindow]="true"
+                      class="row mt-3"
+                      *ngIf="!isSearching && !notPosted"
+                    >
+                      <div
+                        class="col-12 col-sm-4 col-md-3 px-2 mb-3"
+                        (click)="openPostIdea()"
+                        *ngIf="challengePermissions?.postOpportunity"
+                      >
+                        <!-- show for user to prompt them to post an idea -->
+                        <div
+                          class="card shadow-sm bg-primary pointer cardAnimation postOpportunityInChallenge flex-row d-flex"
+                        >
+                          <div class="card-body text-center align-self-center">
+                            <fa-icon
+                              [icon]="['fas', 'plus-circle']"
+                              class="text-center text-white"
+                              style="font-size: 4rem;"
+                            >
+                            </fa-icon>
+                            <h4 class="montserrat bold text-white">
+                              {{ 'ChallengeView.PostYour' | translationPipe }}
+                              {{ challenge?.opportunityType?.name }}
+                            </h4>
+                          </div>
+                        </div>
+                        <!-- end show for user to prompt them to post an idea -->
+                      </div>
+                      <!-- start of one idea card-->
+                      <div
+                        class="col-12 col-md-3 col-sm-4 px-2 mb-3"
+                        *ngFor="let idea of ideas; let i = index"
+                      >
+                        <div (click)="updateSummaryParams(idea, i)">
+                          <app-idea-widget-feed
+                            [idea]="idea"
+                            [upvotes]="upvotes"
+                            [tagsData]="tagsData"
+                            [commentCounts]="commentCounts"
+                            [permissions]="idea?.experienceSettings"
+                            [upvotesData]="
+                              upvoteDetail ? upvoteDetail[idea.id] : null
+                            "
+                            (opportunityUpdated)="opportunityUpdated($event)"
+                            (action)="cardActions($event, idea)"
+                          ></app-idea-widget-feed>
+                        </div>
+                      </div>
+                      <!-- end of one -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- card list view -->
+    </div>
+  </div>
+</div>

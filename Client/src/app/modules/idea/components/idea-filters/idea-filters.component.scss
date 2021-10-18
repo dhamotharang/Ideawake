@@ -1,0 +1,104 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~src/variables';
+@import '~src/variables-custom';
+
+.container {
+  -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+  scrollbar-width: none !important; /* Firefox */
+}
+::-webkit-scrollbar {
+  width: 0;
+  display: none !important; /* Safari and Chrome */
+}
+
+.line {
+  z-index: 99;
+  position: relative;
+  width: 2px;
+  height: 0.8rem;
+  background: #aaa;
+  margin-left: 2px;
+  bottom: 0.5rem;
+  left: 3px;
+}
+
+.lineTwo {
+  z-index: 99;
+  position: relative;
+  width: 2px;
+  height: 0.8rem;
+  background: #aaa;
+  margin-left: 2px;
+  bottom: 0.9rem;
+  left: 3px;
+}
+
+.repositionStatus {
+  position: relative;
+  bottom: 0.25rem;
+}
+
+.repositionStatusTwo {
+  position: relative;
+  bottom: 0.7rem;
+}
+
+.showHideButton {
+  padding: 0.1rem 0.15rem;
+}
+
+.customMargin {
+  margin-left: 0.15rem;
+}
+
+.singleFilter {
+  width: 102%;
+  // padding: 0.25rem .25rem 0.25rem 0.25rem;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: inherit;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  position: relative;
+  right: 0.4rem;
+}
+
+.singleFilter:hover {
+  width: 102%;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: $gray-100;
+  border-top: 1px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.singleFilter.active {
+  width: 102%;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  background-color: $gray-100;
+  border-top: 1px solid $defaultBorder;
+  border-bottom: 1px solid $defaultBorder;
+  border-left: 1px solid $defaultBorder;
+  border-right: 1px solid $defaultBorder;
+  position: relative;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.custom-control-label::before{
+  border: #dddddd solid 2px;
+}
+
+.custom-checkbox .custom-control-label::before{
+  border-radius: .1rem;
+}
+
+.custom-checkbox .custom-control-label:hover{
+  cursor: pointer;
+}

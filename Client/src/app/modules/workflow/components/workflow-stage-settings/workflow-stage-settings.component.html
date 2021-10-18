@@ -1,0 +1,311 @@
+<!-- <label class="mb-1 pt-3">Assignment Settings</label>
+  <hr class="mb-0 mt-1 mx-0" />
+  <div class="form-row mb-0 pt-2 pb-2 mx-0 border-bottom">
+    <div class="form-group col-8 mb-0">
+      <label class="mb-0 font-weight-normal">Create Action Item for This Stage</label>
+    </div>
+    <div class="form-group col-4 mb-0">
+      <div class="custom-control custom-switch mr-auto float-right">
+        <input type="checkbox" class="custom-control-input pointer" id="enableActionItem"
+          (click)="toggleShowActionItem()" />
+        <label class="custom-control-label" for="enableActionItem">Enabled</label>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-light rounded-0 border-top-0" *ngIf="show">
+    <div class="card-body pt-3 pb-3">
+      <div class="form-row mb-0">
+        <div class="form-group col-5 mb-0 mt-1">
+          <label class="font-weight-normal">Enter Action Item Details</label>
+          <p class="small text-muted mb-0">
+            Enter the number of days assigned stakeholders will have to
+            complete this stage.
+          </p>
+        </div>
+        <div class="form-group col-7">
+          <input type="text" class="form-control" placeholder="Action Item Title..." />
+        </div>
+      </div>
+      <div class="form-row py-2 mt-2 dottedBottomBorder">
+        <div class="form-group col-8 mb-0">
+          <label class="mb-0 font-weight-normal text-medium">Send Email Notification to Stage Completers</label>
+        </div>
+        <div class="form-group col-4 mb-0">
+          <div class="custom-control custom-switch mr-auto float-right">
+            <input type="checkbox" class="custom-control-input pointer" id="sendEmailCompleters" />
+            <label class="custom-control-label" for="sendEmailCompleters">Enabled</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row py-2 dottedBottomBorder">
+        <div class="form-group col-8 mb-0">
+          <label class="mb-0 font-weight-normal text-medium">Send Email Reminder to Assignees Who Haven't Completed
+            Stage</label>
+        </div>
+        <div class="form-group col-4 mb-0">
+          <select class="form-control form-control-sm">
+            <option>Never</option>
+            <option>Every Week</option>
+            <option>Every Two Weeks</option>
+            <option>Every Month</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row mb-0 pt-2 pb-2 mx-0 border-bottom">
+    <div class="form-group col-8 mb-0">
+      <label class="mb-0 font-weight-normal">Add Stage Specific Instructions</label>
+    </div>
+    <div class="form-group col-4 mb-0">
+      <div class="custom-control custom-switch mr-auto float-right">
+        <input type="checkbox" class="custom-control-input pointer" id="stageSpecificInstructions"
+          (click)="toggleShowStageInstructions()" />
+        <label class="custom-control-label" for="stageSpecificInstructions">Enabled</label>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-light rounded-0 border-top-0" *ngIf="showInstructions">
+    <div class="card-body pt-3 pb-3">
+      <div class="form-row mb-0">
+        <div class="form-group col-5 mb-0">
+          <label class="font-weight-normal mb-0">Enter stage specific instructions</label>
+          <p class="small text-muted mb-0">
+            Stage specific instructions will show up on the top of the area
+            where a user will be redirected to complete your stage.
+          </p>
+        </div>
+        <div class="form-group col-7 mb-0">
+          <textarea class="form-control" rows="3" placeholder="Start typing your instructions here..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row mb-0 pt-2 pb-2 mx-0 border-bottom">
+    <div class="form-group col-8 mb-0">
+      <label class="mb-0 font-weight-normal">Enable Stage Specific Comments Section</label>
+    </div>
+    <div class="form-group col-4 mb-0">
+      <div class="custom-control custom-switch mr-auto float-right">
+        <input type="checkbox" class="custom-control-input pointer" id="stageSpecificComments" />
+        <label class="custom-control-label" for="stageSpecificComments">Enabled</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-row mb-0 pt-2 pb-2 mx-0 border-bottom">
+    <div class="form-group col-8 mb-0">
+      <label class="mb-0 font-weight-normal">Set Time Limit on This Stage</label>
+    </div>
+    <div class="form-group col-4 mb-0">
+      <div class="custom-control custom-switch mr-auto float-right">
+        <input type="checkbox" class="custom-control-input pointer" id="setActionItemTimeLimit"
+          (click)="toggleDueDate()" />
+        <label class="custom-control-label" for="setActionItemTimeLimit">Enabled</label>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-light rounded-0 border-top-0" *ngIf="dueDate">
+    <div class="card-body pt-3 pb-3">
+      <div class="form-row mb-0">
+        <div class="form-group col-5 mb-0">
+          <label class="font-weight-normal mb-0">Number of Days to Complete Stage</label>
+          <p class="small text-muted mb-0">
+            Enter the number of days assigned stakeholders will have to
+            complete this stage.
+          </p>
+        </div>
+        <div class="form-group col-7 mb-0">
+          <div class="input-group mb-1 mr-sm-2">
+            <input type="text" class="form-control border-right-0" placeholder="Enter number of days" />
+            <div class="input-group-prepend">
+              <div class="input-group-text bg-light">
+                Days
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<div class="mt-4">
+  <label
+    >Who Would You Like to Notify when a Submission Enters This Stage?</label
+  >
+  <hr class="mb-2 mt-1 mx-0" />
+  <!-- Checkbox -->
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="selectedNotificationSettings.opportunitySubmitters"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="opportunitySubmitters"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="opportunitySubmitters"
+          >Send Notification to Submitter and Co-Submitters</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="selectedNotificationSettings.opportunityOwners"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="opportunityOwners"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="opportunityOwners"
+          >Send Notification to Owners</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="selectedNotificationSettings.opportunityTeams"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="opportunityTeams"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="opportunityTeams"
+          >Send Notification to Team Members</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="selectedNotificationSettings.followers"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="followers"
+        />
+        <label class="custom-control-label font-weight-normal" for="followers"
+          >Send Notification to Followers</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="selectedNotificationSettings.voters"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="voters"
+        />
+        <label class="custom-control-label font-weight-normal" for="voters"
+          >Send Notification to Voters</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="form-row py-1">
+    <div class="form-group col-12 mb-0">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          [(ngModel)]="notifySpecificGroups"
+          (ngModelChange)="emitValue()"
+          class="custom-control-input"
+          id="notifySpecificGroups"
+        />
+        <label
+          class="custom-control-label font-weight-normal"
+          for="notifySpecificGroups"
+          >Send Notification to Specific Individuals or Groups</label
+        >
+      </div>
+    </div>
+  </div>
+  <!-- if specific groups is selected -->
+  <!--  -->
+  <div *ngIf="notifySpecificGroups" class="card bg-white mb-2 shadow-sm">
+    <div class="card-body pt-2">
+      <label class="small bold">Select Groups</label>
+      <app-search-groups
+        [isUser]="true"
+        [selection]="individualUsers"
+        (dataEmitter)="getIndividuals($event)"
+      >
+      </app-search-groups>
+    </div>
+  </div>
+  <!-- end if specific groups is selected -->
+</div>
+<!-- <hr /> -->
+<div class="card bg-light rounded-top-0 mb-3 mt-2">
+  <div class="card-body pb-2">
+    <div class="form-row">
+      <div class="form-group col-12 mb-1">
+        <label class="font-weight-normal">Customize Notification Message</label>
+        <textarea [(ngModel)]="selectedNotificationSettings.message" (ngModelChange)="emitValue()" class="form-control"
+          rows="3" placeholder="Please enter the message you'd like to include in your email
+          notification..."></textarea>
+        <p class="text-medium mb-0 mt-1 text-muted">
+          This is the custom message that users will receive both in the application and in the email notification, if
+          enabled.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <hr> -->
+<div class="form-row mb-3">
+  <div class="form-group col-10 mb-0">
+    <label class="mb-1">Send Email Notification to Selected Stakeholders</label>
+    <p
+      class="text-medium mb-0 text-primary"
+      *ngIf="selectedNotificationSettings.sendEmail"
+    >
+      <b>Enabled</b> - An email notification will be sent to community members
+      selected above.
+    </p>
+    <p
+      class="text-medium mb-0 text-danger"
+      *ngIf="!selectedNotificationSettings.sendEmail"
+    >
+      <b>Disabled</b> - An email notification will <b>not</b> be sent to
+      community members selected above.
+    </p>
+  </div>
+  <div class="form-group col-2 mb-0">
+    <div class="custom-control custom-switch mr-auto float-right">
+      <input
+        type="checkbox"
+        [(ngModel)]="selectedNotificationSettings.sendEmail"
+        (ngModelChange)="emitValue()"
+        class="custom-control-input pointer"
+        id="sendEmailNotifications"
+      />
+      <label
+        class="custom-control-label font-weight-normal"
+        for="sendEmailNotifications"
+      >
+        <span *ngIf="selectedNotificationSettings.sendEmail" class="pl-1">{{
+          'ChallengePost.Labels.Enabled' | translationPipe
+        }}</span>
+        <span *ngIf="!selectedNotificationSettings.sendEmail">Disabled</span>
+      </label>
+    </div>
+  </div>
+</div>

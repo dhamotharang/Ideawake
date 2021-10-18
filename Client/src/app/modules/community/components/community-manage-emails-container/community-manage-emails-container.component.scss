@@ -1,0 +1,16 @@
+.rounded-top-0 {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top: none;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.timezone-label {
+  padding-bottom: 0.35em;
+}
+
+.setMaxHeight {
+  max-height: 70vh;
+  overflow-y: scroll;
+}

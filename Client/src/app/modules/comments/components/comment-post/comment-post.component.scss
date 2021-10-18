@@ -1,0 +1,17 @@
+.editTextarea {
+  border-bottom: none;
+}
+
+.userImage {
+  border: 2px solid white;
+  width: 3.25rem;
+  height: 3.25rem;
+  object-fit: cover;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.repositionSmallButton{
+  position: relative;
+  bottom: 2rem;
+  left: 1.55rem;
+}

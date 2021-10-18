@@ -1,0 +1,549 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <p
+                  class="text-medium uppercase text-muted bold mb-0 montserrat"
+                >
+                  {{ 'Profile.Activity' | translationPipe }} -
+                </p>
+              </li>
+              <li class="list-inline-item" ngbDropdown>
+                <p
+                  class="text-medium bold inverseLink mb-0 removeCaret montserrat"
+                  ngbDropdownToggle
+                >
+                  {{ 'Profile.FilterBy' | translationPipe }}
+                  {{ selectedFilter.name }}
+                  <fa-icon
+                    [icon]="['fas', 'caret-down']"
+                    class="text-muted"
+                  ></fa-icon>
+                </p>
+                <div ngbDropdownMenu class="shadow pt-0 modalScrollMaxHeight">
+                  <button
+                    *ngFor="let activity of activityTypes"
+                    (click)="filterActivity(activity)"
+                    class="btn-sm pl-2"
+                    ngbDropdownItem
+                  >
+                    {{ activity.name }} ({{
+                      counts[activity.abbreviation] || 0
+                    }})
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="list-inline-item float-right">
+            <ul class="list-inline">
+              <li
+                class="list-inline-item float-right pointer text-muted text-medium"
+                ngbDropdown
+              >
+                <a
+                  class="montserrat inverseLink mb-1"
+                  id="commentSort"
+                  ngbDropdownToggle
+                >
+                  {{ 'Profile.SortBy' | translationPipe }} -
+                  {{ sorting[selectedSort] }}
+                </a>
+                <div ngbDropdownMenu class="shadow">
+                  <button
+                    *ngFor="let key of objectKeys(sorting)"
+                    class="btn-sm"
+                    (click)="sort(key)"
+                    ngbDropdownItem
+                  >
+                    {{ sorting[key] }}
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <hr class="mb-0 mt-2 d-block d-sm-none" />
+        <div class="row" *ngIf="activities.length === 0">
+          <div class="col-12">
+            <div class="card mb-3 shadow-sm w-100">
+              <div class="card-body text-center py-5">
+                <fa-icon
+                  [icon]="['fas', 'stream']"
+                  class="iconExtraLarge text-muted mb-3"
+                >
+                </fa-icon>
+                <h4 class="montserrat bold">
+                  {{ 'Profile.NoActivity' | translationPipe }}
+                </h4>
+                <p class="text-muted pb-2">
+                  {{ 'Profile.WelcomeMessage' | translationPipe }}
+                </p>
+                <a class="btn btn-primary" routerLink="/">
+                  {{ 'Profile.ViewChallenges' | translationPipe }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end no ideas have been posted -->
+        <div
+          *ngFor="let activity of activities"
+          class="card shadow-sm mb-0 mb-sm-2 mt-1"
+        >
+          <div class="card-body pt-3 pb-3 px-md-3 px-0">
+            <div class="media">
+              <div class="activityIcon rounded-circle bg-primary mr-3 mt-1">
+                <fa-icon
+                  [icon]="['fas', icons[activity.actionType?.abbreviation]]"
+                  class="text-white align-middle text-center"
+                ></fa-icon>
+              </div>
+              <div class="media-body">
+                <div class="row">
+                  <div class="col-12">
+                    <p class="text-medium mb-2">
+                      <span *ngIf="!myProfile; else myProfileText">
+                        <a
+                          routerLink="/profile/view/{{ activity.actorUserId }}"
+                          class="inverseLinkDark"
+                          >{{ activity.actorUserName }}</a
+                        >
+                        {{ 'Activity.Has' | translationPipe }}
+                      </span>
+                      <ng-template #myProfileText>You have </ng-template>
+                      <ng-container
+                        [ngSwitch]="activity.actionType?.abbreviation"
+                      >
+                        <ng-container *ngSwitchCase="actionTypes.comment">
+                          <span>
+                            {{ pastWord.comment }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div class="card mb-2 bg-light">
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{
+                                    activity?.entityOperendObject?.comment
+                                      ?.message
+                                  }}
+                                </p>
+                                <span
+                                  class="badge badge-primary badgePadding pointer"
+                                  [routerLink]="getLinkToRedirect(activity)"
+                                  [queryParams]="{
+                                    scrollTo:
+                                      'comment' +
+                                      activity.entityOperendObject.comment.id
+                                  }"
+                                >
+                                  {{
+                                    'Activity.ReplyToComment' | translationPipe
+                                  }}
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="actionTypes.share">
+                          <span>
+                            {{ pastWord.share }}
+                            {{ activity.entityName }}
+                            {{ 'Activity.With' | translationPipe }}
+                            {{ getUserName(activity) }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="actionTypes.add_owner">
+                          <span>
+                            {{ pastWord.add_owner }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsAnOwner' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="actionTypes.remove_owner">
+                          <span>
+                            {{ pastWord.remove_owner }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsAnOwner' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container
+                          *ngSwitchCase="actionTypes.add_contributor"
+                        >
+                          <span>
+                            {{ pastWord.add_contributor }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsAMember' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container
+                          *ngSwitchCase="actionTypes.remove_contributor"
+                        >
+                          <span>
+                            {{ pastWord.remove_contributor }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsAMember' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="actionTypes.add_submitter">
+                          <span>
+                            {{ pastWord.add_submitter }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsACoSubmitter' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container
+                          *ngSwitchCase="actionTypes.remove_submitter"
+                        >
+                          <span>
+                            {{ pastWord.remove_submitter }}
+                            {{ getUserName(activity) }}
+                            {{ 'Activity.AsACoSubmitter' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div
+                              *ngIf="activity?.entityOperendObject?.message"
+                              class="card mb-2 bg-light"
+                            >
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{ activity?.entityOperendObject?.message }}
+                                </p>
+                              </div>
+                            </div>
+                          </span>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="actionTypes.award_prize">
+                          <span>
+                            {{ pastWord.award_prize }}
+                            {{ activity?.entityOperendObject?.prize?.title }}
+                            {{ 'Activity.To' | translationPipe }}
+                            <span
+                              *ngIf="
+                                isAwardeeUser(activity) == true;
+                                else opportunityAwarded
+                              "
+                            >
+                              {{ getUserName(activity) }}
+                            </span>
+                            <ng-template #opportunityAwarded>
+                              <a
+                                [routerLink]="getLinkToRedirect(activity)"
+                                class="inverseLinkDark"
+                              >
+                                [#{{
+                                  activity?.entityOperendObject?.awardee?.id
+                                }}]
+                                {{
+                                  activity?.entityOperendObject?.awardee?.title
+                                }}
+                              </a>
+                            </ng-template>
+                            {{ 'Activity.On' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                          </span>
+                        </ng-container>
+                        <!-- Work Flow -->
+                        <ng-container *ngSwitchCase="actionTypes.add_workflow">
+                          {{ generateText(activity) }}
+                          <a
+                            [routerLink]="getLinkToRedirect(activity)"
+                            class="inverseLinkDark"
+                          >
+                            [#{{ activity.entityObjectId }}]
+                            {{ activity.entityTitle }}
+                          </a>
+                          {{ 'Activity.ToWorkflow' | translationPipe }}
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.currentWorkflow.title'
+                            )
+                          }}
+                          >
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.currentStage.title'
+                            )
+                          }}
+                          <div
+                            *ngIf="
+                              getValue(
+                                activity,
+                                'entityOperendObject.currentStage.description'
+                              )
+                            "
+                            class="card mb-2 bg-light"
+                          >
+                            <div class="card-body p-2">
+                              <p class="text-medium mb-1 text-muted">
+                                {{
+                                  getValue(
+                                    activity,
+                                    'entityOperendObject.currentStage.description'
+                                  )
+                                }}
+                              </p>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-container
+                          *ngSwitchCase="actionTypes.change_workflow"
+                        >
+                          {{ generateText(activity) }}
+                          <a
+                            [routerLink]="getLinkToRedirect(activity)"
+                            class="inverseLinkDark"
+                          >
+                            [#{{ activity.entityObjectId }}]
+                            {{ activity.entityTitle }}
+                          </a>
+                          {{ 'Activity.FromWorkflow' | translationPipe }}
+
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.previousWorkflow.title'
+                            )
+                          }}
+                          {{ 'Activity.ToWorkflow' | translationPipe }}
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.currentWorkflow.title'
+                            )
+                          }}
+                        </ng-container>
+                        <!-- Work Flow End -->
+                        <!-- Stage -->
+                        <ng-container *ngSwitchCase="actionTypes.change_stage">
+                          {{ generateText(activity) }}
+                          <a
+                            [routerLink]="getLinkToRedirect(activity)"
+                            class="inverseLinkDark"
+                          >
+                            [#{{ activity.entityObjectId }}]
+                            {{ activity.entityTitle }}
+                          </a>
+                          from the stage
+                          {{ 'Activity.FromStage' | translationPipe }}
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.previousStage.title'
+                            )
+                          }}
+                          {{ 'Activity.ToStage' | translationPipe }}
+                          {{
+                            getValue(
+                              activity,
+                              'entityOperendObject.currentStage.title'
+                            )
+                          }}
+                          <div
+                            *ngIf="
+                              getValue(activity, 'entityOperendObject.message')
+                            "
+                            class="card mb-2 bg-light"
+                          >
+                            <div class="card-body p-2">
+                              <p class="text-medium mb-1 text-muted">
+                                {{
+                                  getValue(
+                                    activity,
+                                    'entityOperendObject.message'
+                                  )
+                                }}
+                              </p>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <!-- Stage End -->
+                        <!-- Upvoted -->
+                        <ng-container *ngSwitchCase="actionTypes.upvote">
+                          <span
+                            *ngIf="
+                              activity?.entityOperendObject?.type === 'comment';
+                              else ideaUpvote
+                            "
+                          >
+                            <span>{{ getDefaultText(activity) }}</span>
+                            {{ 'Activity.CommentOn' | translationPipe }}
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                            <div class="card mb-2 bg-light">
+                              <div class="card-body p-2">
+                                <p class="text-medium mb-1 text-muted">
+                                  {{
+                                    activity?.entityOperendObject?.entity
+                                      ?.message
+                                  }}
+                                </p>
+                                <span
+                                  class="badge badge-primary badgePadding pointer"
+                                  [routerLink]="getLinkToRedirect(activity)"
+                                  [queryParams]="{
+                                    scrollTo:
+                                      'comment' +
+                                      activity.entityOperendObject?.entity?.id
+                                  }"
+                                >
+                                  {{ 'Activity.SeeComment' | translationPipe }}
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                          <ng-template #ideaUpvote>
+                            <span>{{ getDefaultText(activity) }}</span>
+                            <ng-container
+                              [ngTemplateOutlet]="entityDetails"
+                            ></ng-container>
+                          </ng-template>
+                        </ng-container>
+                        <!-- End Upvoted -->
+                        <ng-container *ngSwitchDefault>
+                          <span>{{ getDefaultText(activity) }}</span>
+                          <ng-container
+                            [ngTemplateOutlet]="entityDetails"
+                          ></ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </p>
+                    <app-social-images></app-social-images>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mr-0">
+                        <p class="mb-0 small text-muted">
+                          <fa-icon
+                            [icon]="['fas', 'clock']"
+                            class="text-muted"
+                          ></fa-icon>
+                          {{ activity.createdAt | timeAgo }}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #entityDetails>
+            {{ activity.entityName }}
+            <a
+              [routerLink]="getLinkToRedirect(activity)"
+              class="inverseLinkDark"
+            >
+              [#{{ activity.entityObjectId }}]
+              {{ activity.entityTitle }}
+            </a>
+          </ng-template>
+        </div>
+        <div
+          *ngIf="resultCount > activities?.length"
+          class="bg-light text-center border-bottom pt-1 pb-1"
+        >
+          <label
+            *ngIf="!isSearching"
+            class="small bold pl-3 link"
+            (click)="loadMore()"
+          >
+            {{ 'Activity.LoadMore' | translationPipe }}
+          </label>
+          <fa-icon
+            *ngIf="isSearching"
+            [icon]="['fas', 'spinner']"
+            [spin]="true"
+          ></fa-icon>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>

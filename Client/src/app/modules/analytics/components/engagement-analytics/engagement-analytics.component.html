@@ -1,0 +1,92 @@
+<div class="card shadow-sm">
+  <div class="card-body py-3">
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">
+        <p class="mb-3 bold small text-muted uppercase montserrat">
+          Challenge Engagement
+        </p>
+      </li>
+      <li class="list-inline-item float-right adjustFloatUp" *ngIf="show">
+        <app-widget-manage></app-widget-manage>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-12">
+        <div style="display: block;" *ngIf="show; else noData">
+          <canvas
+            baseChart
+            [data]="chartData"
+            [labels]="chartLabels"
+            [chartType]="chartType"
+            [options]="chartOptions"
+            [legend]="false"
+            width="250"
+            height="250"
+            [colors]="[
+              { backgroundColor: ['#2ecc71', '#edeff1'] },
+              { backgroundColor: ['#ffc107', '#edeff1'] },
+              { backgroundColor: ['#17a2b8', '#edeff1'] }
+            ]"
+          >
+          </canvas>
+        </div>
+        <ng-template #noData>
+          <div class="card text-center bg-light noDataStyle mb-4">
+            <div class="card-body d-flex align-items-center">
+              <ul class="list-unstyled mb-0 text-center w-100">
+                <li class="mb-2">
+                  <fa-icon [icon]="['fas', 'chart-bar']" class="text-muted iconExtraLarge"></fa-icon>
+                </li>
+                <li>
+                  <p class="text-medium text-muted mb-0">No Engagement Data Available Yet</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-4">
+            <div class="text-center">
+              <fa-icon
+                [icon]="['fas', 'bullseye']"
+                class="text-success iconLarge"
+              ></fa-icon>
+              <h4 class="montserrat mb-1 mt-2">{{ analytics?.targeted }}</h4>
+              <p class="text-medium mb-0 text-muted">Targeted</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="text-center">
+              <fa-icon
+                [icon]="['fas', 'eye']"
+                class="text-warning iconLarge mb-3"
+              ></fa-icon>
+              <h4 class="montserrat mb-1 mt-2">{{ analytics?.viewed }}</h4>
+              <p class="text-medium mb-0 text-muted">Viewed</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="text-center">
+              <fa-icon
+                [icon]="['fas', 'heart']"
+                class="text-info iconLarge mb-3"
+              ></fa-icon>
+              <h4 class="montserrat mb-1 mt-2">
+                {{ analytics?.participated }}
+              </h4>
+              <p class="text-medium mb-0 text-muted">
+                Participated
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <canvas id="canvas"></canvas> -->
+</div>

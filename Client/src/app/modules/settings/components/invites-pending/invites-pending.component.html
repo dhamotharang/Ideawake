@@ -1,0 +1,264 @@
+<div class="row">
+  <div class="col-12 col-md-2 pr-md-0">
+    <app-community-navigation></app-community-navigation>
+  </div>
+  <div class="col-12 col-md-10">
+    <div class="row pt-4">
+      <div class="col-12 removePaddingOnMobile">
+        <div class="container">
+          <div class="alert alert-info shadow-sm" *ngIf="confirmResend">
+            <label
+              >Confirm - You Are About to Send
+              {{ counts?.pending }} Emails</label
+            >
+            <p class="text-medium">
+              If you click "Confirm and Resend Pending Invites" we will resend
+              email invites to users who haven't accepted their invitation yet.
+            </p>
+            <button
+              class="btn btn-sm btn-outline-info mr-2"
+              (click)="confirmResend = !confirmResend"
+            >
+              Cancel This Action
+            </button>
+            <button class="btn btn-sm btn-info" (click)="resendAllInvites()">
+              <fa-icon [icon]="['fas', 'paper-plane']" class="mr-1"></fa-icon>
+              Confirm and Resend Pending Invites
+            </button>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <ul class="list-inline mb-0">
+                <li
+                  class="list-inline-item nav-underline d-none d-md-inline-block"
+                  routerLink="/settings/send-invites"
+                >
+                  <p class="mb-0 bold pt-2 uppercase text-muted">
+                    Invite New Users
+                  </p>
+                </li>
+                <li
+                  class="list-inline-item active nav-underline"
+                  routerLink="/settings/invites-pending"
+                >
+                  <p class="mb-0 bold pt-2 uppercase">
+                    Manage Invites ({{ counts?.pending || 0 }})
+                  </p>
+                </li>
+                <li class="float-right list-inline-item">
+                  <button
+                    (click)="export()"
+                    class="btn btn-light border btn-sm mr-2"
+                  >
+                    <fa-icon
+                      [icon]="['fas', 'file-spreadsheet']"
+                      class="mr-1 text-muted"
+                    ></fa-icon>
+                    Export
+                    <span class="d-none d-md-inline">
+                      Pending Invites
+                    </span>
+                    <fa-icon
+                      [icon]="['fas', 'arrow-down']"
+                      class="text-muted small"
+                    ></fa-icon>
+                  </button>
+                  <button
+                    class="btn btn-info btn-sm"
+                    (click)="confirmResend = !confirmResend"
+                  >
+                    <fa-icon [icon]="['fas', 'sync']" class="mr-1"></fa-icon>
+                    Resend Pending
+                    <span class="d-none d-md-inline">
+                      Invites
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <app-filter-horizontal [length]="invites?.length"></app-filter-horizontal> -->
+          <div class="card rounded-top-0 mb-3">
+            <div class="card-body p-0">
+              <div class="row py-3">
+                <div class="col-12 col-md-3">
+                  <div class="ml-0 ml-md-3">
+                    <app-search-inline
+                      (search)="search($event)"
+                    ></app-search-inline>
+                  </div>
+                </div>
+                <div class="col-12 col-md-5 d-flex flex-column">
+                  <ul class="nav alignLeftMobileRight mt-3 mt-md-0">
+                    <li (click)="changeTab(types.all)" class="list-inline-item">
+                      <a
+                        [ngClass]="{ active: selectedTab == types.all }"
+                        class="text-medium filterItem rounded"
+                      >
+                        All Invites ({{ counts?.all || 0 }})
+                      </a>
+                    </li>
+                    <li
+                      (click)="changeTab(types.pending)"
+                      class="list-inline-item"
+                    >
+                      <a
+                        [ngClass]="{ active: selectedTab == types.pending }"
+                        class="text-medium filterItem rounded"
+                      >
+                        Pending Invites ({{ counts?.pending || 0 }})
+                      </a>
+                    </li>
+                    <li
+                      (click)="changeTab(types.accepted)"
+                      class="list-inline-item"
+                    >
+                      <a
+                        [ngClass]="{ active: selectedTab == types.accepted }"
+                        class="text-medium filterItem rounded"
+                      >
+                        Accepted Invites ({{ counts?.accepted || 0 }})
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <div class="col-4 d-flex flex-column float-right">
+                  <app-table-pagination
+                    maxSize="2"
+                    [totalCount]="totalCount"
+                    (changePage)="changePage($event)"
+                  ></app-table-pagination>
+                </div> -->
+              </div>
+              <div class="row scrollTableOnMobile">
+                <div class="col-sm-12 removePaddingOnMobile">
+                  <table class="table table-striped bg-white">
+                    <thead>
+                      <tr>
+                        <!-- <th scope="col"></th> -->
+                        <th scope="col">Name</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Groups</th>
+                        <th scope="col">
+                          <span class="d-none d-md-inline">Date </span>Sent
+                        </th>
+                        <th scope="col">Status</th>
+                        <th class="w-15" scope="col">Manage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let invite of invites">
+                        <!-- <th scope="row">
+                          <div class="custom-control custom-checkbox">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                            />
+                            <label
+                              class="custom-control-label pl-0 pt-0"
+                              for="selectAll"
+                            >
+                              <h5></h5>
+                            </label>
+                          </div>
+                        </th> -->
+                        <td>
+                          <p class="mb-0">{{ invite.userName }}</p>
+                          <span class="text-muted small">{{
+                            invite.email
+                          }}</span>
+                        </td>
+                        <td>
+                          <span class="badge badgeStyle">
+                            {{ invite.role.title }}
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            class="badge badgeStyle"
+                            *ngFor="let elem of invite.groups"
+                          >
+                            {{ elem.name }}
+                          </span>
+                        </td>
+                        <td>
+                          <p class="text-medium mb-0">
+                            {{ invite.createdAt | timeAgo }}
+                          </p>
+                        </td>
+                        <td>
+                          <span
+                            class="badge badge-primary badgePadding"
+                            *ngIf="invite.inviteAccepted"
+                          >
+                            Accepted
+                          </span>
+                          <span
+                            class="badge badge-warning badgePadding"
+                            *ngIf="!invite.inviteAccepted"
+                          >
+                            Pending
+                          </span>
+                          <span
+                            class="badge badge-danger badgePadding"
+                            *ngIf="invite.statusCode === 'Rejected'"
+                          >
+                            Rejected
+                          </span>
+                        </td>
+                        <td class="w-15">
+                          <span
+                            *ngIf="
+                              !invite.inviteAccepted &&
+                              invite.statusCode !== 'Rejected'
+                            "
+                          >
+                            <fa-icon
+                              [icon]="['fas', 'sync']"
+                              class="mr-3 editLink"
+                              placement="top"
+                              ngbTooltip="Resend Invite Email"
+                              (click)="resendInvite(invite.id)"
+                            ></fa-icon>
+                            <fa-icon
+                              [icon]="['fas', 'copy']"
+                              class="mr-3 editLink"
+                              placement="top"
+                              ngbTooltip="Copy Invite Link to Clipboard"
+                              (click)="copyToClipboard(invite.inviteUrl)"
+                            >
+                            </fa-icon>
+                            <fa-icon
+                              [icon]="['fas', 'trash']"
+                              class="mr-3 editLink"
+                              placement="top"
+                              ngbTooltip="Revoke Invite"
+                              (click)="deleteInvite(invite.id)"
+                            >
+                            </fa-icon>
+                            <!-- <fa-icon [icon]="['fas', 'ellipsis-h']" class="editLink" placement="top" ngbTooltip="More"></fa-icon> -->
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row pb-5 pb-md-3 mt-3 mt-md-0">
+                <div class="col-12">
+                  <div class="text-center pl-1 pl-md-3">
+                    <app-table-pagination
+                      maxSize="2"
+                      [totalCount]="totalCount"
+                      (changePage)="changePage($event)"
+                    ></app-table-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

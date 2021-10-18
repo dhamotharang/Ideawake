@@ -1,0 +1,175 @@
+<ng-select
+  [items]="items"
+  [multiple]="true"
+  [clearSearchOnAdd]="true"
+  bindLabel="userName"
+  bindValue="id"
+  [(ngModel)]="selected"
+  placeholder="{{ 'Search.StartTyping' | translationPipe }} {{
+    'Search.User' | translationPipe
+  }}..."
+  class="custom"
+  (change)="emitData()"
+  [hideSelected]="hideSelected"
+  [closeOnSelect]="closeOnSelect"
+  [loading]="dropdownPaginationState.isLoading"
+  [virtualScroll]="true"
+  (scroll)="onScroll($event)"
+  (scrollToEnd)="onScrollToEnd()"
+  [minTermLength]="2"
+  (search)="onSearch($event)"
+  (close)="onClose()"
+  typeToSearchText="Please enter 2 or more characters"
+>
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span class="ng-value-label">
+      <!-- <img
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item?.profileImage?.url || image"
+        width="20px"
+        height="20px"
+      /> -->
+      {{ item.userName }}</span
+    >
+    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true"
+      >×</span
+    >
+  </ng-template>
+
+  <ng-template ng-option-tmp let-item="item">
+    <div class="media">
+      <img
+        *ngIf="item?.firstName"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="item?.profileImage?.url || image"
+        class="mr-2 rounded-circle"
+        width="30"
+        height="30"
+      />
+      <div class="media-body">
+        <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+          {{ item?.userName || item?.firstName + ' ' + item?.lastName }}
+        </p>
+        <ul *ngIf="item?.firstName" class="list-inline mb-0">
+          <li class="list-inline-item mr-0">
+            <p class="small mb-0 text-muted">
+              {{ item?.userName || item?.firstName + ' ' + item?.lastName }}
+            </p>
+          </li>
+          <li class="list-inline-item ml-1 mr-1">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="small separatorIcon text-muted"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item mr-0">
+            <p class="small mb-0 text-muted">
+              {{ item?.role?.title || 'User' }}
+            </p>
+          </li>
+          <li class="list-inline-item ml-1 mr-1">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="small separatorIcon text-muted"
+            ></fa-icon>
+          </li>
+          <li class="list-inline-item">
+            <p class="small mb-0 text-muted">{{ item?.email }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+</ng-select>
+<!-- <div ngbDropdown>
+  <div class="form-group mb-0">
+    <input type="text" class="form-control" placeholder="Start typing to search people..." ngbDropdownToggle>
+  </div>
+  <div class="row searchDropdownComponent border shadow pt-0 pb-0 w-100" ngbDropdownMenu>
+    <div class="col-12 p-0">
+      <div class="globalUserSearchResult addHover">
+        <div class="media">
+          <img src="https://via.placeholder.com/40x40" class="mr-3 rounded-circle">
+          <div class="media-body">
+            <p class="mt-0 mb-0">First Last Name</p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">@username</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">Administrator</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="small mb-0 text-muted">coby@ideawake.com</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="globalUserSearchResult addHover">
+        <div class="media">
+          <img src="https://via.placeholder.com/40x40" class="mr-3 rounded-circle">
+          <div class="media-body">
+            <p class="mt-0 mb-0">First Last Name</p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">@username</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">Administrator</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="small mb-0 text-muted">coby@ideawake.com</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="globalUserSearchResult addHover">
+        <div class="media">
+          <img src="https://via.placeholder.com/40x40" class="mr-3 rounded-circle">
+          <div class="media-body">
+            <p class="mt-0 mb-0">First Last Name</p>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">@username</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item mr-0">
+                <p class="small mb-0 text-muted">Administrator</p>
+              </li>
+              <li class="list-inline-item ml-1 mr-1">
+                <fa-icon [icon]="['fas', 'circle']" class="small separatorIcon text-muted"></fa-icon>
+              </li>
+              <li class="list-inline-item">
+                <p class="small mb-0 text-muted">coby@ideawake.com</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="globalUserSearchResult pt-3 pb-3">
+        <div class="text-center">
+          <fa-icon [icon]="['fas', 'eye-slash']" class="iconLarge text-muted"></fa-icon>
+        </div>
+        <h6 class="text-center mb-0">Oops! No Results Returned</h6>
+        <p class="mb-0 pt-1 pb-1 text-muted text-center small">Sorry, we couldn't find any users who matched your
+          search.</p>
+      </div>
+    </div>
+  </div>
+</div> -->

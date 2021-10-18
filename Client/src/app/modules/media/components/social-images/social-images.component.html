@@ -1,0 +1,38 @@
+<div class="pointer" (click)="openEngagementModal()">
+  <img
+    *ngFor="let upvoter of upvoters | slice: 0:3; let i = index"
+    class="rounded-circle shadow-sm"
+    [ngClass]="'userImageGroup' + (i + 1)"
+    [defaultImage]="defaultImage"
+    [lazyLoad]="upvoter.user.profileImage.url"
+  />
+  <p *ngIf="ideaUpvoters" class="small inverseLink mb-0">
+    Upvoted by
+    {{
+      ideaUpvoters
+        ? (ideaUpvoters[0]
+            ? ideaUpvoters[0].user.firstName +
+              ' ' +
+              ideaUpvoters[0].user.lastName
+            : '') +
+          (ideaUpvoters?.length === 2 ? ' and ' : '') +
+          (ideaUpvoters[1]
+            ? ', ' +
+              ideaUpvoters[1].user.firstName +
+              ' ' +
+              ideaUpvoters[1].user.lastName
+            : '') +
+          (ideaUpvoters?.length === 3 ? ' and' : '') +
+          (ideaUpvoters[2]
+            ? ', ' +
+              ideaUpvoters[2].user.firstName +
+              ' ' +
+              ideaUpvoters[2].user.lastName
+            : '') +
+          (ideaUpvoters?.length > 3
+            ? ' and ' + (ideaUpvoters?.length - 3 + ' other')
+            : '')
+        : ''
+    }}
+  </p>
+</div>

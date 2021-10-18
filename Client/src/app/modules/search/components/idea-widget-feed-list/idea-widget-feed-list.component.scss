@@ -1,0 +1,51 @@
+.feedImage {
+  max-width: 100%;
+}
+
+// .ideaDescriptionHeight {
+//   min-height: 105px;
+//   max-height: 105px;
+//   overflow-y: hidden;
+// }
+
+.ideaTitle {
+  font-size: 1.15rem;
+}
+
+.ideaDescription {
+  line-height: 1.55rem;
+}
+
+.ideaStatus {
+  position: absolute;
+  left: 35.2rem;
+  top: -1.98rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 0;
+  font-size: 65%;
+}
+
+.card .quickActionsToggle {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.card .quickActionsToggle:hover {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  margin: 2rem;
+  top: 1rem;
+}
+
+.manageWidget{
+  position: absolute;
+  right: -2px;
+  top: -9px;
+  width: auto;
+}

@@ -1,0 +1,37 @@
+<!-- <p
+  *ngIf="heading"
+  class="mb-1 montserrat uppercase bold text-medium text-muted"
+>
+  {{ heading }}
+</p> -->
+<div class="card mb-2 bg-light" style="min-height: 13.75rem;">
+  <div class="card-body p-2">
+    <!-- <p *ngIf="description" class="mb-2 pb-2 text-muted small border-bottom">
+      {{ description }}
+    </p> -->
+    <app-search-fields
+      [data]="allCustomFields"
+      (openDropdown)="getCustomFields($event)"
+      (selectField)="selectCustomFields($event)"
+      (searchTerm)="searchCustomFields($event)"
+    ></app-search-fields>
+    <hr *ngIf="selectedCustomFields?.length" />
+    <app-fields-list
+      [data]="selectedCustomFields"
+      (remove)="removeSelectedField($event)"
+      (update)="updateOrder()"
+    ></app-fields-list>
+    <div class="py-3 text-center" *ngIf="!selectedCustomFields?.length">
+      <fa-icon
+        [icon]="['fas', 'list']"
+        class="text-muted"
+        style="font-size: 2rem;"
+      ></fa-icon>
+      <h5 class="montserrat mb-1 bold">You Haven't Added Any Fields Yet.</h5>
+      <p class="mb-2 text-center text-muted text-medium">
+        Add fields by searching for them above or creating a new field by
+        clicking on the "Create New Field" button above.
+      </p>
+    </div>
+  </div>
+</div>

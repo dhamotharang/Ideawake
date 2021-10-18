@@ -1,0 +1,90 @@
+<!-- start of range -->
+<div class="form-group mb-3">
+  <p class="bold mb-2 text-medium">
+    {{ criteria?.evaluationCriteria?.title }}
+    <fa-icon
+      [icon]="['fas', 'info-circle']"
+      class="text-muted"
+      [ngbTooltip]="criteria?.evaluationCriteria?.description"
+      *ngIf="criteria?.evaluationCriteria?.description"
+    >
+    </fa-icon>
+  </p>
+  <div class="card">
+    <div class="card-body px-3 pt-2 pb-0">
+      <div class="form-row">
+        <div class="form-group mb-0 col-12 col-md-7">
+          <!-- style="background-color: #f4f6f9;" -->
+          <div class="input-group input-group-sm">
+            <div
+              class="input-group-text py-0 border-left-0 border-top-0 rounded-0"
+              style="
+                padding-left: 0;
+                padding-right: 0.25rem;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: 0;
+                background-color: white;
+              "
+            >
+              {{ unit }}
+            </div>
+            <input
+              type="text"
+              class="form-control border-left-0"
+              style="padding-left: 0; border-top: 0; border-right: 0;"
+              [min]="minValue"
+              [max]="maxValue"
+              [(ngModel)]="selectedValue"
+              (change)="emitData()"
+              (keyup)="addComas($event)"
+              #selectedVal
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-row pt-3">
+        <div class="col-12">
+          <div class="form-row">
+            <div class="col-12 form-group mb-1">
+              <input
+                type="range"
+                class="form-control-range form-control-range-primary"
+                [min]="minValue"
+                [max]="maxValue"
+                step="0.5"
+                (input)="emitRange($event)"
+                [ngModel]="removeComma(selectedValue)"
+                (change)="emitData()"
+                id="formControlRange"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-4 mb-0">
+              <p class="small">{{ unit }}{{ minValue | number }}</p>
+            </div>
+            <div class="form-group col-4 mb-0">
+              <div class="mb-0">
+                <p class="mb-0 small text-center">
+                  {{ unit }}{{ selectedValue || 0 }}
+                </p>
+                <!-- <p class="text-center small text-muted mb-0">Selected</p> -->
+              </div>
+            </div>
+            <div class="form-group col-4 mb-0">
+              <p class="small float-right">
+                {{ criteria?.evaluationCriteria?.criteriaObject?.unit
+                }}{{
+                  criteria?.evaluationCriteria?.criteriaObject?.maxValue
+                    | number
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of range -->

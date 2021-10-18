@@ -1,0 +1,29 @@
+.modal.fade .modal-dialog {
+  max-width: 635px;
+  margin: 8rem auto 1.75rem 26.7rem;
+}
+
+.btn:focus,
+.btn.focus {
+  box-shadow: none;
+}
+
+.similarSubmissionsDesign {
+  position: absolute;
+  left: -19.35rem;
+  width: 19rem;
+}
+
+.similarSubmissionScroll {
+  overflow-y: hidden;
+  max-height: 35rem;
+  overflow-x: hidden;
+  margin-right: 4px;
+}
+
+.similarSubmissionScroll:hover {
+  overflow-y: auto;
+  max-height: 35rem;
+  overflow-x: hidden;
+  margin-right: -2px;
+}

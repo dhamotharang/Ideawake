@@ -1,0 +1,170 @@
+<button
+  [disabled]="disableAward()"
+  class="btn btn-primary btn-xs py-2 btn-block"
+  (click)="open(awardPrize)"
+  *ngIf="userPermissions?.awardPrize"
+>
+  <!-- {{ 'AwardPrize.Labels.AwardPrize' | translationPipe }} -->
+  Award
+</button>
+
+<!-- award prize modal -->
+
+<ng-template #awardPrize let-modal>
+  <div class="modal-header card-header px-3 bg-light border-bottom-0">
+    <p class="uppercase bold montserrat text-muted mb-0 small">
+      {{ 'AwardPrize.Labels.Award' | translationPipe }} {{ prize?.title }}
+    </p>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light pt-0">
+    <div class="alert alert-light border bg-white">
+      <div class="row">
+        <div class="col-12">
+          <div class="media">
+            <fa-icon
+              [icon]="['fas', 'gifts']"
+              class="text-muted"
+              style="font-size: 1.5rem;"
+            ></fa-icon>
+            <div class="media-body pl-3">
+              <p class="text-muted small mb-0">
+                You can award this prize to ideas or users. Upon clicking "award
+                prize," a message will be sent to selected users or the
+                submitters of selected ideas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="montserrat">{{
+        'AwardPrize.Labels.SearchUsers' | translationPipe
+      }}</label>
+      <!-- Search Users -->
+      <ng-select
+        [items]="items"
+        [multiple]="true"
+        bindLabel="name"
+        bindValue="selection"
+        [(ngModel)]="selected"
+        [placeholder]="'Search opportunity or users'"
+        [hideSelected]="true"
+        [closeOnSelect]="true"
+        appearance="outline"
+        dropdownPosition="bottom"
+        (change)="getSelected()"
+      >
+        <ng-template ng-label-tmp let-item="item" let-clear="clear">
+          <span
+            *ngIf="item.type == prizeCandidateType.USER"
+            class="ng-value-label"
+            ><img
+              [defaultImage]="defaultImage"
+              [lazyLoad]="item.profileImage.url"
+              width="20px"
+              height="20px"
+            />
+            {{ item.userName }}</span
+          >
+          <span
+            *ngIf="item.type == prizeCandidateType.OPPORTUNITY"
+            class="ng-value-label"
+          >
+            {{ item.title }}</span
+          >
+          <span
+            class="ng-value-icon right"
+            (click)="clear(item)"
+            aria-hidden="true"
+            >×</span
+          >
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item">
+          <div class="media" *ngIf="item.type == prizeCandidateType.USER">
+            <img
+              *ngIf="item?.firstName"
+              [defaultImage]="defaultImage"
+              [lazyLoad]="item.profileImage.url"
+              class="mr-3 rounded-circle"
+              width="40"
+              height="40"
+            />
+            <div class="media-body">
+              <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+                {{ item?.userName || item?.firstName + ' ' + item?.lastName }}
+              </p>
+              <ul *ngIf="item?.firstName" class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small mb-0 text-muted">{{ item?.email }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="media"
+            *ngIf="item.type == prizeCandidateType.OPPORTUNITY"
+          >
+            <div
+              style="width: 40px; height: 40px;"
+              class="rounded-circle border bg-light mr-3"
+            >
+              <fa-icon
+                [icon]="['fas', item?.opportunityType?.icon]"
+                class="align-middle text-center"
+                style="position: relative; left: 13.5px; top: 5px;"
+                [ngStyle]="{ color: item?.opportunityType?.color }"
+              >
+              </fa-icon>
+            </div>
+            <div class="media-body">
+              <p class="mb-0 text-medium bold" style="line-height: 1rem;">
+                {{ item?.title }}
+              </p>
+              <ul *ngIf="item?.opportunityType" class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <p class="small mb-0 text-muted">
+                    {{ item?.opportunityType.name }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </ng-select>
+      <!-- End Search Users -->
+    </div>
+    <div class="form-group">
+      <label class="montserrat">{{
+        'AwardPrize.Labels.Message' | translationPipe
+      }}</label>
+      <textarea
+        [(ngModel)]="message"
+        placeholder="Enter a message you'd like to send to the prize winners."
+        class="form-control"
+        rows="3"
+      ></textarea>
+    </div>
+  </div>
+  <div class="modal-footer bg-light">
+    <button
+      type="button"
+      class="btn btn-light border"
+      (click)="modal.dismiss('Cross click')"
+    >
+      {{ 'AwardPrize.Labels.Cancel' | translationPipe }}
+    </button>
+    <button (click)="submitAwards()" type="button" class="btn btn-primary">
+      {{ 'AwardPrize.Labels.AwardPrize' | translationPipe }}
+    </button>
+  </div>
+</ng-template>
